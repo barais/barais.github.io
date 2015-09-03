@@ -73,47 +73,49 @@
                             &nbsp;
                         
                     </p>
-                        <span class="glyphicon glyphicon-time"></span> Posted 2014.08.29 
+                        <span class="glyphicon glyphicon-time"></span> Posted 2015.08.29 
                         
                             &mdash; Rennes, France
                         
 
                 <hr>
                 
-                Hello très chers étudiants,
+                <p>Hello très chers étudiants,</p>
 
-Vous avez la chance cette année de servir de cobaïes pour expérimenter l'usage des TPs pour les M2. Nous sommes partis sur les configurations suivantes
-[Probook 650 avec 8GO de Ram et un I3](http://www8.hp.com/fr/fr/products/laptops/product-detail.html?oid=5405400#!tab=specs)
+<p>Pour la deuxième année, nous experimentons l&#39;usage des TPs pour les M2. Nous sommes partis sur les configurations suivantes
+<a href="http://www8.hp.com/fr/fr/products/laptops/product-detail.html?oid=5405400#!tab=specs">Probook 650 avec 8GO de Ram et un I3</a></p>
 
-###Etape 0: Install OS###
+<h3>Etape 0: Install OS</h3>
 
-Pour l'install, tout marche très bien avec ubuntu 14.04. Pour ceux qui ne l'ont jamais installé. Récupérez une clé usb, téléchargez [Ubuntu Desktop 14.04 en version 64bit et Desktop](http://www.ubuntu.com/download/desktop). Créez votre clé ucb avec par exemple [unetbootin](http://unetbootin.sourceforge.net/). Choisissez DiskImage et l'iso que vous avez téléchargé et sélectionnez en bas votre clé usb, c'est parti. (10 mins de travail, un reboot et c'est bon)
+<p>Pour l&#39;install, tout marche très bien avec ubuntu 15.04. Pour ceux qui ne l&#39;ont jamais installé. Récupérez une clé usb, téléchargez <a href="http://www.ubuntu.com/download/desktop">Ubuntu Desktop 15.04 en version 64bit et Desktop</a>. Créez votre clé ucb avec par exemple <a href="http://unetbootin.sourceforge.net/">unetbootin</a>. Choisissez DiskImage et l&#39;iso que vous avez téléchargé et sélectionnez en bas votre clé usb, c&#39;est parti. (10 mins de travail, un reboot et c&#39;est bon)</p>
 
 <!--more-->
 
+<p>Au démarrage du PC. Appuyez sur la touche [Echap] puis [F9] et séléctionnez la clé usb pour bootez dessus. Installez ubuntu sur l&#39;ensemble du disque.</p>
 
-Au démarrage du PC. Appuyez sur la touche [Echap] puis [F9] et séléctionnez la clé usb pour bootez dessus. Installez ubuntu sur l'ensemble du disque.
+<p>Si certains veulent avoir une installation windows. C&#39;est possible l&#39;istic dispose d&#39;un abonnement <a href="https://www.google.fr/search?q=msdn+aa+istic&amp;oq=msdn+aa+istic&amp;aqs=chrome..69i57.6842j0j7&amp;sourceid=chrome&amp;es_sm=122&amp;ie=UTF-8">MSDN AA</a> qui vous donne accès aux licences des princiaux OS des Microsoft. Dans ce cas commencez par l&#39;install de Windows. Puis installez ubuntu ensuite en demandant un split du disque du type 120 Go pour Windows et 200 pour linux. .</p>
 
-Si certains veulent avoir une installation windows. C'est possible l'istic dispose d'un abonnement [MSDN AA](https://www.google.fr/search?q=msdn+aa+istic&oq=msdn+aa+istic&aqs=chrome..69i57.6842j0j7&sourceid=chrome&es_sm=122&ie=UTF-8) qui vous donne accès aux licences des princiaux OS des Microsoft. Dans ce cas commencez par l'install de Windows. Puis installez ubuntu ensuite en demandant un split du disque du type 120 Go pour Windows et 200 pour linux. .
+<p>Il est nécessaire de disposer d&#39;une installation linux pour les TPs sans être dans une machine virtuelle.</p>
 
-Il est nécessaire de disposer d'une installation linux pour les TPs sans être dans une machine virtuelle.
+<p>Sous ubuntu, quand il est installé.</p>
 
+<h3>Etape 1: Java et autres</h3>
 
-Sous ubuntu, quand il est installé.
+<p>Installez les paquets suviants:</p>
 
-###Etape 1: Java et autres###
-Installez les paquets suviants:
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">sudo apt-get install nano git openjdk-8-jdk openjdk-8-doc maven inkscape</code></pre></div>
 
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">sudo apt-get install nano git openjdk-7-jdk openjdk-7-doc maven inkscape</code></pre></div>
+<h3>Etape 2: Eclipse</h3>
 
-###Etape 2: Eclipse###
-Téléchargez eclipse pour [Java developer](http://eclipse.ialto.com/technology/epp/downloads/release/luna/R/eclipse-dsl-luna-R-linux-gtk-x86_64.tar.gz) en version 64 et dezipper le par exemple dans /opt/eclipse
+<p>Téléchargez eclipse pour <a href="http://ftp.halifax.rwth-aachen.de/eclipse//technology/epp/downloads/release/mars/R/eclipse-java-mars-R-linux-gtk-x86_64.tar.gz">Java developer</a> en version 64 et dezipper le par exemple dans /opt/eclipse</p>
 
-###Etape 3: Smartgit###
-Installez [Smartgit](http://www.syntevo.com/smartgit/)
+<h3>Etape 3: Smartgit</h3>
 
-###Etape 4: Docker###
-Installez Docker
+<p>Installez <a href="http://www.syntevo.com/smartgit/">Smartgit</a></p>
+
+<h3>Etape 4: Docker</h3>
+
+<p>Installez Docker</p>
 
 <div class="highlight"><pre><code class="language-bash" data-lang="bash">sudo apt-get update
 sudo apt-get install apt-transport-https
@@ -122,53 +124,69 @@ sudo sh -c <span class="s2">&quot;echo deb https://get.docker.io/ubuntu docker m
 sudo apt-get update
 sudo apt-get install lxc-docker</code></pre></div>
 
-Pour vérifier que tout est ok
+<p>Pour vérifier que tout est ok</p>
 
 <div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>sudo docker run -i -t ubuntu /bin/bash</code></pre></div>
-Cette dernière commande télécharge un conteneur ubuntu minimal et démarre ce container. Pour plus de documentation sur [docker](http://fr.wikipedia.org/wiki/Docker_(Syst%C3%A8me_de_conteneur_Linux))
 
-###Etape 5: NodeJS###
-Installez nodejs
+<p>Cette dernière commande télécharge un conteneur ubuntu minimal et démarre ce container. Pour plus de documentation sur <a href="http://fr.wikipedia.org/wiki/Docker_(Syst%C3%A8me_de_conteneur_Linux)">docker</a></p>
+
+<h3>Etape 5: NodeJS</h3>
+
+<p>Installez nodejs</p>
 
 <div class="highlight"><pre><code class="language-bash" data-lang="bash">sudo apt-add-repository ppa:chris-lea/node.js</code></pre></div>
-Rechargez la liste des paquets ;
+
+<p>Rechargez la liste des paquets ;</p>
+
 <div class="highlight"><pre><code class="language-bash" data-lang="bash">sudo apt-get update</code></pre></div>
-Installez les paquets nodejs.
+
+<p>Installez les paquets nodejs.</p>
+
 <div class="highlight"><pre><code class="language-bash" data-lang="bash">sudo apt-get install nodejs
 <span class="c">#tester si npm est présent,</span>
 npm -v
 <span class="c">#sinon</span>
 sudo apt-get install npm</code></pre></div>
 
-###Etape 6: VisualVM###
-[VisualVM](http://visualvm.java.net/eclipse-launcher.html)
+<h3>Etape 6: VisualVM</h3>
 
-###Etape 7: InteliJ###
-Installez [IntelliJ](http://www.jetbrains.com/idea/) dans /opt
+<p><a href="http://visualvm.java.net/eclipse-launcher.html">VisualVM</a></p>
 
-###Etape 8: Wifi ISTIC###
-1. Configuez eduroam suivant le [tuto suivant](http://www.eduroam.fr/conf_supplicants/).
+<h3>Etape 7: InteliJ</h3>
 
-2. RDV sur [wifsic-free](http://wifsic-free.istic.univ-rennes1.fr/) pour enregistrer vore mac adresse que vous pouvez récupérer à l'aide de la commande suivante:
+<p>Installez <a href="http://www.jetbrains.com/idea/">IntelliJ</a> dans /opt</p>
+
+<h3>Etape 8: Wifi ISTIC</h3>
+
+<ol>
+<li><p>Configuez eduroam suivant le <a href="http://www.eduroam.fr/conf_supplicants/">tuto suivant</a>.</p></li>
+<li><p>RDV sur <a href="http://wifsic-free.istic.univ-rennes1.fr/">wifsic-free</a> pour enregistrer vore mac adresse que vous pouvez récupérer à l&#39;aide de la commande suivante:</p></li>
+</ol>
+
 <div class="highlight"><pre><code class="language-bash" data-lang="bash">sudo /sbin/ifconfig</code></pre></div>
-prendre  'HWaddr XX:XX:XX:XX:XX:XX' de l'interface wlan0.
 
+<p>prendre  &#39;HWaddr XX:XX:XX:XX:XX:XX&#39; de l&#39;interface wlan0.</p>
 
-###Etape 9 Utiliser les imprimantes de l'ISTIC
-* Vérifiez que cups est installé
+<h3>Etape 9 Utiliser les imprimantes de l&#39;ISTIC</h3>
+
+<ul>
+<li>Vérifiez que cups est installé</li>
+</ul>
 
 <div class="highlight"><pre><code class="language-bash" data-lang="bash">sudo apt-get update
 sudo apt-get install cups</code></pre></div>
 
-
-* éditer le fichier /etc/cups/client.conf et ajouter la ligne suivante
+<ul>
+<li>éditer le fichier /etc/cups/client.conf et ajouter la ligne suivante</li>
+</ul>
 
 <div class="highlight"><pre><code class="language-bash" data-lang="bash">ServerName printhost.istic.univ-rennes1.fr</code></pre></div>
 
-pour imprimer, être connecté aux réseaux Wifsic ou Wifsic-free
+<p>pour imprimer, être connecté aux réseaux Wifsic ou Wifsic-free</p>
 
-###Etape 10: Bookmark services utiles###
-[vm istic](http://vm.istic.univ-rennes1.fr)
+<h3>Etape 10: Bookmark services utiles</h3>
+
+<p><a href="http://vm.istic.univ-rennes1.fr">vm istic</a></p>
 
                 
                 <!-- the comment box -->
