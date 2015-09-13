@@ -82,8 +82,7 @@
                 
                 <p>Hello très chers étudiants,</p>
 
-<p>Pour la deuxième année, nous experimentons l&#39;usage des TPs pour les M2. Nous sommes partis sur les configurations suivantes
-<a href="http://www8.hp.com/fr/fr/products/laptops/product-detail.html?oid=5405400#!tab=specs">Probook 650 avec 8GO de Ram et un I3</a></p>
+<p>Pour la deuxième année, nous experimentons l&#39;usage des TPs pour les M2. Nous sommes partis sur les configurations suivantes<a href="http://www8.hp.com/fr/fr/products/laptops/product-detail.html?oid=5405400#!tab=specs">Probook 650 avec 8GO de Ram et un I3</a></p>
 
 <h3>Etape 0: Install OS</h3>
 
@@ -117,35 +116,37 @@
 
 <p>Installez Docker</p>
 
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">sudo apt-get update
-sudo apt-get install apt-transport-https
-sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 36A1D7869245C8950F966E92D8576A8BA88D21E9
-sudo sh -c <span class="s2">&quot;echo deb https://get.docker.io/ubuntu docker main &gt; /etc/apt/sources.list.d/docker.list&quot;</span>
-sudo apt-get update
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">sudo apt-get update 
+sudo apt-get install apt-transport-https 
+sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 36A1D7869245C8950F966E92D8576A8BA88D21E9 
+sudo sh -c <span class="s2">&quot;echo deb https://get.docker.io/ubuntu docker main &gt; /etc/apt/sources.list.d/docker.list&quot;</span> 
+sudo apt-get update 
 sudo apt-get install lxc-docker</code></pre></div>
 
 <p>Pour vérifier que tout est ok</p>
 
 <div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>sudo docker run -i -t ubuntu /bin/bash</code></pre></div>
 
-<p>Cette dernière commande télécharge un conteneur ubuntu minimal et démarre ce container. Pour plus de documentation sur <a href="http://fr.wikipedia.org/wiki/Docker_(Syst%C3%A8me_de_conteneur_Linux)">docker</a></p>
+<p>Cette dernière commande télécharge un conteneur ubuntu minimal et démarre ce container. Pour plus de documentation sur [docker](http://fr.wikipedia.org/wiki/Docker<em>(Syst%C3%A8me</em>de<em>conteneur</em>Linux))</p>
 
 <h3>Etape 5: NodeJS</h3>
 
 <p>Installez nodejs</p>
 
 <div class="highlight"><pre><code class="language-bash" data-lang="bash">sudo apt-add-repository ppa:chris-lea/node.js</code></pre></div>
+ 
 
-<p>Rechargez la liste des paquets ;</p>
+<p>Rechargez la liste des paquets ; </p>
 
 <div class="highlight"><pre><code class="language-bash" data-lang="bash">sudo apt-get update</code></pre></div>
+ 
 
-<p>Installez les paquets nodejs.</p>
+<p>Installez les paquets nodejs. </p>
 
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">sudo apt-get install nodejs
-<span class="c">#tester si npm est présent,</span>
-npm -v
-<span class="c">#sinon</span>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">sudo apt-get install nodejs 
+<span class="c">#tester si npm est présent, </span>
+npm -v 
+<span class="c">#sinon </span>
 sudo apt-get install npm</code></pre></div>
 
 <h3>Etape 6: VisualVM</h3>
@@ -160,12 +161,10 @@ sudo apt-get install npm</code></pre></div>
 
 <ol>
 <li><p>Configuez eduroam suivant le <a href="http://www.eduroam.fr/conf_supplicants/">tuto suivant</a>.</p></li>
-<li><p>RDV sur <a href="http://wifsic-free.istic.univ-rennes1.fr/">wifsic-free</a> pour enregistrer vore mac adresse que vous pouvez récupérer à l&#39;aide de la commande suivante:</p></li>
-</ol>
-
+<li><p>RDV sur <a href="http://wifsic-free.istic.univ-rennes1.fr/">wifsic-free</a> pour enregistrer vore mac adresse que vous pouvez récupérer à l&#39;aide de la commande suivante: 
 <div class="highlight"><pre><code class="language-bash" data-lang="bash">sudo /sbin/ifconfig</code></pre></div>
-
-<p>prendre  &#39;HWaddr XX:XX:XX:XX:XX:XX&#39; de l&#39;interface wlan0.</p>
+prendre &#39;HWaddr XX:XX:XX:XX:XX:XX&#39; de l&#39;interface wlan0.</p></li>
+</ol>
 
 <h3>Etape 9 Utiliser les imprimantes de l&#39;ISTIC</h3>
 
@@ -173,11 +172,11 @@ sudo apt-get install npm</code></pre></div>
 <li>Vérifiez que cups est installé</li>
 </ul>
 
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">sudo apt-get update
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">sudo apt-get update 
 sudo apt-get install cups</code></pre></div>
 
 <ul>
-<li>éditer le fichier /etc/cups/client.conf et ajouter la ligne suivante</li>
+<li>  éditer le fichier /etc/cups/client.conf et ajouter la ligne suivante</li>
 </ul>
 
 <div class="highlight"><pre><code class="language-bash" data-lang="bash">ServerName printhost.istic.univ-rennes1.fr</code></pre></div>
@@ -187,6 +186,27 @@ sudo apt-get install cups</code></pre></div>
 <h3>Etape 10: Bookmark services utiles</h3>
 
 <p><a href="http://vm.istic.univ-rennes1.fr">vm istic</a></p>
+
+<h3>Petit Problème: WIFI et autres</h3>
+
+<h4>Wifi Pour installer le WIFI. Pluggez vous à un réseau filaire.</h4>
+
+<p>Puis tapez les commandes suivantes </p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">sudo apt-get update 
+sudo apt-get install firmware-b43-installer 
+sudo modprobe b43
+sudo modprobe -r b43 
+sudo modprobe b43</code></pre></div>
+
+<h4>Certificat incorrect pour OpenJDK (poblème Maven)</h4>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">sudo update-ca-certificates</code></pre></div>
+
+<h4>Problème ACPI (PC qui ne s&#39;éteint pas)</h4>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">sudo nano -w /boot/grub/menu.cfg 
+<span class="c">#Puis enlever tous les paramères, noacpi, noapic ...</span></code></pre></div>
 
                 
                 <!-- the comment box -->
