@@ -117,8 +117,8 @@ Supprimer tout ce qui se trouve dans votre répertoire web-app
 Installez compass
 
 {% highlight bash %}
-gem update --system
-gem install compass
+sudo gem update --system
+sudo gem install compass
 {% endhighlight %}
 
 Vérifiez les éléments nécessaire pour générer un projet avec yeoman
