@@ -40,7 +40,7 @@ sudo npm install -g  bower
 
 ###Etape 1: Initialisation du projet###
 
-Dans le répertoire src/main/webapp de votre projet sur le covoiturage. 
+Dans le répertoire src/main/webapp de votre projet de TAA. 
 
 
 {% highlight bash %}
@@ -95,68 +95,24 @@ Toujours dans le répértoire app, créez le fichier html suivant.
 			</div>
 	</body>
 </html>
-{% endraw  %}
+	{% endraw  %}
 {% endhighlight %}
 
 
 Lancez un serveur web. A la racine de votre projet. 
 
 {% highlight bash %}
-mvn compile tomcat7:run
+sudo  npm install http-server -g
+http-server
 {% endhighlight %}
 
 RDV sur [http://localhost:8080/app/index.html](http://localhost:8080/app/index.html)
 
 
-###Etape 2: Réalisation d'une première intégration###
-Modifiez l'url de téléchargement du contenu json
-$http({method: 'GET', url: 'posts.json'}) pour charger le json issu de vos services Java. 
 
-###Etape 3: Rechargement automatique###
-Pour recharger automatiquement le contexte de votre application dès que vous modifier un fichier. Dans le pom.xml, configurez le plugin tomcat de la manière suivante. 
+###Etape 2: Partir d'un squelette de projet plus classique###
 
-{% highlight xml %}
-{% raw  %}
-<plugin>
-	<groupId>org.apache.tomcat.maven</groupId>
-	<artifactId>tomcat7-maven-plugin</artifactId>
-	<version>2.1</version>
-	<configuration>
-		<path>/</path>
-		<contextFile>src/main/webapp/META-INF/context.xml</contextFile>
-	</configuration>
-</plugin>
-{% endraw  %}
-{% endhighlight %}
-
-Dans le fichier src/main/webapp/META-INF/context.xml. 
-Placez les lignes suivantes. 
-
-{% highlight xml %}
-{% raw  %}
-<Context reloadable="true" backgroundProcessorDelay="1">
-</Context>
-{% endraw  %}
-{% endhighlight %}
-
-Relancez 
-
-{% highlight bash %}
-mvn compile tomcat7:run
-{% endhighlight %}
-
- Dès que vous modifier une classe Java ou un fichier html, js, ou autres. Plus besoin de relancer maven. 
-
-
-###Etape 4: Partir d'un squelette de projet plus classique###
-Repartez de ce projet de squelette d'Angular pour structurer votre application de manière classique. 
-Toujours dans le répertoire web de votre application. 
-{% highlight bash %}
-git clone https://github.com/angular/angular-seed
-{% endhighlight %}
-
-
-###Etape 5: Partir d'un squelette de projet plus classique###
+Supprimer tout ce qui se trouve dans votre répertoire web-app
 
 Installez compass
 
@@ -199,8 +155,7 @@ Vous pouvez utilisez eclipse ou intelliJ pour éditer votre projet.
 
 
 
-
-###Etape 6: Construire l'IHM de votre application de faites en TAA à l'aide d'angularjs.###
+###Etape 3: Construire l'IHM de votre application de faites en TAA à l'aide d'angularjs.###
 
 
 Have fun ;)

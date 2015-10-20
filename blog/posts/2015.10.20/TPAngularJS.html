@@ -112,7 +112,7 @@ sudo apt-get install npm</code></pre></div>
 
 <h3>Etape 1: Initialisation du projet</h3>
 
-<p>Dans le répertoire src/main/webapp de votre projet sur le covoiturage. </p>
+<p>Dans le répertoire src/main/webapp de votre projet de TAA. </p>
 
 <div class="highlight"><pre><code class="language-bash" data-lang="bash">bower install angular#1.2.26</code></pre></div>
 
@@ -164,49 +164,14 @@ Dans le répertoire app</p>
 
 <p>Lancez un serveur web. A la racine de votre projet. </p>
 
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">mvn compile tomcat7:run</code></pre></div>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">sudo  npm install http-server -g
+http-server</code></pre></div>
 
 <p>RDV sur <a href="http://localhost:8080/app/index.html">http://localhost:8080/app/index.html</a></p>
 
-<h3>Etape 2: Réalisation d&#39;une première intégration</h3>
+<h3>Etape 2: Partir d&#39;un squelette de projet plus classique</h3>
 
-<p>Modifiez l&#39;url de téléchargement du contenu json
-$http({method: &#39;GET&#39;, url: &#39;posts.json&#39;}) pour charger le json issu de vos services Java. </p>
-
-<h3>Etape 3: Rechargement automatique</h3>
-
-<p>Pour recharger automatiquement le contexte de votre application dès que vous modifier un fichier. Dans le pom.xml, configurez le plugin tomcat de la manière suivante. </p>
-
-<div class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;plugin&gt;</span>
-    <span class="nt">&lt;groupId&gt;</span>org.apache.tomcat.maven<span class="nt">&lt;/groupId&gt;</span>
-    <span class="nt">&lt;artifactId&gt;</span>tomcat7-maven-plugin<span class="nt">&lt;/artifactId&gt;</span>
-    <span class="nt">&lt;version&gt;</span>2.1<span class="nt">&lt;/version&gt;</span>
-    <span class="nt">&lt;configuration&gt;</span>
-        <span class="nt">&lt;path&gt;</span>/<span class="nt">&lt;/path&gt;</span>
-        <span class="nt">&lt;contextFile&gt;</span>src/main/webapp/META-INF/context.xml<span class="nt">&lt;/contextFile&gt;</span>
-    <span class="nt">&lt;/configuration&gt;</span>
-<span class="nt">&lt;/plugin&gt;</span></code></pre></div>
-
-<p>Dans le fichier src/main/webapp/META-INF/context.xml. 
-Placez les lignes suivantes. </p>
-
-<div class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;Context</span> <span class="na">reloadable=</span><span class="s">&quot;true&quot;</span> <span class="na">backgroundProcessorDelay=</span><span class="s">&quot;1&quot;</span><span class="nt">&gt;</span>
-<span class="nt">&lt;/Context&gt;</span></code></pre></div>
-
-<p>Relancez </p>
-
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">mvn compile tomcat7:run</code></pre></div>
-
-<p>Dès que vous modifier une classe Java ou un fichier html, js, ou autres. Plus besoin de relancer maven. </p>
-
-<h3>Etape 4: Partir d&#39;un squelette de projet plus classique</h3>
-
-<p>Repartez de ce projet de squelette d&#39;Angular pour structurer votre application de manière classique. 
-Toujours dans le répertoire web de votre application. </p>
-
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">git clone https://github.com/angular/angular-seed</code></pre></div>
-
-<h3>Etape 5: Partir d&#39;un squelette de projet plus classique</h3>
+<p>Supprimer tout ce qui se trouve dans votre répertoire web-app</p>
 
 <p>Installez compass</p>
 
@@ -236,7 +201,7 @@ grunt serve</code></pre></div>
 
 <p><a href="https://plugins.jetbrains.com/plugin/6971?pr=phpStorm">intelliJ angular</a></p>
 
-<h3>Etape 6: Construire l&#39;IHM de votre application de faites en TAA à l&#39;aide d&#39;angularjs.</h3>
+<h3>Etape 3: Construire l&#39;IHM de votre application de faites en TAA à l&#39;aide d&#39;angularjs.</h3>
 
 <p>Have fun ;)</p>
 
