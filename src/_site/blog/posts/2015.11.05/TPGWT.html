@@ -9,7 +9,7 @@
 <meta name="author" content="Olivier Barais">
 <link rel="author" href="https://plus.google.com/+OlivierBarais">
 
-<title>Quelques règles pour l'installation des portables</title>
+<title>Quelques éléments pour le TP GWT</title>
 
 
 
@@ -57,7 +57,7 @@
         <div class="row">
             <div class="col-md-8">
                                <!-- the actual blog post: title/author/date/content -->
-                <h1> Quelques règles pour l'installation des portables </h1>
+                <h1> Quelques éléments pour le TP GWT </h1>
                     <p class="lead">by <a href="/contact/">Olivier Barais</a> &nbsp;&nbsp;&nbsp;
                         
                             <a href="/blog/categories/teaching/"><span class="label label-primary">teaching</span></a>
@@ -73,102 +73,93 @@
                             &nbsp;
                         
                     </p>
-                        <span class="glyphicon glyphicon-time"></span> Posted 2014.08.29 
+                        <span class="glyphicon glyphicon-time"></span> Posted 2015.11.05 
                         
                             &mdash; Rennes, France
                         
 
                 <hr>
                 
-                Hello très chers étudiants,
+                <p>Hello très chers étudiants,</p>
 
-Vous avez la chance cette année de servir de cobaïes pour expérimenter l'usage des TPs pour les M2. Nous sommes partis sur les configurations suivantes
-[Probook 650 avec 8GO de Ram et un I3](http://www8.hp.com/fr/fr/products/laptops/product-detail.html?oid=5405400#!tab=specs)
+<p>Pour ce deuxième TP de GLI, nous allons étudier GWT. Pour la mise en place de l&#39;environnement, la compilation, le lancement du serveur ..., nous utiliserons <a href="http://maven.apache.org/">maven</a>.</p>
 
-###Etape 0: Install OS###
+<h3>Etape 0: Création du projet</h3>
 
-Pour l'install, tout marche très bien avec ubuntu 14.04. Pour ceux qui ne l'ont jamais installé. Récupérez une clé usb, téléchargez [Ubuntu Desktop 14.04 en version 64bit et Desktop](http://www.ubuntu.com/download/desktop). Créez votre clé ucb avec par exemple [unetbootin](http://unetbootin.sourceforge.net/). Choisissez DiskImage et l'iso que vous avez téléchargé et sélectionnez en bas votre clé usb, c'est parti. (10 mins de travail, un reboot et c'est bon)
+<p>Pour démarrer, nous pouvons utiliser l&#39;<a href="http://mojo.codehaus.org/gwt-maven-plugin/">archetype maven gwt</a>. </p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">mvn archetype:generate <span class="se">\</span>
+   -DarchetypeGroupId<span class="o">=</span>org.codehaus.mojo <span class="se">\</span>
+   -DarchetypeArtifactId<span class="o">=</span>gwt-maven-plugin <span class="se">\</span>
+   -DarchetypeVersion<span class="o">=</span>2.7.0</code></pre></div>
 
 <!--more-->
 
+<p>La documentation du plugin maven est <a href="https://gwt-maven-plugin.github.io/gwt-maven-plugin/">ici</a></p>
 
-Au démarrage du PC. Appuyez sur la touche [Echap] puis [F9] et séléctionnez la clé usb pour bootez dessus. Installez ubuntu sur l'ensemble du disque.
+<p>Renseignez alors, le groupeId, l&#39;artefactId, la version, le package par défaut, et le nom du module gwt que vous souhaitez créer. Attention de mettre le nom de module sans espace et en minuscule. </p>
 
-Si certains veulent avoir une installation windows. C'est possible l'istic dispose d'un abonnement [MSDN AA](https://www.google.fr/search?q=msdn+aa+istic&oq=msdn+aa+istic&aqs=chrome..69i57.6842j0j7&sourceid=chrome&es_sm=122&ie=UTF-8) qui vous donne accès aux licences des princiaux OS des Microsoft. Dans ce cas commencez par l'install de Windows. Puis installez ubuntu ensuite en demandant un split du disque du type 120 Go pour Windows et 200 pour linux. .
+<p>Testez la compilation</p>
 
-Il est nécessaire de disposer d'une installation linux pour les TPs sans être dans une machine virtuelle.
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">mvn gwt:generateAsync compile gwt:compile package</code></pre></div>
 
+<p>Attention, à chaque fois que vous touchez aux interfaces de services, vous devrez regénérer le code Java des interfaces Async ou des messages en tapant. </p>
 
-Sous ubuntu, quand il est installé.
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">mvn gwt:generateAsync</code></pre></div>
 
-###Etape 1: Java et autres###
-Installez les paquets suviants:
+<h3>Etape 1: Installation eclipse</h3>
 
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">sudo apt-get install nano git openjdk-7-jdk openjdk-7-doc maven inkscape</code></pre></div>
+<p>Dans eclipse, il existe un certains nombre de <a href="https://developers.google.com/eclipse/docs/getting_started?hl=fr">plugins</a> que vous pouvez installer, ils ne sont pas nécessairement requis. Entres autres, le designer peut intéresser certains d&#39;entres vous. </p>
 
-###Etape 2: Eclipse###
-Téléchargez eclipse pour [Java developer](http://eclipse.ialto.com/technology/epp/downloads/release/luna/R/eclipse-dsl-luna-R-linux-gtk-x86_64.tar.gz) en version 64 et dezipper le par exemple dans /opt/eclipse
+<h3>Etape 2: Import du projet</h3>
 
-###Etape 3: Smartgit###
-Installez [Smartgit](http://www.syntevo.com/smartgit/)
+<p>Dans eclipse ou IntelliJ, importez votre projet maven:</p>
 
-###Etape 4: Docker###
-Installez Docker
+<p>File -&gt; Import -&gt; maven -&gt; Existing maven project. </p>
 
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">sudo apt-get update
-sudo apt-get install apt-transport-https
-sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 36A1D7869245C8950F966E92D8576A8BA88D21E9
-sudo sh -c <span class="s2">&quot;echo deb https://get.docker.io/ubuntu docker main &gt; /etc/apt/sources.list.d/docker.list&quot;</span>
-sudo apt-get update
-sudo apt-get install lxc-docker</code></pre></div>
+<p>Séléctionnez le répertoire de votre projet. Il expliquera qu&#39;il ne sait pas gérer la tâche gwt:.., séléctionner <em>ignore add to pom</em>.</p>
 
-Pour vérifier que tout est ok
+<h3>Etape 3: Premier démarrage du projet à l&#39;aide du super dev mode</h3>
 
-<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>sudo docker run -i -t ubuntu /bin/bash</code></pre></div>
-Cette dernière commande télécharge un conteneur ubuntu minimal et démarre ce container. Pour plus de documentation sur [docker](http://fr.wikipedia.org/wiki/Docker_(Syst%C3%A8me_de_conteneur_Linux))
+<p>Dans la description de votre projet, (fichier gwt.xml dans le répertoire <em>ressources</em>), ajoutez les lignes suivantes avant la clôture de la balise module. </p>
 
-###Etape 5: NodeJS###
-Installez nodejs
+<div class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;add-linker</span> <span class="na">name=</span><span class="s">&quot;xsiframe&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;set-configuration-property</span> <span class="na">name=</span><span class="s">&quot;devModeRedirectEnabled&quot;</span> <span class="na">value=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span></code></pre></div>
 
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">sudo apt-add-repository ppa:chris-lea/node.js</code></pre></div>
-Rechargez la liste des paquets ;
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">sudo apt-get update</code></pre></div>
-Installez les paquets nodejs.
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">sudo apt-get install nodejs
-<span class="c">#tester si npm est présent,</span>
-npm -v
-<span class="c">#sinon</span>
-sudo apt-get install npm</code></pre></div>
+<p>Puis vous pouvez lancer</p>
 
-###Etape 6: VisualVM###
-[VisualVM](http://visualvm.java.net/eclipse-launcher.html)
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">mvn gwt:run</code></pre></div>
 
-###Etape 7: InteliJ###
-Installez [IntelliJ](http://www.jetbrains.com/idea/) dans /opt
+<p>Allez à l&#39;adresse : <a href="http://localhost:9876/">http://localhost:9876/</a></p>
 
-###Etape 8: Wifi ISTIC###
-1. Configuez eduroam suivant le [tuto suivant](http://www.eduroam.fr/conf_supplicants/).
+<p>Mettez <em>dev mode on</em> et <em>dev mode off</em> comme des <em>bookmarks</em> de votre navigateur. </p>
 
-2. RDV sur [wifsic-free](http://wifsic-free.istic.univ-rennes1.fr/) pour enregistrer vore mac adresse que vous pouvez récupérer à l'aide de la commande suivante:
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">sudo /sbin/ifconfig</code></pre></div>
-prendre  'HWaddr XX:XX:XX:XX:XX:XX' de l'interface wlan0.
+<p>Puis allez à l&#39;adresse : <a href="http://127.0.0.1:8888/MODULE.html">http://127.0.0.1:8888/MODULE.html</a> en remplaçant module par le nom de votre module. Cliquez sur le bookmark <em>devmodeon</em> que vous venez de créer, vous devriez pouvoir recompiler votre code à la volée. Si vous touchez au code côté serveur, vous pouvez rechargez jetty depuis le deuxième onglet de la fenètre qui est apparue au lancement de <em>mvn gwt:run</em>.</p>
 
+<p>Pour activer le lien entre les sources Java et le debug javascript</p>
 
-###Etape 9 Utiliser les imprimantes de l'ISTIC
-* Vérifiez que cups est installé
+<p>Ajoutez la ligne suivante à votre fichier gwt.xml</p>
 
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">sudo apt-get update
-sudo apt-get install cups</code></pre></div>
+<div class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;set-property</span> <span class="na">name=</span><span class="s">&quot;compiler.useSourceMaps&quot;</span> <span class="na">value=</span><span class="s">&quot;true&quot;</span> <span class="nt">/&gt;</span></code></pre></div>
 
+<ol>
+<li><em>Open chrome dev tools</em></li>
+<li><em>Open Settings (gear in bottom right of dev tools)</em></li>
+<li><em>In &quot;Source&quot; section, enable source maps</em>
+<em>If you notice you can navigate and step through both the Java code and jsni methods (something that was never available before). Also, recompiling the module is as easy as clicking &quot;Dev Mode On&quot; again and compiling the new module. Compilations are much quicker than full GWT compiles. The incremental builds save a lot of time.</em></li>
+</ol>
 
-* éditer le fichier /etc/cups/client.conf et ajouter la ligne suivante
+<p><em>Even if the Eclipse/IntelliJ plugin paired with chrome’s plugin are good enough for you, source maps still have some advantages. Source maps appear to be a new techonology that will be used more and more, so getting familiar with using it now should benefit you in the future.</em></p>
 
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">ServerName printhost.istic.univ-rennes1.fr</code></pre></div>
+<h3>Etape 4: Développez votre projet</h3>
 
-pour imprimer, être connecté aux réseaux Wifsic ou Wifsic-free
+<p>Créer une interface web pour le projet DoodleBlablaCar (Sujet de Taa)</p>
 
-###Etape 10: Bookmark services utiles###
-[vm istic](http://vm.istic.univ-rennes1.fr)
+<p>J&#39;ai mis un exemple GWT qui attaque des services Restful (Json + Jersey). sur <a href="https://github.com/barais/taajerseygwt.git">github</a></p>
+
+<p>J&#39;ai aussi mis un exemple GWT + SmartGWT + superdev mode ici <a href="https://github.com/barais/smartgwt5maven.git">github</a></p>
+
+<p>Have fun ;)</p>
 
                 
                 <!-- the comment box -->
