@@ -118,14 +118,11 @@ sudo apt-get install npm</code></pre></div>
 
 <p>Cette action télécharge angularjs et l&#39;install dans votre projet. </p>
 
-<p>Allez dans le répertoire app nouvellement créé.</p>
-
-<p>Téléchargez le fichier <a href="../../../docs/posts.json">posts.json</a> suivant. 
-Dans le répertoire app</p>
+<p>Téléchargez le fichier <a href="../../../docs/posts.json">posts.json</a> suivant. </p>
 
 <div class="highlight"><pre><code class="language-bash" data-lang="bash">wget http://olivier.barais.fr/docs/posts.json</code></pre></div>
 
-<p>Toujours dans le répértoire app, créez le fichier html suivant. </p>
+<p>Toujours dans le répértoire courant, créez le fichier html suivant. </p>
 
 <div class="highlight"><pre><code class="language-html" data-lang="html"><span class="cp">&lt;!doctype html&gt;</span>
 <span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">&quot;en&quot;</span> <span class="na">ng-app</span> <span class="na">id=</span><span class="s">&quot;ng-app&quot;</span><span class="nt">&gt;</span>
@@ -165,9 +162,9 @@ Dans le répertoire app</p>
 <p>Lancez un serveur web. A la racine de votre projet. </p>
 
 <div class="highlight"><pre><code class="language-bash" data-lang="bash">sudo  npm install http-server -g
-http-server</code></pre></div>
+http-server <span class="c">#ou hs pour certaines versions</span></code></pre></div>
 
-<p>RDV sur <a href="http://localhost:8080/app/index.html">http://localhost:8080/app/index.html</a></p>
+<p>RDV sur <a href="http://localhost:8080/index.html">http://localhost:8080/app/index.html</a></p>
 
 <h3>Etape 2: Partir d&#39;un squelette de projet plus classique</h3>
 
@@ -176,6 +173,7 @@ http-server</code></pre></div>
 <p>Installez compass</p>
 
 <div class="highlight"><pre><code class="language-bash" data-lang="bash">sudo gem update --system
+sudo apt-get install ruby-dev
 sudo gem install compass</code></pre></div>
 
 <p>Vérifiez les éléments nécessaire pour générer un projet avec yeoman</p>

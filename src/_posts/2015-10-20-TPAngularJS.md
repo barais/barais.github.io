@@ -49,15 +49,14 @@ bower install angular#1.2.26
 
 Cette action télécharge angularjs et l'install dans votre projet. 
 
-Allez dans le répertoire app nouvellement créé.
 
 Téléchargez le fichier [posts.json](../../../docs/posts.json) suivant. 
-Dans le répertoire app
+
 {% highlight bash %}
 wget http://olivier.barais.fr/docs/posts.json
 {% endhighlight %}
 
-Toujours dans le répértoire app, créez le fichier html suivant. 
+Toujours dans le répértoire courant, créez le fichier html suivant. 
 
 {% highlight html %}
 {% raw  %}
@@ -103,10 +102,10 @@ Lancez un serveur web. A la racine de votre projet.
 
 {% highlight bash %}
 sudo  npm install http-server -g
-http-server
+http-server #ou hs pour certaines versions
 {% endhighlight %}
 
-RDV sur [http://localhost:8080/app/index.html](http://localhost:8080/app/index.html)
+RDV sur [http://localhost:8080/app/index.html](http://localhost:8080/index.html)
 
 
 
@@ -118,6 +117,7 @@ Installez compass
 
 {% highlight bash %}
 sudo gem update --system
+sudo apt-get install ruby-dev
 sudo gem install compass
 {% endhighlight %}
 
