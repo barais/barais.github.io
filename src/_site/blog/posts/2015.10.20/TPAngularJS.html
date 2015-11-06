@@ -88,13 +88,9 @@
 
 <h3>Etape -1: NodeJS</h3>
 
-<p>Installez nodejs</p>
+<p>Installez la dernière version de nodejs</p>
 
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">sudo apt-add-repository ppa:chris-lea/node.js</code></pre></div>
-
-<p>Rechargez la liste des paquets ;</p>
-
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">sudo apt-get update</code></pre></div>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">curl -sL https://deb.nodesource.com/setup_5.x <span class="p">|</span> sudo -E bash -</code></pre></div>
 
 <p>Installez les paquets nodejs.</p>
 
@@ -104,11 +100,27 @@ npm -v
 <span class="c">#sinon </span>
 sudo apt-get install npm</code></pre></div>
 
+<p>Créer le fichier ~/.npmrc</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">echo</span> <span class="s2">&quot;prefix = $HOME/.node&quot;</span> &gt; <span class="nv">$HOME</span>/.npmrc</code></pre></div>
+
+<p>Dans votre fichier ~/.bashrc,
+Ajoutez les lignes suivantes. </p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span><span class="nv">$HOME</span>/.node/bin:<span class="nv">$PATH</span>
+<span class="nb">export </span><span class="nv">NODE_PATH</span><span class="o">=</span><span class="nv">$NODE_PATH</span>:/home/barais/.node/lib/node_modules/</code></pre></div>
+
+<p>Relancez votre terminal. </p>
+
+<p>Mettez à jour npm</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">npm install -g  npm</code></pre></div>
+
 <h3>Etape 0: Installation de bower</h3>
 
 <p>Si tout va bien, npm et node sont installés. (Voir post sur l&#39;opération portable ou l&#39;étape -1). </p>
 
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">sudo npm install -g  bower</code></pre></div>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">npm install -g  bower</code></pre></div>
 
 <h3>Etape 1: Initialisation du projet</h3>
 
@@ -161,7 +173,7 @@ sudo apt-get install npm</code></pre></div>
 
 <p>Lancez un serveur web. A la racine de votre projet. </p>
 
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">sudo  npm install http-server -g
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">npm install http-server -g
 http-server <span class="c">#ou hs pour certaines versions</span></code></pre></div>
 
 <p>RDV sur <a href="http://localhost:8080/index.html">http://localhost:8080/app/index.html</a></p>

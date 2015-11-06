@@ -11,16 +11,14 @@ Pour ce premier TP de GLI, nous allons étudier AngularJS. Pour la mise en place
 <!--more-->
 
 ###Etape -1: NodeJS###
-Installez nodejs
+Installez la dernière version de nodejs
 
 {% highlight bash %}
-sudo apt-add-repository ppa:chris-lea/node.js
+curl -sL https://deb.nodesource.com/setup_5.x | sudo -E bash -
 {% endhighlight %}
-Rechargez la liste des paquets ;
-{% highlight bash %}
-sudo apt-get update
-{% endhighlight %}
+
 Installez les paquets nodejs.
+
 {% highlight bash %}
 sudo apt-get install nodejs
 #tester si npm est présent, 
@@ -29,13 +27,34 @@ npm -v
 sudo apt-get install npm 
 {% endhighlight %}
 
+Créer le fichier ~/.npmrc
+
+{% highlight bash %}
+echo "prefix = $HOME/.node" > $HOME/.npmrc
+{% endhighlight %}
+
+Dans votre fichier ~/.bashrc,
+Ajoutez les lignes suivantes. 
+
+{% highlight bash %}
+export PATH=$HOME/.node/bin:$PATH
+export NODE_PATH=$NODE_PATH:/home/barais/.node/lib/node_modules/
+{% endhighlight %}
+
+Relancez votre terminal. 
+
+Mettez à jour npm
+
+{% highlight bash %}
+npm install -g  npm
+{% endhighlight %}
 
 
 ###Etape 0: Installation de bower###
 Si tout va bien, npm et node sont installés. (Voir post sur l'opération portable ou l'étape -1). 
 
 {% highlight bash %}
-sudo npm install -g  bower
+npm install -g  bower
 {% endhighlight %}
 
 ###Etape 1: Initialisation du projet###
@@ -101,7 +120,7 @@ Toujours dans le répértoire courant, créez le fichier html suivant.
 Lancez un serveur web. A la racine de votre projet. 
 
 {% highlight bash %}
-sudo  npm install http-server -g
+npm install http-server -g
 http-server #ou hs pour certaines versions
 {% endhighlight %}
 
