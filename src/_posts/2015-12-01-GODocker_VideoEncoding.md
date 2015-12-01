@@ -221,6 +221,7 @@ Next you can easily install cAdvisor and grafana. Just modify to go-d.ini file.
 
 - Use go-docker env variables to encode in a task specific folder. 
 - Use [glusterfs](http://www.gluster.org/) to share volumes and compare the performance with the use of a simple nfs filse system. Does it matter for such a use case. 
+- Decrease docker ffmpeg image size.
 - Finish a small portable demonstrator based on four raspberry pis 2 (within this [box](http://www.ldlc.com/fiche/PB00168033.html)).  
 
 
