@@ -235,6 +235,33 @@ wget http://arcagenis.org/mirror/mango/ToS/tears_of_steel_1080p.mkv
 </code></pre></div>
 <p>Next you can easily install cAdvisor and grafana. Just modify to go-d.ini file. </p>
 
+<h1>Next steps</h1>
+
+<h2>Technical details</h2>
+
+<ul>
+<li>Use go-docker env variables to encode in a task specific folder. </li>
+<li>Use <a href="http://www.gluster.org/">glusterfs</a> to share volumes and compare the performance with the use of a simple nfs filse system. Does it matter for such a use case. </li>
+<li>Finish a small portable demonstrator based on four raspberry pis 2 (within this <a href="http://www.ldlc.com/fiche/PB00168033.html">box</a>).<br></li>
+</ul>
+
+<h2>Scientific Breakthroughs</h2>
+
+<ul>
+<li>Allow to share hardware capabilities such as GPU encoding facilities with go-docker. </li>
+<li>Define a standard librairies of video processing micro-services. </li>
+<li>Provide dataflow tempate to let user specify video processing flows. (We will use <a href="http://nodered.org/">node-red</a> to test). </li>
+<li>Provide an extenstible framework for creating and testing video processing micro-services that can be easily included in a video-processing flows. </li>
+<li>Improve or specialize docker scheduler such as swarm, <a href="https://hashicorp.com/blog/nomad.html">nomad</a> or <a href="http://mesos.apache.org/">mesos</a> to put video processing micro-services close to video raw datas. </li>
+<li>Use the best hardware storage technologies depending of the micro-services wich is used.</li>
+</ul>
+
+<h2>Want to play with us</h2>
+
+<ul>
+<li>Join <a href="https://b-com.com/">B-COM</a> JiT project. <a href="mailto:Christophe.DION@b-com.com;Antoine.CABOT@b-com.com;barais@irisa.fr">contact</a></li>
+</ul>
+
 <p>Have fun ...</p>
 
                 

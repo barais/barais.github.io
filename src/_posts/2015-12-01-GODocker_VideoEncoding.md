@@ -211,9 +211,31 @@ You can also run everythin in one command
 mkdir /tmp/vid/tmp && SPLIT=`~/.local/bin/godjob create  --external_image    -n split -d "Jit Split"   -p test -i barais/ffmpeg -s split.sh | sed -r 's/Task added. Job id is //g'` && for f in /tmp/vid/tmp/*.sh; do echo "`~/.local/bin/godjob create  --external_image    -n encode -d "Jit Encode" -c 1 --parent "$SPLIT"  -p test -i barais/ffmpeg -s $f | sed -r 's/Task added. Job id is //g'`," >> /tmp/vid/tmp/listprocess  ; done && PROCESS=`cat  /tmp/vid/tmp/listprocess | tr -d '\n'` ~/.local/bin/godjob create  --external_image    -n merge -d "Jit Merge and Clean"  -c 1 --parent "${PROCESS-1}" -p test -i barais/ffmpeg -s mergeandclean.sh
 ```
 
-
-
 Next you can easily install cAdvisor and grafana. Just modify to go-d.ini file. 
+
+
+#Next steps
+
+
+##Technical details
+
+- Use go-docker env variables to encode in a task specific folder. 
+- Use [glusterfs](http://www.gluster.org/) to share volumes and compare the performance with the use of a simple nfs filse system. Does it matter for such a use case. 
+- Finish a small portable demonstrator based on four raspberry pis 2 (within this [box](http://www.ldlc.com/fiche/PB00168033.html)).  
+
+
+##Scientific Breakthroughs
+
+- Allow to share hardware capabilities such as GPU encoding facilities with go-docker. 
+- Define a standard librairies of video processing micro-services. 
+- Provide dataflow tempate to let user specify video processing flows. (We will use [node-red](http://nodered.org/) to test). 
+- Provide an extenstible framework for creating and testing video processing micro-services that can be easily included in a video-processing flows. 
+- Improve or specialize docker scheduler such as swarm, [nomad](https://hashicorp.com/blog/nomad.html) or [mesos](http://mesos.apache.org/) to put video processing micro-services close to video raw datas. 
+- Use the best hardware storage technologies depending of the micro-services wich is used.
+
+##Want to play with us
+- Join [B-COM](https://b-com.com/) JiT project. [contact](mailto:Christophe.DION@b-com.com;Antoine.CABOT@b-com.com;barais@irisa.fr)
+
 
 Have fun ...
 
