@@ -1,0 +1,604 @@
+
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+<meta charset="utf-8">
+<!-- <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="Olivier Barais">
+<link rel="author" href="https://plus.google.com/+OlivierBarais">
+
+<title>Using Go-Docker and Docker Swarm on top of a cluster of raspberry pi.</title>
+
+
+
+<!-- Add custom CSS here -->
+<!-- <link rel="stylesheet" href="/assets/main-58abab6103ee78e02cfcfa062233325f.css"> -->
+
+<!-- <link rel="shortcut icon" href="favicon.ico"> -->
+<link rel="icon" href="favicon.ico">
+
+
+<!-- Test -->
+
+</head>
+
+<body>
+
+    	<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+					<span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
+				</button>
+                <a class="navbar-brand" href="/">olivier.barais</a>
+			</div>
+
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="collapse navbar-collapse navbar-right navbar-ex1-collapse">
+				<ul class="nav navbar-nav">
+                    <li><a href="/">Home</a></li>
+					<li><a href="/publications/">Publications</a></li>
+					<li><a href="/teaching/">Teaching</a></li>
+                    <li><a href="/research/">Research</a></li>
+                    <li><a href="/blog/">Blog</a></li>
+                    <li><a href="/photos/">Photos</a></li>
+                    <li><a href="/contact/">Contact</a></li>
+				</ul>
+			</div>
+			<!-- /.navbar-collapse -->
+		</div>
+		<!-- /.container -->
+	</nav>
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                               <!-- the actual blog post: title/author/date/content -->
+                <h1> Using Go-Docker and Docker Swarm on top of a cluster of raspberry pi. </h1>
+                    <p class="lead">by <a href="/contact/">Olivier Barais</a> &nbsp;&nbsp;&nbsp;
+                        
+                            <a href="/blog/categories/docker/"><span class="label label-primary">docker</span></a>
+                            &nbsp;
+                        
+                            <a href="/blog/categories/swarm/"><span class="label label-primary">swarm</span></a>
+                            &nbsp;
+                        
+                            <a href="/blog/categories/go-docker/"><span class="label label-primary">go-docker</span></a>
+                            &nbsp;
+                        
+                            <a href="/blog/categories/raspberry pi/"><span class="label label-primary">raspberry pi</span></a>
+                            &nbsp;
+                        
+                    </p>
+                        <span class="glyphicon glyphicon-time"></span> Posted 2016.03.24 
+                        
+                            &mdash; Rennes, France
+                        
+
+                <hr>
+                
+                <p>Lightweight containers technologies such as Docker are more and more adopted for deploying and managing micro-services architectures. Indeed, they hide a part of the complexity resulting from the language heterogeneity and the large choice of existing implementation frameworks that can be used to implement modern applications. Containers provide those benefits without introducing the general cost of the virtualization.  </p>
+
+<p>It exists lots of open-source configuration managers such as kubernetes, nomad, apache Mesos, or docker swarm to define and keep a standard modular applications in a consistent state and to dispatch its services on a cluster of remote nodes. Tools such as <a href="http://www.genouest.org/godocker/">Go-Docker</a> would complement these stacks to provide a batch computing/cluster management tool using Docker as execution/isolation system. It can be seen like Sun Grid Engine/Torque/.</p>
+
+<blockquote>
+<p>Go-Docker acts as an additional layer above those tools on multiple user systems where users do not have Docker priviledges or knowledge.</p>
+</blockquote>
+
+<p>In this blog post, I will present some experiments to run Go-Docker on top of a cluster of raspberry pi.</p>
+
+<!--more-->
+
+<h1>Step 0: Check your hardware.</h1>
+
+<p><img src="../../../img/IMG_20160228_122211519.jpg" alt="rpi cluster"></p>
+
+<p>Your need at least two raspberry PI and a router connected to Internet. I use one linksys WRT 54GL to connect to Internet and a 1Gb switch to connect my 16 Raspberry PI. The router provides a DHCP server for providing IP to my cluster.</p>
+
+<h1>First step: Install your cluster of raspberry pi</h1>
+
+<h2>Step 1.1: flash your image</h2>
+
+<p><a href="http://blog.hypriot.com/">Hypriot</a> and <a href="https://github.com/hypriot/cluster-lab">cluster-lab</a>  provide solutions to easily deploy your swarm on top of a raspberry pi.</p>
+
+<p>First download the last image of a rspbian with a pre-install docker.
+- <a href="https://downloads.hypriot.com/hypriot-rpi-20160306-192317.img.zip">Hypriot Docker Image for Raspberry Pi</a></p>
+
+<p>Get the <a href="https://github.com/hypriot/flash#installation">flash</a> tooling.</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">flash --hostname swarm-dc1-pi01  hypriot-rpi-20160306-192317.img.zip
+flash --hostname swarm-dc1-pi02 hypriot-rpi-20160306-192317.img.zip
+...
+flash --hostname swarm-dc2-pi04  hypriot-rpi-20160306-192317.img.zip
+</code></pre></div>
+<h2>Step 1.2: Connect to your PI</h2>
+
+<p>Start your first Raspberry Pi. You can log in using ssh. The password is &quot;hypriot&quot;.</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">function getip() { (traceroute $1 2&gt;&amp;1 | head -n 1 | cut -d\( -f 2 | cut -d\) -f 1) }
+
+IP_ADDRESS=$(getip swarm-dc1-pi01.local)
+
+ssh root@$IP_ADDRESS
+
+</code></pre></div>
+<h2>Step 1.3: Check your time</h2>
+
+<p>If the date of your raspberry pi is not up to date, your provider probably reject the ntp query.</p>
+
+<p>You can test with another ntp server.</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">&gt; service ntp stop
+&gt; ntpdate ntp.inria.fr
+</code></pre></div>
+<p>When you find an ntp server which is available from your Internet provider, Update your  /etc/default/ntpdate file.</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">&gt; nano -w   /etc/default/ntpdate  # add your ntp server to the list
+&gt; service ntp stop
+</code></pre></div>
+<p>## Step 1.4: Check your Internet connection.</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">&gt; ping 8.8.8.8
+</code></pre></div>
+<h2>Step 1.5: Install and configure cluster lab</h2>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">apt-get update &amp;&amp; apt-get -y upgrade &amp;&amp; apt-get install hypriot-cluster-lab -y
+</code></pre></div>
+<p>Next you can configure, your cluster lab.</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">nano -w /etc/cluster-lab/cluster.conf
+#In my case, I Remove vlan, dhcp and set the Ip of the master node currently the IP of the first raspberry pi node. Indeed, my router provides a DHCP server for the cluster.
+</code></pre></div>
+<p>Start your cluster lab.</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">service cluster-lab start
+systemctl enable cluster-lab
+</code></pre></div>
+<h2>Step 1.6: Test your swarm.</h2>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">function getip() { (traceroute $1 2&gt;&amp;1 | head -n 1 | cut -d\( -f 2 | cut -d\) -f 1) }
+IP_ADDRESS=$(getip swarm-dc1-pi01.local)
+docker -H $IP_ADDRESS:2378 info
+docker -H $IP_ADDRESS:2378 run hypriot/armhf-hello-world
+echo $IP_ADDRESS:2378
+</code></pre></div>
+<h2>Step 1.7: go there to see the consul.</h2>
+
+<blockquote>
+<p><a href="http://%7BIP%20or%20hostname%20of%20the%20master%20node%7D:8500">http://{IP or hostname of the master node}:8500</a> # Consul UI</p>
+</blockquote>
+
+<h2>Step 1.8: start docker ui.</h2>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">docker -H $IP_ADDRESS:2378 run -d -p 9000:9000 --env=&quot;constraint:node==swarm-dc1-pi01&quot; --name dockerui hypriot/rpi-dockerui -e http://$IP_ADDRESS:2378
+</code></pre></div>
+<p>Go there to play with docker UI</p>
+
+<blockquote>
+<p><a href="http://%7BIP%20or%20hostname%20of%20the%20master%20node%7D:9000">http://{IP or hostname of the master node}:9000</a> # Docker UI.</p>
+</blockquote>
+
+<h1>Step 2: Switch on all your PI  and Repeat step 1.2 to 1.5</h1>
+
+<p>For each raspberry pi. Do not forget to  configure correctly your cluster lab.</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">nano -w /etc/cluster-lab/cluster.conf
+#In my case, I Remove vlan, dhcp and set the Ip of the master node currently the IP of the first raspberry pi node. Indeed, my router provides a DHCP server for the cluster.
+</code></pre></div>
+<p>At the end, from your laptop you can check the docker swarm configuration. You can see the number of CPU that increase. You can also</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">docker -H $IP_ADDRESS:2378 run -d -p 9000:9000 --env=&quot;constraint:node==swarm-dc1-pi01&quot; --name dockerui hypriot/rpi-dockerui -e http://$IP_ADDRESS:2378
+</code></pre></div>
+<p>Go there to play with docker UI</p>
+
+<blockquote>
+<p><a href="http://%7BIP%20or%20hostname%20of%20the%20master%20node%7D:8500">http://{IP or hostname of the master node}:8500</a> # Consul UI</p>
+
+<p><a href="http://%7BIP%20or%20hostname%20of%20the%20master%20node%7D:9000">http://{IP or hostname of the master node}:9000</a> # Docker UI.</p>
+</blockquote>
+
+<h1>Step 3: Create docker image for go docker and udpcast (can be skipped)</h1>
+
+<h2>Step 3.1: Create docker image for udpcast</h2>
+<div class="highlight"><pre><code class="language-txt" data-lang="txt">FROM resin/rpi-raspbian:wheezy
+
+MAINTAINER Olivier Barais &lt;barais@irisa.fr&gt;
+
+LABEL status=&quot;Dockerfile in development&quot;
+LABEL description=&quot;Udpcast on top od alpine&quot;
+
+
+WORKDIR /
+
+ENV admin=&quot;root&quot;
+
+RUN apt-get update &amp;&amp; \
+apt-get -y upgrade &amp;&amp; \
+apt-get install -y udpcast &amp;&amp; \
+rm -rf /var/cache/apt/*.deb*
+
+CMD [&quot;/usr/bin/udp-sender&quot;]
+
+</code></pre></div>
+<h2>Step 3.2: Create docker image for go-docker</h2>
+<div class="highlight"><pre><code class="language-txt" data-lang="txt">FROM resin/rpi-raspbian:wheezy
+MAINTAINER Olivier Sallou &lt;olivier.sallou@irisa.fr&gt;
+
+LABEL status=&quot;Dockerfile in development&quot;
+LABEL description=&quot;Batch scheduling system in containers. This image contains \
+ all godocker components: web, scheduler and watchers. \
+ Config should be overriden in /opt/godocker/go-d.ini \
+ file. Default configuration does not provide mail and only fake \
+ authentication.&quot;
+
+EXPOSE 6543
+
+WORKDIR /opt/go-docker
+
+ENV admin=&quot;root&quot;
+ENV swarm_url=&quot;tcp://god-swarm:2375&quot;
+
+RUN apt-get update
+RUN apt-get install -y git python-dev libldap2-dev gcc libsasl2-dev
+RUN apt-get install -y python-setuptools apt-transport-https wget
+RUN apt-get install -y openssl libffi-dev libssl-dev ca-certificates
+
+RUN cd /opt &amp;&amp; git clone https://bitbucket.org/osallou/go-docker.git
+RUN rm -f /opt/go-docker/plugins/mesos.*
+RUN cd /opt &amp;&amp; git clone https://bitbucket.org/osallou/go-docker-web.git
+RUN easy_install pip
+RUN cd /opt/go-docker &amp;&amp; pip install -r requirements.txt
+RUN cd /opt/go-docker &amp;&amp; python setup.py develop
+RUN cd /opt/go-docker-web &amp;&amp; pip install -r requirements.txt
+RUN cd /opt/go-docker-web &amp;&amp; python setup.py develop
+RUN pip install godocker_cli
+RUN cd /opt/go-docker-web &amp;&amp; cp production.ini.example production.ini
+RUN cd /opt/go-docker-web &amp;&amp; sed -i &#39;s;global_properties =.*;global_properties = /opt/go-docker/go-d.ini;g&#39; production.ini
+RUN cd /opt/go-docker-web &amp;&amp; sed -i &#39;s;admin =.*;admin = &#39;${admin}&#39;;g&#39; production.ini
+RUN cd /opt/go-docker &amp;&amp; cp go-d.ini.sample go-d.ini
+RUN cd /opt/go-docker &amp;&amp; sed -i &quot;s;plugins_dir:.*;plugins_dir: &#39;/opt/go-docker/plugins&#39;;g&quot; go-d.ini
+RUN cd /opt/go-docker &amp;&amp; sed -i &quot;s;shared_dir:.*;shared_dir: &#39;/opt/godshared&#39;;g&quot; go-d.ini
+RUN cd /opt/go-docker &amp;&amp; sed -i &quot;s;mongo_url:.*;mongo_url:&#39;mongodb://god-mongo:27017&#39;;g&quot; go-d.ini
+RUN cd /opt/go-docker &amp;&amp; sed -i &quot;s;redis_host:.*;redis_host:&#39;god-redis&#39;;g&quot; go-d.ini
+RUN cd /opt/go-docker &amp;&amp; sed -i &quot;s;influxdb_host:.*;influxdb_host: None;g&quot; go-d.ini
+RUN cd /opt/go-docker &amp;&amp; sed -i &quot;s;prometheus_exporter:.*;prometheus_exporter: &#39;god-web:6543&#39;;g&quot; go-d.ini
+RUN cd /opt/go-docker &amp;&amp; sed -i &quot;s;docker_url:.*;docker_url: &#39;&quot;${swarm_url}&quot;&#39;;g&quot; go-d.ini
+RUN mkdir -p /var/log/go-docker
+
+</code></pre></div>
+<h1>Step 4: Install Go Docker</h1>
+
+<p>Mongodb and Redis are required. Either install them on a server, or get them in containers:</p>
+
+<h2>Step 4.1: Run god-mongo god-redis.</h2>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">function getip() { (traceroute $1 2&gt;&amp;1 | head -n 1 | cut -d\( -f 2 | cut -d\) -f 1) }
+IP_ADDRESS=$(getip swarm-dc1-pi01.local)
+docker  -H $IP_ADDRESS:2378 rm god-mongo god-redis god-web
+docker -H $IP_ADDRESS:2378  run --env=&quot;constraint:node==swarm-dc1-pi01&quot; --name god-mongo -d rgreschner/rpi-raspbian-mongodb
+docker -H $IP_ADDRESS:2378  run --env=&quot;constraint:node==swarm-dc1-pi01&quot; --name god-redis -d hypriot/rpi-redis
+</code></pre></div>
+<h2>Step 4.2: Running components</h2>
+
+<p>Run the web server, interface is reachable at http://localhost:6543</p>
+
+<p>Get the following config file</p>
+
+<ul>
+<li><a href="../../../docs/godocker/go-d.ini">go-d.ini</a></li>
+<li><a href="../../../docs/godocker/production.ini">production.ini</a></li>
+</ul>
+
+<p>Warning: data shared directory (here /opt/godshared) must match
+on host AND container as final job will end in a host container needing the same volume directory.
+shared_dir parameter in go-d.ini configuration file must be changed accordingly.</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">ssh root@$IP_ADDRESS
+mkdir /opt/godshared
+mkdir /tmp/vid
+exit
+</code></pre></div><div class="highlight"><pre><code class="language-bash" data-lang="bash">docker -H $IP_ADDRESS:2378  run \
+  --rm \
+  --env=&quot;constraint:node==swarm-dc1-pi01&quot;\
+  --name god-web
+  --link god-mongo:god-mongo  \
+  --link god-redis:god-redis  \
+  -v /opt/godshared:/opt/godshared \
+  -v path_to/go-d.ini:/opt/go-docker/go-d.ini \
+  -v path_to/production.ini:/opt/go-docker-web/production.ini \
+  -p 6543:6543 \
+  -e &quot;PYRAMID_ENV=prod&quot; \
+  barais/go-docker-rpi \
+  gunicorn -p godweb.pid --log-config=/opt/go-docker-web/production.ini --paste /opt/go-docker-web/production.ini
+</code></pre></div>
+<p>The first time only, you must initialize db etc...</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">docker -H $IP_ADDRESS:2378 run \
+--link god-mongo:god-mongo \
+--link god-redis:god-redis \
+-v /opt/godshared:/opt/godshared \
+-v path_to/go-d.ini:/opt/go-docker/go-d.ini \
+-e GOD_CONFIG=/opt/go-docker/go-d.ini\
+ --rm \
+ --env=&quot;constraint:node==swarm-dc1-pi01&quot; \
+ barais/go-docker-rpi \
+ /usr/bin/python /opt/go-docker/go-d-scheduler.py init
+</code></pre></div>
+<p>Run one scheduler</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">docker -H  $IP_ADDRESS:2378 run \
+  --rm \
+  --link god-mongo:god-mongo  \
+  --link god-redis:god-redis  \
+  --link god-web:god-web \
+  -v /opt/godshared:/opt/godshared \
+  -v path_to/go-d.ini:/opt/go-docker/go-d.ini \
+  -e GOD_CONFIG=/opt/go-docker/go-d.ini\
+  --env=&quot;constraint:node==swarm-dc1-pi01&quot; \
+  barais/go-docker-rpi \
+  /usr/bin/python /opt/go-docker/go-d-scheduler.py run
+</code></pre></div>
+<p>Run one or many watchers (1 is enough test or medium size production)</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">docker -H $IP_ADDRESS:2378  run \
+  --rm \
+  --link god-mongo:god-mongo  \
+  --link god-redis:god-redis  \
+  --link god-web:god-web \
+  -v /opt/godshared:/opt/godshared \
+  -v path_to/go-d.ini:/opt/go-docker/go-d.ini \
+  -e GOD_CONFIG=/opt/go-docker/go-d.ini\
+  --env=&quot;constraint:node==swarm-dc1-pi01&quot; \
+  barais/go-docker-rpi \
+  /usr/bin/python /opt/go-docker/go-d-watcher.py run
+</code></pre></div>
+<p>you can now go to <a href="http://$IP_ADDRESS:6543/">http://$IP_ADDRESS:6543/</a></p>
+
+<p>login: <em>godocker</em>
+pass: <em>admin</em></p>
+
+<h1>Step 5: Create docker image for gstreamer</h1>
+<div class="highlight"><pre><code class="language-txt" data-lang="txt">FROM resin/rpi-raspbian:wheezy
+
+MAINTAINER Olivier Barais &lt;barais@irisa.fr&gt;
+
+LABEL status=&quot;Dockerfile in development&quot;
+LABEL description=&quot;gstreamer with hardware access&quot;
+
+
+WORKDIR /
+
+ENV admin=&quot;root&quot;
+
+RUN apt-get update &amp;&amp; \
+apt-get -y upgrade &amp;&amp; \
+apt-get install gstreamer1.0-tools gstreamer1.0-omx  -y &amp;&amp; \
+apt-get install gstreamer1.0-libav gstreamer1.0-fluendo-mp3 gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly  gstreamer1.0-plugins-good  gstreamer1.0-plugins-base  -y &amp;&amp; \
+rm -rf /var/cache/apt/*.deb*
+
+CMD [&quot;gst-launch-1.0 -e filesrc location=$input.mp4 ! decodebin name=demux ! queue ! audioconvert ! audio/x-raw ! audiorate ! avenc_ac3 bitrate=320000 ! mux. mpegtsmux name=mux ! filesink location=\&quot;$output.h264\&quot; demux. ! queue ! videoconvert ! deinterlace ! omxh264enc target-bitrate=2000000 control-rate=1  ! \&quot;video/x-h264,profile=high\&quot; ! h264parse ! mux.&quot;]
+
+</code></pre></div>
+<h1>Step 6 configure all docker to run in priviledge mode</h1>
+
+<p><a href="https://docs.docker.com/engine/reference/run/#runtime-privilege-and-linux-capabilities">https://docs.docker.com/engine/reference/run/#runtime-privilege-and-linux-capabilities</a></p>
+
+<h1>Step 7: Define your workflow from Sirius</h1>
+
+<p><a href="https://eclipse.org/sirius/">Sirius</a></p>
+
+<h1>Step 8: Observe your execution using a tool based on the graph and CAdvisor.</h1>
+
+<p><a href="https://github.com/the-grid/the-graph">the-graph</a></p>
+
+<h1>Want to play with us</h1>
+
+<ul>
+<li>Join <a href="https://b-com.com/">B-COM</a> JiTter project. <a href="mailto:Christophe.DION@b-com.com;Antoine.CABOT@b-com.com;barais@irisa.fr">contact</a></li>
+</ul>
+
+                
+                <!-- the comment box -->
+<!--                 <div class="well">
+                    <h4>Leave a Comment:</h4>
+                    <form role="form">
+                        <div class="form-group">
+                            <textarea class="form-control" rows="3"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div> -->
+
+                <!-- the comments -->
+<!--                 <hr>
+ --><!--                 <h3>Start Bootstrap
+                    <small>9:41 PM on August 24, 2013</small>
+                </h3>
+                <p>This has to be the worst blog post I have ever read. It simply makes no sense. You start off by talking about space or something, then you randomly start babbling about cupcakes, and you end off with random fish names.</p>
+
+                <h3>Start Bootstrap
+                    <small>9:47 PM on August 24, 2013</small>
+                </h3>
+                <p>Don't listen to this guy, any blog with the categories 'dinosaurs, spaceships, fried foods, wild animals, alien abductions, business casual, robots, and fireworks' has true potential.</p> -->
+
+<!--             <div class="row"> -->
+<!--                 % include well.html %} -->
+<!--             </div> -->
+
+<!--             </div> -->
+<!--             % include well.html %} -->
+            
+
+            </div>
+            <div class="col-md-4">
+                <!-- <div class="col-md-4"> -->
+    <!--              
+    <div class="well">
+        <h4>Blog Search</h4>
+        <div class="input-group">
+            <input type="text" class="form-control">
+            <span class="input-group-btn">
+                <button class="btn btn-default" type="button">
+                    <span class="glyphicon glyphicon-search"></span>
+                </button>
+            </span>
+        </div>
+    </div>
+    -->
+
+    
+
+    <div class="well">
+        <div class="row">
+            <div class="col-md-6">
+                <h4>Current Tags</h4>
+                <ul class="list-unstyled">
+                    
+                    <li><a href="/blog/categories/docker/">docker</a></li> 
+                    <li><a href="/blog/categories/swarm/">swarm</a></li> 
+                    <li><a href="/blog/categories/go-docker/">go-docker</a></li> 
+                    <li><a href="/blog/categories/raspberry pi/">raspberry pi</a></li> 
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    
+
+    <div class="well">
+        <div class="row">
+            <div class="col-lg-6">
+                <h4>All Tags</h4>
+                <ul class="list-unstyled">
+                    <li><a href="/blog/">All</a></li> 
+                    <li><a href="/blog/categories/first-post/">first-post</a></li> 
+                    <li><a href="/blog/categories/jekyll/">jekyll</a></li> 
+                    <li><a href="/blog/categories/github-pages/">github-pages</a></li> 
+                    <li><a href="/blog/categories/markdown/">markdown</a></li> 
+                    <li><a href="/blog/categories/untidy/">untidy</a></li> 
+                    <li><a href="/blog/categories/teaching/">teaching</a></li> 
+                    <li><a href="/blog/categories/website/">website</a></li> 
+                    <li><a href="/blog/categories/docker/">docker</a></li> 
+                    <li><a href="/blog/categories/cloud/">cloud</a></li> 
+                    <li><a href="/blog/categories/diversify/">diversify</a></li> 
+                    <li><a href="/blog/categories/eclipse/">eclipse</a></li> 
+                    <li><a href="/blog/categories/istic/">istic</a></li> 
+                    <li><a href="/blog/categories/m2/">m2</a></li> 
+                    <li><a href="/blog/categories/french/">french</a></li> 
+                    <li><a href="/blog/categories/ensai/">ensai</a></li> 
+                    <li><a href="/blog/categories/kevoree/">kevoree</a></li> 
+                    <li><a href="/blog/categories/kevoreejs/">kevoreejs</a></li> 
+                    <li><a href="/blog/categories/edison/">edison</a></li> 
+                    <li><a href="/blog/categories/angularjs/">angularjs</a></li> 
+                    <li><a href="/blog/categories/jquery/">jquery</a></li> 
+                    <li><a href="/blog/categories/jhipster/">jhipster</a></li> 
+                    <li><a href="/blog/categories/sdn/">sdn</a></li> 
+                    <li><a href="/blog/categories/opendaylight/">opendaylight</a></li> 
+                    <li><a href="/blog/categories/software engineering/">software engineering</a></li> 
+                    <li><a href="/blog/categories/ejcp/">ejcp</a></li> 
+                    <li><a href="/blog/categories/swarm/">swarm</a></li> 
+                    <li><a href="/blog/categories/go-docker/">go-docker</a></li> 
+                    <li><a href="/blog/categories/raspberry pi/">raspberry pi</a></li> 
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="well">
+        <h4>Remark</h4>
+        <p>Sorry, no comments enabled for now because I'm using a simple static site generator (maybe I'll try out disqus another day).</p>
+        <p>
+            But if you like what you see, send me an <a href="/contact/">email</a>.
+        </p>
+    </div>
+<!-- </div> -->
+
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="banner">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3">
+                <!--                     <h2>You can check me out on</h2> -->
+                <h2>Find me on</h2>
+            </div>
+            <div class="col-lg-9">
+                <ul class="list-inline banner-social-buttons">
+                    <li><a href="http://www.linkedin.com/in/olivierbarais" class="btn btn-default btn-lg"><i class="fa fa-linkedin-square fa-fw"></i>
+                            <span class="network-name">Linkedin</span></a></li>
+                    <li><a href="https://github.com/barais" class="btn btn-default btn-lg"><i class="fa fa-github-square fa-fw"></i> <span
+                            class="network-name">Github</span></a></li>
+                    <li><a href="http://scholar.google.fr/citations?user=LV5i8X4AAAAJ&hl=en" class="btn btn-default btn-lg"><i
+                            class="fa fa-search fa-fw"></i> <span class="network-name">Scholar</span></a></li>
+                    <li><a href="https://www.google.com/+OlivierBarais?rel=author" class="btn btn-default btn-lg"><i
+                            class="fa fa-google-plus-square fa-fw"></i> <span class="network-name">google+</span></a></li>
+                    <li><a href="https://www.facebook.com/obarais" class="btn btn-default btn-lg"><i
+                            class="fa fa-facebook-square fa-fw"></i> <span class="network-name">facebook</span></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+
+</div>
+<!-- /.banner -->
+
+<footer>
+    <div class="container">
+        <div class="span12 pagination-centered" style="text-align: center">
+            <div class="row">
+                <div class="col-lg-12">
+                    <ul class="list-inline">
+                        <li><a href="/">Home</a></li>
+                        <li class="footer-menu-divider">&sdot;</li>
+                        <!-- 						<li><a href="#about">About</a></li>
+							<li class="footer-menu-divider">&sdot;</li>
+	                    -->
+                        <li><a href="/publications/">Publications</a></li>
+                        <li class="footer-menu-divider">&sdot;</li>
+                        <li><a href="/teaching/">Teaching</a></li>
+                        <li class="footer-menu-divider">&sdot;</li>
+                        <li><a href="/research/">Research</a></li>
+                        <li class="footer-menu-divider">&sdot;</li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li class="footer-menu-divider">&sdot;</li>
+                        <li><a href="/photos/">Photos</a></li>
+                        <li class="footer-menu-divider">&sdot;</li>
+                        <li><a href="/contact/">Contact</a></li>
+                    </ul>
+
+                    <p class="copyright text-muted small">
+                        <a href="http://validator.w3.org/check?uri=referer"><img src="/img/valid-html401.png"
+                            alt="Valid HTML 4.01 Frameset" height="20" width="57"></a> Built using <a href="http://jekyllrb.com/">Jekyll</a>, <a
+                            href="http://twitter.github.com/bootstrap/">Bootstrap</a> and <a href="http://startbootstrap.com">Startbootstrap</a> from <a href="http://rudametw.github.io/">Walter Rudametkin's template</a>. All
+                        source code available <a href="https://github.com/barais/barais.github.io"> here</a>. 
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Defer CSS -->
+    <script type="text/javascript">
+          var stylesheet = document.createElement('link');
+          stylesheet.href = '/assets/main-58abab6103ee78e02cfcfa062233325f.css';
+          stylesheet.rel = 'stylesheet';
+          stylesheet.type = 'text/css';
+          document.getElementsByTagName('head')[0].appendChild(stylesheet);
+    </script>
+
+<!-- Add custom CSS here -->
+<!-- <link rel="stylesheet" href="/assets/main-58abab6103ee78e02cfcfa062233325f.css"> -->
+
+<!-- Main Javascript -->
+<!-- <script src="/assets/main-f2bda5f0801b6a41743c383e9ab4635a.js"></script> -->
+<script async type="text/javascript" src="/assets/main-f2bda5f0801b6a41743c383e9ab4635a.js"></script>
+
+<!-- <script> -->
+<!-- loadStyleSheet(/assets/main-58abab6103ee78e02cfcfa062233325f.css); -->
+<!-- </script> -->
+
+<!--<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-48705379-1', 'rudametw.github.io');
+  ga('send', 'pageview');
+</script>-->
+
+
+</body>
+</html>

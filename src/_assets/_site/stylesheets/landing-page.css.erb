@@ -1,0 +1,143 @@
+body,html {
+	height: 100%;
+	width: 100%;
+/* 	background: url('<%= asset_path "noise.png" %>'); */
+}
+
+
+
+body {
+    margin-top: 60px;
+/*     margin-top: 80px; 100px is double the height of the navbar - I made it a big larger for some more space - keep it at 50px at least if you want to use the fixed top nav */
+    font-weight: 400;
+    font-size: 16px;
+}
+
+body,h1,h2,h3,h4,h5,h6 {
+	font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
+/*     font-weight: 700; */
+}
+.navbar-nav > li > a,navbar,navbar-brand,.navbar-brand,h1,h2,h3,h4,h5,h6 {
+	font-weight: 700;
+}
+
+.lead {
+	font-size: 18px;
+	font-weight: 400;
+}
+
+.well{ 
+/*     margin-top: 10px; */
+}
+
+.mypicture {
+    margin-top: 15px;    
+}
+
+.section-heading {
+	margin-bottom: 30px;
+}
+
+.section-heading-spacer {
+	border-top: 3px solid #e7e7e7;
+	width: 200px;
+	float: left;
+}
+
+.banner {
+	padding: 100px 0; 
+	color: #f8f8f8;
+/* 	background: url(/img/bay2-2.jpg) no-repeat center center; */
+	background: url('<%= asset_path "bay2-2-optimized.jpg" %>') no-repeat center center;
+	background-size: cover;
+}
+
+.banner h2 {
+	margin: 0;
+	text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
+	font-size: 3em;
+}
+
+.banner ul {
+	margin-bottom: 0;
+}
+
+.banner-social-buttons {
+	float: right;
+	margin-top: 0;
+}
+
+@media ( max-width : 1199px) {
+	ul.banner-social-buttons {
+		float: left;
+		margin-top: 15px;
+	}
+}
+
+@media ( max-width : 767px) {
+	.banner h2 {
+		margin: 0;
+		text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.6);
+		font-size: 3em;
+	}
+	ul.banner-social-buttons>li {
+		display: block;
+		margin-bottom: 20px;
+		padding: 0;
+	}
+	ul.banner-social-buttons>li:last-child {
+		margin-bottom: 0;
+	}
+}
+
+footer {
+	background-color: #f8f8f8;
+	padding: 10px 0;
+}
+
+p.copyright {
+	margin: 5px 0 0;
+}
+
+
+/* Century Schoolbook font is very similar to Computer Modern Math: cmmi */
+.MATH    { font-family: "Century Schoolbook", serif; }
+.MATH I  { font-family: "Century Schoolbook", serif; font-style: italic }
+.BOLDMATH { font-family: "Century Schoolbook", serif; font-weight: bold }
+
+/* implement both fixed-size and relative sizes */
+SMALL.XTINY		{ font-size : xx-small }
+SMALL.TINY		{ font-size : x-small  }
+SMALL.SCRIPTSIZE	{ font-size : smaller  }
+SMALL.FOOTNOTESIZE	{ font-size : small    }
+SMALL.SMALL		{  }
+BIG.LARGE		{  }
+BIG.XLARGE		{ font-size : large    }
+BIG.XXLARGE		{ font-size : x-large  }
+BIG.HUGE		{ font-size : larger   }
+BIG.XHUGE		{ font-size : xx-large }
+
+/* heading styles */
+H1		{  }
+H2		{  }
+H3		{  }
+H4		{  }
+H5		{  }
+
+/* mathematics styles */
+DIV.displaymath		{ }	/* math displays */
+TD.eqno			{ }	/* equation-number cells */
+
+
+/* document-specific styles come next */
+DIV.tiny		{   }
+DIV.small		{   }
+DIV.quote		{   }
+DIV.center		{   }
+DIV.navigation		{   }
+DIV.Huge		{   }
+SPAN.bf		{   }
+SPAN.Alph		{   }
+SPAN.textbf		{ font-weight: bold  }
+SPAN.arabic		{   }
+SPAN.textit		{ font-style: italic  }

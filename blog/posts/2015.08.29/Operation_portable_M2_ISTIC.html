@@ -119,13 +119,13 @@
 <div class="highlight"><pre><code class="language-bash" data-lang="bash">sudo apt-get update 
 sudo apt-get install apt-transport-https 
 sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 36A1D7869245C8950F966E92D8576A8BA88D21E9 
-sudo sh -c <span class="s2">&quot;echo deb https://get.docker.io/ubuntu docker main &gt; /etc/apt/sources.list.d/docker.list&quot;</span> 
+sudo sh -c &quot;echo deb https://get.docker.io/ubuntu docker main &gt; /etc/apt/sources.list.d/docker.list&quot; 
 sudo apt-get update 
 sudo apt-get install lxc-docker</code></pre></div>
 
 <p>Pour vérifier que tout est ok</p>
 
-<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>sudo docker run -i -t ubuntu /bin/bash</code></pre></div>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">$ sudo docker run -i -t ubuntu /bin/bash</code></pre></div>
 
 <p>Cette dernière commande télécharge un conteneur ubuntu minimal et démarre ce container. Pour plus de documentation sur [docker](http://fr.wikipedia.org/wiki/Docker<em>(Syst%C3%A8me</em>de<em>conteneur</em>Linux))</p>
 
@@ -144,9 +144,9 @@ sudo apt-get install lxc-docker</code></pre></div>
 <p>Installez les paquets nodejs. </p>
 
 <div class="highlight"><pre><code class="language-bash" data-lang="bash">sudo apt-get install nodejs 
-<span class="c">#tester si npm est présent, </span>
+#tester si npm est présent, 
 npm -v 
-<span class="c">#sinon </span>
+#sinon 
 sudo apt-get install npm</code></pre></div>
 
 <h3>Etape 6: VisualVM</h3>
@@ -206,7 +206,7 @@ sudo modprobe b43</code></pre></div>
 <h4>Problème ACPI (PC qui ne s&#39;éteint pas)</h4>
 
 <div class="highlight"><pre><code class="language-bash" data-lang="bash">sudo nano -w /boot/grub/menu.cfg 
-<span class="c">#Puis enlever tous les paramères, noacpi, noapic ...</span></code></pre></div>
+#Puis enlever tous les paramères, noacpi, noapic ...</code></pre></div>
 
                 
                 <!-- the comment box -->
@@ -309,6 +309,7 @@ sudo modprobe b43</code></pre></div>
                     <li><a href="/blog/categories/ejcp/">ejcp</a></li> 
                     <li><a href="/blog/categories/swarm/">swarm</a></li> 
                     <li><a href="/blog/categories/go-docker/">go-docker</a></li> 
+                    <li><a href="/blog/categories/raspberry pi/">raspberry pi</a></li> 
                 </ul>
             </div>
         </div>

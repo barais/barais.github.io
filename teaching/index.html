@@ -61,6 +61,8 @@
  		
                 
  		
+                
+ 		
                         <h1><a href="/blog/posts/2015.11.05/TPGWT.html">Quelques éléments pour le TP GWT</a></h1>
                         <p class="lead">by <a href="/contact">Olivier Barais</a>  &nbsp;&nbsp;&nbsp;
                         
@@ -93,10 +95,10 @@
 
 <p>Pour démarrer, nous pouvons utiliser l&#39;<a href="http://mojo.codehaus.org/gwt-maven-plugin/">archetype maven gwt</a>. </p>
 
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">mvn archetype:generate <span class="se">\</span>
-   -DarchetypeGroupId<span class="o">=</span>org.codehaus.mojo <span class="se">\</span>
-   -DarchetypeArtifactId<span class="o">=</span>gwt-maven-plugin <span class="se">\</span>
-   -DarchetypeVersion<span class="o">=</span>2.7.0</code></pre></div>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">mvn archetype:generate \
+   -DarchetypeGroupId=org.codehaus.mojo \
+   -DarchetypeArtifactId=gwt-maven-plugin \
+   -DarchetypeVersion=2.7.0</code></pre></div>
 
 
                         <a class="btn btn-primary" href="/blog/posts/2015.11.05/TPGWT.html">Read More<span class="glyphicon glyphicon-chevron-right"></span></a>
@@ -338,10 +340,10 @@ In order to stop the server, press CTRL-C in the console window that was opened 
 
 <p>Pour démarrer, nous pouvons utiliser l&#39;<a href="http://mojo.codehaus.org/gwt-maven-plugin/">archetype maven gwt</a>. </p>
 
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">mvn archetype:generate <span class="se">\</span>
-   -DarchetypeGroupId<span class="o">=</span>org.codehaus.mojo <span class="se">\</span>
-   -DarchetypeArtifactId<span class="o">=</span>gwt-maven-plugin <span class="se">\</span>
-   -DarchetypeVersion<span class="o">=</span>2.6.1</code></pre></div>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">mvn archetype:generate \
+   -DarchetypeGroupId=org.codehaus.mojo \
+   -DarchetypeArtifactId=gwt-maven-plugin \
+   -DarchetypeVersion=2.6.1</code></pre></div>
 
 
                         <a class="btn btn-primary" href="/blog/posts/2014.09.29/TPGWT.html">Read More<span class="glyphicon glyphicon-chevron-right"></span></a>
@@ -449,21 +451,59 @@ Rendu 16/12</li>
 
 <p>Dans votre pom.xml</p>
 
-<div class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;dependency&gt;</span>
-    <span class="nt">&lt;groupId&gt;</span>com.sun.xml.bind<span class="nt">&lt;/groupId&gt;</span>
-    <span class="nt">&lt;artifactId&gt;</span>jaxb-core<span class="nt">&lt;/artifactId&gt;</span>
-    <span class="nt">&lt;version&gt;</span>2.2.11<span class="nt">&lt;/version&gt;</span>
-<span class="nt">&lt;/dependency&gt;</span>
-  <span class="nt">&lt;dependency&gt;</span>
-    <span class="nt">&lt;groupId&gt;</span>com.sun.xml.bind<span class="nt">&lt;/groupId&gt;</span>
-    <span class="nt">&lt;artifactId&gt;</span>jaxb-impl<span class="nt">&lt;/artifactId&gt;</span>
-    <span class="nt">&lt;version&gt;</span>2.2.11<span class="nt">&lt;/version&gt;</span>
-<span class="nt">&lt;/dependency&gt;</span></code></pre></div>
+<div class="highlight"><pre><code class="language-xml" data-lang="xml">&lt;dependency&gt;
+    &lt;groupId&gt;com.sun.xml.bind&lt;/groupId&gt;
+    &lt;artifactId&gt;jaxb-core&lt;/artifactId&gt;
+    &lt;version&gt;2.2.11&lt;/version&gt;
+&lt;/dependency&gt;
+  &lt;dependency&gt;
+    &lt;groupId&gt;com.sun.xml.bind&lt;/groupId&gt;
+    &lt;artifactId&gt;jaxb-impl&lt;/artifactId&gt;
+    &lt;version&gt;2.2.11&lt;/version&gt;
+&lt;/dependency&gt;</code></pre></div>
 
 <p>Bon courgage ...</p>
 
 
                         <a class="btn btn-primary" href="/blog/posts/2014.09.29/ProjetENSAI.html">Read More<span class="glyphicon glyphicon-chevron-right"></span></a>
+ 			
+                
+ 		
+                        <h1><a href="/blog/posts/2014.08.29/Operation_portable_M2_ISTIC.html">Quelques règles pour l'installation des portables</a></h1>
+                        <p class="lead">by <a href="/contact">Olivier Barais</a>  &nbsp;&nbsp;&nbsp;
+                        
+                            
+                                    <a href="/blog/categories/teaching/"><span class="label label-primary">teaching</span></a>
+                                    &nbsp;
+                            
+                                    <a href="/blog/categories/istic/"><span class="label label-primary">istic</span></a>
+                                    &nbsp;
+                            
+                                    <a href="/blog/categories/m2/"><span class="label label-primary">m2</span></a>
+                                    &nbsp;
+                            
+                                    <a href="/blog/categories/french/"><span class="label label-primary">french</span></a>
+                                    &nbsp;
+                            
+                        </p>
+                        
+                        <span class="glyphicon glyphicon-time"></span> Posted 2014.08.29 
+                        
+                                &mdash; Rennes, France
+                        
+                        <hr>
+
+                        <p>Hello très chers étudiants,</p>
+
+<p>Vous avez la chance cette année de servir de cobaïes pour expérimenter l&#39;usage des TPs pour les M2. Nous sommes partis sur les configurations suivantes
+<a href="http://www8.hp.com/fr/fr/products/laptops/product-detail.html?oid=5405400#!tab=specs">Probook 650 avec 8GO de Ram et un I3</a></p>
+
+<h3>Etape 0: Install OS</h3>
+
+<p>Pour l&#39;install, tout marche très bien avec ubuntu 14.04. Pour ceux qui ne l&#39;ont jamais installé. Récupérez une clé usb, téléchargez <a href="http://www.ubuntu.com/download/desktop">Ubuntu Desktop 14.04 en version 64bit et Desktop</a>. Créez votre clé ucb avec par exemple <a href="http://unetbootin.sourceforge.net/">unetbootin</a>. Choisissez DiskImage et l&#39;iso que vous avez téléchargé et sélectionnez en bas votre clé usb, c&#39;est parti. (10 mins de travail, un reboot et c&#39;est bon)</p>
+
+
+                        <a class="btn btn-primary" href="/blog/posts/2014.08.29/Operation_portable_M2_ISTIC.html">Read More<span class="glyphicon glyphicon-chevron-right"></span></a>
  			
                 
  		
@@ -502,44 +542,6 @@ Pour l'install, tout marche très bien avec ubuntu 14.04. Pour ceux qui ne l'ont
 
 
 
-
-
-                        <a class="btn btn-primary" href="/blog/posts/2014.08.29/Operation_portable_M2_ISTIC.html">Read More<span class="glyphicon glyphicon-chevron-right"></span></a>
- 			
-                
- 		
-                        <h1><a href="/blog/posts/2014.08.29/Operation_portable_M2_ISTIC.html">Quelques règles pour l'installation des portables</a></h1>
-                        <p class="lead">by <a href="/contact">Olivier Barais</a>  &nbsp;&nbsp;&nbsp;
-                        
-                            
-                                    <a href="/blog/categories/teaching/"><span class="label label-primary">teaching</span></a>
-                                    &nbsp;
-                            
-                                    <a href="/blog/categories/istic/"><span class="label label-primary">istic</span></a>
-                                    &nbsp;
-                            
-                                    <a href="/blog/categories/m2/"><span class="label label-primary">m2</span></a>
-                                    &nbsp;
-                            
-                                    <a href="/blog/categories/french/"><span class="label label-primary">french</span></a>
-                                    &nbsp;
-                            
-                        </p>
-                        
-                        <span class="glyphicon glyphicon-time"></span> Posted 2014.08.29 
-                        
-                                &mdash; Rennes, France
-                        
-                        <hr>
-
-                        <p>Hello très chers étudiants,</p>
-
-<p>Vous avez la chance cette année de servir de cobaïes pour expérimenter l&#39;usage des TPs pour les M2. Nous sommes partis sur les configurations suivantes
-<a href="http://www8.hp.com/fr/fr/products/laptops/product-detail.html?oid=5405400#!tab=specs">Probook 650 avec 8GO de Ram et un I3</a></p>
-
-<h3>Etape 0: Install OS</h3>
-
-<p>Pour l&#39;install, tout marche très bien avec ubuntu 14.04. Pour ceux qui ne l&#39;ont jamais installé. Récupérez une clé usb, téléchargez <a href="http://www.ubuntu.com/download/desktop">Ubuntu Desktop 14.04 en version 64bit et Desktop</a>. Créez votre clé ucb avec par exemple <a href="http://unetbootin.sourceforge.net/">unetbootin</a>. Choisissez DiskImage et l&#39;iso que vous avez téléchargé et sélectionnez en bas votre clé usb, c&#39;est parti. (10 mins de travail, un reboot et c&#39;est bon)</p>
 
 
                         <a class="btn btn-primary" href="/blog/posts/2014.08.29/Operation_portable_M2_ISTIC.html">Read More<span class="glyphicon glyphicon-chevron-right"></span></a>

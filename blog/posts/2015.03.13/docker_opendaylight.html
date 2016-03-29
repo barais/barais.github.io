@@ -88,17 +88,17 @@
 <p>First install one of the last version of <a href="http://openvswitch.org/download/">ovs</a>.</p>
 
 <p>Next install <a href="https://www.docker.com/">docker</a></p>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c">#Install ovs-docker as root</span>
-<span class="nb">cd</span> /usr/bin
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">#Install ovs-docker as root
+cd /usr/bin
 wget https://raw.githubusercontent.com/openvswitch/ovs/master/utilities/ovs-docker
 chmod a+rwx ovs-docker
 </code></pre></div>
 <h1>Step 1 Docker and Openvswitch</h1>
 
 <p>Manually create a first bridge to test. </p>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c">#Create your bridge</span>
-ovs-vsctl add-br ovs-br1            <span class="c"># create a bridge named &#39;ovs-br1&#39;</span>
-ovs-vsctl add-port ovs-br1 eth0     <span class="c"># attach eth0 to ovs-br1</span>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">#Create your bridge
+ovs-vsctl add-br ovs-br1            # create a bridge named &#39;ovs-br1&#39;
+ovs-vsctl add-port ovs-br1 eth0     # attach eth0 to ovs-br1
 ifconfig ovs-br1 173.16.1.1 netmask 255.255.255.0 up
 </code></pre></div>
 <p>Start two containers in different consoles</p>
@@ -121,10 +121,10 @@ ovs-docker add-port ovs-br1 eth1 container2 173.16.1.3/24
 
 <p>Check you use Java 7.</p>
 <div class="highlight"><pre><code class="language-bash" data-lang="bash"> git clone -b release/helium-sr2 https://git.opendaylight.org/gerrit/p/integration.git helium-integ-pristin 
-<span class="nb">cd  </span>helium-integ-pristin
+cd  helium-integ-pristin
 mvn clean install -DskipTests
 
-<span class="nb">cd </span>distributions/extra/karaf/target/assembly/
+cd distributions/extra/karaf/target/assembly/
 ./karaf
 </code></pre></div>
 <p>In karaf console, install the following feature</p>
@@ -133,17 +133,17 @@ mvn clean install -DskipTests
 <p>Next in another console</p>
 
 <p>Set Controller (opendaylight ip)</p>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">export </span><span class="nv">ip</span><span class="o">=</span>127.0.0.1
-<span class="nb">export </span><span class="nv">port</span><span class="o">=</span>6633
-ovs-vsctl <span class="nb">set</span>-controller ovs-br0 tcp:<span class="nv">$ip</span>:<span class="nv">$port</span>
-<span class="c">#Verify Connection</span>
- ovs-vsctl list controller        <span class="c"># verify that it&#39;s actively connected</span>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">export ip=127.0.0.1
+export port=6633
+ovs-vsctl set-controller ovs-br0 tcp:$ip:$port
+#Verify Connection
+ ovs-vsctl list controller        # verify that it&#39;s actively connected
 </code></pre></div>
 <p>Connect to <a href="http://localhost:9000/DLUX/index.html">dlux</a> and check you can see your containers. </p>
 
 <h1>Step 3 Create your own learning switch to connect your container</h1>
 <div class="highlight"><pre><code class="language-bash" data-lang="bash">git clone -b release/helium-sr2 https://git.opendaylight.org/gerrit/p/openflowplugin.git openflowplugin
-<span class="nb">cd </span>openflowplugin/samples/learning-switch
+cd openflowplugin/samples/learning-switch
 mvn clean install -DskipTests
 </code></pre></div>
 <p>create a ping between your two docker containers. </p>
@@ -266,6 +266,7 @@ start bundlenumber
                     <li><a href="/blog/categories/ejcp/">ejcp</a></li> 
                     <li><a href="/blog/categories/swarm/">swarm</a></li> 
                     <li><a href="/blog/categories/go-docker/">go-docker</a></li> 
+                    <li><a href="/blog/categories/raspberry pi/">raspberry pi</a></li> 
                 </ul>
             </div>
         </div>

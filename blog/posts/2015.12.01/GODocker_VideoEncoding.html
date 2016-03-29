@@ -93,10 +93,10 @@ combination with the scale and elasticity of the cloud. The providing service wi
 <div class="highlight"><pre><code class="language-bash" data-lang="bash">docker pull swarm
 docker run --rm swarm create
 &gt; 7c99516aee4662826684dde48f60361f
-<span class="c">#get the id. Replace in the next commands</span>
+#get the id. Replace in the next commands
 </code></pre></div>
 <p>Next join the swarm (replace the token in the following commands):</p>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">docker run -d swarm join --addr<span class="o">=</span>172.17.0.1:2375 token://7c99516aee4662826684dde48f60361f
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">docker run -d swarm join --addr=172.17.0.1:2375 token://7c99516aee4662826684dde48f60361f
 </code></pre></div>
 <p>Finally launch the manager</p>
 <div class="highlight"><pre><code class="language-bash" data-lang="bash">docker run -d -p 2378:2375 swarm manage token://7c99516aee4662826684dde48f60361f
@@ -105,7 +105,7 @@ docker run --rm swarm create
 <div class="highlight"><pre><code class="language-bash" data-lang="bash">docker -H tcp://localhost:2378 info
 </code></pre></div>
 <p>You should get something like that</p>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="m">78</span> info
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">78 info
 Containers: 104
 Images: 37
 Role: primary
@@ -114,9 +114,9 @@ Filters: health, port, dependency, affinity, constraint
 Nodes: 1
  head-demo: 172.17.0.1:2375
   └ Containers: 104
-  └ Reserved CPUs: <span class="m">4</span> / 4
-  └ Reserved Memory: <span class="m">4</span> GiB / 16.35 GiB
-  └ Labels: <span class="nv">executiondriver</span><span class="o">=</span>native-0.2, <span class="nv">kernelversion</span><span class="o">=</span>4.2.0-18-generic, <span class="nv">operatingsystem</span><span class="o">=</span>Ubuntu 15.10, <span class="nv">storagedriver</span><span class="o">=</span>overlay
+  └ Reserved CPUs: 4 / 4
+  └ Reserved Memory: 4 GiB / 16.35 GiB
+  └ Labels: executiondriver=native-0.2, kernelversion=4.2.0-18-generic, operatingsystem=Ubuntu 15.10, storagedriver=overlay
 CPUs: 4
 Total Memory: 16.35 GiB
 Name: 0a478e14e47e
@@ -148,49 +148,49 @@ on host AND container as final job will end in a host container needing the same
 shared_dir parameter in go-d.ini configuration file must be changed accordingly.</p>
 <div class="highlight"><pre><code class="language-bash" data-lang="bash">mkdir /opt/godshared
 mkdir /tmp/vid
-</code></pre></div><div class="highlight"><pre><code class="language-bash" data-lang="bash">docker -H localhost:2378  run <span class="se">\</span>
-  --rm <span class="se">\</span>
+</code></pre></div><div class="highlight"><pre><code class="language-bash" data-lang="bash">docker -H localhost:2378  run \
+  --rm \
   --name god-web
-  --link god-mongo:god-mongo  <span class="se">\</span>
-  --link god-redis:god-redis  <span class="se">\</span>
-  -v /opt/godshared:/opt/godshared <span class="se">\</span>
-  -v path_to/go-d.ini:/opt/go-docker/go-d.ini <span class="se">\</span>
-  -v path_to/production.ini:/opt/go-docker-web/production.ini <span class="se">\</span>
-  -p 6543:6543 <span class="se">\</span>
-  -e <span class="s2">&quot;PYRAMID_ENV=prod&quot;</span> <span class="se">\</span>
-  osallou/go-docker <span class="se">\</span>
-  gunicorn -p godweb.pid --log-config<span class="o">=</span>/opt/go-docker-web/production.ini --paste /opt/go-docker-web/production.ini
+  --link god-mongo:god-mongo  \
+  --link god-redis:god-redis  \
+  -v /opt/godshared:/opt/godshared \
+  -v path_to/go-d.ini:/opt/go-docker/go-d.ini \
+  -v path_to/production.ini:/opt/go-docker-web/production.ini \
+  -p 6543:6543 \
+  -e &quot;PYRAMID_ENV=prod&quot; \
+  osallou/go-docker \
+  gunicorn -p godweb.pid --log-config=/opt/go-docker-web/production.ini --paste /opt/go-docker-web/production.ini
 </code></pre></div>
 <p>The first time only, you must initialize db etc...</p>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">docker -H localhost:2378 run <span class="se">\</span>
---link god-mongo:god-mongo <span class="se">\</span>
---link god-redis:god-redis <span class="se">\</span>
--v /opt/godshared:/opt/godshared <span class="se">\</span>
--v path_to/go-d.ini:/opt/go-docker/go-d.ini <span class="se">\</span>
- --rm <span class="se">\</span>
- osallou/go-docker <span class="se">\</span>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">docker -H localhost:2378 run \
+--link god-mongo:god-mongo \
+--link god-redis:god-redis \
+-v /opt/godshared:/opt/godshared \
+-v path_to/go-d.ini:/opt/go-docker/go-d.ini \
+ --rm \
+ osallou/go-docker \
  /usr/bin/python go-d-scheduler.py init
 </code></pre></div>
 <p>Run one scheduler</p>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">docker -H  localhost:2378 run <span class="se">\</span>
-  --rm <span class="se">\</span>
-  --link god-mongo:god-mongo  <span class="se">\</span>
-  --link god-redis:god-redis  <span class="se">\</span>
-  --link god-web:god-web <span class="se">\</span>
-  -v /opt/godshared:/opt/godshared <span class="se">\</span>
-  -v path_to/go-d.ini:/opt/go-docker/go-d.ini <span class="se">\</span>
-  osallou/go-docker <span class="se">\</span>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">docker -H  localhost:2378 run \
+  --rm \
+  --link god-mongo:god-mongo  \
+  --link god-redis:god-redis  \
+  --link god-web:god-web \
+  -v /opt/godshared:/opt/godshared \
+  -v path_to/go-d.ini:/opt/go-docker/go-d.ini \
+  osallou/go-docker \
   /usr/bin/python go-d-scheduler.py run
 </code></pre></div>
 <p>Run one or many watchers (1 is enough test or medium size production)</p>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">docker -H localhost:2378  run <span class="se">\</span>
-  --rm <span class="se">\</span>
-  --link god-mongo:god-mongo  <span class="se">\</span>
-  --link god-redis:god-redis  <span class="se">\</span>
-  --link god-web:god-web <span class="se">\</span>
-  -v /opt/godshared:/opt/godshared <span class="se">\</span>
-  -v path_to/go-d.ini:/opt/go-docker/go-d.ini <span class="se">\</span>
-  osallou/go-docker <span class="se">\</span>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">docker -H localhost:2378  run \
+  --rm \
+  --link god-mongo:god-mongo  \
+  --link god-redis:god-redis  \
+  --link god-web:god-web \
+  -v /opt/godshared:/opt/godshared \
+  -v path_to/go-d.ini:/opt/go-docker/go-d.ini \
+  osallou/go-docker \
   /usr/bin/python go-d-watcher.py run
 </code></pre></div>
 <h1>Step 3 Create and schedule tasks</h1>
@@ -210,7 +210,7 @@ In the project, create a project test and add godocker as a member and add a sha
 <p>Next go to the godocker (top right) link. 
 and get the APIKEY</p>
 <div class="highlight"><pre><code class="language-bash" data-lang="bash">~/.local/bin/godlogin -a &lt;APIKEY&gt; -l godocker -s http://localhost:6543/ --no-certificate
-</code></pre></div><div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">cd</span> /tmp/vid
+</code></pre></div><div class="highlight"><pre><code class="language-bash" data-lang="bash">cd /tmp/vid
 mkdir /tmp
 wget http://arcagenis.org/mirror/mango/ToS/tears_of_steel_1080p.mkv
 </code></pre></div>
@@ -222,16 +222,17 @@ wget http://arcagenis.org/mirror/mango/ToS/tears_of_steel_1080p.mkv
 </ul>
 
 <p>Run the followind three command</p>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">SPLIT</span><span class="o">=</span><span class="sb">`</span>~/.local/bin/godjob create  --external_image    -n split -d <span class="s2">&quot;Jit Split&quot;</span>   -p <span class="nb">test</span> -i barais/ffmpeg -s split.sh <span class="p">|</span> sed -r <span class="s1">&#39;s/Task added. Job id is //g&#39;</span><span class="sb">`</span>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">SPLIT=`~/.local/bin/godjob create  --external_image    -n split -d &quot;Jit Split&quot;   -p test -i barais/ffmpeg -s split.sh | sed -r &#39;s/Task added. Job id is //g&#39;`
 
 
-<span class="k">for</span> f in /tmp/vid/tmp/*.sh<span class="p">;</span> <span class="k">do</span> <span class="nb">echo</span> <span class="s2">&quot;`~/.local/bin/godjob create  --external_image    -n encode -d &quot;</span>Jit Encode<span class="s2">&quot; -c 1 --parent &quot;</span><span class="nv">$SPLIT</span><span class="s2">&quot;  -p test -i barais/ffmpeg -s $f | sed -r &#39;s/Task added. Job id is //g&#39;`,&quot;</span> &gt;&gt; /tmp/vid/tmp/listprocess  <span class="p">;</span> <span class="k">done</span> <span class="o">&amp;&amp;</span> <span class="nv">PROCESS</span><span class="o">=</span><span class="sb">`</span>cat  /tmp/vid/tmp/listprocess <span class="p">|</span> tr -d <span class="s1">&#39;\n&#39;</span><span class="sb">`</span>
+for f in /tmp/vid/tmp/*.sh; do echo &quot;`~/.local/bin/godjob create  --external_image    -n encode -d &quot;Jit Encode&quot; -c 1 --parent &quot;$SPLIT&quot;  -p test -i barais/ffmpeg -s $f | sed -r &#39;s/Task added. Job id is //g&#39;`,&quot; &gt;&gt; /tmp/vid/tmp/listprocess  ; done &amp;&amp; PROCESS=`cat  /tmp/vid/tmp/listprocess | tr -d &#39;\n&#39;`
 
 
-~/.local/bin/godjob create  --external_image    -n merge -d <span class="s2">&quot;Jit Merge and Clean&quot;</span>  -c <span class="m">1</span> --parent <span class="s2">&quot;${PROCESS-1}&quot;</span> -p <span class="nb">test</span> -i barais/ffmpeg -s mergeandclean.sh
+~/.local/bin/godjob create  --external_image    -n merge -d &quot;Jit Merge and Clean&quot;  -c 1 --parent &quot;${PROCESS-1}&quot; -p test -i barais/ffmpeg -s mergeandclean.sh
+
 </code></pre></div>
 <p>You can also run everythin in one command</p>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">mkdir /tmp/vid/tmp <span class="o">&amp;&amp;</span> <span class="nv">SPLIT</span><span class="o">=</span><span class="sb">`</span>~/.local/bin/godjob create  --external_image    -n split -d <span class="s2">&quot;Jit Split&quot;</span>   -p <span class="nb">test</span> -i barais/ffmpeg -s split.sh <span class="p">|</span> sed -r <span class="s1">&#39;s/Task added. Job id is //g&#39;</span><span class="sb">`</span> <span class="o">&amp;&amp;</span> <span class="k">for</span> f in /tmp/vid/tmp/*.sh<span class="p">;</span> <span class="k">do</span> <span class="nb">echo</span> <span class="s2">&quot;`~/.local/bin/godjob create  --external_image    -n encode -d &quot;</span>Jit Encode<span class="s2">&quot; -c 1 --parent &quot;</span><span class="nv">$SPLIT</span><span class="s2">&quot;  -p test -i barais/ffmpeg -s $f | sed -r &#39;s/Task added. Job id is //g&#39;`,&quot;</span> &gt;&gt; /tmp/vid/tmp/listprocess  <span class="p">;</span> <span class="k">done</span> <span class="o">&amp;&amp;</span> <span class="nv">PROCESS</span><span class="o">=</span><span class="sb">`</span>cat  /tmp/vid/tmp/listprocess <span class="p">|</span> tr -d <span class="s1">&#39;\n&#39;</span><span class="sb">`</span> ~/.local/bin/godjob create  --external_image    -n merge -d <span class="s2">&quot;Jit Merge and Clean&quot;</span>  -c <span class="m">1</span> --parent <span class="s2">&quot;${PROCESS-1}&quot;</span> -p <span class="nb">test</span> -i barais/ffmpeg -s mergeandclean.sh
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">mkdir /tmp/vid/tmp &amp;&amp; SPLIT=`~/.local/bin/godjob create  --external_image    -n split -d &quot;Jit Split&quot;   -p test -i barais/ffmpeg -s split.sh | sed -r &#39;s/Task added. Job id is //g&#39;` &amp;&amp; for f in /tmp/vid/tmp/*.sh; do echo &quot;`~/.local/bin/godjob create  --external_image    -n encode -d &quot;Jit Encode&quot; -c 1 --parent &quot;$SPLIT&quot;  -p test -i barais/ffmpeg -s $f | sed -r &#39;s/Task added. Job id is //g&#39;`,&quot; &gt;&gt; /tmp/vid/tmp/listprocess  ; done &amp;&amp; PROCESS=`cat  /tmp/vid/tmp/listprocess | tr -d &#39;\n&#39;` ~/.local/bin/godjob create  --external_image    -n merge -d &quot;Jit Merge and Clean&quot;  -c 1 --parent &quot;${PROCESS-1}&quot; -p test -i barais/ffmpeg -s mergeandclean.sh
 </code></pre></div>
 <p>Next you can easily install cAdvisor and grafana. Just modify to go-d.ini file. </p>
 
@@ -366,6 +367,7 @@ wget http://arcagenis.org/mirror/mango/ToS/tears_of_steel_1080p.mkv
                     <li><a href="/blog/categories/ejcp/">ejcp</a></li> 
                     <li><a href="/blog/categories/swarm/">swarm</a></li> 
                     <li><a href="/blog/categories/go-docker/">go-docker</a></li> 
+                    <li><a href="/blog/categories/raspberry pi/">raspberry pi</a></li> 
                 </ul>
             </div>
         </div>

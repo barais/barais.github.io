@@ -79,37 +79,38 @@
 <!--more-->
 
 <p>In JQuery, we often use the document.ready function to know if the dom is ready to be handled by JQuery. Of course, it does not work with AngularJs. Nevertheless, in the controler, you can easily add</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="kd">function</span> <span class="nx">myController</span><span class="p">(</span><span class="nx">$scope</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">$scope</span><span class="p">.</span><span class="nx">$on</span><span class="p">(</span><span class="s1">&#39;$viewContentLoaded&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span><span class="cm">/*your code here*/</span><span class="p">});</span>
-<span class="p">}</span>
+<div class="highlight"><pre><code class="language-js" data-lang="js">function myController($scope) {
+    $scope.$on(&#39;$viewContentLoaded&#39;, function(){/*your code here*/});
+}
 </code></pre></div>
 <p>In my case, I obtain the following code for integrating this <a href="http://zurb.com/playground/javascript-annotation-plugin">lib</a>.</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span class="s1">&#39;use strict&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><code class="language-js" data-lang="js">&#39;use strict&#39;;
 
-<span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">&#39;jhipsterApp&#39;</span><span class="p">)</span>
-    <span class="p">.</span><span class="nx">controller</span><span class="p">(</span><span class="s1">&#39;MainController&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">$scope</span><span class="p">,</span> <span class="nx">Principal</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nx">Principal</span><span class="p">.</span><span class="nx">identity</span><span class="p">().</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">account</span><span class="p">)</span> <span class="p">{</span>
-            <span class="nx">$scope</span><span class="p">.</span><span class="nx">account</span> <span class="o">=</span> <span class="nx">account</span><span class="p">;</span>
-            <span class="nx">$scope</span><span class="p">.</span><span class="nx">isAuthenticated</span> <span class="o">=</span> <span class="nx">Principal</span><span class="p">.</span><span class="nx">isAuthenticated</span><span class="p">;</span>
-        <span class="p">});</span>
-        <span class="nx">$scope</span><span class="p">.</span><span class="nx">$on</span><span class="p">(</span><span class="s1">&#39;$viewContentLoaded&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span>
-          <span class="kd">function</span> <span class="nx">blackNote</span><span class="p">()</span> <span class="p">{</span>
-            <span class="k">return</span> <span class="nx">$</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;span&#39;</span><span class="p">)).</span>
-              <span class="nx">addClass</span><span class="p">(</span><span class="s1">&#39;black circle note&#39;</span><span class="p">)</span>
-          <span class="p">}</span>
-          <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#nutmeg&#39;</span><span class="p">).</span><span class="nx">get</span><span class="p">());</span>
-          <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#nutmeg&#39;</span><span class="p">).</span><span class="nx">annotatableImage</span><span class="p">(</span><span class="nx">blackNote</span><span class="p">);</span>
+angular.module(&#39;jhipsterApp&#39;)
+    .controller(&#39;MainController&#39;, function ($scope, Principal) {
+        Principal.identity().then(function(account) {
+            $scope.account = account;
+            $scope.isAuthenticated = Principal.isAuthenticated;
+        });
+        $scope.$on(&#39;$viewContentLoaded&#39;, function(){
+          function blackNote() {
+            return $(document.createElement(&#39;span&#39;)).
+              addClass(&#39;black circle note&#39;)
+          }
+          console.log($(&#39;#nutmeg&#39;).get());
+          $(&#39;#nutmeg&#39;).annotatableImage(blackNote);
 
-          <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#serialize&#39;</span><span class="p">).</span><span class="nx">click</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">){</span>
-            <span class="nx">event</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">();</span>
-            <span class="nx">$</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#nutmeg span.note&#39;</span><span class="p">).</span><span class="nx">seralizeAnnotations</span><span class="p">(),</span> <span class="kd">function</span><span class="p">(){</span>
-              <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;x: &#39;</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">x</span> <span class="o">+</span> <span class="s1">&#39; y: &#39;</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">y</span> <span class="o">+</span> <span class="s1">&#39; response_time: &#39;</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">response_time</span> <span class="o">+</span> <span class="s1">&#39;ms&#39;</span><span class="p">);</span>
-            <span class="p">});</span>
+          $(&#39;#serialize&#39;).click(function(event){
+            event.preventDefault();
+            $.each($(&#39;#nutmeg span.note&#39;).seralizeAnnotations(), function(){
+              console.log(&#39;x: &#39; + this.x + &#39; y: &#39; + this.y + &#39; response_time: &#39; + this.response_time + &#39;ms&#39;);
+            });
 
-          <span class="p">});</span>
-        <span class="p">});</span>
+          });
+        });
 
-    <span class="p">});</span>
+    });
+
 </code></pre></div>
 <p>Of course, it is better to use angularjs directives – that would be the cleanest way of solving this problem. The proposed solution   will work but isn’t very ‘Angular’.</p>
 
@@ -212,6 +213,7 @@
                     <li><a href="/blog/categories/ejcp/">ejcp</a></li> 
                     <li><a href="/blog/categories/swarm/">swarm</a></li> 
                     <li><a href="/blog/categories/go-docker/">go-docker</a></li> 
+                    <li><a href="/blog/categories/raspberry pi/">raspberry pi</a></li> 
                 </ul>
             </div>
         </div>

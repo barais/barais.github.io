@@ -1,0 +1,231 @@
+<p>The idea is to propose an initial solution to securely manages high-volume live and on demand video encoding solutions in
+combination with the scale and elasticity of the cloud. The providing service will automatically provisions and dynamically scales docker instances, and can seamlessly integrate those resources with on site infrastructure to instantly expand video processing capacity. This flexibility enables video providers to rapidly enhance multiscreen video offerings, grow audiences, generate greater revenues, and decrease capital expenses.</p>
+
+<!--more-->
+
+<p>In this example, we will build an initial proof of concept for video encoding using <a href="http://www.genouest.org/godocker/">go-docker</a>, <a href="https://docs.docker.com/swarm/">docker swarm</a>, <a href="https://github.com/google/cadvisor">cAdvisor</a>, <a href="http://grafana.org/">grafana</a> and <a href="https://influxdb.com/">influxDB</a>.</p>
+
+<h1 id="step-1-docker-swarm-installation">Step 1: Docker swarm installation</h1>
+
+<p>You can follow this tutorial
+<a href="https://docs.docker.com/swarm/install-manual/">docker swarm installation</a></p>
+
+<p>To summary</p>
+
+<p><code>bash
+docker pull swarm
+docker run --rm swarm create
+&gt; 7c99516aee4662826684dde48f60361f
+#get the id. Replace in the next commands
+</code></p>
+
+<p>Next join the swarm (replace the token in the following commands):</p>
+
+<p><code>bash
+docker run -d swarm join --addr=172.17.0.1:2375 token://7c99516aee4662826684dde48f60361f
+</code></p>
+
+<p>Finally launch the manager</p>
+
+<p><code>bash
+docker run -d -p 2378:2375 swarm manage token://7c99516aee4662826684dde48f60361f
+</code></p>
+
+<p>check it works.</p>
+
+<p><code>bash
+docker -H tcp://localhost:2378 info
+</code></p>
+
+<p>You should get something like that</p>
+
+<p><code>bash
+78 info
+Containers: 104
+Images: 37
+Role: primary
+Strategy: spread
+Filters: health, port, dependency, affinity, constraint
+Nodes: 1
+ head-demo: 172.17.0.1:2375
+  └ Containers: 104
+  └ Reserved CPUs: 4 / 4
+  └ Reserved Memory: 4 GiB / 16.35 GiB
+  └ Labels: executiondriver=native-0.2, kernelversion=4.2.0-18-generic, operatingsystem=Ubuntu 15.10, storagedriver=overlay
+CPUs: 4
+Total Memory: 16.35 GiB
+Name: 0a478e14e47e
+</code></p>
+
+<h1 id="step-2-install-go-docker">Step 2 Install go-docker</h1>
+
+<h2 id="requirements">Requirements</h2>
+
+<p>Mongodb and Redis are required. Either install them on a server, or get them in containers:</p>
+
+<p>Run god-mongo god-redis.</p>
+
+<p><code>bash
+docker rm god-mongo god-redis god-web
+docker -H localhost:2378  run --name god-mongo -d mongo
+docker -H localhost:2378  run --name god-redis -d redis
+</code></p>
+
+<h2 id="running-components">Running components</h2>
+<p>Run the web server, interface is reachable at http://localhost:6543</p>
+
+<p>Get the following config file</p>
+
+<ul>
+  <li><a href="../../../docs/godocker/go-d.ini">go-d.ini</a></li>
+  <li><a href="../../../docs/godocker/production.ini">production.ini</a></li>
+</ul>
+
+<p>Warning: data shared directory (here /opt/godshared) must match
+on host AND container as final job will end in a host container needing the same volume directory.
+shared_dir parameter in go-d.ini configuration file must be changed accordingly.</p>
+
+<p><code>bash
+mkdir /opt/godshared
+mkdir /tmp/vid
+</code></p>
+
+<p><code>bash
+docker -H localhost:2378  run \
+  --rm \
+  --name god-web
+  --link god-mongo:god-mongo  \
+  --link god-redis:god-redis  \
+  -v /opt/godshared:/opt/godshared \
+  -v path_to/go-d.ini:/opt/go-docker/go-d.ini \
+  -v path_to/production.ini:/opt/go-docker-web/production.ini \
+  -p 6543:6543 \
+  -e "PYRAMID_ENV=prod" \
+  osallou/go-docker \
+  gunicorn -p godweb.pid --log-config=/opt/go-docker-web/production.ini --paste /opt/go-docker-web/production.ini
+</code></p>
+
+<p>The first time only, you must initialize db etc…</p>
+
+<p><code>bash
+docker -H localhost:2378 run \
+--link god-mongo:god-mongo \
+--link god-redis:god-redis \
+-v /opt/godshared:/opt/godshared \
+-v path_to/go-d.ini:/opt/go-docker/go-d.ini \
+ --rm \
+ osallou/go-docker \
+ /usr/bin/python go-d-scheduler.py init
+</code></p>
+
+<p>Run one scheduler</p>
+
+<p><code>bash
+docker -H  localhost:2378 run \
+  --rm \
+  --link god-mongo:god-mongo  \
+  --link god-redis:god-redis  \
+  --link god-web:god-web \
+  -v /opt/godshared:/opt/godshared \
+  -v path_to/go-d.ini:/opt/go-docker/go-d.ini \
+  osallou/go-docker \
+  /usr/bin/python go-d-scheduler.py run
+</code></p>
+
+<p>Run one or many watchers (1 is enough test or medium size production)</p>
+
+<p><code>bash
+docker -H localhost:2378  run \
+  --rm \
+  --link god-mongo:god-mongo  \
+  --link god-redis:god-redis  \
+  --link god-web:god-web \
+  -v /opt/godshared:/opt/godshared \
+  -v path_to/go-d.ini:/opt/go-docker/go-d.ini \
+  osallou/go-docker \
+  /usr/bin/python go-d-watcher.py run
+</code></p>
+
+<h1 id="step-3-create-and-schedule-tasks">Step 3 Create and schedule tasks</h1>
+
+<p>Install godocker cli.
+<code>bash
+pip install godocker_cli
+</code></p>
+
+<p>Configure your go-docker</p>
+
+<p>Go to http://localhost:6543/
+In the project, create a project test and add godocker as a member and add a share folder /tmp/vid video volume.</p>
+
+<p><a href="../../../docs/godocker/image.png"><img src="../../../docs/godocker/image.png" width="750" /></a></p>
+
+<p>Next go to the godocker (top right) link. 
+and get the APIKEY</p>
+
+<p><code>bash
+~/.local/bin/godlogin -a &lt;APIKEY&gt; -l godocker -s http://localhost:6543/ --no-certificate
+</code></p>
+
+<p><code>bash
+cd /tmp/vid
+mkdir /tmp
+wget http://arcagenis.org/mirror/mango/ToS/tears_of_steel_1080p.mkv
+</code></p>
+
+<p>Next download the two following scripts</p>
+
+<ul>
+  <li><a href="../../../docs/godocker/split.sh">split.sh</a></li>
+  <li><a href="../../../docs/godocker/mergeandclean.sh">mergeandclean.sh</a></li>
+</ul>
+
+<p>Run the followind three command</p>
+
+<p>```bash
+SPLIT=<code>~/.local/bin/godjob create  --external_image    -n split -d "Jit Split"   -p test -i barais/ffmpeg -s split.sh | sed -r 's/Task added. Job id is //g'</code></p>
+
+<p>for f in /tmp/vid/tmp/*.sh; do echo “<code>~/.local/bin/godjob create  --external_image    -n encode -d "Jit Encode" -c 1 --parent "$SPLIT"  -p test -i barais/ffmpeg -s $f | sed -r 's/Task added. Job id is //g'</code>,” » /tmp/vid/tmp/listprocess  ; done &amp;&amp; PROCESS=<code>cat  /tmp/vid/tmp/listprocess | tr -d '\n'</code></p>
+
+<p>~/.local/bin/godjob create  –external_image    -n merge -d “Jit Merge and Clean”  -c 1 –parent “${PROCESS-1}” -p test -i barais/ffmpeg -s mergeandclean.sh</p>
+
+<p>```</p>
+
+<p>You can also run everythin in one command</p>
+
+<p><code>bash
+mkdir /tmp/vid/tmp &amp;&amp; SPLIT=`~/.local/bin/godjob create  --external_image    -n split -d "Jit Split"   -p test -i barais/ffmpeg -s split.sh | sed -r 's/Task added. Job id is //g'` &amp;&amp; for f in /tmp/vid/tmp/*.sh; do echo "`~/.local/bin/godjob create  --external_image    -n encode -d "Jit Encode" -c 1 --parent "$SPLIT"  -p test -i barais/ffmpeg -s $f | sed -r 's/Task added. Job id is //g'`," &gt;&gt; /tmp/vid/tmp/listprocess  ; done &amp;&amp; PROCESS=`cat  /tmp/vid/tmp/listprocess | tr -d '\n'` ~/.local/bin/godjob create  --external_image    -n merge -d "Jit Merge and Clean"  -c 1 --parent "${PROCESS-1}" -p test -i barais/ffmpeg -s mergeandclean.sh
+</code></p>
+
+<p>Next you can easily install cAdvisor and grafana. Just modify to go-d.ini file.</p>
+
+<h1 id="next-steps">Next steps</h1>
+
+<h2 id="technical-details">Technical details</h2>
+
+<ul>
+  <li>Use go-docker env variables to encode in a task specific folder.</li>
+  <li>Use <a href="http://www.gluster.org/">glusterfs</a> to share volumes and compare the performance with the use of a simple nfs filse system. Does it matter for such a use case.</li>
+  <li>Decrease docker ffmpeg image size.</li>
+  <li>Finish a small portable demonstrator based on four raspberry pis 2 (within this <a href="http://www.ldlc.com/fiche/PB00168033.html">box</a>).</li>
+  <li>Do the same experience with <a href="https://tools.taskcluster.net/">mozilla taskcluster</a> to compare with go-docker.</li>
+</ul>
+
+<h2 id="scientific-breakthroughs">Scientific Breakthroughs</h2>
+
+<ul>
+  <li>Allow to share hardware capabilities such as GPU encoding facilities with go-docker.</li>
+  <li>Define a standard librairies of video processing micro-services.</li>
+  <li>Provide dataflow tempate to let user specify video processing flows. (We will use <a href="http://nodered.org/">node-red</a> to test).</li>
+  <li>Provide an extenstible framework for creating and testing video processing micro-services that can be easily included in a video-processing flows.</li>
+  <li>Improve or specialize docker scheduler such as swarm, <a href="https://hashicorp.com/blog/nomad.html">nomad</a> or <a href="http://mesos.apache.org/">mesos</a> to put video processing micro-services close to video raw datas.</li>
+  <li>Use the best hardware storage technologies depending of the micro-services wich is used.</li>
+</ul>
+
+<h2 id="want-to-play-with-us">Want to play with us</h2>
+<ul>
+  <li>Join <a href="https://b-com.com/">B-COM</a> JiT project. <a href="&#109;&#097;&#105;&#108;&#116;&#111;:&#067;&#104;&#114;&#105;&#115;&#116;&#111;&#112;&#104;&#101;&#046;&#068;&#073;&#079;&#078;&#064;&#098;&#045;&#099;&#111;&#109;&#046;&#099;&#111;&#109;&#059;&#065;&#110;&#116;&#111;&#105;&#110;&#101;&#046;&#067;&#065;&#066;&#079;&#084;&#064;&#098;&#045;&#099;&#111;&#109;&#046;&#099;&#111;&#109;&#059;&#098;&#097;&#114;&#097;&#105;&#115;&#064;&#105;&#114;&#105;&#115;&#097;&#046;&#102;&#114;">contact</a></li>
+</ul>
+
+<p>Have fun …</p>
+

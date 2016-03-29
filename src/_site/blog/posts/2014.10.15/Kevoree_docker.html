@@ -90,13 +90,13 @@ add sync : WSGroup/5.1.0
 
 attach host sync
 
-<span class="nb">set </span>host.commitRepo <span class="o">=</span> <span class="s1">&#39;heads&#39;</span>
-<span class="nb">set </span>host.nginx.image <span class="o">=</span> <span class="s1">&#39;nginx&#39;</span>
-<span class="nb">set </span>sync.master <span class="o">=</span> <span class="s1">&#39;host&#39;</span></code></pre></div>
+set host.commitRepo = &#39;heads&#39;
+set host.nginx.image = &#39;nginx&#39;
+set sync.master = &#39;host&#39;</code></pre></div>
 
 <p>Next, you can run the watchdog</p>
 
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">java -Dnode.name<span class="o">=</span>host -Dnode.bootstrap<span class="o">=</span>docker.kevoree.kevs  -jar org.kevoree.watchdog-0.27.jar 5.1.0</code></pre></div>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">java -Dnode.name=host -Dnode.bootstrap=docker.kevoree.kevs  -jar org.kevoree.watchdog-0.27.jar 5.1.0</code></pre></div>
 
 <p>Next, you can open the running model from the <a href="http://editor.kevoree.org">kevoree editor</a>.</p>
 
@@ -207,6 +207,7 @@ attach host sync
                     <li><a href="/blog/categories/ejcp/">ejcp</a></li> 
                     <li><a href="/blog/categories/swarm/">swarm</a></li> 
                     <li><a href="/blog/categories/go-docker/">go-docker</a></li> 
+                    <li><a href="/blog/categories/raspberry pi/">raspberry pi</a></li> 
                 </ul>
             </div>
         </div>

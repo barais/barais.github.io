@@ -158,22 +158,22 @@ Modern websites should be able to handle huge numbers of concurrent users. We ne
 <p><img src="../../../img/post/2.png" width="750px" /></p>
 
 <p>Behind the scene, I use xdotool to wrap the jhipster console when you define a first model. </p>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c">#extract of the shell script generated  </span>
-<span class="c">#!/bin/bash</span>
-xfce4-terminal -T jhipstergen -x yo jhipster <span class="p">&amp;</span>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">#extract of the shell script generated  
+#!/bin/bash
+xfce4-terminal -T jhipstergen -x yo jhipster &amp;
 sleep 2
-<span class="nv">WID</span><span class="o">=</span><span class="sb">`</span>xdotool search --name <span class="s2">&quot;jhipstergen&quot;</span><span class="sb">`</span>  
-xdotool windowactivate <span class="nv">$WID</span> 
-xdotool windowfocus <span class="nv">$WID</span> 
-<span class="c">#appnam</span>
-xdotool <span class="nb">type </span>myapp
-xdotool key <span class="s2">&quot;Return&quot;</span>
-<span class="c">#package</span>
-xdotool <span class="nb">type </span>fr.irisa.jhipster
-xdotool key <span class="s2">&quot;Return&quot;</span>
-<span class="c">#Java Selection</span>
-<span class="c">#xdotool key Down</span>
-xdotool key <span class="s2">&quot;Return&quot;</span>
+WID=`xdotool search --name &quot;jhipstergen&quot;`  
+xdotool windowactivate $WID 
+xdotool windowfocus $WID 
+#appnam
+xdotool type myapp
+xdotool key &quot;Return&quot;
+#package
+xdotool type fr.irisa.jhipster
+xdotool key &quot;Return&quot;
+#Java Selection
+#xdotool key Down
+xdotool key &quot;Return&quot;
 ...
 </code></pre></div>
 <p>The feature model, some config sample and the generator for jhipster are available <a href="https://github.com/barais/featureModelJHipster/">here</a>.</p>
@@ -215,13 +215,13 @@ xdotool key <span class="s2">&quot;Return&quot;</span>
 <p>You get an archive file that can be added to your app root folder. <img src="../../../img/post/6.png" width="750px" /></p>
 
 <p>Next call the shell script. </p>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c">#to the folder root.</span>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">#to the folder root.
 sh model.sh
 </code></pre></div>
 <p>As a result, you can easily extend the feature diagram in adding your own custom generator. </p>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c">#to the folder root.</span>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">#to the folder root.
 mvn spring-boot:run
-<span class="c">#In an other console</span>
+#In an other console
 grunt serve
 </code></pre></div>
 <p>You obtain a clean runnable skeleton of your application. You can add services, refine restful services and create custom UI for your application. </p>
@@ -425,6 +425,7 @@ grunt serve
                     <li><a href="/blog/categories/ejcp/">ejcp</a></li> 
                     <li><a href="/blog/categories/swarm/">swarm</a></li> 
                     <li><a href="/blog/categories/go-docker/">go-docker</a></li> 
+                    <li><a href="/blog/categories/raspberry pi/">raspberry pi</a></li> 
                 </ul>
             </div>
         </div>

@@ -1,0 +1,100 @@
+<p>Just a doc to show how to install a debian wheezy on an Intel Edison and install KevoreeJS tooling.</p>
+
+<!--more-->
+
+<p>Just Install ubuntu on your edison following <a href="https://learn.sparkfun.com/tutorials/loading-debian-ubilinux-on-the-edison?_ga=1.8189682.1772562117.1418888901#install-ubilinux">this tutorial</a></p>
+
+<p>Install debian in following this tuto
+https://learn.sparkfun.com/tutorials/loading-debian-ubilinux-on-the-edison?_ga=1.8189682.1772562117.1418888901#install-ubilinux</p>
+
+<p>When the Wifi work, you can do that</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">su
+nano -w /etc/apt/sources.list</code></pre></div>
+
+<p>add the following line</p>
+
+<p><em>deb http://http.debian.net/debian wheezy-backports main</em></p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">apt-get update
+apt-get upgrade
+
+aptitude -t wheezy-backports install nodejs-dev
+
+<span class="c">#refuse to keep like this and downgrade to 10.0.29 (First select No then Yes)</span>
+
+<span class="nb">cd</span> /tmp
+wget --no-check-certificate https://www.npmjs.org/install.sh
+<span class="nb">echo </span>insecure &gt;&gt; ~/.curlrc
+sh install.sh
+
+<span class="c">#check that everithing is ok</span>
+node --version</code></pre></div>
+
+<p>should display <em>v0.10.29</em></p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">npm --version</code></pre></div>
+
+<p>should display <em>2.2.0</em></p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">ln -s /usr/include/nodejs/src/ /usr/include/node</code></pre></div>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">npm <span class="nb">set </span>strict-ssl <span class="nb">false</span></code></pre></div>
+
+<p>next install mraa (a librarie for dealing with Arduino I/O. (documentation is <a href="https://github.com/intel-iot-devkit/mraa">here</a>)</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">npm -g install mraa
+<span class="nb">cd</span> /tmp
+wget --no-check-certificate https://raw.githubusercontent.com/intel-iot-devkit/mraa/master/examples/javascript/Blink-IO.js
+node Blik-IO.js</code></pre></div>
+
+<p>The led should blink ;)</p>
+
+<p>#</p>
+
+<h1 id="to-use-kevroee-js">To use kevroee JS</h1>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">apt-get install sudo
+adduser edison sudo
+su edison
+sudo chmod a+s /usr/bin/node
+<span class="nb">echo </span><span class="nv">prefix</span> <span class="o">=</span> ~/.node &gt;&gt; ~/.npmrc
+<span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span><span class="nv">$HOME</span>/.node/bin:<span class="nv">$PATH</span>
+<span class="nb">export </span><span class="nv">NODE_PATH</span><span class="o">=</span><span class="nv">$NODE_PATH</span>:/home/edison/.node/lib/node_modules/
+
+npm install -g grunt
+npm install -g grunt-cli
+npm install -g bower
+npm install -g generator-kevoree
+yo kevoree</code></pre></div>
+
+<h1 id="other-tips">Other tips</h1>
+<p>Create missing folder used in /etc/fstab</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">sudo mkdir /var/volatile</code></pre></div>
+
+<p>If you want to use typescript</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">npm install typescript -g
+npm install tsd -g</code></pre></div>
+
+<p>to force the check fs after rebooting</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">sudo touch /forcefsck
+sudo reboot</code></pre></div>
+
+<p>Add env variable in ~/.bashrc</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">echo </span><span class="nv">prefix</span> <span class="o">=</span> ~/.node &gt;&gt; ~/.npmrc
+<span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span><span class="nv">$HOME</span>/.node/bin:<span class="nv">$PATH</span>
+<span class="nb">export </span><span class="nv">NODE_PATH</span><span class="o">=</span><span class="nv">$NODE_PATH</span>:/home/edison/.node/lib/node_modules/</code></pre></div>
+
+<p>Add the follwing line in /etc/hosts (name of nodes)</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">127.0.0.1       ubilinux</code></pre></div>
+
+<p>Changing the hostname</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">nano -w /etc/hostname</code></pre></div>
+
+<p>Have fun, more docs are available on <a href="http://www.kevoree.org">http://www.kevoree.org</a></p>

@@ -1,0 +1,438 @@
+
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+<meta charset="utf-8">
+<!-- <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="Olivier Barais">
+<link rel="author" href="https://plus.google.com/+OlivierBarais">
+
+<title>Quelques éléments pour le TP sur AngularJS</title>
+
+
+
+<!-- Add custom CSS here -->
+<!-- <link rel="stylesheet" href="/assets/main-58abab6103ee78e02cfcfa062233325f.css"> -->
+
+<!-- <link rel="shortcut icon" href="favicon.ico"> -->
+<link rel="icon" href="favicon.ico">
+
+
+<!-- Test -->
+
+</head>
+
+<body>
+
+    	<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+					<span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
+				</button>
+                <a class="navbar-brand" href="/">olivier.barais</a>
+			</div>
+
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="collapse navbar-collapse navbar-right navbar-ex1-collapse">
+				<ul class="nav navbar-nav">
+                    <li><a href="/">Home</a></li>
+					<li><a href="/publications/">Publications</a></li>
+					<li><a href="/teaching/">Teaching</a></li>
+                    <li><a href="/research/">Research</a></li>
+                    <li><a href="/blog/">Blog</a></li>
+                    <li><a href="/photos/">Photos</a></li>
+                    <li><a href="/contact/">Contact</a></li>
+				</ul>
+			</div>
+			<!-- /.navbar-collapse -->
+		</div>
+		<!-- /.container -->
+	</nav>
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                               <!-- the actual blog post: title/author/date/content -->
+                <h1> Quelques éléments pour le TP sur AngularJS </h1>
+                    <p class="lead">by <a href="/contact/">Olivier Barais</a> &nbsp;&nbsp;&nbsp;
+                        
+                            <a href="/blog/categories/teaching/"><span class="label label-primary">teaching</span></a>
+                            &nbsp;
+                        
+                            <a href="/blog/categories/istic/"><span class="label label-primary">istic</span></a>
+                            &nbsp;
+                        
+                            <a href="/blog/categories/m2/"><span class="label label-primary">m2</span></a>
+                            &nbsp;
+                        
+                            <a href="/blog/categories/french/"><span class="label label-primary">french</span></a>
+                            &nbsp;
+                        
+                    </p>
+                        <span class="glyphicon glyphicon-time"></span> Posted 2014.10.22 
+                        
+                            &mdash; Rennes, France
+                        
+
+                <hr>
+                
+                <p>Hello très chers étudiants,</p>
+
+<p>Pour ce deuxième TP de GLI, nous allons étudier AngularJS. Pour la mise en place de l&#39;environnement, la compilation, le lancement du serveur ..., nous utiliserons <a href="http://maven.apache.org/">maven</a> pour la partie serveur, <a href="https://www.npmjs.org/">npm</a> et <a href="http://bower.io/">bower</a>.</p>
+
+<!--more-->
+
+<h3>Etape -1: NodeJS</h3>
+
+<p>Installez nodejs</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">sudo apt-add-repository ppa:chris-lea/node.js</code></pre></div>
+
+<p>Rechargez la liste des paquets ;</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">sudo apt-get update</code></pre></div>
+
+<p>Installez les paquets nodejs.</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">sudo apt-get install nodejs
+<span class="c">#tester si npm est présent, </span>
+npm -v
+<span class="c">#sinon </span>
+sudo apt-get install npm</code></pre></div>
+
+<h3>Etape 0: Installation de bower</h3>
+
+<p>Si tout va bien, npm et node sont installés. (Voir post sur l&#39;opération portable ou l&#39;étape -1). </p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">sudo npm install -g  bower</code></pre></div>
+
+<h3>Etape 1: Initialisation du projet</h3>
+
+<p>Dans le répertoire src/main/webapp de votre projet sur le covoiturage. </p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">bower install angular#1.2.26</code></pre></div>
+
+<p>Cette action télécharge angularjs et l&#39;install dans votre projet. </p>
+
+<p>Allez dans le répertoire app nouvellement créé.</p>
+
+<p>Téléchargez le fichier <a href="../../../docs/posts.json">posts.json</a> suivant. 
+Dans le répertoire app</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">wget http://olivier.barais.fr/docs/posts.json</code></pre></div>
+
+<p>Toujours dans le répértoire app, créez le fichier html suivant. </p>
+
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="cp">&lt;!doctype html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">&quot;en&quot;</span> <span class="na">ng-app</span> <span class="na">id=</span><span class="s">&quot;ng-app&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;head&gt;</span>    
+        <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;bower_components/angular/angular.min.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+        <span class="nt">&lt;script&gt;</span>
+        <span class="kd">function</span> <span class="nx">PostsCtrlAjax</span><span class="p">(</span><span class="nx">$scope</span><span class="p">,</span> <span class="nx">$http</span><span class="p">)</span>
+        <span class="p">{</span>
+
+        <span class="nx">$http</span><span class="p">({</span><span class="nx">method</span><span class="o">:</span> <span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="nx">url</span><span class="o">:</span> <span class="s1">&#39;posts.json&#39;</span><span class="p">}).</span><span class="nx">success</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">$scope</span><span class="p">.</span><span class="nx">posts</span> <span class="o">=</span> <span class="nx">data</span><span class="p">;</span>
+        <span class="p">});</span>
+        <span class="p">}</span>
+        <span class="nt">&lt;/script&gt;</span>
+        <span class="nt">&lt;style&gt;</span>
+        <span class="nt">body</span><span class="p">{</span><span class="k">font-family</span><span class="o">:</span><span class="n">arial</span><span class="p">;</span> <span class="k">font-size</span><span class="o">:</span><span class="m">12px</span><span class="p">;</span><span class="k">padding</span><span class="o">:</span><span class="m">10px</span><span class="p">;}</span>
+        <span class="nc">.postBody</span><span class="p">{</span> <span class="k">width</span><span class="o">:</span><span class="m">550px</span><span class="p">;</span> <span class="k">border-bottom</span><span class="o">:</span><span class="k">dashed</span> <span class="m">2px</span> <span class="m">#dedede</span><span class="p">}</span>
+        <span class="nc">.postBody</span> <span class="nt">a</span><span class="p">{</span><span class="k">color</span><span class="o">:</span><span class="m">#333333</span><span class="p">;</span><span class="k">text-decoration</span><span class="o">:</span><span class="k">none</span><span class="p">}</span>
+        <span class="nc">.postBody</span> <span class="nt">a</span><span class="nd">:hover</span><span class="p">{</span><span class="k">color</span><span class="o">:</span><span class="m">#006699</span><span class="p">;</span><span class="k">background-color</span><span class="o">:</span><span class="m">#dedede</span><span class="p">}</span>
+        <span class="nc">.time</span><span class="p">{</span><span class="k">margin</span><span class="o">:</span><span class="m">10px</span> <span class="m">0px</span> <span class="m">10px</span> <span class="m">0px</span><span class="p">;</span> <span class="k">color</span><span class="o">:</span><span class="m">#006699</span><span class="p">;</span> <span class="p">}</span>
+        <span class="nt">&lt;/style&gt;</span>
+    <span class="nt">&lt;/head&gt;</span>
+
+    <span class="nt">&lt;body</span> <span class="nt">&gt;</span>
+        <span class="nt">&lt;h1&gt;</span>Parsing JSON with Angular JS Tutorial<span class="nt">&lt;/h1&gt;</span>   
+            <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;ng-app&quot;</span> <span class="na">ng-app</span> <span class="na">ng-controller=</span><span class="s">&quot;PostsCtrlAjax&quot;</span><span class="nt">&gt;</span>  
+            <span class="nt">&lt;div</span> <span class="na">ng-repeat=</span><span class="s">&quot;post in posts&quot;</span> <span class="na">class=</span><span class="s">&#39;postBody&#39;</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;h2&gt;&lt;a</span> <span class="na">href=</span><span class="s">&#39;{{post.url}}&#39;</span><span class="nt">&gt;</span>{{post.title}}<span class="nt">&lt;/a&gt;&lt;/h2&gt;</span>
+            <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&#39;time&#39;</span><span class="nt">&gt;</span>{{post.time}} - {{post.author}} <span class="nt">&lt;/div&gt;</span>
+            <span class="nt">&lt;p&gt;</span>{{post.description}}<span class="nt">&lt;/p&gt;</span>
+            <span class="nt">&lt;img</span> <span class="na">ng-src=</span><span class="s">&quot;{{post.banner}}&quot;</span> <span class="na">style=</span><span class="s">&#39;width:550px&#39;</span><span class="nt">/&gt;</span>
+            <span class="nt">&lt;/div&gt;</span>
+            <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span></code></pre></div>
+
+<p>Lancez un serveur web. A la racine de votre projet. </p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">mvn compile tomcat7:run</code></pre></div>
+
+<p>RDV sur <a href="http://localhost:8080/app/index.html">http://localhost:8080/app/index.html</a></p>
+
+<h3>Etape 2: Réalisation d&#39;une première intégration</h3>
+
+<p>Modifiez l&#39;url de téléchargement du contenu json
+$http({method: &#39;GET&#39;, url: &#39;posts.json&#39;}) pour charger le json issu de vos services Java. </p>
+
+<h3>Etape 3: Rechargement automatique</h3>
+
+<p>Pour recharger automatiquement le contexte de votre application dès que vous modifier un fichier. Dans le pom.xml, configurez le plugin tomcat de la manière suivante. </p>
+
+<div class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;plugin&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.apache.tomcat.maven<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>tomcat7-maven-plugin<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;version&gt;</span>2.1<span class="nt">&lt;/version&gt;</span>
+    <span class="nt">&lt;configuration&gt;</span>
+        <span class="nt">&lt;path&gt;</span>/<span class="nt">&lt;/path&gt;</span>
+        <span class="nt">&lt;contextFile&gt;</span>src/main/webapp/META-INF/context.xml<span class="nt">&lt;/contextFile&gt;</span>
+    <span class="nt">&lt;/configuration&gt;</span>
+<span class="nt">&lt;/plugin&gt;</span></code></pre></div>
+
+<p>Dans le fichier src/main/webapp/META-INF/context.xml. 
+Placez les lignes suivantes. </p>
+
+<div class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;Context</span> <span class="na">reloadable=</span><span class="s">&quot;true&quot;</span> <span class="na">backgroundProcessorDelay=</span><span class="s">&quot;1&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/Context&gt;</span></code></pre></div>
+
+<p>Relancez </p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">mvn compile tomcat7:run</code></pre></div>
+
+<p>Dès que vous modifier une classe Java ou un fichier html, js, ou autres. Plus besoin de relancer maven. </p>
+
+<h3>Etape 4: Partir d&#39;un squelette de projet plus classique</h3>
+
+<p>Repartez de ce projet de squelette d&#39;Angular pour structurer votre application de manière classique. 
+Toujours dans le répertoire web de votre application. </p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">git clone https://github.com/angular/angular-seed</code></pre></div>
+
+<h3>Etape 5: Partir d&#39;un squelette de projet plus classique</h3>
+
+<p>Vous pouvez utilisez eclipse ou intelliJ pour éditer votre projet. </p>
+
+<p><a href="http://marketplace.eclipse.org/content/angularjs-eclipse#.VEdV8XVtPUY">eclipse angular</a></p>
+
+<p><a href="https://plugins.jetbrains.com/plugin/6971?pr=phpStorm">intelliJ angular</a></p>
+
+<h3>Etape 6: Construire l&#39;IHM de votre application de covoiturage à l&#39;aide d&#39;angularjs.</h3>
+
+<p>Have fun ;)</p>
+
+                
+                <!-- the comment box -->
+<!--                 <div class="well">
+                    <h4>Leave a Comment:</h4>
+                    <form role="form">
+                        <div class="form-group">
+                            <textarea class="form-control" rows="3"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div> -->
+
+                <!-- the comments -->
+<!--                 <hr>
+ --><!--                 <h3>Start Bootstrap
+                    <small>9:41 PM on August 24, 2013</small>
+                </h3>
+                <p>This has to be the worst blog post I have ever read. It simply makes no sense. You start off by talking about space or something, then you randomly start babbling about cupcakes, and you end off with random fish names.</p>
+
+                <h3>Start Bootstrap
+                    <small>9:47 PM on August 24, 2013</small>
+                </h3>
+                <p>Don't listen to this guy, any blog with the categories 'dinosaurs, spaceships, fried foods, wild animals, alien abductions, business casual, robots, and fireworks' has true potential.</p> -->
+
+<!--             <div class="row"> -->
+<!--                 % include well.html %} -->
+<!--             </div> -->
+
+<!--             </div> -->
+<!--             % include well.html %} -->
+            
+
+            </div>
+            <div class="col-md-4">
+                <!-- <div class="col-md-4"> -->
+    <!--              
+    <div class="well">
+        <h4>Blog Search</h4>
+        <div class="input-group">
+            <input type="text" class="form-control">
+            <span class="input-group-btn">
+                <button class="btn btn-default" type="button">
+                    <span class="glyphicon glyphicon-search"></span>
+                </button>
+            </span>
+        </div>
+    </div>
+    -->
+
+    
+
+    <div class="well">
+        <div class="row">
+            <div class="col-md-6">
+                <h4>Current Tags</h4>
+                <ul class="list-unstyled">
+                    
+                    <li><a href="/blog/categories/teaching/">teaching</a></li> 
+                    <li><a href="/blog/categories/istic/">istic</a></li> 
+                    <li><a href="/blog/categories/m2/">m2</a></li> 
+                    <li><a href="/blog/categories/french/">french</a></li> 
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    
+
+    <div class="well">
+        <div class="row">
+            <div class="col-lg-6">
+                <h4>All Tags</h4>
+                <ul class="list-unstyled">
+                    <li><a href="/blog/">All</a></li> 
+                    <li><a href="/blog/categories/first-post/">first-post</a></li> 
+                    <li><a href="/blog/categories/jekyll/">jekyll</a></li> 
+                    <li><a href="/blog/categories/github-pages/">github-pages</a></li> 
+                    <li><a href="/blog/categories/markdown/">markdown</a></li> 
+                    <li><a href="/blog/categories/untidy/">untidy</a></li> 
+                    <li><a href="/blog/categories/teaching/">teaching</a></li> 
+                    <li><a href="/blog/categories/website/">website</a></li> 
+                    <li><a href="/blog/categories/docker/">docker</a></li> 
+                    <li><a href="/blog/categories/cloud/">cloud</a></li> 
+                    <li><a href="/blog/categories/diversify/">diversify</a></li> 
+                    <li><a href="/blog/categories/eclipse/">eclipse</a></li> 
+                    <li><a href="/blog/categories/istic/">istic</a></li> 
+                    <li><a href="/blog/categories/m2/">m2</a></li> 
+                    <li><a href="/blog/categories/french/">french</a></li> 
+                    <li><a href="/blog/categories/ensai/">ensai</a></li> 
+                    <li><a href="/blog/categories/kevoree/">kevoree</a></li> 
+                    <li><a href="/blog/categories/kevoreejs/">kevoreejs</a></li> 
+                    <li><a href="/blog/categories/edison/">edison</a></li> 
+                    <li><a href="/blog/categories/angularjs/">angularjs</a></li> 
+                    <li><a href="/blog/categories/jquery/">jquery</a></li> 
+                    <li><a href="/blog/categories/jhipster/">jhipster</a></li> 
+                    <li><a href="/blog/categories/sdn/">sdn</a></li> 
+                    <li><a href="/blog/categories/opendaylight/">opendaylight</a></li> 
+                    <li><a href="/blog/categories/software engineering/">software engineering</a></li> 
+                    <li><a href="/blog/categories/ejcp/">ejcp</a></li> 
+                    <li><a href="/blog/categories/swarm/">swarm</a></li> 
+                    <li><a href="/blog/categories/go-docker/">go-docker</a></li> 
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="well">
+        <h4>Remark</h4>
+        <p>Sorry, no comments enabled for now because I'm using a simple static site generator (maybe I'll try out disqus another day).</p>
+        <p>
+            But if you like what you see, send me an <a href="/contact/">email</a>.
+        </p>
+    </div>
+<!-- </div> -->
+
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="banner">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3">
+                <!--                     <h2>You can check me out on</h2> -->
+                <h2>Find me on</h2>
+            </div>
+            <div class="col-lg-9">
+                <ul class="list-inline banner-social-buttons">
+                    <li><a href="http://www.linkedin.com/in/olivierbarais" class="btn btn-default btn-lg"><i class="fa fa-linkedin-square fa-fw"></i>
+                            <span class="network-name">Linkedin</span></a></li>
+                    <li><a href="https://github.com/barais" class="btn btn-default btn-lg"><i class="fa fa-github-square fa-fw"></i> <span
+                            class="network-name">Github</span></a></li>
+                    <li><a href="http://scholar.google.fr/citations?user=LV5i8X4AAAAJ&hl=en" class="btn btn-default btn-lg"><i
+                            class="fa fa-search fa-fw"></i> <span class="network-name">Scholar</span></a></li>
+                    <li><a href="https://www.google.com/+OlivierBarais?rel=author" class="btn btn-default btn-lg"><i
+                            class="fa fa-google-plus-square fa-fw"></i> <span class="network-name">google+</span></a></li>
+                    <li><a href="https://www.facebook.com/obarais" class="btn btn-default btn-lg"><i
+                            class="fa fa-facebook-square fa-fw"></i> <span class="network-name">facebook</span></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+
+</div>
+<!-- /.banner -->
+
+<footer>
+    <div class="container">
+        <div class="span12 pagination-centered" style="text-align: center">
+            <div class="row">
+                <div class="col-lg-12">
+                    <ul class="list-inline">
+                        <li><a href="/">Home</a></li>
+                        <li class="footer-menu-divider">&sdot;</li>
+                        <!-- 						<li><a href="#about">About</a></li>
+							<li class="footer-menu-divider">&sdot;</li>
+	                    -->
+                        <li><a href="/publications/">Publications</a></li>
+                        <li class="footer-menu-divider">&sdot;</li>
+                        <li><a href="/teaching/">Teaching</a></li>
+                        <li class="footer-menu-divider">&sdot;</li>
+                        <li><a href="/research/">Research</a></li>
+                        <li class="footer-menu-divider">&sdot;</li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li class="footer-menu-divider">&sdot;</li>
+                        <li><a href="/photos/">Photos</a></li>
+                        <li class="footer-menu-divider">&sdot;</li>
+                        <li><a href="/contact/">Contact</a></li>
+                    </ul>
+
+                    <p class="copyright text-muted small">
+                        <a href="http://validator.w3.org/check?uri=referer"><img src="/img/valid-html401.png"
+                            alt="Valid HTML 4.01 Frameset" height="20" width="57"></a> Built using <a href="http://jekyllrb.com/">Jekyll</a>, <a
+                            href="http://twitter.github.com/bootstrap/">Bootstrap</a> and <a href="http://startbootstrap.com">Startbootstrap</a> from <a href="http://rudametw.github.io/">Walter Rudametkin's template</a>. All
+                        source code available <a href="https://github.com/barais/barais.github.io"> here</a>. 
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Defer CSS -->
+    <script type="text/javascript">
+          var stylesheet = document.createElement('link');
+          stylesheet.href = '/assets/main-58abab6103ee78e02cfcfa062233325f.css';
+          stylesheet.rel = 'stylesheet';
+          stylesheet.type = 'text/css';
+          document.getElementsByTagName('head')[0].appendChild(stylesheet);
+    </script>
+
+<!-- Add custom CSS here -->
+<!-- <link rel="stylesheet" href="/assets/main-58abab6103ee78e02cfcfa062233325f.css"> -->
+
+<!-- Main Javascript -->
+<!-- <script src="/assets/main-f2bda5f0801b6a41743c383e9ab4635a.js"></script> -->
+<script async type="text/javascript" src="/assets/main-f2bda5f0801b6a41743c383e9ab4635a.js"></script>
+
+<!-- <script> -->
+<!-- loadStyleSheet(/assets/main-58abab6103ee78e02cfcfa062233325f.css); -->
+<!-- </script> -->
+
+<!--<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-48705379-1', 'rudametw.github.io');
+  ga('send', 'pageview');
+</script>-->
+
+
+</body>
+</html>

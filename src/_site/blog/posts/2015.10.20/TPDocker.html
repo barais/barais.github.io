@@ -178,11 +178,11 @@ This message shows that your installation appears to be working correctly.</p>
 <p>Puis créer n fenètre dans votre navigateur terminator (clic droit puis split horizontal ou vertical). 
 Dans ces terminales, lancez la commande suivante pour tester votre resolve proxy.</p>
 
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">docker run -e <span class="nv">VIRTUAL_HOST</span><span class="o">=</span>myapp.taa.fr -t -i  nginx</code></pre></div>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">docker run -e VIRTUAL_HOST=myapp.taa.fr -t -i  nginx</code></pre></div>
 
 <p>En tapant la commande suivante, vous pouvez regarder le fichier de configuration nginx qui sera généré à l&#39;adresse suivante /etc/nginx/conf.d/default.conf. (N&#39;oubliez pas de remplacer  865c1e67a00e par l&#39;id de votre nginx en resolve proxy ($docker ps) pour récupérer la liste des containers en cours d&#39;exécution.</p>
 
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">docker <span class="nb">exec</span> -it 865c1e67a00e bash</code></pre></div>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">docker exec -it 865c1e67a00e bash</code></pre></div>
 
 <ul>
 <li><a href="http://jasonwilder.com/blog/2014/03/25/automated-nginx-reverse-proxy-for-docker/">source</a></li>
@@ -190,8 +190,8 @@ Dans ces terminales, lancez la commande suivante pour tester votre resolve proxy
 
 <p>Tuez tous les dockers nginx démarrer. </p>
 
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">docker ps <span class="c">#pour avoir la liste</span>
-docker <span class="nb">kill</span> <span class="s2">&quot;IDDOCKER&quot;</span> <span class="c">#pour tuer un docker.</span></code></pre></div>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">docker ps #pour avoir la liste
+docker kill &quot;IDDOCKER&quot; #pour tuer un docker.</code></pre></div>
 
 <p>Lancez plusieurs fois votre serveur d&#39;application. Testez le résultat. </p>
 
@@ -312,6 +312,7 @@ docker <span class="nb">kill</span> <span class="s2">&quot;IDDOCKER&quot;</span>
                     <li><a href="/blog/categories/ejcp/">ejcp</a></li> 
                     <li><a href="/blog/categories/swarm/">swarm</a></li> 
                     <li><a href="/blog/categories/go-docker/">go-docker</a></li> 
+                    <li><a href="/blog/categories/raspberry pi/">raspberry pi</a></li> 
                 </ul>
             </div>
         </div>

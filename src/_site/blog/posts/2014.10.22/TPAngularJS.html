@@ -99,9 +99,9 @@
 <p>Installez les paquets nodejs.</p>
 
 <div class="highlight"><pre><code class="language-bash" data-lang="bash">sudo apt-get install nodejs
-<span class="c">#tester si npm est présent, </span>
+#tester si npm est présent, 
 npm -v
-<span class="c">#sinon </span>
+#sinon 
 sudo apt-get install npm</code></pre></div>
 
 <h3>Etape 0: Installation de bower</h3>
@@ -127,40 +127,40 @@ Dans le répertoire app</p>
 
 <p>Toujours dans le répértoire app, créez le fichier html suivant. </p>
 
-<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="cp">&lt;!doctype html&gt;</span>
-<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">&quot;en&quot;</span> <span class="na">ng-app</span> <span class="na">id=</span><span class="s">&quot;ng-app&quot;</span><span class="nt">&gt;</span>
-    <span class="nt">&lt;head&gt;</span>    
-        <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;bower_components/angular/angular.min.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
-        <span class="nt">&lt;script&gt;</span>
-        <span class="kd">function</span> <span class="nx">PostsCtrlAjax</span><span class="p">(</span><span class="nx">$scope</span><span class="p">,</span> <span class="nx">$http</span><span class="p">)</span>
-        <span class="p">{</span>
+<div class="highlight"><pre><code class="language-html" data-lang="html">&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot; ng-app id=&quot;ng-app&quot;&gt;
+    &lt;head&gt;    
+        &lt;script src=&quot;bower_components/angular/angular.min.js&quot;&gt;&lt;/script&gt;
+        &lt;script&gt;
+        function PostsCtrlAjax($scope, $http)
+        {
 
-        <span class="nx">$http</span><span class="p">({</span><span class="nx">method</span><span class="o">:</span> <span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="nx">url</span><span class="o">:</span> <span class="s1">&#39;posts.json&#39;</span><span class="p">}).</span><span class="nx">success</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nx">$scope</span><span class="p">.</span><span class="nx">posts</span> <span class="o">=</span> <span class="nx">data</span><span class="p">;</span>
-        <span class="p">});</span>
-        <span class="p">}</span>
-        <span class="nt">&lt;/script&gt;</span>
-        <span class="nt">&lt;style&gt;</span>
-        <span class="nt">body</span><span class="p">{</span><span class="k">font-family</span><span class="o">:</span><span class="n">arial</span><span class="p">;</span> <span class="k">font-size</span><span class="o">:</span><span class="m">12px</span><span class="p">;</span><span class="k">padding</span><span class="o">:</span><span class="m">10px</span><span class="p">;}</span>
-        <span class="nc">.postBody</span><span class="p">{</span> <span class="k">width</span><span class="o">:</span><span class="m">550px</span><span class="p">;</span> <span class="k">border-bottom</span><span class="o">:</span><span class="k">dashed</span> <span class="m">2px</span> <span class="m">#dedede</span><span class="p">}</span>
-        <span class="nc">.postBody</span> <span class="nt">a</span><span class="p">{</span><span class="k">color</span><span class="o">:</span><span class="m">#333333</span><span class="p">;</span><span class="k">text-decoration</span><span class="o">:</span><span class="k">none</span><span class="p">}</span>
-        <span class="nc">.postBody</span> <span class="nt">a</span><span class="nd">:hover</span><span class="p">{</span><span class="k">color</span><span class="o">:</span><span class="m">#006699</span><span class="p">;</span><span class="k">background-color</span><span class="o">:</span><span class="m">#dedede</span><span class="p">}</span>
-        <span class="nc">.time</span><span class="p">{</span><span class="k">margin</span><span class="o">:</span><span class="m">10px</span> <span class="m">0px</span> <span class="m">10px</span> <span class="m">0px</span><span class="p">;</span> <span class="k">color</span><span class="o">:</span><span class="m">#006699</span><span class="p">;</span> <span class="p">}</span>
-        <span class="nt">&lt;/style&gt;</span>
-    <span class="nt">&lt;/head&gt;</span>
+        $http({method: &#39;GET&#39;, url: &#39;posts.json&#39;}).success(function(data) {
+        $scope.posts = data;
+        });
+        }
+        &lt;/script&gt;
+        &lt;style&gt;
+        body{font-family:arial; font-size:12px;padding:10px;}
+        .postBody{ width:550px; border-bottom:dashed 2px #dedede}
+        .postBody a{color:#333333;text-decoration:none}
+        .postBody a:hover{color:#006699;background-color:#dedede}
+        .time{margin:10px 0px 10px 0px; color:#006699; }
+        &lt;/style&gt;
+    &lt;/head&gt;
 
-    <span class="nt">&lt;body</span> <span class="nt">&gt;</span>
-        <span class="nt">&lt;h1&gt;</span>Parsing JSON with Angular JS Tutorial<span class="nt">&lt;/h1&gt;</span>   
-            <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;ng-app&quot;</span> <span class="na">ng-app</span> <span class="na">ng-controller=</span><span class="s">&quot;PostsCtrlAjax&quot;</span><span class="nt">&gt;</span>  
-            <span class="nt">&lt;div</span> <span class="na">ng-repeat=</span><span class="s">&quot;post in posts&quot;</span> <span class="na">class=</span><span class="s">&#39;postBody&#39;</span><span class="nt">&gt;</span>
-            <span class="nt">&lt;h2&gt;&lt;a</span> <span class="na">href=</span><span class="s">&#39;{{post.url}}&#39;</span><span class="nt">&gt;</span>{{post.title}}<span class="nt">&lt;/a&gt;&lt;/h2&gt;</span>
-            <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&#39;time&#39;</span><span class="nt">&gt;</span>{{post.time}} - {{post.author}} <span class="nt">&lt;/div&gt;</span>
-            <span class="nt">&lt;p&gt;</span>{{post.description}}<span class="nt">&lt;/p&gt;</span>
-            <span class="nt">&lt;img</span> <span class="na">ng-src=</span><span class="s">&quot;{{post.banner}}&quot;</span> <span class="na">style=</span><span class="s">&#39;width:550px&#39;</span><span class="nt">/&gt;</span>
-            <span class="nt">&lt;/div&gt;</span>
-            <span class="nt">&lt;/div&gt;</span>
-    <span class="nt">&lt;/body&gt;</span>
-<span class="nt">&lt;/html&gt;</span></code></pre></div>
+    &lt;body &gt;
+        &lt;h1&gt;Parsing JSON with Angular JS Tutorial&lt;/h1&gt;   
+            &lt;div id=&quot;ng-app&quot; ng-app ng-controller=&quot;PostsCtrlAjax&quot;&gt;  
+            &lt;div ng-repeat=&quot;post in posts&quot; class=&#39;postBody&#39;&gt;
+            &lt;h2&gt;&lt;a href=&#39;{{post.url}}&#39;&gt;{{post.title}}&lt;/a&gt;&lt;/h2&gt;
+            &lt;div class=&#39;time&#39;&gt;{{post.time}} - {{post.author}} &lt;/div&gt;
+            &lt;p&gt;{{post.description}}&lt;/p&gt;
+            &lt;img ng-src=&quot;{{post.banner}}&quot; style=&#39;width:550px&#39;/&gt;
+            &lt;/div&gt;
+            &lt;/div&gt;
+    &lt;/body&gt;
+&lt;/html&gt;</code></pre></div>
 
 <p>Lancez un serveur web. A la racine de votre projet. </p>
 
@@ -177,21 +177,21 @@ $http({method: &#39;GET&#39;, url: &#39;posts.json&#39;}) pour charger le json i
 
 <p>Pour recharger automatiquement le contexte de votre application dès que vous modifier un fichier. Dans le pom.xml, configurez le plugin tomcat de la manière suivante. </p>
 
-<div class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;plugin&gt;</span>
-    <span class="nt">&lt;groupId&gt;</span>org.apache.tomcat.maven<span class="nt">&lt;/groupId&gt;</span>
-    <span class="nt">&lt;artifactId&gt;</span>tomcat7-maven-plugin<span class="nt">&lt;/artifactId&gt;</span>
-    <span class="nt">&lt;version&gt;</span>2.1<span class="nt">&lt;/version&gt;</span>
-    <span class="nt">&lt;configuration&gt;</span>
-        <span class="nt">&lt;path&gt;</span>/<span class="nt">&lt;/path&gt;</span>
-        <span class="nt">&lt;contextFile&gt;</span>src/main/webapp/META-INF/context.xml<span class="nt">&lt;/contextFile&gt;</span>
-    <span class="nt">&lt;/configuration&gt;</span>
-<span class="nt">&lt;/plugin&gt;</span></code></pre></div>
+<div class="highlight"><pre><code class="language-xml" data-lang="xml">&lt;plugin&gt;
+    &lt;groupId&gt;org.apache.tomcat.maven&lt;/groupId&gt;
+    &lt;artifactId&gt;tomcat7-maven-plugin&lt;/artifactId&gt;
+    &lt;version&gt;2.1&lt;/version&gt;
+    &lt;configuration&gt;
+        &lt;path&gt;/&lt;/path&gt;
+        &lt;contextFile&gt;src/main/webapp/META-INF/context.xml&lt;/contextFile&gt;
+    &lt;/configuration&gt;
+&lt;/plugin&gt;</code></pre></div>
 
 <p>Dans le fichier src/main/webapp/META-INF/context.xml. 
 Placez les lignes suivantes. </p>
 
-<div class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;Context</span> <span class="na">reloadable=</span><span class="s">&quot;true&quot;</span> <span class="na">backgroundProcessorDelay=</span><span class="s">&quot;1&quot;</span><span class="nt">&gt;</span>
-<span class="nt">&lt;/Context&gt;</span></code></pre></div>
+<div class="highlight"><pre><code class="language-xml" data-lang="xml">&lt;Context reloadable=&quot;true&quot; backgroundProcessorDelay=&quot;1&quot;&gt;
+&lt;/Context&gt;</code></pre></div>
 
 <p>Relancez </p>
 
@@ -319,6 +319,7 @@ Toujours dans le répertoire web de votre application. </p>
                     <li><a href="/blog/categories/ejcp/">ejcp</a></li> 
                     <li><a href="/blog/categories/swarm/">swarm</a></li> 
                     <li><a href="/blog/categories/go-docker/">go-docker</a></li> 
+                    <li><a href="/blog/categories/raspberry pi/">raspberry pi</a></li> 
                 </ul>
             </div>
         </div>
