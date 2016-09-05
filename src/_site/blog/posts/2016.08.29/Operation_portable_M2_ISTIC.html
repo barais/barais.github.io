@@ -118,10 +118,11 @@
 
 <div class="highlight"><pre><code class="language-bash" data-lang="bash">sudo apt-get update 
 sudo apt-get install apt-transport-https 
-sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 36A1D7869245C8950F966E92D8576A8BA88D21E9 
-sudo sh -c &quot;echo deb https://get.docker.io/ubuntu docker main &gt; /etc/apt/sources.list.d/docker.list&quot; 
+sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
+sudo sh -c &quot;echo &quot;deb https://apt.dockerproject.org/repo ubuntu-xenial main&quot; | sudo tee /etc/apt/sources.list.d/docker.list&quot; 
 sudo apt-get update 
-sudo apt-get install lxc-docker</code></pre></div>
+apt-cache policy docker-engine
+sudo apt-get install -y docker-engine</code></pre></div>
 
 <p>Pour vérifier que tout est ok</p>
 
