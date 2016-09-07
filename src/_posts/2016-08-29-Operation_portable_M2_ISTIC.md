@@ -32,7 +32,7 @@ sudo apt-get install nano git openjdk-8-jdk openjdk-8-doc maven inkscape
 
 ###Etape 2: Eclipse
 
-Téléchargez eclipse pour [Java developer](http://ftp.halifax.rwth-aachen.de/eclipse//technology/epp/downloads/release/mars/R/eclipse-java-mars-R-linux-gtk-x86_64.tar.gz) en version 64 et dezipper le par exemple dans /opt/eclipse
+Téléchargez eclipse pour [Java developer](https://eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/neon/R/eclipse-java-neon-R-linux-gtk-x86_64.tar.gz) en version 64 et dezipper le par exemple dans /opt/eclipse
 
 ###Etape 3: Smartgit
 Installez [Smartgit](http://www.syntevo.com/smartgit/)
@@ -45,7 +45,7 @@ Installez Docker
 sudo apt-get update 
 sudo apt-get install apt-transport-https 
 sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
-sudo sh -c "echo "deb https://apt.dockerproject.org/repo ubuntu-xenial main" | sudo tee /etc/apt/sources.list.d/docker.list" 
+echo "deb https://apt.dockerproject.org/repo ubuntu-xenial main" | sudo tee /etc/apt/sources.list.d/docker.list
 sudo apt-get update 
 apt-cache policy docker-engine
 sudo apt-get install -y docker-engine
