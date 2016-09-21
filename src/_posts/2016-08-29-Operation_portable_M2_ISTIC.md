@@ -30,6 +30,15 @@ Installez les paquets suviants:
 sudo apt-get install nano git openjdk-8-jdk openjdk-8-doc maven inkscape 
 {% endhighlight %}
 
+Installer aussi la JDK Oracle pour GLI
+
+{% highlight bash %} 
+sudo add-apt-repository ppa:webupd8team/java
+sudo apt-get update
+sudo apt-get install oracle-java8-installer
+{% endhighlight %}
+
+
 ###Etape 2: Eclipse
 
 Téléchargez eclipse pour [Java developer](https://eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/neon/R/eclipse-java-neon-R-linux-gtk-x86_64.tar.gz) en version 64 et dezipper le par exemple dans /opt/eclipse
