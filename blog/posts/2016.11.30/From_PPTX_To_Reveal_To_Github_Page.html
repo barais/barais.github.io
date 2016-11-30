@@ -133,11 +133,16 @@ grunt deploy
 <p>Next we have to edit a bit this file to obtain a correct integration with the structure generated through the yeoman generator. In the html file you copy in slide, remove the first script section.</p>
 <div class="highlight"><pre><code class="language-html" data-lang="html">&lt;script type=&#39;text/javascript&#39;&gt;Reveal.initialize({  controls: true, progress: true, history: true,  center: true,   keyboard: true, slideNumber: true,      theme: Reveal.getQueryHash().theme, transition: Reveal.getQueryHash().transition || &#39;default&#39;,      dependencies: [     { src: &#39;lib/js/classList.js&#39;, condition: function() { return !document.body.classList; } },     { src: &#39;plugin/markdown/marked.js&#39;, condition: function() { return !!document.querySelector( &#39;[data-markdown]&#39; ); } },      { src: &#39;plugin/markdown/markdown.js&#39;, condition: function() { return !!document.querySelector( &#39;[data-markdown]&#39; ); } },        { src: &#39;plugin/highlight/highlight.js&#39;, async: true, callback: function() { hljs.initHighlightingOnLoad(); } },     { src: &#39;plugin/zoom-js/zoom.js&#39;, async: true, condition: function() { return !!document.body.classList; } },        { src: &#39;plugin/notes/notes.js&#39;, async: true, condition: function() { return !!document.body.classList; } }  ]});&lt;/script&gt;
 </code></pre></div>
-<p>Next move the first style section in the template/<em>index.html file just after ```html
-        &lt;!-- For syntax highlighting --&gt;
-        &lt;link rel=&quot;stylesheet&quot; href=&quot;bower</em>components/highlightjs/styles/zenburn.css&quot;&gt;
-```.</p>
-<div class="highlight"><pre><code class="language-html" data-lang="html">&lt;style&gt;.hidden {
+<p>Next move the first style section (between <style> ... and </style>) within the template/_index.html file just after </p>
+<div class="highlight"><pre><code class="language-html" data-lang="html">       ...
+    &lt;!-- For syntax highlighting --&gt;
+        &lt;link rel=&quot;stylesheet&quot; href=&quot;bower_components/highlightjs/styles/zenburn.css&quot;&gt;
+       ...
+```.
+
+
+```html
+&lt;style&gt;.hidden {
     display: none;
 }
 

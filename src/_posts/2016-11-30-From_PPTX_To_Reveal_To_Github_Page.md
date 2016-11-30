@@ -86,9 +86,13 @@ Next we have to edit a bit this file to obtain a correct integration with the st
 <script type='text/javascript'>Reveal.initialize({	controls: true,	progress: true,	history: true,	center: true,	keyboard: true,	slideNumber: true,		theme: Reveal.getQueryHash().theme,	transition: Reveal.getQueryHash().transition || 'default',		dependencies: [		{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },		{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },		{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },		{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },		{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },		{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }	]});</script>
 ```
 
-Next move the first style section in the template/_index.html file just after ```html
-        <!-- For syntax highlighting -->
+Next move the first style section (between <style> ... and </style>) within the template/_index.html file just after 
+
+```html
+       ...
+	<!-- For syntax highlighting -->
         <link rel="stylesheet" href="bower_components/highlightjs/styles/zenburn.css">
+       ...
 ```.
  
 
