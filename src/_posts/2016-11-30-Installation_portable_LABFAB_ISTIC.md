@@ -23,6 +23,8 @@ Il est nécessaire de disposer d'une installation linux pour les TPs sans être 
 
 Sous ubuntu, quand il est installé.
 
+
+
 ###Etape 1: Java et autres
 Installez les paquets suviants:
 
@@ -39,14 +41,29 @@ sudo apt-get install oracle-java8-installer
 {% endhighlight %}
 
 
-###Etape 2: Eclipse
+###Etape 2: Lua
+
+{% highlight bash %} 
+sudo apt-get install lua5.3
+sudo chmod a+rwX /opt
+cd /opt/
+wget http://www.hamady.org/download/comet_portable_linux_64bit.tgz
+tar -xzf comet_portable_linux_64bit.tgz
+rm  comet_portable_linux_64bit.tgz
+#To start Comet
+/opt/Comet/bin/comet
+{% endhighlight %}
+
+
+
+###Etape 3: Eclipse
 
 Téléchargez eclipse pour [Java developer](https://eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/neon/R/eclipse-java-neon-R-linux-gtk-x86_64.tar.gz) en version 64 et dezipper le par exemple dans /opt/eclipse
 
-###Etape 3: Smartgit
+###Etape 4: Smartgit
 Installez [Smartgit](http://www.syntevo.com/smartgit/)
 
-###Etape 4: Docker
+###Etape 5: Docker
 
 Installez Docker
 
@@ -64,7 +81,7 @@ Pour vérifier que tout est ok
 
 {% highlight bash %} $ sudo docker run -i -t ubuntu /bin/bash {% endhighlight %} Cette dernière commande télécharge un conteneur ubuntu minimal et démarre ce container. Pour plus de documentation sur [docker](http://fr.wikipedia.org/wiki/Docker_(Syst%C3%A8me_de_conteneur_Linux)\)
 
-###Etape 5: NodeJS
+###Etape 6: NodeJS
 
 Installez nodejs
 
@@ -88,19 +105,13 @@ npm -v
 sudo apt-get install npm
 {% endhighlight %}
 
-###Etape 6: VisualVM
 
-[VisualVM](http://visualvm.java.net/eclipse-launcher.html)
-
-###Etape 7: InteliJ
-Installez [IntelliJ](http://www.jetbrains.com/idea/) dans /opt
-
-###Etape 8: Wifi ISTIC
+###Etape 7: Wifi ISTIC
 1. Configuez eduroam suivant le [tuto suivant](http://www.eduroam.fr/conf_supplicants/).
 
 1.	RDV sur [wifsic-free](http://wifsic-free.istic.univ-rennes1.fr/) pour enregistrer vore mac adresse que vous pouvez récupérer à l'aide de la commande suivante: {% highlight bash %} sudo /sbin/ifconfig {% endhighlight %} prendre 'HWaddr XX:XX:XX:XX:XX:XX' de l'interface wlan0.
 
-###Etape 9 Utiliser les imprimantes de l'ISTIC
+###Etape 8 Utiliser les imprimantes de l'ISTIC
 
 * Vérifiez que cups est installé
 
