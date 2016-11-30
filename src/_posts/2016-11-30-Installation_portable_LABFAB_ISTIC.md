@@ -128,7 +128,7 @@ ServerName printhost.istic.univ-rennes1.fr
 
 pour imprimer, être connecté aux réseaux Wifsic ou Wifsic-free
 
-###Etape 10: Bookmark services utiles
+###Etape 9: Bookmark services utiles
 [vm istic](http://vm.istic.univ-rennes1.fr)
 
 ###Petit Problème: WIFI et autres
