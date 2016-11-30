@@ -258,7 +258,7 @@ To improve the quality, you can edit this style in adding this CSS
         }
 ```
 
-and in removing or commenting in the "section" section. 
+and remove or comment in the "section" section. 
 
 ```html
 <!--          		background-color: #EFEFEF;-->
