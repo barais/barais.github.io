@@ -9,7 +9,7 @@ Even if I prefer to use Spring Boot as a basis for the the server stack and JHip
 This blog post explains how you can integrate [api-platform](https://api-platform.com/), a PHP framework to build modern web APIs built on top [symfony 3](https://symfony.com/), and [angularJS 2](https://angular.io/) with [angular cli](https://cli.angular.io/).
 
 
-<!--more-->
+<!--more--></!--more-->
 
 A new kind of web application is now suggested, we call it "*the Rise of Single Page Applications (SPA)*"
 
@@ -165,6 +165,7 @@ If you have to change your database parameters, do not forget to update your app
 
 # Conclusion
 Great you will have now this great architecture. 
+Next blog posts will show, how you can easily integrate ng2 and primefaces components for the frontend and how you can manage RBAC rules and authentifications for such an application. 
 
 <img src="https://api-platform.com/dist/e89da8a0f3ea2c3e006fb5328246624c.png" alt="arch" style="width: 800px;"/>
 
