@@ -126,15 +126,17 @@ git clone https://github.com/api-platform/demo
 <div class="highlight"><pre><code class="language-bash" data-lang="bash">cd demo
 </code></pre></div>
 <h2>Install composer</h2>
+
+<p>Composer is equivalent to maven or npm for the PhP community. It is a Dependency Manager for PHP.</p>
 <div class="highlight"><pre><code class="language-bash" data-lang="bash">php -r &quot;copy(&#39;https://getcomposer.org/installer&#39;, &#39;composer-setup.php&#39;);&quot;
 php composer-setup.php
 </code></pre></div>
-<p>Install dependencies</p>
+<p>Install dependencies required by api-platform (symfony3, doctrine, ...)</p>
 <div class="highlight"><pre><code class="language-bash" data-lang="bash">php composer.phar install
 </code></pre></div>
 <h2>Create the database</h2>
 
-<p>Next you can configure the connextion to the the database. </p>
+<p>Next you can configure the connexion to the the database. </p>
 <div class="highlight"><pre><code class="language-bash" data-lang="bash">bin/console doctrine:database:create
 </code></pre></div>
 <p>Create your object model in src/AppBundle/Entity. The demo app comes with two entities. </p>

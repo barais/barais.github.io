@@ -53,19 +53,21 @@ cd demo
 
 ## Install composer
 
+Composer is equivalent to maven or npm for the PhP community. It is a Dependency Manager for PHP.
+
 ```bash
 php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
 php composer-setup.php
 ```
 
-Install dependencies
+Install dependencies required by api-platform (symfony3, doctrine, ...)
 
 ```bash
 php composer.phar install
 ```
 
 ## Create the database
-Next you can configure the connextion to the the database. 
+Next you can configure the connexion to the the database. 
 
 ```bash
 bin/console doctrine:database:create
