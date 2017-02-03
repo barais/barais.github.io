@@ -5,10 +5,11 @@ place: Rennes, France
 categories: [api-platform,symfony3,angularjs,ng2,angularjs2]
 ---
 
-Even if I prefer to use Spring Boot as a basis for the the server stack and JHipster to generate the apps skeleton, I often have to use Php3 framework for students project. 
+Even if I prefer to use [Spring Boot](https://projects.spring.io/spring-boot/) as a basis for the the server stack and [JHipster](https://jhipster.github.io/) to generate the apps skeleton, I often have to use [Php](http://php.net/manual/fr/intro-whatis.php) framework for students projects. 
 This blog post explains how you can integrate [api-platform](https://api-platform.com/), 
 a PHP framework to build modern web APIs built on top [symfony 3](https://symfony.com/), 
-and [angularJS 2](https://angular.io/) with [angular cli](https://cli.angular.io/) for building Single Page Application.
+and [angularJS 2](https://angular.io/) with [angular cli](https://cli.angular.io/) 
+for building Single Page Application.
 
 
 <!--more-->
