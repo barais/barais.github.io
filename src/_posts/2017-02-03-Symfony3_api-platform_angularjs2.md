@@ -6,10 +6,12 @@ categories: [api-platform,symfony3,angularjs,ng2,angularjs2]
 ---
 
 Even if I prefer to use Spring Boot as a basis for the the server stack and JHipster to generate the apps skeleton, I often have to use Php3 framework for students project. 
-This blog post explains how you can integrate [api-platform](https://api-platform.com/), a PHP framework to build modern web APIs built on top [symfony 3](https://symfony.com/), and [angularJS 2](https://angular.io/) with [angular cli](https://cli.angular.io/).
+This blog post explains how you can integrate [api-platform](https://api-platform.com/), 
+a PHP framework to build modern web APIs built on top [symfony 3](https://symfony.com/), 
+and [angularJS 2](https://angular.io/) with [angular cli](https://cli.angular.io/) for building Single Page Application.
 
 
-<!--more--></!--more-->
+<!--more-->
 
 A new kind of web application is now suggested, we call it "*the Rise of Single Page Applications (SPA)*"
 
@@ -21,7 +23,7 @@ This [article](https://dzone.com/articles/architectural-shift-in-web-application
 
 > *Since the Web Layer was removed from the Server Layer and moved to the Client Layer, a new thin layer was introduced to the Server Layer in order to expose the existing Server Business Layer directly to the new Client Web Layer. This was most frequently done using custom SOAP or REST APIs. The creation of these APIs and the architectural shift in the placement of the Web Layer paved the way to support functionalities like off-line support, but more importantly, the ability to support multiple client types, even those with different native implementations, using the same back end (think of a single backend powering iOS and Android apps, as well as desktop and mobile Web interfaces).*
 
-To follow this architecture, we could easily combine [api-platform](https://api-platform.com/), a PHP framework to build modern web APIs built on top [symfony 3](https://symfony.com/), and [angularJS 2](https://angular.io/). 
+To follow this architecture, we could easily combine [api-platform](https://api-platform.com/), a PHP framework to build modern web APIs built on top [symfony 3](https://symfony.com/), and [angularJS 2](https://angular.io/) for building Single Page Application. 
 
 # Step 1: Get the tooling. 
 
