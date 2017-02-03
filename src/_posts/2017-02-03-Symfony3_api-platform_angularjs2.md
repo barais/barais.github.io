@@ -26,7 +26,9 @@ To follow this architecture, we could easily combine [api-platform](https://api-
 # Step 1: Get the tooling. 
 
 1. Install [nodejs](https://nodejs.org/en/).
-2. Install [angular-cli](https://angular.io/)
+2. Install php7
+3. Install [angular-cli](https://angular.io/)
+
 
 ```bash
 npm install -g angular-cli
