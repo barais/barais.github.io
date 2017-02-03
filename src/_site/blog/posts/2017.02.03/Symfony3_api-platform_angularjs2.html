@@ -139,11 +139,8 @@ php composer-setup.php
 <p>Next you can configure the connexion to the the database. </p>
 <div class="highlight"><pre><code class="language-bash" data-lang="bash">bin/console doctrine:database:create
 </code></pre></div>
-<p>Create your object model in src/AppBundle/Entity. The demo app comes with two entities. </p>
+<p>Create your object model in src/AppBundle/Entity. The demo app comes with two entities (Book and Review for the demo). </p>
 <div class="highlight"><pre><code class="language-bash" data-lang="bash">bin/console doctrine:schema:create 
-</code></pre></div>
-<p>When you modify your business object model, you can update the schema</p>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">bin/console doctrine:schema:update --force 
 </code></pre></div>
 <p>Check that your database has been created. </p>
 
@@ -164,6 +161,13 @@ bin/console server stop # for stopping the server
 <h2>Check that your application is running</h2>
 
 <p>Go to <a href="http://localhost:8000/api">http://localhost:8000/api</a>.</p>
+
+<p>You can see the swagger interface. </p>
+
+<p>When you modify your business object model, you can update the schema</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">bin/console doctrine:schema:update --force 
+</code></pre></div>
+<p>The <a href="http://swagger.io/">swagger</a> interface is automatically up to date if you modify your entities. </p>
 
 <h1>Prepare the frontend</h1>
 

@@ -73,16 +73,10 @@ Next you can configure the connexion to the the database.
 bin/console doctrine:database:create
 ```
 
-Create your object model in src/AppBundle/Entity. The demo app comes with two entities. 
+Create your object model in src/AppBundle/Entity. The demo app comes with two entities (Book and Review for the demo). 
 
 ```bash
 bin/console doctrine:schema:create 
-```
-
-When you modify your business object model, you can update the schema
-
-```bash
-bin/console doctrine:schema:update --force 
 ```
 
 Check that your database has been created. 
@@ -109,6 +103,17 @@ bin/console server stop # for stopping the server
 
 ## Check that your application is running
 Go to [http://localhost:8000/api](http://localhost:8000/api).
+
+You can see the swagger interface. 
+
+When you modify your business object model, you can update the schema
+
+```bash
+bin/console doctrine:schema:update --force 
+```
+
+The [swagger](http://swagger.io/) interface is automatically up to date if you modify your entities. 
+
 
 # Prepare the frontend
 For preparing the front end, we will use angularjs2 and angular-cli. 
