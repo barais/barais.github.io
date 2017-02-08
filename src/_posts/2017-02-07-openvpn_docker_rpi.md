@@ -95,7 +95,7 @@ proto udp
 ```
 
 
-for connecting to udp. 
+for connecting to tcp. 
 
 And change it to 
 
