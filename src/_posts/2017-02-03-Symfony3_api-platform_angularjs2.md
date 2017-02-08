@@ -1,6 +1,6 @@
 ---
 layout: blog-post
-title: Intégration api-platform and angularjs 2
+title: Integration api-platform and angularjs 2
 place: Rennes, France
 categories: [api-platform,symfony3,angularjs,ng2,angularjs2]
 ---
@@ -42,6 +42,7 @@ npm install -g angular-cli
 You can start from the demo app.
 
 Clone the repo
+
 ```bash
 git clone https://github.com/api-platform/demo
 ```
