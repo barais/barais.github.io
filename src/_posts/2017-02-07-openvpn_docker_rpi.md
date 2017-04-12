@@ -102,7 +102,7 @@ And change it to
 ```txt
 remote VPN.SERVERNAME.COM
 port 443
-proto tcp-client
+proto tcp
 ```
 
 See [here](http://askubuntu.com/questions/760345/cannot-import-saved-openvpn-configuration-file-in-ubuntu-16-04-lts) for more information. 
