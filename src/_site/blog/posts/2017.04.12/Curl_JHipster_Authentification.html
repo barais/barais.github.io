@@ -85,6 +85,8 @@ However, if you tak the curl command line method from swagger, it always misses 
 
 <p>To manage this authentification, you can use the following commands. </p>
 
+<h1>If you use oauth:</h1>
+
 <!--more-->
 
 <h2>Generate the XSRF-TOKEN</h2>
@@ -102,6 +104,14 @@ However, if you tak the curl command line method from swagger, it always misses 
 
 <p>From the curl command line provided by swagger, you have to remove the --header &#39;X-XSRF-TOKEN:  .... and add the -b cookies.txt </p>
 <div class="highlight"><pre><code class="language-bash" data-lang="bash">curl -b cookies.txt -X GET --header &#39;Accept: application/json&#39;  &#39;http://yourserverip:8080/api/account&#39;
+</code></pre></div>
+<h1>If you use JWT:</h1>
+
+<p>It is easier.</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">export ID=`curl  -X POST --header &#39;Content-Type: application/json&#39; --header &#39;Accept: application/json&#39; -d &#39;{  &quot;password&quot;: &quot;admin&quot;,  &quot;rememberMe&quot;: true,  &quot;username&quot;: &quot;admin&quot;  }&#39; &#39;https://yourserverip:8080/api/authenticate&#39; | jq -r .id_token`
+</code></pre></div>
+<p>puis je passe ma requête en réutilisant ce token dans le header</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">curl  --header &#39;Content-Type: application/json&#39; --header &#39;Accept: application/json&#39; --header &quot;Authorization: Bearer $ID&quot; -d &#39;yourjson&#39; &#39;https://yourserverip:8080/api/yourendpoint&#39;
 </code></pre></div>
 <p>Enjoy ....</p>
 

@@ -12,6 +12,8 @@ However, if you tak the curl command line method from swagger, it always misses 
 
 To manage this authentification, you can use the following commands. 
 
+# If you use oauth:
+
 <!--more-->
 
 
@@ -43,5 +45,19 @@ From the curl command line provided by swagger, you have to remove the --header 
 curl -b cookies.txt -X GET --header 'Accept: application/json'  'http://yourserverip:8080/api/account'
 ```
 
+
+# If you use JWT:
+
+It is easier.
+
+```bash
+export ID=`curl  -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{  "password": "admin",  "rememberMe": true,  "username": "admin"  }' 'https://yourserverip:8080/api/authenticate' | jq -r .id_token`
+```
+
+puis je passe ma requête en réutilisant ce token dans le header
+
+```bash
+curl  --header 'Content-Type: application/json' --header 'Accept: application/json' --header "Authorization: Bearer $ID" -d 'yourjson' 'https://yourserverip:8080/api/yourendpoint'
+```
 
 Enjoy ....
