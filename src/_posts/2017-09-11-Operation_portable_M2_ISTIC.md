@@ -143,7 +143,7 @@ Pour vérifier que tout est ok
 ###Etape 8: Wifi ISTIC
 1. Configuez eduroam suivant le [tuto suivant](http://www.eduroam.fr/conf_supplicants/).
 
-1.	RDV sur [wifsic-free](http://wifsic-free.istic.univ-rennes1.fr/) pour enregistrer vore mac adresse que vous pouvez récupérer à l'aide de la commande suivante: {% highlight bash %} sudo /sbin/ifconfig {% endhighlight %} prendre 'HWaddr XX:XX:XX:XX:XX:XX' de l'interface wlan0.
+1.	RDV sur [istic-public](http://istic-public.istic.univ-rennes1.fr/i) pour enregistrer votre mac adresse que vous pouvez récupérer à l'aide de la commande suivante: {% highlight bash %} sudo /sbin/ifconfig {% endhighlight %} prendre 'HWaddr XX:XX:XX:XX:XX:XX' de l'interface wlan0.
 
 ###Etape 9 Utiliser les imprimantes de l'ISTIC
 
