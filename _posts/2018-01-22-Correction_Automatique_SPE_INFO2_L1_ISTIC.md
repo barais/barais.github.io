@@ -196,8 +196,7 @@ Donc ne rentrent pas dans le calcul de la note.
 "warn(org.scalastyle.scalariform.UnderscoreImportChecker)",
 ```
 
-Le code source de cette tâche est écrite dans un langage qui se nomme le [JavaScript](https://fr.wikipedia.org/wiki/JavaScript). Le code est accessible [ici]
-(https://github.com/barais/spe-info2-correctautomation/blob/master/app1.js). 
+Le code source de cette tâche est écrite dans un langage qui se nomme le [JavaScript](https://fr.wikipedia.org/wiki/JavaScript). Le code est accessible [ici](https://github.com/barais/spe-info2-correctautomation/blob/master/app1.js). 
 
 
 Ce script génère un fichier csv en sortie. Pour lier l'ID de l'étudiant à son nom. Nous partons d'un fichier csv contenant les éléments par étudiants que nous convertissons en [json](https://fr.wikipedia.org/wiki/JavaScript_Object_Notation) grâce au projet [csvtojson](https://github.com/Keyang/node-csvtojson). Une fois la donnée convertie en format [JSON](https://fr.wikipedia.org/wiki/JavaScript_Object_Notation), il est facile de faire une requête de cette manière dans les données depuis JavaScript. 
