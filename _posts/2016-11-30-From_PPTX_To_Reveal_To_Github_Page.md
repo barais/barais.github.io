@@ -2,7 +2,7 @@
 layout: blog-post
 title: Some techniques to transform PPTX slides to reveal.js slides; 
 place: Rennes, France
-categories: [Slides, Reveal.js, PowerPoint, Migration]
+categories: [slides, reveal.js, powerpoint, migration]
 ---
 
 This blog post try to explain how I transform my pptx slides to html slides using open-source projects. 

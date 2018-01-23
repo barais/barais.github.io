@@ -2,7 +2,7 @@
 layout: blog-post
 title: Playing with docker and opendaylight
 place: Rennes, France
-categories: [SDN, Opendaylight, docker]
+categories: [sdn, opendaylight, docker]
 ---
 
 A short blog post to share my experience in playing with opendaylight and docker. 

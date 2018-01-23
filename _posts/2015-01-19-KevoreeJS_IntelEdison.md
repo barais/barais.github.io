@@ -2,7 +2,7 @@
 layout: blog-post
 title: Install KevoreeJS on an Intel Edison
 place: Rennes, France
-categories: [KevoreeJS, Edison]
+categories: [kevoreejs, edison]
 ---
 Just a doc to show how to install a debian wheezy on an Intel Edison and install KevoreeJS tooling.
 

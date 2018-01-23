@@ -16,8 +16,8 @@ docker pull barais/nginxsosies #contains nginx and the websocket server for disp
 
 To create quickly a cluster of regular mdms worker 
 
-{% highlight bash %}
-{% raw  %}
+{% raw %}
+```bash
 #!/bin/bash
 #start nginx
 export ID_REDIS=$(docker  run -i -d -t barais/mdmsredis /usr/bin/redis-server)
@@ -39,16 +39,16 @@ done
 export ID_NGINX=$(docker  run -i -d -t barais/nginxsosies /main $IPS_WORKER) #you can add a second parameter for the public name of your website e.g. cloud.diversify.org
 export IP_NGINX=`docker inspect --format='{{ .NetworkSettings.IPAddress }}' $ID_NGINX`
 echo $IP_NGINX
-{% endraw  %}
-{% endhighlight %}
+```
+{% endraw %}
 
 To create quickly a cluster of diversified mdms workers:
 
 <!--more-->
 
-
-{% highlight bash %}
-{% raw  %}#!/bin/bash
+{% raw %}
+```bash
+#!/bin/bash
 #start nginx
 export ID_REDIS=$(docker  run -i -d -t barais/mdmsredis /usr/bin/redis-server)
 export IP_REDIS=`docker inspect --format='{{ .NetworkSettings.IPAddress }}' $ID_REDIS`
@@ -70,12 +70,13 @@ done
 export ID_NGINX=$(docker  run -i -d -t barais/nginxsosies /main $IPS_WORKER) #you can add a second parameter for the public name of your website e.g. cloud.diversify.org
 export IP_NGINX=`docker inspect --format='{{ .NetworkSettings.IPAddress }}' $ID_NGINX`
 echo $IP_NGINX
-{% endraw  %}
-{% endhighlight %}
+```
+{% endraw %}
 
 To mix, both of sosies and regular version
-{% highlight bash %}
-{% raw  %}
+
+{% raw %}
+```bash
 #!/bin/bash
 #!/bin/bash
 #start nginx
@@ -106,22 +107,23 @@ done
 export ID_NGINX=$(docker  run -i -d -t barais/nginxsosies /main $IPS_WORKER) #you can add a second parameter for the public name of your website e.g. cloud.diversify.org
 export IP_NGINX=`docker inspect --format='{{ .NetworkSettings.IPAddress }}' $ID_NGINX`
 echo $IP_NGINX
-{% endraw  %}
-{% endhighlight %}
+```
+{% endraw %}
 
 To go quickly, shell script are [there](/docs/diversify/diversify.tar.gz)
 
 if it is for a demo, you can switch quickly between version in doing:
 
-{% highlight bash %}
+{% raw %}
+```bash
 docker kill $(docker ps -a -q) #kill all the running containers
 diversify\ docker1.sh #start mdms with 10 regular backends
 docker kill $(docker ps -a -q) #kill all the running containers
 diversify\ docker2.sh #start mdms with 10 diversified backends
 docker kill $(docker ps -a -q) #kill all the running containers
 diversify\ docker3.sh #start mdms with 10 diversified backends and 10 regular backends
-{% endhighlight %}
-
+```
+{% endraw %}
 
 
 have fun ;)

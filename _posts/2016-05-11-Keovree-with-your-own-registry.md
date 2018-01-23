@@ -2,7 +2,7 @@
 layout: blog-post
 title: Play with Kevoree with your own model registry
 place: Rennes, France
-categories: [kevoree, JavaScript, Java]
+categories: [kevoree, javascript, java]
 ---
 
 There are different reasons for using Kevoree with your own Kevoree model (default execution use [http://registry.kevoree.org](http://registry.kevoree.org)). The registry contains the model of existing kevoree artefacts (market place). Among the motivations to deploy your own registry, we can cite:

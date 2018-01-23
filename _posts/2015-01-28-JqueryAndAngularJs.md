@@ -2,7 +2,7 @@
 layout: blog-post
 title: Quick and dirty integration of JQuery module with AngularJS
 place: Rennes, France
-categories: [AngularJs,jquery]
+categories: [angularjs,jquery]
 ---
 This morning, I have to integrate a JQuery libs with angularJS. Of course, the propper way to do it is the use of directives but I have to do it quickly.
 

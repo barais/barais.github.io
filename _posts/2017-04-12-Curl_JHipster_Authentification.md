@@ -2,7 +2,7 @@
 layout: blog-post
 title: Play with curl to test generated JHipster application API 
 place: Rennes, France
-categories: [JHipster,Swagger,curl,Authentification]
+categories: [jhipster,swagger,curl,authentification]
 ---
 
 

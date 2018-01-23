@@ -2,7 +2,7 @@
 layout: blog-post
 title: Using Go-Docker and Docker Swarm on top of a cluster of raspberry pi.
 place: Rennes, France
-categories: [docker, swarm, go-docker,Raspberry Pi]
+categories: [docker, swarm, go-docker,raspberry pi]
 ---
 
 Lightweight containers technologies such as Docker are more and more adopted for deploying and managing micro-services architectures. Indeed, they hide a part of the complexity resulting from the language heterogeneity and the large choice of existing implementation frameworks that can be used to implement modern applications. Containers provide those benefits without introducing the general cost of the virtualization.  

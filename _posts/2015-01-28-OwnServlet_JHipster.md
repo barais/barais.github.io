@@ -2,7 +2,7 @@
 layout: blog-post
 title: Some tips for JHipster
 place: Rennes, France
-categories: [JHipster]
+categories: [jhipster]
 ---
 I really like [JHipster project](http://jhipster.github.io/).
 The server stack is clean and ready for production

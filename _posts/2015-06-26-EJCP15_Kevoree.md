@@ -2,7 +2,7 @@
 layout: blog-post 
 title: EJCP15 CBSE Course 
 place: Nancy, France
-categories: [EJCP, software engineering]
+categories: [ejcp, software engineering]
 ---
 
 Materials for the course is available online:

@@ -2,7 +2,7 @@
 layout: blog-post 
 title: Quelques règles pour l'installation des portables 
 place: Rennes, France
-categories: [teaching, ISTIC, LABFAB, french]
+categories: [teaching, istic, labfab, french]
 ---
 
 Hello les makers,

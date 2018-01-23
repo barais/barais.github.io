@@ -2,7 +2,7 @@
 layout: blog-post 
 title: Quelques règles pour l'installation des portables 
 place: Rennes, France
-categories: [teaching, ISTIC, M2, french]
+categories: [teaching, istic, m2, french]
 ---
 
 Hello très chers étudiants,

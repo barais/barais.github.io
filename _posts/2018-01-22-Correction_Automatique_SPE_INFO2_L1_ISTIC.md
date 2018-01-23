@@ -2,7 +2,7 @@
 layout: blog-post
 title: Quelques explication sur la correction automatique en L1 pour l'UE SPE-INFO2
 place: Rennes, France
-categories: [teaching, ISTIC, L1, french]
+categories: [teaching, istic, l1, french]
 ---
 
 Hello très chers étudiants,

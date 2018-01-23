@@ -53,8 +53,10 @@ jekyll_admin:
 excerpt_separator: <!--more-->
 category_dir: /blog/categories
 category_title_prefix: category:&nbsp;
-#permalink: /blog/posts/:categories/:year/:month/:day/:title.html
-permalink: /blog/posts/:year.:month.:day/:title.html
+permalink: /blog/posts/:categories/:year/:month/:day/:title.html
+#permalink: /blog/posts/:year.:month.:day/:title.html
+#permalink: /:categories/:title/
+
 #destination: ./_site/
 #plugins:     ./_plugins
 #layouts:     ./_layouts
