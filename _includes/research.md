@@ -5,7 +5,7 @@
 <p style='text-align: justify;'>If you are potentially interested in one of our positions, please <a href="/contact"> contact me</a>, and we will provide you with more information about the positions and the application process.</p>
  
 
-#General Qualifications (apply to PhD and post-doc)
+# General Qualifications (apply to PhD and post-doc)
 You need to: <small><small>(inspired from [FAN group](http://fan.inf.usi.ch/open-positions))</small></small>
 
 * be really excited about our project
@@ -27,7 +27,7 @@ You need to: <small><small>(inspired from [FAN group](http://fan.inf.usi.ch/open
 * be ok traveling long distance from time to time (e.g., for conferences)
  
 
-#Qualifications for PhD Students
+# Qualifications for PhD Students
 You need to:
 
 * have (or soon receive) a Masters degree in computer science/engineering, informatics, or related fields
@@ -35,14 +35,14 @@ You need to:
 * be ok investing 3+ years as a "research apprentice" (aka PhD student)
  
 
-#Qualifications for PostDocs
+# Qualifications for PostDocs
 You need to:
 
 * have (or soon receive) a PhD degree in computer science/informatics
 * have prior research experience in the areas of programming languages and/or software engineering
 * have co-authored publications in conferences such as  ASE, AOSD (Modularity), ICSE, FSE, Models, PLDI, SPLC, CBSE, QOSA, SEAMS, ISSTA, ICST, Middleware, etc.
 
-#R&D Activities
+# R&D Activities
 * <p style='text-align: justify;'>from February 2007 to February 2009, I participate to a "FACEPE" project (a two year program with the University of Pernambouco, Brazil) called <b>SIntArch</b> (Safe Introduction of Interaction patterns in Component Based Software Architectures) between Pr Augusto Cesar Alvez Sampaio and the Triskell group on Component Based Software Architecture design using : Model-driven engineering and Aspects Oriented Modeling. In 2008, we have consolidated the model-snippet MDK used in Kermeta.</p>
 * <p style='text-align: justify;'>from 2008 to 2011, I participate to the <b>[STREP FP7 Diva project](http://www.diva-project.eu/)</b> (<b>Dynamic Variability In Complex, Adaptive Systems</b>). The goal of DiVA is to provide a tool-supported methodology for managing dynamic variability of co-existing, co-dependent configurations in adaptive systems that span system administration and platform boundaries. Examples of such adaptive systems are communication infrastructure in rescue operations and mobile entertainment environments. This is addressed through a combination of aspect-oriented and model-driven techniques. DiVA explores how adaptation policies can be captured in the requirements, how aspects can model the variants used to adapt the system, how models can be kept at runtime to drive the adaptation and which validation techniques have to be developed in this context.</p>
 * <p style='text-align: justify;'>from 2008 to 2011, I participate to the <b>[Mopcom Ingénierie project](http://mopcom-i.gforge.inria.fr/)</b>. <b>Mopcom-I</b> is a project of the Competitivity Cluster “Images & réseaux” of Brittany. The project focuses on the use of model driven engineering for the development of Software for Image domain. The project will produce a complete methodology and development environment dedicated to the domain.</p>
