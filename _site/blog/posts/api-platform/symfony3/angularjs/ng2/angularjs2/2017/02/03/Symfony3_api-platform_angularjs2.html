@@ -1,0 +1,483 @@
+
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+<meta charset="utf-8">
+<!-- <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="Olivier Barais">
+<link rel="author" href="https://plus.google.com/+OlivierBarais">
+ 
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+<link rel="stylesheet" href="/assets/main.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<style>body {
+    padding-top: 60px;
+  }
+  @media (max-width: 979px) {
+    body {
+      padding-top: 60px;
+    }
+  }
+</style>
+
+<title>Integration api-platform and angularjs 2</title>
+
+
+
+<!-- Add custom CSS here -->
+
+<!-- <link rel="shortcut icon" href="favicon.ico"> -->
+<link rel="icon" href="/favicon.ico">
+
+
+<!-- Test -->
+
+</head>
+
+<body>
+
+    	<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+					<span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
+				</button>
+                <a class="navbar-brand" href="/">olivier.barais</a>
+			</div>
+
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="collapse navbar-collapse navbar-right navbar-ex1-collapse">
+				<ul class="nav navbar-nav">
+                    <li><a href="/">Home</a></li>
+					<li><a href="/publications/">Publications</a></li>
+					<li><a href="/teaching/">Teaching</a></li>
+                    <li><a href="/research/">Research</a></li>
+                    <li><a href="/blog/">Blog</a></li>
+                    <li><a href="/photos/">Photos</a></li>
+                    <li><a href="/contact/">Contact</a></li>
+				</ul>
+			</div>
+			<!-- /.navbar-collapse -->
+		</div>
+		<!-- /.container -->
+	</nav>
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                               <!-- the actual blog post: title/author/date/content -->
+                <h1> Integration api-platform and angularjs 2 </h1>
+                    <p class="lead">by <a href="/contact/">Olivier Barais</a> &nbsp;&nbsp;&nbsp;
+                        
+                            <a href="/blog/categories/api-platform/"><span class="label label-primary">api-platform</span></a>
+                            &nbsp;
+                        
+                            <a href="/blog/categories/symfony3/"><span class="label label-primary">symfony3</span></a>
+                            &nbsp;
+                        
+                            <a href="/blog/categories/angularjs/"><span class="label label-primary">angularjs</span></a>
+                            &nbsp;
+                        
+                            <a href="/blog/categories/ng2/"><span class="label label-primary">ng2</span></a>
+                            &nbsp;
+                        
+                            <a href="/blog/categories/angularjs2/"><span class="label label-primary">angularjs2</span></a>
+                            &nbsp;
+                        
+                    </p>
+                        <span class="glyphicon glyphicon-time"></span> Posted 2017.02.03 
+                        
+                            &mdash; Rennes, France
+                        
+
+                <hr>
+                
+                <p>Even if I prefer to use <a href="https://projects.spring.io/spring-boot/">Spring Boot</a> as a basis for the the server stack and <a href="https://jhipster.github.io/">JHipster</a> to generate the apps skeleton, I often have to use <a href="http://php.net/manual/fr/intro-whatis.php">Php</a> framework for students projects. 
+This blog post explains how you can integrate <a href="https://api-platform.com/">api-platform</a>, 
+a PHP framework to build modern web APIs built on top <a href="https://symfony.com/">symfony 3</a>, 
+and <a href="https://angular.io/">angularJS 2</a> with <a href="https://cli.angular.io/">angular cli</a> 
+for building Single Page Application.</p>
+
+<!--more-->
+
+<p>A new kind of web application is now suggested, we call it “<em>the Rise of Single Page Applications (SPA)</em>”</p>
+
+<p>This <a href="https://dzone.com/articles/architectural-shift-in-web-applications-with-emerg">article</a> explains this new trend and the furture evolution. The three following paragraphs just explain this new architecture.</p>
+
+<blockquote>
+  <p><em>We woke up to new era of AJAX with the overnight success of applications like Gmail and Google Maps, where refreshing the entire page became a thing of the past. Applications were now designed to request only the necessary bits and pieces (partial responses) of content and information as needed to create highly interactive user experiences using Thin Clients that up until now were only possible using Thick Clients. The additional logic required to do this on the client side wasn’t anything dramatically new — it was almost the same thing that had been previously used in the Server Web Layer. We essentially moved the Web Layer from the server to the client (Web Browser).</em></p>
+</blockquote>
+
+<blockquote>
+  <p><em>However, this additional logic on the client side brought about new challenges and complexities, such as having to deal with numerous XMLHttpRequests and understand the web browser’s DOM (Document Object Model) at a much deeper level than ever before necessary. To handle this added complexity many new JavaScript based frameworks emerged to handle low-level details and routine actions. Some frameworks are opinionated and some are not; some are bare bones and some are end-to-end solutions. And while it seemed like a new framework was appearing every other day, the good ones were all leveraging the same best practices and patterns that had been previously used with success in the Server Web Layer including Components, MVC (Model, View and Controller), Annotations, Dependency Injection, Services and Contracts by Interfaces etc.</em></p>
+</blockquote>
+
+<blockquote>
+  <p><em>Since the Web Layer was removed from the Server Layer and moved to the Client Layer, a new thin layer was introduced to the Server Layer in order to expose the existing Server Business Layer directly to the new Client Web Layer. This was most frequently done using custom SOAP or REST APIs. The creation of these APIs and the architectural shift in the placement of the Web Layer paved the way to support functionalities like off-line support, but more importantly, the ability to support multiple client types, even those with different native implementations, using the same back end (think of a single backend powering iOS and Android apps, as well as desktop and mobile Web interfaces).</em></p>
+</blockquote>
+
+<p>To follow this architecture, we could easily combine <a href="https://api-platform.com/">api-platform</a>, a PHP framework to build modern web APIs built on top <a href="https://symfony.com/">symfony 3</a>, and <a href="https://angular.io/">angularJS 2</a> for building Single Page Application.</p>
+
+<h1 id="step-1-get-the-tooling">Step 1: Get the tooling.</h1>
+
+<ol>
+  <li>Install <a href="https://nodejs.org/en/">nodejs</a>.</li>
+  <li>Install php7</li>
+  <li>Install <a href="https://angular.io/">angular-cli</a></li>
+</ol>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm <span class="nb">install</span> <span class="nt">-g</span> angular-cli
+</code></pre></div></div>
+
+<h1 id="step-2-get-and-configure-api-platform">Step 2: Get and configure api platform.</h1>
+
+<p>You can start from the demo app.</p>
+
+<p>Clone the repo</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/api-platform/demo
+</code></pre></div></div>
+
+<p>Go in the folder</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd </span>demo
+</code></pre></div></div>
+
+<h2 id="install-composer">Install composer</h2>
+
+<p>Composer is equivalent to maven or npm for the PhP community. It is a Dependency Manager for PHP.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php <span class="nt">-r</span> <span class="s2">"copy('https://getcomposer.org/installer', 'composer-setup.php');"</span>
+php composer-setup.php
+</code></pre></div></div>
+
+<p>Install dependencies required by api-platform (symfony3, doctrine, …)</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php composer.phar <span class="nb">install</span>
+</code></pre></div></div>
+
+<h2 id="create-the-database">Create the database</h2>
+<p>Next you can configure the connexion to the the database.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bin/console doctrine:database:create
+</code></pre></div></div>
+
+<p>Create your object model in src/AppBundle/Entity. The demo app comes with two entities (Book and Review for the demo).</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bin/console doctrine:schema:create 
+</code></pre></div></div>
+
+<p>Check that your database has been created.</p>
+
+<h2 id="update-the-routing">Update the routing</h2>
+<p>In the app/config/routing.yml add a prefix for your apu, it can be somethings like that.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>api:
+    resource: '.'
+    type:     'api_platform'
+    prefix:   '/api'  # This line can be added
+</code></pre></div></div>
+
+<h2 id="start-the-server">Start the server</h2>
+
+<p>Next, you can start the server in doing.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bin/console server:start <span class="c"># for starting the server</span>
+bin/console server stop <span class="c"># for stopping the server</span>
+</code></pre></div></div>
+
+<h2 id="check-that-your-application-is-running">Check that your application is running</h2>
+<p>Go to <a href="http://localhost:8000/api">http://localhost:8000/api</a>.</p>
+
+<p>You can see the swagger interface.</p>
+
+<p>When you modify your business object model, you can update the schema</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bin/console doctrine:schema:update <span class="nt">--force</span> 
+</code></pre></div></div>
+
+<p>The <a href="http://swagger.io/">swagger</a> interface is automatically up to date if you modify your entities.</p>
+
+<h1 id="prepare-the-frontend">Prepare the frontend</h1>
+<p>For preparing the front end, we will use angularjs2 and angular-cli.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ng new frontend
+</code></pre></div></div>
+
+<p>Next, let a process that watches your typescript file and generate the web application.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd </span>frontend
+ng build <span class="nt">-w</span> <span class="nt">--base-href</span> front <span class="nt">--sourcemap</span> <span class="nb">true</span> <span class="nt">--output-path</span> ../web/front
+</code></pre></div></div>
+
+<p>In an other console come back to the root of your project and restart the server.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bin/console server:start <span class="c"># for starting the server</span>
+bin/console server stop <span class="c"># for stopping the server</span>
+</code></pre></div></div>
+
+<p>Go to <a href="http://localhost:8000/api">http://localhost:8000/api</a> you will get swagger
+Go to <a href="http://localhost:8000/front">http://localhost:8000/front</a> you will get your frontend</p>
+
+<p>Open you visual code studio editor in the root of your project.</p>
+
+<p>Next you can read the doc of open platform and read the doc of angular2 to integrate some widgets.</p>
+
+<h3 id="api-platform">api-platform</h3>
+<ul>
+  <li><a href="https://api-platform.com/docs/">documentation</a></li>
+</ul>
+
+<h3 id="angular-js-2">angular js 2</h3>
+<ul>
+  <li><a href="https://angular.io/docs/ts/latest/">Official documentation</a></li>
+  <li><a href="https://github.com/AngularClass/awesome-angular2">courses</a></li>
+  <li><a href="http://www.primefaces.org/primeng/">great widgets</a></li>
+  <li><a href="https://github.com/valor-software/ng2-bootstrap">bootstrap ng2 components</a></li>
+  <li><a href="https://books.ninja-squad.com/angular">great book</a></li>
+</ul>
+
+<p>Enjoy!</p>
+
+<h1 id="deploy-your-application-with-apache">Deploy your application with apache</h1>
+
+<p>Stop the server and the ng build process.</p>
+
+<p>In the frontend folder, run the following command to  build the web application for the production.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">rm</span> <span class="nt">-rf</span> ../web/front
+ng build <span class="nt">--base-href</span> front <span class="nt">--sourcemap</span> <span class="nb">true</span> <span class="nt">--output-path</span> ../web/front <span class="nt">--target</span><span class="o">=</span>production
+</code></pre></div></div>
+
+<p>And configure apache to serve your web folder of your project or copy it where you want to deploy your app. 
+If you have to change your database parameters, do not forget to update your app/config/parameters.yml.</p>
+
+<h1 id="conclusion">Conclusion</h1>
+<p>Great you will have now this great architecture. 
+Next blog posts will show, how you can easily integrate ng2 and primefaces components for the frontend and how you can manage RBAC rules and authentifications for such an application.</p>
+
+<p><img src="https://api-platform.com/dist/e89da8a0f3ea2c3e006fb5328246624c.png" alt="arch" style="width: 800px;" /></p>
+
+
+                
+                <!-- the comment box -->
+<!--                 <div class="well">
+                    <h4>Leave a Comment:</h4>
+                    <form role="form">
+                        <div class="form-group">
+                            <textarea class="form-control" rows="3"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div> -->
+
+                <!-- the comments -->
+<!--                 <hr>
+ --><!--                 <h3>Start Bootstrap
+                    <small>9:41 PM on August 24, 2013</small>
+                </h3>
+                <p>This has to be the worst blog post I have ever read. It simply makes no sense. You start off by talking about space or something, then you randomly start babbling about cupcakes, and you end off with random fish names.</p>
+
+                <h3>Start Bootstrap
+                    <small>9:47 PM on August 24, 2013</small>
+                </h3>
+                <p>Don't listen to this guy, any blog with the categories 'dinosaurs, spaceships, fried foods, wild animals, alien abductions, business casual, robots, and fireworks' has true potential.</p> -->
+
+<!--             <div class="row"> -->
+<!--                 % include well.html %} -->
+<!--             </div> -->
+
+<!--             </div> -->
+<!--             % include well.html %} -->
+            
+
+            </div>
+            <div class="col-md-4">
+                <!-- <div class="col-md-4"> -->
+    <!--              
+    <div class="well">
+        <h4>Blog Search</h4>
+        <div class="input-group">
+            <input type="text" class="form-control">
+            <span class="input-group-btn">
+                <button class="btn btn-default" type="button">
+                    <span class="glyphicon glyphicon-search"></span>
+                </button>
+            </span>
+        </div>
+    </div>
+    -->
+
+    
+
+    <div class="well">
+        <div class="row">
+            <div class="col-md-6">
+                <h4>Current Tags</h4>
+                <ul class="list-unstyled">
+                    
+                    <li><a href="/blog/categories/api-platform/">api-platform</a></li> 
+                    <li><a href="/blog/categories/symfony3/">symfony3</a></li> 
+                    <li><a href="/blog/categories/angularjs/">angularjs</a></li> 
+                    <li><a href="/blog/categories/ng2/">ng2</a></li> 
+                    <li><a href="/blog/categories/angularjs2/">angularjs2</a></li> 
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    
+
+    <div class="well">
+        <div class="row">
+            <div class="col-lg-6">
+                <h4>All Tags</h4>
+                <ul class="list-unstyled">
+                    <li><a href="/blog/">All</a></li> 
+                    <li><a href="/blog/categories/first-post/">first-post</a></li> 
+                    <li><a href="/blog/categories/jekyll/">jekyll</a></li> 
+                    <li><a href="/blog/categories/github-pages/">github-pages</a></li> 
+                    <li><a href="/blog/categories/teaching/">teaching</a></li> 
+                    <li><a href="/blog/categories/markdown/">markdown</a></li> 
+                    <li><a href="/blog/categories/untidy/">untidy</a></li> 
+                    <li><a href="/blog/categories/website/">website</a></li> 
+                    <li><a href="/blog/categories/docker/">docker</a></li> 
+                    <li><a href="/blog/categories/cloud/">cloud</a></li> 
+                    <li><a href="/blog/categories/diversify/">diversify</a></li> 
+                    <li><a href="/blog/categories/eclipse/">eclipse</a></li> 
+                    <li><a href="/blog/categories/istic/">istic</a></li> 
+                    <li><a href="/blog/categories/m2/">m2</a></li> 
+                    <li><a href="/blog/categories/french/">french</a></li> 
+                    <li><a href="/blog/categories/ensai/">ensai</a></li> 
+                    <li><a href="/blog/categories/kevoree/">kevoree</a></li> 
+                    <li><a href="/blog/categories/kevoreejs/">kevoreejs</a></li> 
+                    <li><a href="/blog/categories/edison/">edison</a></li> 
+                    <li><a href="/blog/categories/angularjs/">angularjs</a></li> 
+                    <li><a href="/blog/categories/jquery/">jquery</a></li> 
+                    <li><a href="/blog/categories/jhipster/">jhipster</a></li> 
+                    <li><a href="/blog/categories/sdn/">sdn</a></li> 
+                    <li><a href="/blog/categories/opendaylight/">opendaylight</a></li> 
+                    <li><a href="/blog/categories/software engineering/">software engineering</a></li> 
+                    <li><a href="/blog/categories/ejcp/">ejcp</a></li> 
+                    <li><a href="/blog/categories/swarm/">swarm</a></li> 
+                    <li><a href="/blog/categories/go-docker/">go-docker</a></li> 
+                    <li><a href="/blog/categories/raspberry pi/">raspberry pi</a></li> 
+                    <li><a href="/blog/categories/javascript/">javascript</a></li> 
+                    <li><a href="/blog/categories/java/">java</a></li> 
+                    <li><a href="/blog/categories/slides/">slides</a></li> 
+                    <li><a href="/blog/categories/reveal.js/">reveal.js</a></li> 
+                    <li><a href="/blog/categories/powerpoint/">powerpoint</a></li> 
+                    <li><a href="/blog/categories/migration/">migration</a></li> 
+                    <li><a href="/blog/categories/labfab/">labfab</a></li> 
+                    <li><a href="/blog/categories/api-platform/">api-platform</a></li> 
+                    <li><a href="/blog/categories/symfony3/">symfony3</a></li> 
+                    <li><a href="/blog/categories/ng2/">ng2</a></li> 
+                    <li><a href="/blog/categories/angularjs2/">angularjs2</a></li> 
+                    <li><a href="/blog/categories/rpi/">rpi</a></li> 
+                    <li><a href="/blog/categories/raspberrypi/">raspberrypi</a></li> 
+                    <li><a href="/blog/categories/raspberry/">raspberry</a></li> 
+                    <li><a href="/blog/categories/swagger/">swagger</a></li> 
+                    <li><a href="/blog/categories/curl/">curl</a></li> 
+                    <li><a href="/blog/categories/authentification/">authentification</a></li> 
+                    <li><a href="/blog/categories/l1/">l1</a></li> 
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="well">
+        <h4>Remark</h4>
+        <p>Sorry, no comments enabled for now because I'm using a simple static site generator (maybe I'll try out disqus another day).</p>
+        <p>
+            But if you like what you see, send me an <a href="/contact/">email</a>.
+        </p>
+    </div>
+<!-- </div> -->
+
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="banner"> 
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3">
+                <!--                     <h2>You can check me out on</h2> -->
+                <h2>Find me on</h2>
+            </div>
+            <div class="col-lg-9">
+                <ul class="list-inline banner-social-buttons">
+                    <li><a href="http://www.linkedin.com/in/olivierbarais" class="btn btn-default btn-lg"><i class="fa fa-linkedin-square fa-fw"></i>
+                            <span class="network-name">Linkedin</span></a></li>
+                    <li><a href="https://github.com/barais" class="btn btn-default btn-lg"><i class="fa fa-github-square fa-fw"></i> <span
+                            class="network-name">Github</span></a></li>
+                    <li><a href="http://scholar.google.fr/citations?user=LV5i8X4AAAAJ&hl=en" class="btn btn-default btn-lg"><i
+                            class="fa fa-search fa-fw"></i> <span class="network-name">Scholar</span></a></li>
+                    <li><a href="https://www.google.com/+OlivierBarais?rel=author" class="btn btn-default btn-lg"><i
+                            class="fa fa-google-plus-square fa-fw"></i> <span class="network-name">google+</span></a></li>
+                    <li><a href="https://www.facebook.com/obarais" class="btn btn-default btn-lg"><i
+                            class="fa fa-facebook-square fa-fw"></i> <span class="network-name">facebook</span></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+
+</div>
+<!-- /.banner -->
+
+<footer>
+    <div class="container">
+        <div class="span12 pagination-centered" style="text-align: center">
+            <div class="row">
+                <div class="col-lg-12">
+                    <ul class="list-inline">
+                        <li><a href="/">Home</a></li>
+                        <li class="footer-menu-divider">&sdot;</li>
+                        <!-- 						<li><a href="#about">About</a></li>
+							<li class="footer-menu-divider">&sdot;</li>
+	                    -->
+                        <li><a href="/publications/">Publications</a></li>
+                        <li class="footer-menu-divider">&sdot;</li>
+                        <li><a href="/teaching/">Teaching</a></li>
+                        <li class="footer-menu-divider">&sdot;</li>
+                        <li><a href="/research/">Research</a></li>
+                        <li class="footer-menu-divider">&sdot;</li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li class="footer-menu-divider">&sdot;</li>
+                        <li><a href="/photos/">Photos</a></li>
+                        <li class="footer-menu-divider">&sdot;</li>
+                        <li><a href="/contact/">Contact</a></li>
+                    </ul>
+
+                    <p class="copyright text-muted small">
+                        <a href="http://validator.w3.org/check?uri=referer"><img src="/img/valid-html401.png"
+                            alt="Valid HTML 4.01 Frameset" height="20" width="57"></a> Built using <a href="http://jekyllrb.com/">Jekyll</a>, <a
+                            href="http://twitter.github.com/bootstrap/">Bootstrap</a> and <a href="http://startbootstrap.com">Startbootstrap</a> from <a href="http://rudametw.github.io/">Walter Rudametkin's template</a>. All
+                        source code available <a href="https://github.com/barais/barais.github.io"> here</a>. 
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+</body>
+</html>
