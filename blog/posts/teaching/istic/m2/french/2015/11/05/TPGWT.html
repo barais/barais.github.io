@@ -1,0 +1,391 @@
+
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+<meta charset="utf-8">
+<!-- <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="Olivier Barais">
+<link rel="author" href="https://plus.google.com/+OlivierBarais">
+ 
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+<link rel="stylesheet" href="/assets/main.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<style>body {
+    padding-top: 60px;
+  }
+  @media (max-width: 979px) {
+    body {
+      padding-top: 60px;
+    }
+  }
+</style>
+
+<title>Quelques éléments pour le TP GWT</title>
+
+
+
+<!-- Add custom CSS here -->
+
+<!-- <link rel="shortcut icon" href="favicon.ico"> -->
+<link rel="icon" href="/favicon.ico">
+
+
+<!-- Test -->
+
+</head>
+
+<body>
+
+    	<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+					<span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
+				</button>
+                <a class="navbar-brand" href="/">olivier.barais</a>
+			</div>
+
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="collapse navbar-collapse navbar-right navbar-ex1-collapse">
+				<ul class="nav navbar-nav">
+                    <li><a href="/">Home</a></li>
+					<li><a href="/publications/">Publications</a></li>
+					<li><a href="/teaching/">Teaching</a></li>
+                    <li><a href="/research/">Research</a></li>
+                    <li><a href="/blog/">Blog</a></li>
+                    <li><a href="/photos/">Photos</a></li>
+                    <li><a href="/contact/">Contact</a></li>
+				</ul>
+			</div>
+			<!-- /.navbar-collapse -->
+		</div>
+		<!-- /.container -->
+	</nav>
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                               <!-- the actual blog post: title/author/date/content -->
+                <h1> Quelques éléments pour le TP GWT </h1>
+                    <p class="lead">by <a href="/contact/">Olivier Barais</a> &nbsp;&nbsp;&nbsp;
+                        
+                            <a href="/blog/categories/teaching/"><span class="label label-primary">teaching</span></a>
+                            &nbsp;
+                        
+                            <a href="/blog/categories/istic/"><span class="label label-primary">istic</span></a>
+                            &nbsp;
+                        
+                            <a href="/blog/categories/m2/"><span class="label label-primary">m2</span></a>
+                            &nbsp;
+                        
+                            <a href="/blog/categories/french/"><span class="label label-primary">french</span></a>
+                            &nbsp;
+                        
+                    </p>
+                        <span class="glyphicon glyphicon-time"></span> Posted 2015.11.05 
+                        
+                            &mdash; Rennes, France
+                        
+
+                <hr>
+                
+                <p>Hello très chers étudiants,</p>
+
+<p>Pour ce deuxième TP de GLI, nous allons étudier GWT. Pour la mise en place de l’environnement, la compilation, le lancement du serveur …, nous utiliserons <a href="http://maven.apache.org/">maven</a>.</p>
+
+<p>###Etape 0: Création du projet###</p>
+
+<p>Pour démarrer, nous pouvons utiliser l’<a href="http://mojo.codehaus.org/gwt-maven-plugin/">archetype maven gwt</a>.</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"> mvn archetype:generate <span class="se">\</span>
+   <span class="nt">-DarchetypeGroupId</span><span class="o">=</span>org.codehaus.mojo <span class="se">\</span>
+   <span class="nt">-DarchetypeArtifactId</span><span class="o">=</span>gwt-maven-plugin <span class="se">\</span>
+   <span class="nt">-DarchetypeVersion</span><span class="o">=</span>2.7.0</code></pre></figure>
+
+<!--more-->
+
+<p>La documentation du plugin maven est <a href="https://gwt-maven-plugin.github.io/gwt-maven-plugin/">ici</a></p>
+
+<p>Renseignez alors, le groupeId, l’artefactId, la version, le package par défaut, et le nom du module gwt que vous souhaitez créer. Attention de mettre le nom de module sans espace et en minuscule.</p>
+
+<p>Testez la compilation</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"> mvn gwt:generateAsync compile gwt:compile package</code></pre></figure>
+
+<p>Attention, à chaque fois que vous touchez aux interfaces de services, vous devrez regénérer le code Java des interfaces Async ou des messages en tapant.</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"> mvn gwt:generateAsync</code></pre></figure>
+
+<p>###Etape 1: Installation eclipse###
+Dans eclipse, il existe un certains nombre de <a href="https://developers.google.com/eclipse/docs/getting_started?hl=fr">plugins</a> que vous pouvez installer, ils ne sont pas nécessairement requis. Entres autres, le designer peut intéresser certains d’entres vous.</p>
+
+<p>###Etape 2: Import du projet###
+Dans eclipse ou IntelliJ, importez votre projet maven:</p>
+
+<p>File -&gt; Import -&gt; maven -&gt; Existing maven project.</p>
+
+<p>Séléctionnez le répertoire de votre projet. Il expliquera qu’il ne sait pas gérer la tâche gwt:.., séléctionner <em>ignore add to pom</em>.</p>
+
+<p>###Etape 3: Premier démarrage du projet à l’aide du super dev mode ###
+Dans la description de votre projet, (fichier gwt.xml dans le répertoire <em>ressources</em>), ajoutez les lignes suivantes avant la clôture de la balise module.</p>
+
+<figure class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;add-linker</span> <span class="na">name=</span><span class="s">"xsiframe"</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;set-configuration-property</span> <span class="na">name=</span><span class="s">"devModeRedirectEnabled"</span> <span class="na">value=</span><span class="s">"true"</span><span class="nt">/&gt;</span></code></pre></figure>
+
+<p>Puis vous pouvez lancer</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">mvn gwt:run</code></pre></figure>
+
+<p>Allez à l’adresse : <a href="http://localhost:9876/">http://localhost:9876/</a></p>
+
+<p>Mettez <em>dev mode on</em> et <em>dev mode off</em> comme des <em>bookmarks</em> de votre navigateur.</p>
+
+<p>Puis allez à l’adresse : <a href="http://127.0.0.1:8888/MODULE.html">http://127.0.0.1:8888/MODULE.html</a> en remplaçant module par le nom de votre module. Cliquez sur le bookmark <em>devmodeon</em> que vous venez de créer, vous devriez pouvoir recompiler votre code à la volée. Si vous touchez au code côté serveur, vous pouvez rechargez jetty depuis le deuxième onglet de la fenètre qui est apparue au lancement de <em>mvn gwt:run</em>.</p>
+
+<p>Pour activer le lien entre les sources Java et le debug javascript</p>
+
+<p>Ajoutez la ligne suivante à votre fichier gwt.xml</p>
+
+<figure class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;set-property</span> <span class="na">name=</span><span class="s">"compiler.useSourceMaps"</span> <span class="na">value=</span><span class="s">"true"</span> <span class="nt">/&gt;</span></code></pre></figure>
+
+<ol>
+  <li><em>Open chrome dev tools</em></li>
+  <li><em>Open Settings (gear in bottom right of dev tools)</em></li>
+  <li><em>In “Source” section, enable source maps</em>
+<em>If you notice you can navigate and step through both the Java code and jsni methods (something that was never available before). Also, recompiling the module is as easy as clicking “Dev Mode On” again and compiling the new module. Compilations are much quicker than full GWT compiles. The incremental builds save a lot of time.</em></li>
+</ol>
+
+<p><em>Even if the Eclipse/IntelliJ plugin paired with chrome’s plugin are good enough for you, source maps still have some advantages. Source maps appear to be a new techonology that will be used more and more, so getting familiar with using it now should benefit you in the future.</em></p>
+
+<p>###Etape 4: Développez votre projet ###</p>
+
+<p>Créer une interface web pour le projet DoodleBlablaCar (Sujet de Taa)</p>
+
+<p>J’ai mis un exemple GWT qui attaque des services Restful (Json + Jersey). sur <a href="https://github.com/barais/taajerseygwt.git">github</a></p>
+
+<p>J’ai aussi mis un exemple GWT + SmartGWT + superdev mode ici <a href="https://github.com/barais/smartgwt5maven.git">github</a></p>
+
+<p>Have fun ;)</p>
+
+
+                
+                <!-- the comment box -->
+<!--                 <div class="well">
+                    <h4>Leave a Comment:</h4>
+                    <form role="form">
+                        <div class="form-group">
+                            <textarea class="form-control" rows="3"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div> -->
+
+                <!-- the comments -->
+<!--                 <hr>
+ --><!--                 <h3>Start Bootstrap
+                    <small>9:41 PM on August 24, 2013</small>
+                </h3>
+                <p>This has to be the worst blog post I have ever read. It simply makes no sense. You start off by talking about space or something, then you randomly start babbling about cupcakes, and you end off with random fish names.</p>
+
+                <h3>Start Bootstrap
+                    <small>9:47 PM on August 24, 2013</small>
+                </h3>
+                <p>Don't listen to this guy, any blog with the categories 'dinosaurs, spaceships, fried foods, wild animals, alien abductions, business casual, robots, and fireworks' has true potential.</p> -->
+
+<!--             <div class="row"> -->
+<!--                 % include well.html %} -->
+<!--             </div> -->
+
+<!--             </div> -->
+<!--             % include well.html %} -->
+            
+
+            </div>
+            <div class="col-md-4">
+                <!-- <div class="col-md-4"> -->
+    <!--              
+    <div class="well">
+        <h4>Blog Search</h4>
+        <div class="input-group">
+            <input type="text" class="form-control">
+            <span class="input-group-btn">
+                <button class="btn btn-default" type="button">
+                    <span class="glyphicon glyphicon-search"></span>
+                </button>
+            </span>
+        </div>
+    </div>
+    -->
+
+    
+
+    <div class="well">
+        <div class="row">
+            <div class="col-md-6">
+                <h4>Current Tags</h4>
+                <ul class="list-unstyled">
+                    
+                    <li><a href="/blog/categories/teaching/">teaching</a></li> 
+                    <li><a href="/blog/categories/istic/">istic</a></li> 
+                    <li><a href="/blog/categories/m2/">m2</a></li> 
+                    <li><a href="/blog/categories/french/">french</a></li> 
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    
+
+    <div class="well">
+        <div class="row">
+            <div class="col-lg-6">
+                <h4>All Tags</h4>
+                <ul class="list-unstyled">
+                    <li><a href="/blog/">All</a></li> 
+                    <li><a href="/blog/categories/first-post/">first-post</a></li> 
+                    <li><a href="/blog/categories/jekyll/">jekyll</a></li> 
+                    <li><a href="/blog/categories/github-pages/">github-pages</a></li> 
+                    <li><a href="/blog/categories/teaching/">teaching</a></li> 
+                    <li><a href="/blog/categories/markdown/">markdown</a></li> 
+                    <li><a href="/blog/categories/untidy/">untidy</a></li> 
+                    <li><a href="/blog/categories/website/">website</a></li> 
+                    <li><a href="/blog/categories/docker/">docker</a></li> 
+                    <li><a href="/blog/categories/cloud/">cloud</a></li> 
+                    <li><a href="/blog/categories/diversify/">diversify</a></li> 
+                    <li><a href="/blog/categories/eclipse/">eclipse</a></li> 
+                    <li><a href="/blog/categories/istic/">istic</a></li> 
+                    <li><a href="/blog/categories/m2/">m2</a></li> 
+                    <li><a href="/blog/categories/french/">french</a></li> 
+                    <li><a href="/blog/categories/ensai/">ensai</a></li> 
+                    <li><a href="/blog/categories/kevoree/">kevoree</a></li> 
+                    <li><a href="/blog/categories/kevoreejs/">kevoreejs</a></li> 
+                    <li><a href="/blog/categories/edison/">edison</a></li> 
+                    <li><a href="/blog/categories/angularjs/">angularjs</a></li> 
+                    <li><a href="/blog/categories/jquery/">jquery</a></li> 
+                    <li><a href="/blog/categories/jhipster/">jhipster</a></li> 
+                    <li><a href="/blog/categories/sdn/">sdn</a></li> 
+                    <li><a href="/blog/categories/opendaylight/">opendaylight</a></li> 
+                    <li><a href="/blog/categories/software engineering/">software engineering</a></li> 
+                    <li><a href="/blog/categories/ejcp/">ejcp</a></li> 
+                    <li><a href="/blog/categories/swarm/">swarm</a></li> 
+                    <li><a href="/blog/categories/go-docker/">go-docker</a></li> 
+                    <li><a href="/blog/categories/raspberry pi/">raspberry pi</a></li> 
+                    <li><a href="/blog/categories/javascript/">javascript</a></li> 
+                    <li><a href="/blog/categories/java/">java</a></li> 
+                    <li><a href="/blog/categories/slides/">slides</a></li> 
+                    <li><a href="/blog/categories/reveal.js/">reveal.js</a></li> 
+                    <li><a href="/blog/categories/powerpoint/">powerpoint</a></li> 
+                    <li><a href="/blog/categories/migration/">migration</a></li> 
+                    <li><a href="/blog/categories/labfab/">labfab</a></li> 
+                    <li><a href="/blog/categories/api-platform/">api-platform</a></li> 
+                    <li><a href="/blog/categories/symfony3/">symfony3</a></li> 
+                    <li><a href="/blog/categories/ng2/">ng2</a></li> 
+                    <li><a href="/blog/categories/angularjs2/">angularjs2</a></li> 
+                    <li><a href="/blog/categories/rpi/">rpi</a></li> 
+                    <li><a href="/blog/categories/raspberrypi/">raspberrypi</a></li> 
+                    <li><a href="/blog/categories/raspberry/">raspberry</a></li> 
+                    <li><a href="/blog/categories/swagger/">swagger</a></li> 
+                    <li><a href="/blog/categories/curl/">curl</a></li> 
+                    <li><a href="/blog/categories/authentification/">authentification</a></li> 
+                    <li><a href="/blog/categories/l1/">l1</a></li> 
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="well">
+        <h4>Remark</h4>
+        <p>Sorry, no comments enabled for now because I'm using a simple static site generator (maybe I'll try out disqus another day).</p>
+        <p>
+            But if you like what you see, send me an <a href="/contact/">email</a>.
+        </p>
+    </div>
+<!-- </div> -->
+
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="banner"> 
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3">
+                <!--                     <h2>You can check me out on</h2> -->
+                <h2>Find me on</h2>
+            </div>
+            <div class="col-lg-9">
+                <ul class="list-inline banner-social-buttons">
+                    <li><a href="http://www.linkedin.com/in/olivierbarais" class="btn btn-default btn-lg"><i class="fa fa-linkedin-square fa-fw"></i>
+                            <span class="network-name">Linkedin</span></a></li>
+                    <li><a href="https://github.com/barais" class="btn btn-default btn-lg"><i class="fa fa-github-square fa-fw"></i> <span
+                            class="network-name">Github</span></a></li>
+                    <li><a href="http://scholar.google.fr/citations?user=LV5i8X4AAAAJ&hl=en" class="btn btn-default btn-lg"><i
+                            class="fa fa-search fa-fw"></i> <span class="network-name">Scholar</span></a></li>
+                    <li><a href="https://www.google.com/+OlivierBarais?rel=author" class="btn btn-default btn-lg"><i
+                            class="fa fa-google-plus-square fa-fw"></i> <span class="network-name">google+</span></a></li>
+                    <li><a href="https://www.facebook.com/obarais" class="btn btn-default btn-lg"><i
+                            class="fa fa-facebook-square fa-fw"></i> <span class="network-name">facebook</span></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+
+</div>
+<!-- /.banner -->
+
+<footer>
+    <div class="container">
+        <div class="span12 pagination-centered" style="text-align: center">
+            <div class="row">
+                <div class="col-lg-12">
+                    <ul class="list-inline">
+                        <li><a href="/">Home</a></li>
+                        <li class="footer-menu-divider">&sdot;</li>
+                        <!-- 						<li><a href="#about">About</a></li>
+							<li class="footer-menu-divider">&sdot;</li>
+	                    -->
+                        <li><a href="/publications/">Publications</a></li>
+                        <li class="footer-menu-divider">&sdot;</li>
+                        <li><a href="/teaching/">Teaching</a></li>
+                        <li class="footer-menu-divider">&sdot;</li>
+                        <li><a href="/research/">Research</a></li>
+                        <li class="footer-menu-divider">&sdot;</li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li class="footer-menu-divider">&sdot;</li>
+                        <li><a href="/photos/">Photos</a></li>
+                        <li class="footer-menu-divider">&sdot;</li>
+                        <li><a href="/contact/">Contact</a></li>
+                    </ul>
+
+                    <p class="copyright text-muted small">
+                        <a href="http://validator.w3.org/check?uri=referer"><img src="/img/valid-html401.png"
+                            alt="Valid HTML 4.01 Frameset" height="20" width="57"></a> Built using <a href="http://jekyllrb.com/">Jekyll</a>, <a
+                            href="http://twitter.github.com/bootstrap/">Bootstrap</a> and <a href="http://startbootstrap.com">Startbootstrap</a> from <a href="http://rudametw.github.io/">Walter Rudametkin's template</a>. All
+                        source code available <a href="https://github.com/barais/barais.github.io"> here</a>. 
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+</body>
+</html>

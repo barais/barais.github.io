@@ -1,0 +1,1789 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-01-23T22:16:06+01:00</updated><id>http://localhost:4000/</id><title type="html">Olivier Barais WebSite</title><subtitle>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</subtitle><entry><title type="html">Quelques explication sur la correction automatique en L1 pour l’UE SPE-INFO2</title><link href="http://localhost:4000/blog/posts/teaching/istic/l1/french/2018/01/22/Correction_Automatique_SPE_INFO2_L1_ISTIC.html" rel="alternate" type="text/html" title="Quelques explication sur la correction automatique en L1 pour l'UE SPE-INFO2" /><published>2018-01-22T00:00:00+01:00</published><updated>2018-01-22T00:00:00+01:00</updated><id>http://localhost:4000/blog/posts/teaching/istic/l1/french/2018/01/22/Correction_Automatique_SPE_INFO2_L1_ISTIC</id><content type="html" xml:base="http://localhost:4000/blog/posts/teaching/istic/l1/french/2018/01/22/Correction_Automatique_SPE_INFO2_L1_ISTIC.html">&lt;p&gt;Hello très chers étudiants,&lt;/p&gt;
+
+&lt;p&gt;Pour corriger les TPs notés (CheckPoint) de cette UE, nous avons décidé d’automatiser pleinement cette correction. 
+Cela manque d’humanité mais c’est plus équitable ;).&lt;/p&gt;
+
+&lt;p&gt;Pour ce faire, vous avez uploader vos TPs &lt;a href=&quot;http://depot-l1miee.irisa.fr/webApps/depotSI2/CP1/&quot;&gt;ici&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Mais que ce passe-t-il ensuite?&lt;/p&gt;
+
+&lt;!--more--&gt;
+
+&lt;p&gt;Nous avons récupéré un ensemble d’archives. Une partie non négligeable n’a pas respecté les consignes.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Cas 1: 13(/256) étudiants ont rendu uniquement le fichier Scala&lt;/li&gt;
+  &lt;li&gt;Cas 2: 3(/256) étudiants ont rendus un fichier .tar.gz au lieu d’un fichier zip.&lt;/li&gt;
+  &lt;li&gt;Cas 3: 11(/256) ont rendu un fichier .zip dans la librarie si2.jar. La plupart sans le source scala aussi.&lt;/li&gt;
+  &lt;li&gt;Cas 4: 11(/256) ont rendu un fichier .zip par mail.&lt;/li&gt;
+  &lt;li&gt;Cas 5: 1/256 n’a pas attendu la fin de l’upload de son fichier sur le serveur&lt;/li&gt;
+  &lt;li&gt;Cas 6: Le reste des étudiants a lu la consigne correctement&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;etape-1-obtenir-des-archives-valides-pour-tout-le-monde&quot;&gt;Etape 1: Obtenir des archives valides pour tout le monde&lt;/h2&gt;
+
+&lt;h3 id=&quot;cas-6&quot;&gt;Cas 6&lt;/h3&gt;
+&lt;p&gt;Pour le cas 6, tous les fichiers sont rendus encodés en base64. Pour les décoder, j’ai utilisé le script shell suivant:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+&lt;span class=&quot;c&quot;&gt;#! /bin/sh&lt;/span&gt;
+mdkir clean
+&lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;f &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;.zip
+&lt;span class=&quot;k&quot;&gt;do  
+    &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;awk&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-F&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;base64,&quot;&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'{print $NF}'&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$f&lt;/span&gt; |  &lt;span class=&quot;nb&quot;&gt;base64&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--decode&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; clean/&lt;span class=&quot;nv&quot;&gt;$f&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;done&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;cas-1&quot;&gt;Cas 1&lt;/h3&gt;
+
+&lt;p&gt;Pour le cas 1, tous les fichiers sont rendus encodés en base64. Pour les décoder, j’ai utilisé le script shell suivant:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;#! /bin/sh&lt;/span&gt;
+mdkir clean
+&lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;f &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;.scala
+&lt;span class=&quot;k&quot;&gt;do  
+    &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;awk&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-F&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;base64,&quot;&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'{print $NF}'&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$f&lt;/span&gt; |  &lt;span class=&quot;nb&quot;&gt;base64&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--decode&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; clean/&lt;span class=&quot;nv&quot;&gt;$f&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;done&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Puis  en plaçant le template du projet dans le répertoire CP1.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;#! /bin/sh&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;f &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;.scala
+&lt;span class=&quot;k&quot;&gt;do  
+    &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cp&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$f&lt;/span&gt; CP1/src/fr/istic/si2/checkpoint1/main.scala
+    &lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;basen&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;basename&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$f&lt;/span&gt; .scala&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;
+    &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$basen&lt;/span&gt;
+    zip &lt;span class=&quot;nt&quot;&gt;-r&lt;/span&gt; final/&lt;span class=&quot;nv&quot;&gt;$basen&lt;/span&gt;.zip CP1
+&lt;span class=&quot;k&quot;&gt;done&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;cas-2&quot;&gt;Cas 2&lt;/h3&gt;
+
+&lt;p&gt;Pour le cas 2, tous les fichiers sont rendus encodés en base64. Pour les décoder et les transformer en fichier zip, j’ai utilisé le script shell suivant:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;#! /bin/sh&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;f &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;.tar.gz
+&lt;span class=&quot;k&quot;&gt;do  
+    &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;awk&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-F&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;base64,&quot;&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'{print $NF}'&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$f&lt;/span&gt; |  &lt;span class=&quot;nb&quot;&gt;base64&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--decode&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; clean/&lt;span class=&quot;nv&quot;&gt;$f&lt;/span&gt;
+    tar2zip clean/&lt;span class=&quot;nv&quot;&gt;$f&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;done&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;cas-3&quot;&gt;Cas 3&lt;/h3&gt;
+
+&lt;p&gt;Pour le cas 3, tous les fichiers sont rendus encodés en base64. Pour les décoder et les intégrer la librarie manquante dans le zip, j’ai utilisé le script shell suivant:&lt;/p&gt;
+
+&lt;p&gt;J’ai préalabllement placé la librarie manquante dans le répertoire CP1.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;#! /bin/sh&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;f &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;.zip
+&lt;span class=&quot;k&quot;&gt;do  
+    &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;awk&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-F&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;base64,&quot;&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'{print $NF}'&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$f&lt;/span&gt; |  &lt;span class=&quot;nb&quot;&gt;base64&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--decode&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; clean/&lt;span class=&quot;nv&quot;&gt;$f&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;done
+for &lt;/span&gt;f &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;clean/&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;.zip
+&lt;span class=&quot;k&quot;&gt;do  
+    &lt;/span&gt;zip &lt;span class=&quot;nt&quot;&gt;-ur&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$f&lt;/span&gt; CP1
+&lt;span class=&quot;k&quot;&gt;done&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;cas-4&quot;&gt;Cas 4&lt;/h3&gt;
+
+&lt;p&gt;Pour le cas 4, rien à faire à part galérer à récupérer les archives dans les boîtes mails.&lt;/p&gt;
+
+&lt;h3 id=&quot;cas-5&quot;&gt;Cas 5&lt;/h3&gt;
+
+&lt;p&gt;Je n’ai rien pu faire pour cet étudiant, l’archive n’était que partiellement chargé sur le serveur, impossible de la décoder et de la décompresser.&lt;/p&gt;
+
+&lt;h2 id=&quot;etape-2-automatisation-de-la-correction&quot;&gt;Etape 2: Automatisation de la correction&lt;/h2&gt;
+
+&lt;p&gt;Pour automatiser la correction, je décompresse les archives et transforme les projets en projet &lt;a href=&quot;https://maven.apache.org/&quot;&gt;maven&lt;/a&gt;. Maven est un outil de construction automatique. La construction du projet produit des fichiers structurés &lt;a href=&quot;https://fr.wikipedia.org/wiki/Extensible_Markup_Language&quot;&gt;XML&lt;/a&gt; pour les résultats des erreurs de tests ou les erreurs ScalaStyle. 
+Ces fichiers structués sont analysés pour chaque projet afin d’applique le barême suivant pour le CP1 afin d’obtenir une note sur 5.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Tests :
+- Pour toutes les fonctions dans { max, estMultiple, xor1, xor2, signe } :
+  - test de définition (ex: maxDefined) passe  : + 1 point
+  - test de correction (ex: maxNoRTE et maxBlabla) en erreur/echec : malus avec plancher 0. 
+        - max (1+4) : -0.2 à chaque test échoué/erreur
+        - estMultiple (1+5) : -0.2 à chaque test échoué/erreur
+        - xor1 (1+1) : -1 à chaque test échoué/erreur
+        - xor2 (1+1) : -1 à chaque test échoué/erreur
+        - signe (1+6) : -0.15 à chaque test échoué/erreur
+  - timeout : considérer comme un test echoué/erreur.
+  - test de définition échoue : + 0 point (ne pas regarder les malus correspondant à cette fonction)
+  
+Erreurs -- Si présent : 0 en note globale (car le projet ne build pas)
+&quot;err(org.scalastyle.scalariform.NullChecker)&quot;,
+&quot;err(org.scalastyle.scalariform.StructuralTypeChecker)&quot;,
+&quot;err(org.scalastyle.scalariform.EmptyClassChecker)&quot;,
+&quot;err(org.scalastyle.scalariform.ClassTypeParameterChecker)&quot;,
+&quot;err(org.scalastyle.scalariform.LowercasePatternMatchChecker)&quot;,
+&quot;err(org.scalastyle.scalariform.ImportGroupingChecker)&quot;,
+&quot;err(org.scalastyle.scalariform.UppercaseLChecker)&quot;,
+&quot;err(org.scalastyle.scalariform.VarFieldChecker)&quot;,
+&quot;err(org.scalastyle.scalariform.LowercasePatternMatchChecker)&quot;,
+&quot;err(org.scalastyle.scalariform.PublicMethodsHaveTypeChecker)&quot;,
+
+Warnings -- Importants - Si présent : -1 point en global.
+&quot;warn(org.scalastyle.scalariform.ScalaDocChecker)&quot;,
+&quot;warn(org.scalastyle.scalariform.ReturnChecker)&quot;,
+
+Warnings -- Mineurs -- Si présents : -0.5 point en global. 
+&quot;warn(org.scalastyle.file.FileTabChecker)&quot;,
+&quot;warn(org.scalastyle.file.FileLengthChecker)&quot;,
+&quot;warn(org.scalastyle.scalariform.SpacesAfterPlusChecker)&quot;,
+&quot;warn(org.scalastyle.scalariform.SpacesBeforePlusChecker)&quot;,
+&quot;warn(org.scalastyle.file.FileLineLengthChecker)&quot;,
+&quot;warn(org.scalastyle.scalariform.ClassNamesChecker)&quot;,
+&quot;warn(org.scalastyle.scalariform.ObjectNamesChecker)&quot;,
+&quot;warn(org.scalastyle.scalariform.PackageObjectNamesChecker)&quot;,
+&quot;warn(org.scalastyle.scalariform.ParameterNumberChecker)&quot;,
+&quot;warn(org.scalastyle.scalariform.NoWhitespaceBeforeLeftBracketChecker)&quot;,
+&quot;warn(org.scalastyle.scalariform.Nodu la fin de l'upload de son fichier sur le serveur 
+- Cas 6: Le reste des étudiants a lu la consigne correctement
+
+## Etape 1: Obtenir des archives WhitespaceAfterLeftBracketChecker)&quot;,
+&quot;warn(org.scalastyle.scalariform.MethodLengthChecker)&quot;,
+&quot;warn(org.scalastyle.scalariform.MethodNamesChecker)&quot;,
+&quot;warn(org.scalastyle.scalariform.MultipleStringLiteralsChecker)&quot;,
+
+Warnings -- Moyens -- Ne comptent pas pour le CP1
+&quot;warn(org.scalastyle.scalariform.RedundantIfChecker)&quot;,
+&quot;warn(org.scalastyle.scalariform.SimplifyBooleanExpressionChecker)&quot;,
+
+Warnings -- On en tient pas compte (vérifié par les tests)
+&quot;warn(org.scalastyle.scalariform.NotImplementedErrorUsage)&quot;,
+
+Warnings -- Ne comptent pas, car pas activés normalement dans le si2scalastyle.xml
+Donc ne rentrent pas dans le calcul de la note.
+&quot;warn(org.scalastyle.file.HeaderMatchesChecker)&quot;,
+&quot;warn(org.scalastyle.file.WhitespaceEndOfLineChecker)&quot;,
+&quot;warn(org.scalastyle.scalariform.EqualsHashCodeChecker)&quot;,
+&quot;err(org.scalastyle.scalariform.IllegalImportsChecker)&quot;,
+&quot;warn(org.scalastyle.scalariform.MagicNumberChecker)&quot;,
+&quot;warn(org.scalastyle.scalariform.NoCloneChecker)&quot;,
+&quot;warn(org.scalastyle.scalariform.NoFinalizeChecker)&quot;,
+&quot;warn(org.scalastyle.scalariform.CovariantEqualsChecker)&quot;,
+&quot;warn(org.scalastyle.file.RegexChecker)&quot;,
+&quot;warn(org.scalastyle.scalariform.NumberOfTypesChecker)&quot;,
+&quot;warn(org.scalastyle.scalariform.CyclomaticComplexityChecker)&quot;,
+&quot;warn(org.scalastyle.scalariform.IfBraceChecker)&quot;,
+&quot;warn(org.scalastyle.scalariform.NumberOfMethodsInTypeChecker)&quot;,
+&quot;warn(org.scalastyle.file.NewLineAtEofChecker)&quot;,
+&quot;warn(org.scalastyle.file.NoNewLineAtEofChecker)&quot;,
+&quot;warn(org.scalastyle.scalariform.WhileChecker)&quot;,
+&quot;warn(org.scalastyle.scalariform.VarLocalChecker)&quot;,
+&quot;warn(org.scalastyle.scalariform.TokenChecker)&quot;,
+&quot;warn(org.scalastyle.scalariform.DeprecatedJavaChecker)&quot;,
+&quot;warn(org.scalastyle.scalariform.UnderscoreImportChecker)&quot;,
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Le code source de cette tâche est écrite dans un langage qui se nomme le &lt;a href=&quot;https://fr.wikipedia.org/wiki/JavaScript&quot;&gt;JavaScript&lt;/a&gt;. Le code est accessible &lt;a href=&quot;https://github.com/barais/spe-info2-correctautomation/blob/master/app1.js&quot;&gt;ici&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Ce script génère un fichier csv en sortie. Pour lier l’ID de l’étudiant à son nom. Nous partons d’un fichier csv contenant les éléments par étudiants que nous convertissons en &lt;a href=&quot;https://fr.wikipedia.org/wiki/JavaScript_Object_Notation&quot;&gt;json&lt;/a&gt; grâce au projet &lt;a href=&quot;https://github.com/Keyang/node-csvtojson&quot;&gt;csvtojson&lt;/a&gt;. Une fois la donnée convertie en format &lt;a href=&quot;https://fr.wikipedia.org/wiki/JavaScript_Object_Notation&quot;&gt;JSON&lt;/a&gt;, il est facile de faire une requête de cette manière dans les données depuis JavaScript.&lt;/p&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;jsonQuery&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'json-query'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;si2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'./SI2.json'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+
+&lt;span class=&quot;c1&quot;&gt;//Récupère le nom de l'étudiant&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;jsonQuery&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'[NUMERO=17011558]'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;si2&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;}).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;NOM&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;//Récupère le prénom de l'étudiant&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;jsonQuery&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'[NUMERO=17011558]'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;si2&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;}).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;PRENOM&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;etape-3-mise-en-page-de-la-sortie&quot;&gt;Etape 3: Mise en page de la sortie&lt;/h2&gt;
+
+&lt;p&gt;Pour générer les fichiers de sorties des notes. J’utilise une bête macro dans excel qui produit un fichier html par groupe en utilisant une feuille de syle &lt;a href=&quot;https://getbootstrap.com/&quot;&gt;bootsrap&lt;/a&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-VB&quot;&gt;Sub exec()
+    Dim fso As Object
+    Set fso = CreateObject(&quot;Scripting.FileSystemObject&quot;)
+
+    Dim Fileout As Object
+    Set Fileout = fso.CreateTextFile(&quot;E:\g1.html&quot;, True, False)
+    Fileout.Write BuildHTMLTable(Range(&quot;A1:F38&quot;))
+    Fileout.Close
+
+
+End Sub
+' Example function call: =BuildHTMLTable(A1:D5)
+
+Public Function BuildHTMLTable(rng As Range) As String
+' Given a Range of Cells, build a Bootstrap HTML table, using the formatting
+' specified in the Excel cells. If &quot;header&quot; is specified to equal true, assumes
+' the first row in the table is a header row.
+    Dim last_r As Long: last_r = rng.Cells(1, 1).Row
+    Dim tds As New Collection
+    Dim txt As String
+    Dim isFirstRow As Boolean: isFirstRow = True
+    Dim cell As Range, r As Long
+    txt = &quot;&amp;lt;html&amp;gt;&amp;lt;head&amp;gt;&amp;lt;link href=&quot; &amp;amp; Chr(34)
+
+    txt = txt &amp;amp; &quot;https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css&quot; &amp;amp; Chr(34) &amp;amp; &quot; rel=&quot; &amp;amp; Chr(34) &amp;amp; &quot;stylesheet&quot; &amp;amp; Chr(34) &amp;amp; &quot; integrity=&quot; &amp;amp; Chr(34) &amp;amp; &quot;sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm&quot; &amp;amp; Chr(34) &amp;amp; &quot; crossorigin=&quot; &amp;amp; Chr(34) &amp;amp; &quot;anonymous&quot; &amp;amp; Chr(34) &amp;amp; &quot;&amp;gt;&amp;lt;script src=&quot; &amp;amp; Chr(34) &amp;amp; &quot;https://code.jquery.com/jquery-3.1.1.slim.min.js&quot; &amp;amp; Chr(34) &amp;amp; &quot; integrity=&quot; &amp;amp; Chr(34) &amp;amp; &quot;sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n&quot; &amp;amp; Chr(34) &amp;amp; &quot; crossorigin=&quot; &amp;amp; Chr(34) &amp;amp; &quot;anonymous&quot; &amp;amp; Chr(34) &amp;amp; &quot;&amp;gt;&amp;lt;/script&amp;gt;&amp;lt;script src=&quot; &amp;amp; Chr(34) &amp;amp; &quot;https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js&quot; &amp;amp; Chr(34) &amp;amp; &quot; integrity=&quot; &amp;amp; Chr(34) &amp;amp; &quot;sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb&quot; &amp;amp; Chr(34) &amp;amp; &quot; crossorigin=&quot; &amp;amp; Chr(34) &amp;amp; &quot;anonymous&quot; &amp;amp; Chr(34) &amp;amp; &quot;&amp;gt;&amp;lt;/script&amp;gt;&amp;lt;script src=&quot; &amp;amp; Chr(34) &amp;amp; &quot;https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js&quot; &amp;amp; Chr(34) &amp;amp; &quot; integrity=&quot; &amp;amp; Chr(34)
+    
+    txt = txt &amp;amp; &quot;sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl&quot; &amp;amp; Chr(34) &amp;amp; &quot; crossorigin=&quot; &amp;amp; Chr(34) &amp;amp; &quot;anonymous&quot; &amp;amp; Chr(34) &amp;amp; &quot;&amp;gt;&amp;lt;/script&amp;gt;            &amp;lt;script src=&quot; &amp;amp; Chr(34) &amp;amp; &quot;https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js&quot; &amp;amp; Chr(34) &amp;amp; &quot; integrity=&quot; &amp;amp; Chr(34) &amp;amp; &quot;sha384-feJI7QwhOS+hwpX2zkaeJQjeiwlhOP+SdQDqhgvvo1DsjtiSQByFdThsxO669S2D&quot; &amp;amp; Chr(34) &amp;amp; &quot; crossorigin=&quot; &amp;amp; Chr(34) &amp;amp; &quot;anonymous&quot; &amp;amp; Chr(34) &amp;amp; &quot;&amp;gt;&amp;lt;/script&amp;gt;&amp;lt;/head&amp;gt;&amp;lt;body&amp;gt;&quot;
+
+
+    
+    txt = txt &amp;amp; &quot;&amp;lt;table class=&quot; &amp;amp; Chr(34) &amp;amp; _
+          &quot;table table-compressed table-striped&quot; &amp;amp; Chr(34) &amp;amp; &quot;&amp;gt;&quot; &amp;amp; vbNewLine
+    For Each cell In rng
+        r = cell.Row
+        If (r &amp;lt;&amp;gt; last_r) Then
+            If isFirstRow Then
+                txt = txt &amp;amp; vbTab &amp;amp; &quot;&amp;lt;thead&amp;gt;&quot; &amp;amp; vbNewLine &amp;amp; BuildRow(tds, isFirstRow) &amp;amp; vbTab &amp;amp; _
+                                    &quot;&amp;lt;/thead&amp;gt;&quot; &amp;amp; vbNewLine &amp;amp; vbTab &amp;amp; &quot;&amp;lt;tbody&amp;gt;&quot; &amp;amp; vbNewLine
+            Else
+                txt = txt &amp;amp; BuildRow(tds, isFirstRow)
+            End If
+            isFirstRow = False
+            Set tds = New Collection
+        End If
+        tds.Add cell.Text
+        last_r = r
+    Next
+    txt = txt &amp;amp; BuildRow(tds, isFirstRow)
+    txt = txt &amp;amp; vbTab &amp;amp; &quot;&amp;lt;/tbody&amp;gt;&quot; &amp;amp; vbNewLine &amp;amp; &quot;&amp;lt;/table&amp;gt;&quot; &amp;amp; vbNewLine
+    txt = txt &amp;amp; &quot;&amp;lt;/head&amp;gt;&amp;lt;/html&amp;gt;&quot;
+    BuildHTMLTable = txt
+End Function
+
+Private Function BuildRow(tds As Collection, header As Boolean) As String
+    ' Build a single HTML row given a collection of tds
+    Dim txt As String: txt = vbTab &amp;amp; vbTab &amp;amp; &quot;&amp;lt;tr&amp;gt;&quot;
+    Dim start_tag As String, end_tag As String, td As Variant
+    If header Then
+        start_tag = &quot;&amp;lt;th&amp;gt;&quot;
+        end_tag = &quot;&amp;lt;/th&amp;gt;&quot;
+    Else
+        start_tag = &quot;&amp;lt;td&amp;gt;&quot;
+        end_tag = &quot;&amp;lt;/td&amp;gt;&quot;
+    End If
+    For Each td In tds
+        txt = txt &amp;amp; start_tag &amp;amp; td &amp;amp; end_tag
+    Next
+    txt = txt &amp;amp; &quot;&amp;lt;/tr&amp;gt;&quot; &amp;amp; vbNewLine
+    BuildRow = txt
+End Function
+
+&lt;/code&gt;&lt;/pre&gt;</content><author><name></name></author><summary type="html">Hello très chers étudiants, Pour corriger les TPs notés (CheckPoint) de cette UE, nous avons décidé d’automatiser pleinement cette correction. Cela manque d’humanité mais c’est plus équitable ;). Pour ce faire, vous avez uploader vos TPs ici. Mais que ce passe-t-il ensuite?</summary></entry><entry><title type="html">Quelques règles pour l’installation des portables</title><link href="http://localhost:4000/blog/posts/teaching/istic/m2/french/2017/09/11/Operation_portable_M2_ISTIC.html" rel="alternate" type="text/html" title="Quelques règles pour l'installation des portables" /><published>2017-09-11T00:00:00+02:00</published><updated>2017-09-11T00:00:00+02:00</updated><id>http://localhost:4000/blog/posts/teaching/istic/m2/french/2017/09/11/Operation_portable_M2_ISTIC</id><content type="html" xml:base="http://localhost:4000/blog/posts/teaching/istic/m2/french/2017/09/11/Operation_portable_M2_ISTIC.html">&lt;p&gt;Hello très chers étudiants,&lt;/p&gt;
+
+&lt;p&gt;Pour la quatrième année, nous experimentons l’usage des TPs pour les M2. Nous sommes partis sur les configurations suivantes&lt;a href=&quot;http://www8.hp.com/fr/fr/products/laptops/product-detail.html?oid=5405400#!tab=specs&quot;&gt;Probook 650 avec 8GO de Ram et un I3&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;###Etape 0: Install OS###&lt;/p&gt;
+
+&lt;p&gt;Pour l’install, tout marche très bien avec ubuntu 16.04. Pour ceux qui ne l’ont jamais installé. Récupérez une clé usb, téléchargez &lt;a href=&quot;http://www.ubuntu.com/download/desktop&quot;&gt;Ubuntu Desktop 16.04 en version 64bit et Desktop&lt;/a&gt;. Créez votre clé ucb avec par exemple &lt;a href=&quot;http://unetbootin.sourceforge.net/&quot;&gt;unetbootin&lt;/a&gt;. Choisissez DiskImage et l’iso que vous avez téléchargé et sélectionnez en bas votre clé usb, c’est parti. (10 mins de travail, un reboot et c’est bon)&lt;/p&gt;
+
+&lt;!--more--&gt;
+
+&lt;p&gt;Au démarrage du PC. Appuyez sur la touche [Echap] puis [F9] et séléctionnez la clé usb pour bootez dessus. Installez ubuntu sur l’ensemble du disque.&lt;/p&gt;
+
+&lt;p&gt;Si certains veulent avoir une installation windows. C’est possible l’istic dispose d’un abonnement &lt;a href=&quot;https://www.google.fr/search?q=msdn+aa+istic&amp;amp;oq=msdn+aa+istic&amp;amp;aqs=chrome..69i57.6842j0j7&amp;amp;sourceid=chrome&amp;amp;es_sm=122&amp;amp;ie=UTF-8&quot;&gt;MSDN AA&lt;/a&gt; qui vous donne accès aux licences des princiaux OS des Microsoft. Dans ce cas commencez par l’install de Windows. Puis installez ubuntu ensuite en demandant un split du disque du type 120 Go pour Windows et 200 pour linux. .&lt;/p&gt;
+
+&lt;p&gt;Il est nécessaire de disposer d’une installation linux pour les TPs sans être dans une machine virtuelle.&lt;/p&gt;
+
+&lt;p&gt;Sous ubuntu, quand il est installé.&lt;/p&gt;
+
+&lt;p&gt;###Etape 1: Java et autres
+Installez les paquets suviants:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;nano git openjdk-8-jdk openjdk-8-doc maven inkscape&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Installer aussi la JDK Oracle pour GLI&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;add-apt-repository ppa:webupd8team/java
+&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get update
+&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;oracle-java8-installer&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;###Etape 2: Eclipse&lt;/p&gt;
+
+&lt;p&gt;Téléchargez eclipse pour &lt;a href=&quot;http://www.mirrorservice.org/sites/download.eclipse.org/eclipseMirror/technology/epp/downloads/release/oxygen/R/eclipse-java-oxygen-R-linux-gtk-x86_64.tar.gz&quot;&gt;Java developer&lt;/a&gt; en version 64 et dezipper le par exemple dans /opt/eclipse&lt;/p&gt;
+
+&lt;p&gt;###Etape 3: Smartgit
+Installez &lt;a href=&quot;http://www.syntevo.com/smartgit/&quot;&gt;Smartgit&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;###Etape 4: NodeJS&lt;/p&gt;
+
+&lt;p&gt;Installez nodejs au travers de nvm&lt;/p&gt;
+
+&lt;p&gt;Installer nvm (node version manager)&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;curl &lt;span class=&quot;nt&quot;&gt;-o-&lt;/span&gt; https://raw.githubusercontent.com/creationix/nvm/v0.33.4/install.sh | bash&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;The script clones the nvm repository to ~/.nvm and adds the source line to your profile (~/.bash_profile, ~/.zshrc, ~/.profile, or ~/.bashrc).&lt;/p&gt;
+
+&lt;p&gt;Start a new Terminal&lt;/p&gt;
+
+&lt;p&gt;Installez les paquets nodejs.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;nvm &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;node
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;###Etape 5: VisualVM&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://visualvm.java.net/eclipse-launcher.html&quot;&gt;VisualVM&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;###Etape 6: InteliJ
+Installez &lt;a href=&quot;http://www.jetbrains.com/idea/&quot;&gt;IntelliJ&lt;/a&gt; dans /opt&lt;/p&gt;
+
+&lt;p&gt;###Etape 7: Docker&lt;/p&gt;
+
+&lt;p&gt;Installez Docker&lt;/p&gt;
+
+&lt;p&gt;Update the apt package index:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get update
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Install packages to allow apt to use a repository over HTTPS:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    apt-transport-https &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    ca-certificates &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    curl &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+    software-properties-common
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Add Docker’s official GPG key:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;curl &lt;span class=&quot;nt&quot;&gt;-fsSL&lt;/span&gt; https://download.docker.com/linux/ubuntu/gpg | &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-key add -
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Verify that the key fingerprint is 9DC8 5822 9FC7 DD38 854A E2D8 8D81 803C 0EBF CD88.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-key fingerprint 0EBFCD88
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;pub   4096R/0EBFCD88 2017-02-22
+      Key fingerprint = 9DC8 5822 9FC7 DD38 854A  E2D8 8D81 803C 0EBF CD88
+uid                  Docker Release (CE deb) &amp;lt;docker@docker.com&amp;gt;
+sub   4096R/F273FCD8 2017-02-22
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;add-apt-repository &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+   &lt;span class=&quot;s2&quot;&gt;&quot;deb [arch=amd64] https://download.docker.com/linux/ubuntu &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;
+   &lt;/span&gt;&lt;span class=&quot;k&quot;&gt;$(&lt;/span&gt;lsb_release &lt;span class=&quot;nt&quot;&gt;-cs&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; &lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;
+   stable&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;INSTALL DOCKER CE&lt;/p&gt;
+
+&lt;p&gt;Update the apt package index.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get update
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Install the latest version of Docker CE, or go to the next step to install a specific version. Any existing installation of Docker is replaced.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;docker-ce
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Pour vérifier que tout est ok&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt; &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;docker run &lt;span class=&quot;nt&quot;&gt;-i&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-t&lt;/span&gt; ubuntu /bin/bash &lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+&lt;p&gt;Cette dernière commande télécharge un conteneur ubuntu minimal et démarre ce container. Pour plus de documentation sur &lt;a href=&quot;http://fr.wikipedia.org/wiki/Docker_(Syst%C3%A8me_de_conteneur_Linux)\&quot;&gt;docker&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;###Etape 8: Wifi ISTIC&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;Configuez eduroam suivant le &lt;a href=&quot;http://www.eduroam.fr/conf_supplicants/&quot;&gt;tuto suivant&lt;/a&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;RDV sur &lt;a href=&quot;http://istic-public.istic.univ-rennes1.fr/&quot;&gt;istic-public&lt;/a&gt; pour enregistrer votre mac adresse que vous pouvez récupérer à l’aide de la commande suivante:&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt; &lt;span class=&quot;nb&quot;&gt;sudo&lt;/span&gt; /sbin/ifconfig &lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+&lt;p&gt;prendre ‘HWaddr XX:XX:XX:XX:XX:XX’ de l’interface wlan0.&lt;/p&gt;
+
+&lt;p&gt;###Etape 9 Utiliser les imprimantes de l’ISTIC&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Vérifiez que cups est installé&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get update
+&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;cups&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;éditer le fichier /etc/cups/client.conf et ajouter la ligne suivante&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;ServerName printhost.istic.univ-rennes1.fr&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;pour imprimer, être connecté aux réseaux Wifsic ou Wifsic-free&lt;/p&gt;
+
+&lt;p&gt;###Etape 10: Bookmark services utiles
+&lt;a href=&quot;http://vm.istic.univ-rennes1.fr&quot;&gt;vm istic&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;###Petit Problème: WIFI et autres&lt;/p&gt;
+
+&lt;p&gt;####Wifi Pour installer le WIFI. Pluggez vous à un réseau filaire.
+Puis tapez les commandes suivantes&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get update
+&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;firmware-b43-installer
+&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;modprobe b43
+&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;modprobe &lt;span class=&quot;nt&quot;&gt;-r&lt;/span&gt; b43
+&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;modprobe b43&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;####Certificat incorrect pour OpenJDK (poblème Maven)&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt; &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;update-ca-certificates &lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;####Problème ACPI (PC qui ne s’éteint pas)&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;nano &lt;span class=&quot;nt&quot;&gt;-w&lt;/span&gt; /boot/grub/menu.cfg
+&lt;span class=&quot;c&quot;&gt;#Puis enlever tous les paramères, noacpi, noapic ...&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;</content><author><name></name></author><summary type="html">Hello très chers étudiants, Pour la quatrième année, nous experimentons l’usage des TPs pour les M2. Nous sommes partis sur les configurations suivantesProbook 650 avec 8GO de Ram et un I3 ###Etape 0: Install OS### Pour l’install, tout marche très bien avec ubuntu 16.04. Pour ceux qui ne l’ont jamais installé. Récupérez une clé usb, téléchargez Ubuntu Desktop 16.04 en version 64bit et Desktop. Créez votre clé ucb avec par exemple unetbootin. Choisissez DiskImage et l’iso que vous avez téléchargé et sélectionnez en bas votre clé usb, c’est parti. (10 mins de travail, un reboot et c’est bon)</summary></entry><entry><title type="html">Play with curl to test generated JHipster application API</title><link href="http://localhost:4000/blog/posts/jhipster/swagger/curl/authentification/2017/04/12/Curl_JHipster_Authentification.html" rel="alternate" type="text/html" title="Play with curl to test generated JHipster application API" /><published>2017-04-12T00:00:00+02:00</published><updated>2017-04-12T00:00:00+02:00</updated><id>http://localhost:4000/blog/posts/jhipster/swagger/curl/authentification/2017/04/12/Curl_JHipster_Authentification</id><content type="html" xml:base="http://localhost:4000/blog/posts/jhipster/swagger/curl/authentification/2017/04/12/Curl_JHipster_Authentification.html">&lt;p&gt;I often used &lt;a href=&quot;https://jhipster.github.io/&quot;&gt;JHipster&lt;/a&gt; to create my Rest API. I often want to test this API using &lt;a href=&quot;https://curl.haxx.se/&quot;&gt;curl&lt;/a&gt;.&lt;br /&gt;
+However, if you tak the curl command line method from swagger, it always misses the authentification mechanism.&lt;/p&gt;
+
+&lt;p&gt;To manage this authentification, you can use the following commands.&lt;/p&gt;
+
+&lt;h1 id=&quot;if-you-use-oauth&quot;&gt;If you use oauth:&lt;/h1&gt;
+
+&lt;!--more--&gt;
+
+&lt;h2 id=&quot;generate-the-xsrf-token&quot;&gt;Generate the XSRF-TOKEN&lt;/h2&gt;
+
+&lt;p&gt;Create the XSRF-TOKEN and save it to the file cookies.txt&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;curl &lt;span class=&quot;nt&quot;&gt;-v&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-c&lt;/span&gt; cookies.txt &lt;span class=&quot;nt&quot;&gt;-b&lt;/span&gt; cookies.txt http://yourserverip:8080/oauth/token
+ 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;manage-the-authentication&quot;&gt;Manage the authentication&lt;/h2&gt;
+
+&lt;p&gt;Do the authentification with &lt;strong&gt;admin&lt;/strong&gt;, &lt;strong&gt;admin&lt;/strong&gt; and save the session id to cookies.txt&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;curl &lt;span class=&quot;nt&quot;&gt;-v&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-c&lt;/span&gt; cookies.txt &lt;span class=&quot;nt&quot;&gt;-b&lt;/span&gt; cookies.txt &lt;span class=&quot;s1&quot;&gt;'http://yourserverip:8080/api/authentication'&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-H&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'Accept: application/json, text/plain, */*'&lt;/span&gt;  &lt;span class=&quot;nt&quot;&gt;-H&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'Connection: keep-alive'&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-H&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'Content-Type: application/x-www-form-urlencoded'&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-H&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'Host: yourserverip.fr:8080'&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-H&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'Referer: http://yourserverip:8080/'&lt;/span&gt;  &lt;span class=&quot;nt&quot;&gt;-H&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;X-XSRF-TOKEN: &lt;/span&gt;&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cat &lt;/span&gt;cookies.txt |grep XSRF-TOKEN | &lt;span class=&quot;nb&quot;&gt;awk&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'{print $7}'&lt;/span&gt;&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--data&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'j_username=admin&amp;amp;j_password=admin&amp;amp;remember-me=true&amp;amp;submit=Login'&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;test-your-api&quot;&gt;Test your api&lt;/h2&gt;
+
+&lt;p&gt;From the curl command line provided by swagger, you have to remove the –header ‘X-XSRF-TOKEN:  …. and add the -b cookies.txt&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;curl &lt;span class=&quot;nt&quot;&gt;-b&lt;/span&gt; cookies.txt &lt;span class=&quot;nt&quot;&gt;-X&lt;/span&gt; GET &lt;span class=&quot;nt&quot;&gt;--header&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'Accept: application/json'&lt;/span&gt;  &lt;span class=&quot;s1&quot;&gt;'http://yourserverip:8080/api/account'&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h1 id=&quot;if-you-use-jwt&quot;&gt;If you use JWT:&lt;/h1&gt;
+
+&lt;p&gt;It is easier.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;ID&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;curl  &lt;span class=&quot;nt&quot;&gt;-X&lt;/span&gt; POST &lt;span class=&quot;nt&quot;&gt;--header&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'Content-Type: application/json'&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--header&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'Accept: application/json'&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'{  &quot;password&quot;: &quot;admin&quot;,  &quot;rememberMe&quot;: true,  &quot;username&quot;: &quot;admin&quot;  }'&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'https://yourserverip:8080/api/authenticate'&lt;/span&gt; | jq &lt;span class=&quot;nt&quot;&gt;-r&lt;/span&gt; .id_token&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;puis je passe ma requête en réutilisant ce token dans le header&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;curl  &lt;span class=&quot;nt&quot;&gt;--header&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'Content-Type: application/json'&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--header&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'Accept: application/json'&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--header&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Authorization: Bearer &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$ID&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'yourjson'&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'https://yourserverip:8080/api/yourendpoint'&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Enjoy ….&lt;/p&gt;</content><author><name></name></author><summary type="html">I often used JHipster to create my Rest API. I often want to test this API using curl. However, if you tak the curl command line method from swagger, it always misses the authentification mechanism. To manage this authentification, you can use the following commands. If you use oauth:</summary></entry><entry><title type="html">Deploying openvpn on top of raspberry pi with docker</title><link href="http://localhost:4000/blog/posts/docker/rpi/raspberrypi/raspberry/2017/02/07/openvpn_docker_rpi.html" rel="alternate" type="text/html" title="Deploying openvpn on top of raspberry pi with docker" /><published>2017-02-07T00:00:00+01:00</published><updated>2017-02-07T00:00:00+01:00</updated><id>http://localhost:4000/blog/posts/docker/rpi/raspberrypi/raspberry/2017/02/07/openvpn_docker_rpi</id><content type="html" xml:base="http://localhost:4000/blog/posts/docker/rpi/raspberrypi/raspberry/2017/02/07/openvpn_docker_rpi.html">&lt;p&gt;With the emergence of cloud offers with arm based server, it is convenient to be able to deploy vpn server on top of these platforms. For example Scaleway is a simple, scalable cloud platform. It’s the a platform where you can start x86 64bit and ARM BareMetal servers from a unique and simple graphical interface but also through API. Next you can use docker to deploy your micro-services. In this blog post, I just summarize how you can deploy your own openvpn server.&lt;/p&gt;
+
+&lt;!--more--&gt;
+
+&lt;h2 id=&quot;intialize-the-container&quot;&gt;Intialize the container&lt;/h2&gt;
+
+&lt;p&gt;Pick a name for the $OVPN_DATA data volume container, it will be created automatically.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;OVPN_DATA&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;ovpn-data&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Initialize the &lt;code class=&quot;highlighter-rouge&quot;&gt;$OVPN_DATA&lt;/code&gt; container that will hold the configuration files and certificates&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;docker volume create &lt;span class=&quot;nt&quot;&gt;--name&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$OVPN_DATA&lt;/span&gt;
+docker run &lt;span class=&quot;nt&quot;&gt;-v&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$OVPN_DATA&lt;/span&gt;:/etc/openvpn &lt;span class=&quot;nt&quot;&gt;--rm&lt;/span&gt; giggio/openvpn-arm ovpn_genconfig &lt;span class=&quot;nt&quot;&gt;-u&lt;/span&gt; udp://VPN.SERVERNAME.COM
+docker run &lt;span class=&quot;nt&quot;&gt;-v&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$OVPN_DATA&lt;/span&gt;:/etc/openvpn &lt;span class=&quot;nt&quot;&gt;--rm&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-it&lt;/span&gt; giggio/openvpn-arm ovpn_initpki nopass
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Start OpenVPN server process&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;docker run &lt;span class=&quot;nt&quot;&gt;-v&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$OVPN_DATA&lt;/span&gt;:/etc/openvpn &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--name&lt;/span&gt; openvpn &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; 1194:1194/udp &lt;span class=&quot;nt&quot;&gt;--cap-add&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;NET_ADMIN giggio/openvpn-arm
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Generate a client certificate without a passphrase&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;docker run &lt;span class=&quot;nt&quot;&gt;-v&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$OVPN_DATA&lt;/span&gt;:/etc/openvpn &lt;span class=&quot;nt&quot;&gt;--rm&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-it&lt;/span&gt; giggio/openvpn-arm easyrsa build-client-full CLIENTNAME nopass
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Retrieve the client configuration with embedded certificates&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;docker run &lt;span class=&quot;nt&quot;&gt;-v&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$OVPN_DATA&lt;/span&gt;:/etc/openvpn &lt;span class=&quot;nt&quot;&gt;--rm&lt;/span&gt; giggio/openvpn-arm ovpn_getclient CLIENTNAME &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; CLIENTNAME.ovpn
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;running-a-second-fallback-tcp-container&quot;&gt;Running a Second Fallback TCP Container&lt;/h2&gt;
+
+&lt;h3 id=&quot;tcp-vs-udp---pros--cons&quot;&gt;TCP vs. UDP - Pros &amp;amp; Cons&lt;/h3&gt;
+
+&lt;p&gt;By default, OpenVPN is configured to use the UDP protocol. Because UDP incurs minimal protocol overhead (for example, no acknowledgment is required upon successful packet receipt), it can sometimes result in slightly faster throughput. However, in situations where VPN service is needed over an unreliable connection, the user experience can benefit from the extra diagnostic features of the TCP protocol.&lt;/p&gt;
+
+&lt;p&gt;As an example, users connecting from an airplane wifi network may experience high packet drop rates, where the error detection and sliding window control of TCP can more readily adjust to the inconsistent connection.&lt;/p&gt;
+
+&lt;p&gt;Another example would be trying to open a VPN connection from within a very restrictive network. In some cases port 1194, or even UDP traffic on any port, may be restricted by network policy. Because TCP traffic on port 443 is used for normal TLS (https) web browsing, it is very unlikely to be blocked.&lt;/p&gt;
+
+&lt;p&gt;Instead of choosing between UDP and TCP, you can use both. A single instance of OpenVPN can only listen for a single protocol on a single port, but this image makes it easy to run two instances simultaneously. After building, configuring, and starting a standard container listening for UDP traffic on 1194, you can start a second container listening for tcp traffic on port 443:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;OVPN_DATA&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;ovpn-data&quot;&lt;/span&gt;
+docker run &lt;span class=&quot;nt&quot;&gt;-v&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$OVPN_DATA&lt;/span&gt;:/etc/openvpn &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; 443:1194/tcp &lt;span class=&quot;nt&quot;&gt;--privileged&lt;/span&gt; giggio/openvpn-arm ovpn_run &lt;span class=&quot;nt&quot;&gt;--proto&lt;/span&gt; tcp
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;ovpn_run will load all the values from the default config file, and –proto tcp will override the protocol setting.&lt;/p&gt;
+
+&lt;p&gt;This allows you to use UDP most of the time, but fall back to TCP on the rare occasion that you need it.&lt;/p&gt;
+
+&lt;p&gt;Note that you will need to configure client connections manually. At this time it is not possible to generate a client config that will automatically fall back to the TCP connection.&lt;/p&gt;
+
+&lt;h2 id=&quot;importing-openvpn-configuration-in-your-linux-client&quot;&gt;Importing openvpn configuration in your linux client&lt;/h2&gt;
+
+&lt;p&gt;Copy the generating ovpn file to your client.&lt;/p&gt;
+
+&lt;p&gt;If you use network manager, you can import this configuration file.&lt;/p&gt;
+
+&lt;p&gt;Open .ovpn file with a text editor.&lt;/p&gt;
+
+&lt;p&gt;And change lines that looks like&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;remote VPN.SERVERNAME.COM 1194  udp
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;to&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;remote VPN.SERVERNAME.COM 
+port 1194 
+proto udp
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;for connecting to tcp.&lt;/p&gt;
+
+&lt;p&gt;And change it to&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;remote VPN.SERVERNAME.COM
+port 443
+proto tcp
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;See &lt;a href=&quot;http://askubuntu.com/questions/760345/cannot-import-saved-openvpn-configuration-file-in-ubuntu-16-04-lts&quot;&gt;here&lt;/a&gt; for more information.&lt;/p&gt;
+
+&lt;h2 id=&quot;doing-the-same-for-x64-processor&quot;&gt;Doing the same for x64 processor&lt;/h2&gt;
+
+&lt;p&gt;You can do exactly the same on X64 processor in replacing &lt;code class=&quot;highlighter-rouge&quot;&gt;giggio/openvpn-arm&lt;/code&gt; with &lt;code class=&quot;highlighter-rouge&quot;&gt;kylemanna/openvpn&lt;/code&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;source&quot;&gt;Source&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/giggio/docker-openvpn-arm&quot;&gt;https://github.com/giggio/docker-openvpn-arm&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/kylemanna/docker-openvpn/blob/master/docs/tcp.md&quot;&gt;https://github.com/kylemanna/docker-openvpn/blob/master/docs/tcp.md&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/kylemanna/docker-openvpn/tree/master/docs&quot;&gt;https://github.com/kylemanna/docker-openvpn/tree/master/docs&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content><author><name></name></author><summary type="html">With the emergence of cloud offers with arm based server, it is convenient to be able to deploy vpn server on top of these platforms. For example Scaleway is a simple, scalable cloud platform. It’s the a platform where you can start x86 64bit and ARM BareMetal servers from a unique and simple graphical interface but also through API. Next you can use docker to deploy your micro-services. In this blog post, I just summarize how you can deploy your own openvpn server.</summary></entry><entry><title type="html">Integration api-platform and angularjs 2</title><link href="http://localhost:4000/blog/posts/api-platform/symfony3/angularjs/ng2/angularjs2/2017/02/03/Symfony3_api-platform_angularjs2.html" rel="alternate" type="text/html" title="Integration api-platform and angularjs 2" /><published>2017-02-03T00:00:00+01:00</published><updated>2017-02-03T00:00:00+01:00</updated><id>http://localhost:4000/blog/posts/api-platform/symfony3/angularjs/ng2/angularjs2/2017/02/03/Symfony3_api-platform_angularjs2</id><content type="html" xml:base="http://localhost:4000/blog/posts/api-platform/symfony3/angularjs/ng2/angularjs2/2017/02/03/Symfony3_api-platform_angularjs2.html">&lt;p&gt;Even if I prefer to use &lt;a href=&quot;https://projects.spring.io/spring-boot/&quot;&gt;Spring Boot&lt;/a&gt; as a basis for the the server stack and &lt;a href=&quot;https://jhipster.github.io/&quot;&gt;JHipster&lt;/a&gt; to generate the apps skeleton, I often have to use &lt;a href=&quot;http://php.net/manual/fr/intro-whatis.php&quot;&gt;Php&lt;/a&gt; framework for students projects. 
+This blog post explains how you can integrate &lt;a href=&quot;https://api-platform.com/&quot;&gt;api-platform&lt;/a&gt;, 
+a PHP framework to build modern web APIs built on top &lt;a href=&quot;https://symfony.com/&quot;&gt;symfony 3&lt;/a&gt;, 
+and &lt;a href=&quot;https://angular.io/&quot;&gt;angularJS 2&lt;/a&gt; with &lt;a href=&quot;https://cli.angular.io/&quot;&gt;angular cli&lt;/a&gt; 
+for building Single Page Application.&lt;/p&gt;
+
+&lt;!--more--&gt;
+
+&lt;p&gt;A new kind of web application is now suggested, we call it “&lt;em&gt;the Rise of Single Page Applications (SPA)&lt;/em&gt;”&lt;/p&gt;
+
+&lt;p&gt;This &lt;a href=&quot;https://dzone.com/articles/architectural-shift-in-web-applications-with-emerg&quot;&gt;article&lt;/a&gt; explains this new trend and the furture evolution. The three following paragraphs just explain this new architecture.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;em&gt;We woke up to new era of AJAX with the overnight success of applications like Gmail and Google Maps, where refreshing the entire page became a thing of the past. Applications were now designed to request only the necessary bits and pieces (partial responses) of content and information as needed to create highly interactive user experiences using Thin Clients that up until now were only possible using Thick Clients. The additional logic required to do this on the client side wasn’t anything dramatically new — it was almost the same thing that had been previously used in the Server Web Layer. We essentially moved the Web Layer from the server to the client (Web Browser).&lt;/em&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;em&gt;However, this additional logic on the client side brought about new challenges and complexities, such as having to deal with numerous XMLHttpRequests and understand the web browser’s DOM (Document Object Model) at a much deeper level than ever before necessary. To handle this added complexity many new JavaScript based frameworks emerged to handle low-level details and routine actions. Some frameworks are opinionated and some are not; some are bare bones and some are end-to-end solutions. And while it seemed like a new framework was appearing every other day, the good ones were all leveraging the same best practices and patterns that had been previously used with success in the Server Web Layer including Components, MVC (Model, View and Controller), Annotations, Dependency Injection, Services and Contracts by Interfaces etc.&lt;/em&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;em&gt;Since the Web Layer was removed from the Server Layer and moved to the Client Layer, a new thin layer was introduced to the Server Layer in order to expose the existing Server Business Layer directly to the new Client Web Layer. This was most frequently done using custom SOAP or REST APIs. The creation of these APIs and the architectural shift in the placement of the Web Layer paved the way to support functionalities like off-line support, but more importantly, the ability to support multiple client types, even those with different native implementations, using the same back end (think of a single backend powering iOS and Android apps, as well as desktop and mobile Web interfaces).&lt;/em&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;To follow this architecture, we could easily combine &lt;a href=&quot;https://api-platform.com/&quot;&gt;api-platform&lt;/a&gt;, a PHP framework to build modern web APIs built on top &lt;a href=&quot;https://symfony.com/&quot;&gt;symfony 3&lt;/a&gt;, and &lt;a href=&quot;https://angular.io/&quot;&gt;angularJS 2&lt;/a&gt; for building Single Page Application.&lt;/p&gt;
+
+&lt;h1 id=&quot;step-1-get-the-tooling&quot;&gt;Step 1: Get the tooling.&lt;/h1&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Install &lt;a href=&quot;https://nodejs.org/en/&quot;&gt;nodejs&lt;/a&gt;.&lt;/li&gt;
+  &lt;li&gt;Install php7&lt;/li&gt;
+  &lt;li&gt;Install &lt;a href=&quot;https://angular.io/&quot;&gt;angular-cli&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;npm &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-g&lt;/span&gt; angular-cli
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h1 id=&quot;step-2-get-and-configure-api-platform&quot;&gt;Step 2: Get and configure api platform.&lt;/h1&gt;
+
+&lt;p&gt;You can start from the demo app.&lt;/p&gt;
+
+&lt;p&gt;Clone the repo&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git clone https://github.com/api-platform/demo
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Go in the folder&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;demo
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;install-composer&quot;&gt;Install composer&lt;/h2&gt;
+
+&lt;p&gt;Composer is equivalent to maven or npm for the PhP community. It is a Dependency Manager for PHP.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;php &lt;span class=&quot;nt&quot;&gt;-r&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;copy('https://getcomposer.org/installer', 'composer-setup.php');&quot;&lt;/span&gt;
+php composer-setup.php
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Install dependencies required by api-platform (symfony3, doctrine, …)&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;php composer.phar &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;create-the-database&quot;&gt;Create the database&lt;/h2&gt;
+&lt;p&gt;Next you can configure the connexion to the the database.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bin/console doctrine:database:create
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Create your object model in src/AppBundle/Entity. The demo app comes with two entities (Book and Review for the demo).&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bin/console doctrine:schema:create 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Check that your database has been created.&lt;/p&gt;
+
+&lt;h2 id=&quot;update-the-routing&quot;&gt;Update the routing&lt;/h2&gt;
+&lt;p&gt;In the app/config/routing.yml add a prefix for your apu, it can be somethings like that.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;api:
+    resource: '.'
+    type:     'api_platform'
+    prefix:   '/api'  # This line can be added
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;start-the-server&quot;&gt;Start the server&lt;/h2&gt;
+
+&lt;p&gt;Next, you can start the server in doing.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bin/console server:start &lt;span class=&quot;c&quot;&gt;# for starting the server&lt;/span&gt;
+bin/console server stop &lt;span class=&quot;c&quot;&gt;# for stopping the server&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;check-that-your-application-is-running&quot;&gt;Check that your application is running&lt;/h2&gt;
+&lt;p&gt;Go to &lt;a href=&quot;http://localhost:8000/api&quot;&gt;http://localhost:8000/api&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;You can see the swagger interface.&lt;/p&gt;
+
+&lt;p&gt;When you modify your business object model, you can update the schema&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bin/console doctrine:schema:update &lt;span class=&quot;nt&quot;&gt;--force&lt;/span&gt; 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The &lt;a href=&quot;http://swagger.io/&quot;&gt;swagger&lt;/a&gt; interface is automatically up to date if you modify your entities.&lt;/p&gt;
+
+&lt;h1 id=&quot;prepare-the-frontend&quot;&gt;Prepare the frontend&lt;/h1&gt;
+&lt;p&gt;For preparing the front end, we will use angularjs2 and angular-cli.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ng new frontend
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Next, let a process that watches your typescript file and generate the web application.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;frontend
+ng build &lt;span class=&quot;nt&quot;&gt;-w&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--base-href&lt;/span&gt; front &lt;span class=&quot;nt&quot;&gt;--sourcemap&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--output-path&lt;/span&gt; ../web/front
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;In an other console come back to the root of your project and restart the server.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bin/console server:start &lt;span class=&quot;c&quot;&gt;# for starting the server&lt;/span&gt;
+bin/console server stop &lt;span class=&quot;c&quot;&gt;# for stopping the server&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Go to &lt;a href=&quot;http://localhost:8000/api&quot;&gt;http://localhost:8000/api&lt;/a&gt; you will get swagger
+Go to &lt;a href=&quot;http://localhost:8000/front&quot;&gt;http://localhost:8000/front&lt;/a&gt; you will get your frontend&lt;/p&gt;
+
+&lt;p&gt;Open you visual code studio editor in the root of your project.&lt;/p&gt;
+
+&lt;p&gt;Next you can read the doc of open platform and read the doc of angular2 to integrate some widgets.&lt;/p&gt;
+
+&lt;h3 id=&quot;api-platform&quot;&gt;api-platform&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://api-platform.com/docs/&quot;&gt;documentation&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;angular-js-2&quot;&gt;angular js 2&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://angular.io/docs/ts/latest/&quot;&gt;Official documentation&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/AngularClass/awesome-angular2&quot;&gt;courses&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.primefaces.org/primeng/&quot;&gt;great widgets&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/valor-software/ng2-bootstrap&quot;&gt;bootstrap ng2 components&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://books.ninja-squad.com/angular&quot;&gt;great book&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Enjoy!&lt;/p&gt;
+
+&lt;h1 id=&quot;deploy-your-application-with-apache&quot;&gt;Deploy your application with apache&lt;/h1&gt;
+
+&lt;p&gt;Stop the server and the ng build process.&lt;/p&gt;
+
+&lt;p&gt;In the frontend folder, run the following command to  build the web application for the production.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;rm&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-rf&lt;/span&gt; ../web/front
+ng build &lt;span class=&quot;nt&quot;&gt;--base-href&lt;/span&gt; front &lt;span class=&quot;nt&quot;&gt;--sourcemap&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--output-path&lt;/span&gt; ../web/front &lt;span class=&quot;nt&quot;&gt;--target&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;production
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;And configure apache to serve your web folder of your project or copy it where you want to deploy your app. 
+If you have to change your database parameters, do not forget to update your app/config/parameters.yml.&lt;/p&gt;
+
+&lt;h1 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h1&gt;
+&lt;p&gt;Great you will have now this great architecture. 
+Next blog posts will show, how you can easily integrate ng2 and primefaces components for the frontend and how you can manage RBAC rules and authentifications for such an application.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://api-platform.com/dist/e89da8a0f3ea2c3e006fb5328246624c.png&quot; alt=&quot;arch&quot; style=&quot;width: 800px;&quot; /&gt;&lt;/p&gt;</content><author><name></name></author><summary type="html">Even if I prefer to use Spring Boot as a basis for the the server stack and JHipster to generate the apps skeleton, I often have to use Php framework for students projects. This blog post explains how you can integrate api-platform, a PHP framework to build modern web APIs built on top symfony 3, and angularJS 2 with angular cli for building Single Page Application.</summary></entry><entry><title type="html">Quelques règles pour l’installation des portables</title><link href="http://localhost:4000/blog/posts/teaching/istic/labfab/french/2016/11/30/Installation_portable_LABFAB_ISTIC.html" rel="alternate" type="text/html" title="Quelques règles pour l'installation des portables" /><published>2016-11-30T00:00:00+01:00</published><updated>2016-11-30T00:00:00+01:00</updated><id>http://localhost:4000/blog/posts/teaching/istic/labfab/french/2016/11/30/Installation_portable_LABFAB_ISTIC</id><content type="html" xml:base="http://localhost:4000/blog/posts/teaching/istic/labfab/french/2016/11/30/Installation_portable_LABFAB_ISTIC.html">&lt;p&gt;Hello les makers,&lt;/p&gt;
+
+&lt;p&gt;Dans le cadre de cette année de formation, vous aurez un ordinateur portable par personne. Nous sommes partis sur les configurations suivantes&lt;a href=&quot;http://www8.hp.com/fr/fr/products/laptops/product-detail.html?oid=5405400#!tab=specs&quot;&gt;Probook 650 avec 8GO de Ram et un I3&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;###Etape 0: Install OS###&lt;/p&gt;
+
+&lt;p&gt;Pour l’install, tout marche très bien avec ubuntu 16.04. Pour ceux qui ne l’ont jamais installé. Récupérez une clé usb, téléchargez &lt;a href=&quot;http://www.ubuntu.com/download/desktop&quot;&gt;Ubuntu Desktop 16.04 en version 64bit et Desktop&lt;/a&gt;. Créez votre clé ucb avec par exemple &lt;a href=&quot;http://unetbootin.sourceforge.net/&quot;&gt;unetbootin&lt;/a&gt;. Choisissez DiskImage et l’iso que vous avez téléchargé et sélectionnez en bas votre clé usb, c’est parti. (10 mins de travail, un reboot et c’est bon)&lt;/p&gt;
+
+&lt;!--more--&gt;
+
+&lt;p&gt;Au démarrage du PC. Appuyez sur la touche [Echap] puis [F9] et séléctionnez la clé usb pour bootez dessus. Installez ubuntu sur l’ensemble du disque.&lt;/p&gt;
+
+&lt;p&gt;Si certains veulent avoir une installation windows. C’est possible l’istic dispose d’un abonnement &lt;a href=&quot;https://www.google.fr/search?q=msdn+aa+istic&amp;amp;oq=msdn+aa+istic&amp;amp;aqs=chrome..69i57.6842j0j7&amp;amp;sourceid=chrome&amp;amp;es_sm=122&amp;amp;ie=UTF-8&quot;&gt;MSDN AA&lt;/a&gt; qui vous donne accès aux licences des princiaux OS des Microsoft. Dans ce cas commencez par l’install de Windows. Puis installez ubuntu ensuite en demandant un split du disque du type 120 Go pour Windows et 200 pour linux. .&lt;/p&gt;
+
+&lt;p&gt;Il est nécessaire de disposer d’une installation linux pour les TPs sans être dans une machine virtuelle.&lt;/p&gt;
+
+&lt;p&gt;Sous ubuntu, quand il est installé.&lt;/p&gt;
+
+&lt;p&gt;###Etape 1: Java et autres
+Installez les paquets suviants:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt; 
+&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;nano git openjdk-8-jdk openjdk-8-doc maven inkscape &lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Installer aussi la JDK Oracle pour GLI&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt; 
+&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;add-apt-repository ppa:webupd8team/java
+&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get update
+&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;oracle-java8-installer&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;###Etape 2: Lua&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt; 
+&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;lua5.3
+&lt;span class=&quot;nb&quot;&gt;sudo chmod &lt;/span&gt;a+rwX /opt
+&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; /opt/
+wget http://www.hamady.org/download/comet_portable_linux_64bit.tgz
+&lt;span class=&quot;nb&quot;&gt;tar&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-xzf&lt;/span&gt; comet_portable_linux_64bit.tgz
+&lt;span class=&quot;nb&quot;&gt;rm  &lt;/span&gt;comet_portable_linux_64bit.tgz
+&lt;span class=&quot;c&quot;&gt;#To start Comet&lt;/span&gt;
+/opt/Comet/bin/comet&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;###Etape 3: Eclipse&lt;/p&gt;
+
+&lt;p&gt;Téléchargez eclipse pour &lt;a href=&quot;https://eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/neon/R/eclipse-java-neon-R-linux-gtk-x86_64.tar.gz&quot;&gt;Java developer&lt;/a&gt; en version 64 et dezipper le par exemple dans /opt/eclipse&lt;/p&gt;
+
+&lt;p&gt;###Etape 4: Smartgit
+Installez &lt;a href=&quot;http://www.syntevo.com/smartgit/&quot;&gt;Smartgit&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;###Etape 5: Docker&lt;/p&gt;
+
+&lt;p&gt;Installez Docker&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt; 
+&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get update 
+&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;apt-transport-https 
+&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-key adv &lt;span class=&quot;nt&quot;&gt;--keyserver&lt;/span&gt; hkp://p80.pool.sks-keyservers.net:80 &lt;span class=&quot;nt&quot;&gt;--recv-keys&lt;/span&gt; 58118E89F3A912897C070ADBF76221572C52609D
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;deb https://apt.dockerproject.org/repo ubuntu-xenial main&quot;&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;sudo tee&lt;/span&gt; /etc/apt/sources.list.d/docker.list
+&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get update 
+apt-cache policy docker-engine
+&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; docker-engine&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Pour vérifier que tout est ok&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt; &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;docker run &lt;span class=&quot;nt&quot;&gt;-i&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-t&lt;/span&gt; ubuntu /bin/bash &lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+&lt;p&gt;Cette dernière commande télécharge un conteneur ubuntu minimal et démarre ce container. Pour plus de documentation sur &lt;a href=&quot;http://fr.wikipedia.org/wiki/Docker_(Syst%C3%A8me_de_conteneur_Linux)\&quot;&gt;docker&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;###Etape 6: NodeJS&lt;/p&gt;
+
+&lt;p&gt;Installez nodejs&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt; 
+&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-add-repository ppa:chris-lea/node.js &lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Rechargez la liste des paquets ;&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt; 
+&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get update &lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Installez les paquets nodejs.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt; 
+&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;nodejs 
+&lt;span class=&quot;c&quot;&gt;#tester si npm est présent, &lt;/span&gt;
+npm &lt;span class=&quot;nt&quot;&gt;-v&lt;/span&gt; 
+&lt;span class=&quot;c&quot;&gt;#sinon &lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;npm&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;###Etape 7: Wifi ISTIC&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;Configuez eduroam suivant le &lt;a href=&quot;http://www.eduroam.fr/conf_supplicants/&quot;&gt;tuto suivant&lt;/a&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;RDV sur &lt;a href=&quot;http://wifsic-free.istic.univ-rennes1.fr/&quot;&gt;wifsic-free&lt;/a&gt; pour enregistrer vore mac adresse que vous pouvez récupérer à l’aide de la commande suivante:&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt; &lt;span class=&quot;nb&quot;&gt;sudo&lt;/span&gt; /sbin/ifconfig &lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+&lt;p&gt;prendre ‘HWaddr XX:XX:XX:XX:XX:XX’ de l’interface wlan0.&lt;/p&gt;
+
+&lt;p&gt;###Etape 8 Utiliser les imprimantes de l’ISTIC&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Vérifiez que cups est installé&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt; 
+&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get update 
+&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;cups &lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;éditer le fichier /etc/cups/client.conf et ajouter la ligne suivante&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt; 
+ServerName printhost.istic.univ-rennes1.fr &lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;pour imprimer, être connecté aux réseaux Wifsic ou Wifsic-free&lt;/p&gt;
+
+&lt;p&gt;###Etape 9: Bookmark services utiles
+&lt;a href=&quot;http://vm.istic.univ-rennes1.fr&quot;&gt;vm istic&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;###Petit Problème: WIFI et autres&lt;/p&gt;
+
+&lt;p&gt;####Wifi Pour installer le WIFI. Pluggez vous à un réseau filaire. 
+Puis tapez les commandes suivantes&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt; 
+&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get update 
+&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;firmware-b43-installer 
+&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;modprobe b43
+&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;modprobe &lt;span class=&quot;nt&quot;&gt;-r&lt;/span&gt; b43 
+&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;modprobe b43 &lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;####Certificat incorrect pour OpenJDK (poblème Maven)&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt; &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;update-ca-certificates &lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;####Problème ACPI (PC qui ne s’éteint pas)&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt; 
+&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;nano &lt;span class=&quot;nt&quot;&gt;-w&lt;/span&gt; /boot/grub/menu.cfg 
+&lt;span class=&quot;c&quot;&gt;#Puis enlever tous les paramères, noacpi, noapic ... &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;</content><author><name></name></author><summary type="html">Hello les makers, Dans le cadre de cette année de formation, vous aurez un ordinateur portable par personne. Nous sommes partis sur les configurations suivantesProbook 650 avec 8GO de Ram et un I3 ###Etape 0: Install OS### Pour l’install, tout marche très bien avec ubuntu 16.04. Pour ceux qui ne l’ont jamais installé. Récupérez une clé usb, téléchargez Ubuntu Desktop 16.04 en version 64bit et Desktop. Créez votre clé ucb avec par exemple unetbootin. Choisissez DiskImage et l’iso que vous avez téléchargé et sélectionnez en bas votre clé usb, c’est parti. (10 mins de travail, un reboot et c’est bon)</summary></entry><entry><title type="html">Some techniques to transform PPTX slides to reveal.js slides;</title><link href="http://localhost:4000/blog/posts/slides/reveal.js/powerpoint/migration/2016/11/30/From_PPTX_To_Reveal_To_Github_Page.html" rel="alternate" type="text/html" title="Some techniques to transform PPTX slides to reveal.js slides;" /><published>2016-11-30T00:00:00+01:00</published><updated>2016-11-30T00:00:00+01:00</updated><id>http://localhost:4000/blog/posts/slides/reveal.js/powerpoint/migration/2016/11/30/From_PPTX_To_Reveal_To_Github_Page</id><content type="html" xml:base="http://localhost:4000/blog/posts/slides/reveal.js/powerpoint/migration/2016/11/30/From_PPTX_To_Reveal_To_Github_Page.html">&lt;p&gt;This blog post try to explain how I transform my pptx slides to html slides using open-source projects.&lt;/p&gt;
+
+&lt;!--more--&gt;
+
+&lt;h2 id=&quot;initialize-your-presentation&quot;&gt;Initialize your presentation&lt;/h2&gt;
+
+&lt;p&gt;It exists now a yeoman generator for setting up your project.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;npm &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-g&lt;/span&gt; generator-reveal
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Make a new directory, and cd into it:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;mkdir &lt;/span&gt;my-new-project &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$_&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Run yo reveal and start building your presentation.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;yo reveal
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Answer the following questions.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;? What are you going to talk about? &lt;span class=&quot;c&quot;&gt;#Reveal.js and Yeoman is Awesomeness&lt;/span&gt;
+? What version should we put &lt;span class=&quot;k&quot;&gt;in &lt;/span&gt;the package.json file? &lt;span class=&quot;c&quot;&gt;#0.0.0&lt;/span&gt;
+? Do you want to use Sass to create a custom theme? &lt;span class=&quot;c&quot;&gt;#No&lt;/span&gt;
+? What Reveal.js theme would you like to use? &lt;span class=&quot;c&quot;&gt;#white&lt;/span&gt;
+? Do you want to deploy your presentation to Github Pages? &lt;span class=&quot;c&quot;&gt;#This requires an empty Github repository. Yes&lt;/span&gt;
+? What is your Github username? &lt;span class=&quot;c&quot;&gt;#barais&lt;/span&gt;
+? What is the Github repository name? &lt;span class=&quot;c&quot;&gt;#testslide&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;next you can view your slide in doing&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;grunt serve
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Then, you can create further slides with subgenerator. See the &lt;a href=&quot;https://github.com/slara/generator-reveal&quot;&gt;generator web site&lt;/a&gt; for some pieces of  documentation.&lt;/p&gt;
+
+&lt;h2 id=&quot;distribute-your-slides&quot;&gt;Distribute your slides.&lt;/h2&gt;
+
+&lt;p&gt;When you want to export your presentation to some static HTML server, you can type&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;grunt dist
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;to have all your relevant files saved to the dist directory.&lt;/p&gt;
+
+&lt;h2 id=&quot;publish-your-slides&quot;&gt;Publish your slides.&lt;/h2&gt;
+
+&lt;p&gt;If you want to publish it on a github page, you can just do&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git init &lt;span class=&quot;c&quot;&gt;#Only the first time.&lt;/span&gt;
+grunt deploy
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;import-and-convert-a-pptx&quot;&gt;Import and convert a pptx&lt;/h2&gt;
+
+&lt;p&gt;If you get some contents that exists in pptx, you can import it.&lt;/p&gt;
+
+&lt;p&gt;First, use &lt;a href=&quot;https://github.com/g21589/PPTX2HTML&quot;&gt;this project&lt;/a&gt; to convert your slide. Use libreoffice or PowerPoint to create pptx file.&lt;/p&gt;
+
+&lt;p&gt;You can use the &lt;a href=&quot;http://g21589.github.io/PPTX2HTML/&quot;&gt;demo page&lt;/a&gt; to convert your slide from pptx to html. Do not worry, your slide will not be uploaded on a server. It justs use your browser JavaScript Engine to do the conversion. Select your pptx file in clicking on “choose a pptx file”. Next on the same button, select “export to Reveal.js slides”. You will obtain an html file. You can copy it on the slides forlder of your project.&lt;/p&gt;
+
+&lt;p&gt;Next we have to edit a bit this file to obtain a correct integration with the structure generated through the yeoman generator. In the html file you copy in slide, remove the first script section.&lt;/p&gt;
+
+&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;script &lt;/span&gt;&lt;span class=&quot;na&quot;&gt;type=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'text/javascript'&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;Reveal&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;initialize&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;	&lt;span class=&quot;na&quot;&gt;controls&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;	&lt;span class=&quot;na&quot;&gt;progress&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;	&lt;span class=&quot;na&quot;&gt;history&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;	&lt;span class=&quot;na&quot;&gt;center&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;	&lt;span class=&quot;na&quot;&gt;keyboard&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;	&lt;span class=&quot;na&quot;&gt;slideNumber&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;		&lt;span class=&quot;na&quot;&gt;theme&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Reveal&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getQueryHash&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;theme&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;	&lt;span class=&quot;na&quot;&gt;transition&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;Reveal&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;getQueryHash&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;transition&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;||&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'default'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;		&lt;span class=&quot;na&quot;&gt;dependencies&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;		&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;src&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'lib/js/classList.js'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;condition&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;body&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;classList&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;		&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;src&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'plugin/markdown/marked.js'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;condition&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!!&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;querySelector&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'[data-markdown]'&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;		&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;src&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'plugin/markdown/markdown.js'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;condition&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!!&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;querySelector&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'[data-markdown]'&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;		&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;src&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'plugin/highlight/highlight.js'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;async&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;callback&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;hljs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;initHighlightingOnLoad&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;		&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;src&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'plugin/zoom-js/zoom.js'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;async&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;condition&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!!&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;body&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;classList&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;		&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;src&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'plugin/notes/notes.js'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;async&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;condition&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!!&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;body&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;classList&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;	&lt;span class=&quot;p&quot;&gt;]});&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;/script&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Next move the first style section (between &lt;style&gt; ... and &lt;/style&gt;) within the template/_index.html file just after&lt;/p&gt;
+
+&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;       ...
+	&lt;span class=&quot;c&quot;&gt;&amp;lt;!-- For syntax highlighting --&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;link&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;rel=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;stylesheet&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;href=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;bower_components/highlightjs/styles/zenburn.css&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+       ...
+```.
+ 
+
+```html
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;style&amp;gt;&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;.hidden&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;nl&quot;&gt;display&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;none&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;nt&quot;&gt;pre&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;nl&quot;&gt;width&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;100%&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+	&lt;span class=&quot;nl&quot;&gt;height&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;360px&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+	&lt;span class=&quot;nl&quot;&gt;overflow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;scroll&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;nt&quot;&gt;section&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;nl&quot;&gt;width&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;100%&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+	&lt;span class=&quot;c&quot;&gt;/*max-width: 920px;*/&lt;/span&gt;
+	&lt;span class=&quot;nl&quot;&gt;height&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;690px&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+	&lt;span class=&quot;nl&quot;&gt;position&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;relative&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+	&lt;span class=&quot;nl&quot;&gt;border&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1px&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;solid&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;#333&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+	&lt;span class=&quot;nl&quot;&gt;background-color&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;#EFEFEF&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+	&lt;span class=&quot;nl&quot;&gt;text-align&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;center&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+	&lt;span class=&quot;nl&quot;&gt;border-radius&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;10px&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+	&lt;span class=&quot;nl&quot;&gt;box-shadow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1px&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1px&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;3px&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;#AAA&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+	&lt;span class=&quot;nl&quot;&gt;overflow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;hidden&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+	&lt;span class=&quot;c&quot;&gt;/*transform: scale(0.85);*/&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;nt&quot;&gt;section&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;div&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;.block&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;nl&quot;&gt;position&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;absolute&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+	&lt;span class=&quot;nl&quot;&gt;top&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0px&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+	&lt;span class=&quot;nl&quot;&gt;left&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0px&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+	&lt;span class=&quot;nl&quot;&gt;width&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;100%&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;nt&quot;&gt;section&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;div&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;.content&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;nl&quot;&gt;display&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;flex&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+	&lt;span class=&quot;nl&quot;&gt;flex-direction&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;column&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+	&lt;span class=&quot;c&quot;&gt;/*
+	justify-content: center;
+	align-items: flex-end;
+	*/&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;nt&quot;&gt;section&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;div&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;.v-up&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;nl&quot;&gt;justify-content&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;flex-start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;section&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;div&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;.v-mid&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;nl&quot;&gt;justify-content&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;center&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;section&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;div&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;.v-down&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;nl&quot;&gt;justify-content&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;flex-end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;nt&quot;&gt;section&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;div&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;.h-left&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;nl&quot;&gt;align-items&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;flex-start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+	&lt;span class=&quot;nl&quot;&gt;text-align&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;left&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;section&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;div&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;.h-mid&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;nl&quot;&gt;align-items&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;center&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+	&lt;span class=&quot;nl&quot;&gt;text-align&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;center&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;section&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;div&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;.h-right&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;nl&quot;&gt;align-items&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;flex-end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+	&lt;span class=&quot;nl&quot;&gt;text-align&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;right&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;nt&quot;&gt;section&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;div&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;.up-left&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;nl&quot;&gt;justify-content&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;flex-start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+	&lt;span class=&quot;nl&quot;&gt;align-items&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;flex-start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+	&lt;span class=&quot;nl&quot;&gt;text-align&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;left&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;section&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;div&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;.up-center&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;nl&quot;&gt;justify-content&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;flex-start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+	&lt;span class=&quot;nl&quot;&gt;align-items&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;center&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;section&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;div&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;.up-right&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;nl&quot;&gt;justify-content&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;flex-start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+	&lt;span class=&quot;nl&quot;&gt;align-items&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;flex-end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;section&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;div&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;.center-left&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;nl&quot;&gt;justify-content&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;center&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+	&lt;span class=&quot;nl&quot;&gt;align-items&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;flex-start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+	&lt;span class=&quot;nl&quot;&gt;text-align&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;left&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;section&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;div&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;.center-center&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;nl&quot;&gt;justify-content&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;center&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+	&lt;span class=&quot;nl&quot;&gt;align-items&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;center&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;section&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;div&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;.center-right&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;nl&quot;&gt;justify-content&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;center&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+	&lt;span class=&quot;nl&quot;&gt;align-items&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;flex-end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;section&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;div&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;.down-left&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;nl&quot;&gt;justify-content&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;flex-end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+	&lt;span class=&quot;nl&quot;&gt;align-items&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;flex-start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+	&lt;span class=&quot;nl&quot;&gt;text-align&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;left&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;section&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;div&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;.down-center&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;nl&quot;&gt;justify-content&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;flex-end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+	&lt;span class=&quot;nl&quot;&gt;align-items&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;center&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;section&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;div&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;.down-right&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;nl&quot;&gt;justify-content&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;flex-end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+	&lt;span class=&quot;nl&quot;&gt;align-items&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;flex-end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;nt&quot;&gt;section&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;span&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;.text-block&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;c&quot;&gt;/* display: inline-block; */&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;nt&quot;&gt;li&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;.slide&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;nl&quot;&gt;margin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;10px&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0px&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+	&lt;span class=&quot;nl&quot;&gt;font-size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;18px&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;nt&quot;&gt;div&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;.footer&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;nl&quot;&gt;text-align&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;center&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;nt&quot;&gt;section&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;table&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;nl&quot;&gt;position&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;absolute&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;nt&quot;&gt;section&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;table&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;section&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;th&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;section&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;td&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;nl&quot;&gt;border&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1px&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;solid&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;black&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;nt&quot;&gt;section&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;svg&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;.drawing&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;nl&quot;&gt;position&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;absolute&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+	&lt;span class=&quot;nl&quot;&gt;overflow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;visible&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;nc&quot;&gt;.fileUpload&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nl&quot;&gt;position&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;relative&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;nl&quot;&gt;overflow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;hidden&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;nc&quot;&gt;.fileUpload&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;.upload&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nl&quot;&gt;position&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;absolute&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;nl&quot;&gt;top&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;nl&quot;&gt;right&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;nl&quot;&gt;margin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;nl&quot;&gt;padding&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;nl&quot;&gt;font-size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;20px&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;nl&quot;&gt;cursor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;pointer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;nl&quot;&gt;opacity&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;nl&quot;&gt;filter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;alpha&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;opacity&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;nf&quot;&gt;#pptx-thumb&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;nl&quot;&gt;min-width&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;240px&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+	&lt;span class=&quot;nl&quot;&gt;height&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;180px&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/style&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;To improve the quality, you can edit this style in adding this CSS&lt;/p&gt;
+
+&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;        .reveal section img{
+          border: none;
+          box-shadow: none;
+        }
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;and remove or comment in the “section” section.&lt;/p&gt;
+
+&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;&amp;lt;!--          		background-color: #EFEFEF;--&amp;gt;&lt;/span&gt;
+          		text-align: center;
+&lt;span class=&quot;c&quot;&gt;&amp;lt;!--          		border-radius: 10px;
+          		box-shadow: 1px 1px 3px #AAA;--&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;You should get something like that&lt;/p&gt;
+
+&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;        &lt;span class=&quot;nt&quot;&gt;&amp;lt;link&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;rel=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;stylesheet&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;href=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;bower_components/highlightjs/styles/zenburn.css&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;style&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nc&quot;&gt;.reveal&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;section&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;img&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+          &lt;span class=&quot;nl&quot;&gt;border&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;none&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+          &lt;span class=&quot;nl&quot;&gt;box-shadow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;none&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+          	&lt;span class=&quot;nc&quot;&gt;.hidden&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+          		&lt;span class=&quot;nl&quot;&gt;display&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;none&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+          	&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+          	&lt;span class=&quot;nt&quot;&gt;pre&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+          		&lt;span class=&quot;nl&quot;&gt;width&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;100%&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+          		&lt;span class=&quot;nl&quot;&gt;height&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;360px&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+          		&lt;span class=&quot;nl&quot;&gt;overflow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;scroll&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+          	&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+          	&lt;span class=&quot;nt&quot;&gt;section&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+          		&lt;span class=&quot;nl&quot;&gt;width&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;100%&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+          		&lt;span class=&quot;c&quot;&gt;/*max-width: 920px;*/&lt;/span&gt;
+          		&lt;span class=&quot;nl&quot;&gt;height&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;690px&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+          		&lt;span class=&quot;nl&quot;&gt;position&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;relative&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+          		&lt;span class=&quot;nl&quot;&gt;border&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1px&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;solid&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;#333&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;err&quot;&gt;&amp;lt;!--//&lt;/span&gt;          		&lt;span class=&quot;nl&quot;&gt;background-color&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;#EFEFEF&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;--&amp;gt;&lt;/span&gt;
+          		&lt;span class=&quot;nl&quot;&gt;text-align&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;center&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;err&quot;&gt;&amp;lt;!--//&lt;/span&gt;          		&lt;span class=&quot;nl&quot;&gt;border-radius&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;10px&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;err&quot;&gt;//&lt;/span&gt;          		&lt;span class=&quot;nl&quot;&gt;box-shadow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1px&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1px&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;3px&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;#AAA&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;--&amp;gt;&lt;/span&gt;
+          		&lt;span class=&quot;nl&quot;&gt;overflow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;hidden&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+          		&lt;span class=&quot;c&quot;&gt;/*transform: scale(0.85);*/&lt;/span&gt;
+          	&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+          	&lt;span class=&quot;nt&quot;&gt;section&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;div&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;.block&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+          		&lt;span class=&quot;nl&quot;&gt;position&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;absolute&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+          		&lt;span class=&quot;nl&quot;&gt;top&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0px&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+          		&lt;span class=&quot;nl&quot;&gt;left&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0px&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+          		&lt;span class=&quot;nl&quot;&gt;width&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;100%&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+          	&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+          	&lt;span class=&quot;nt&quot;&gt;section&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;div&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;.content&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+          		&lt;span class=&quot;nl&quot;&gt;display&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;flex&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+          		&lt;span class=&quot;nl&quot;&gt;flex-direction&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;column&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+          		&lt;span class=&quot;c&quot;&gt;/*
+          	justify-content: center;
+          	align-items: flex-end;
+          	*/&lt;/span&gt;
+          	&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+          	&lt;span class=&quot;nt&quot;&gt;section&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;div&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;.v-up&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+          		&lt;span class=&quot;nl&quot;&gt;justify-content&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;flex-start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+          	&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+          	&lt;span class=&quot;nt&quot;&gt;section&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;div&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;.v-mid&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+          		&lt;span class=&quot;nl&quot;&gt;justify-content&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;center&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+          	&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+          	&lt;span class=&quot;nt&quot;&gt;section&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;div&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;.v-down&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+          		&lt;span class=&quot;nl&quot;&gt;justify-content&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;flex-end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+          	&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+          	&lt;span class=&quot;nt&quot;&gt;section&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;div&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;.h-left&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+          		&lt;span class=&quot;nl&quot;&gt;align-items&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;flex-start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+          		&lt;span class=&quot;nl&quot;&gt;text-align&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;left&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+          	&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+          	&lt;span class=&quot;nt&quot;&gt;section&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;div&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;.h-mid&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+          		&lt;span class=&quot;nl&quot;&gt;align-items&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;center&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+          		&lt;span class=&quot;nl&quot;&gt;text-align&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;center&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+          	&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+          	&lt;span class=&quot;nt&quot;&gt;section&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;div&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;.h-right&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+          		&lt;span class=&quot;nl&quot;&gt;align-items&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;flex-end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+          		&lt;span class=&quot;nl&quot;&gt;text-align&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;right&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+          	&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+          	&lt;span class=&quot;nt&quot;&gt;section&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;div&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;.up-left&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+          		&lt;span class=&quot;nl&quot;&gt;justify-content&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;flex-start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+          		&lt;span class=&quot;nl&quot;&gt;align-items&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;flex-start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+          		&lt;span class=&quot;nl&quot;&gt;text-align&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;left&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+          	&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+          	&lt;span class=&quot;nt&quot;&gt;section&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;div&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;.up-center&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+          		&lt;span class=&quot;nl&quot;&gt;justify-content&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;flex-start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+          		&lt;span class=&quot;nl&quot;&gt;align-items&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;center&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+          	&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+          	&lt;span class=&quot;nt&quot;&gt;section&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;div&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;.up-right&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+          		&lt;span class=&quot;nl&quot;&gt;justify-content&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;flex-start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+          		&lt;span class=&quot;nl&quot;&gt;align-items&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;flex-end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+          	&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+          	&lt;span class=&quot;nt&quot;&gt;section&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;div&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;.center-left&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+          		&lt;span class=&quot;nl&quot;&gt;justify-content&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;center&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+          		&lt;span class=&quot;nl&quot;&gt;align-items&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;flex-start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+          		&lt;span class=&quot;nl&quot;&gt;text-align&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;left&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+          	&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+          	&lt;span class=&quot;nt&quot;&gt;section&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;div&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;.center-center&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+          		&lt;span class=&quot;nl&quot;&gt;justify-content&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;center&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+          		&lt;span class=&quot;nl&quot;&gt;align-items&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;center&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+          	&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+          	&lt;span class=&quot;nt&quot;&gt;section&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;div&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;.center-right&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+          		&lt;span class=&quot;nl&quot;&gt;justify-content&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;center&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+          		&lt;span class=&quot;nl&quot;&gt;align-items&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;flex-end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+          	&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+          	&lt;span class=&quot;nt&quot;&gt;section&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;div&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;.down-left&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+          		&lt;span class=&quot;nl&quot;&gt;justify-content&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;flex-end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+          		&lt;span class=&quot;nl&quot;&gt;align-items&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;flex-start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+          		&lt;span class=&quot;nl&quot;&gt;text-align&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;left&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+          	&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+          	&lt;span class=&quot;nt&quot;&gt;section&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;div&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;.down-center&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+          		&lt;span class=&quot;nl&quot;&gt;justify-content&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;flex-end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+          		&lt;span class=&quot;nl&quot;&gt;align-items&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;center&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+          	&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+          	&lt;span class=&quot;nt&quot;&gt;section&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;div&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;.down-right&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+          		&lt;span class=&quot;nl&quot;&gt;justify-content&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;flex-end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+          		&lt;span class=&quot;nl&quot;&gt;align-items&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;flex-end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+          	&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+          	&lt;span class=&quot;nt&quot;&gt;section&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;span&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;.text-block&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+          		&lt;span class=&quot;c&quot;&gt;/* display: inline-block; */&lt;/span&gt;
+          	&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+          	&lt;span class=&quot;nt&quot;&gt;li&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;.slide&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+          		&lt;span class=&quot;nl&quot;&gt;margin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;10px&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0px&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+          		&lt;span class=&quot;nl&quot;&gt;font-size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;18px&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+          	&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+          	&lt;span class=&quot;nt&quot;&gt;div&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;.footer&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+          		&lt;span class=&quot;nl&quot;&gt;text-align&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;center&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+          	&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+          	&lt;span class=&quot;nt&quot;&gt;section&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;table&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+          		&lt;span class=&quot;nl&quot;&gt;position&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;absolute&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+          	&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+          	&lt;span class=&quot;nt&quot;&gt;section&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;table&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
+          	&lt;span class=&quot;nt&quot;&gt;section&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;th&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
+          	&lt;span class=&quot;nt&quot;&gt;section&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;td&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+          		&lt;span class=&quot;nl&quot;&gt;border&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1px&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;solid&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;black&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+          	&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+          	&lt;span class=&quot;nt&quot;&gt;section&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;svg&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;.drawing&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+          		&lt;span class=&quot;nl&quot;&gt;position&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;absolute&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+          		&lt;span class=&quot;nl&quot;&gt;overflow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;visible&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+          	&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+          	&lt;span class=&quot;nc&quot;&gt;.fileUpload&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+          		&lt;span class=&quot;nl&quot;&gt;position&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;relative&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+          		&lt;span class=&quot;nl&quot;&gt;overflow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;hidden&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+          	&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+          	&lt;span class=&quot;nc&quot;&gt;.fileUpload&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;input&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;.upload&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+          		&lt;span class=&quot;nl&quot;&gt;position&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;absolute&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+          		&lt;span class=&quot;nl&quot;&gt;top&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+          		&lt;span class=&quot;nl&quot;&gt;right&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+          		&lt;span class=&quot;nl&quot;&gt;margin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+          		&lt;span class=&quot;nl&quot;&gt;padding&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+          		&lt;span class=&quot;nl&quot;&gt;font-size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;20px&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+          		&lt;span class=&quot;nl&quot;&gt;cursor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;pointer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+          		&lt;span class=&quot;nl&quot;&gt;opacity&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+          		&lt;span class=&quot;nl&quot;&gt;filter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;alpha&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;opacity&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+          	&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+          	&lt;span class=&quot;nf&quot;&gt;#pptx-thumb&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+          		&lt;span class=&quot;nl&quot;&gt;min-width&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;240px&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+          		&lt;span class=&quot;nl&quot;&gt;height&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;180px&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+          	&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+          &lt;span class=&quot;nt&quot;&gt;&amp;lt;/style&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Finally remove the&lt;/p&gt;
+
+&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;div&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;id=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'slides'&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'slides'&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;and the last&lt;/p&gt;
+
+&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;/div&amp;gt;&lt;/span&gt; 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;in your slides/slides.html&lt;/p&gt;
+
+&lt;p&gt;To see your slides, just edit the slide/list.json to index your file.&lt;/p&gt;
+
+&lt;p&gt;Next run,&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;grunt
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;to see the result.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;grunt publish when your are happy. 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;enjoy …&lt;/p&gt;</content><author><name></name></author><summary type="html">This blog post try to explain how I transform my pptx slides to html slides using open-source projects.</summary></entry><entry><title type="html">Quelques éléments pour le TP sur Docker</title><link href="http://localhost:4000/blog/posts/teaching/istic/m2/french/2016/09/14/TPDocker.html" rel="alternate" type="text/html" title="Quelques éléments pour le TP sur Docker" /><published>2016-09-14T00:00:00+02:00</published><updated>2016-09-14T00:00:00+02:00</updated><id>http://localhost:4000/blog/posts/teaching/istic/m2/french/2016/09/14/TPDocker</id><content type="html" xml:base="http://localhost:4000/blog/posts/teaching/istic/m2/french/2016/09/14/TPDocker.html">&lt;p&gt;Hello très chers étudiants,&lt;/p&gt;
+
+&lt;p&gt;Le but de ce TP est de regarder comment nous pouvons utiliser docker pour faciliter le déploiement d’une application avec la mise en place d’un serveur web en reverse proxy etc…&lt;/p&gt;
+
+&lt;!--more--&gt;
+
+&lt;p&gt;###Etape -1: Docker###
+Installez docker&lt;/p&gt;
+
+&lt;h3 id=&quot;etape-0-test-de-votre-installation&quot;&gt;Etape 0: Test de votre installation&lt;/h3&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;docker run hello-world&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Vous devriez avoir le message suivant.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;Hello from Docker.
+This message shows that your installation appears to be working correctly.&lt;/p&gt;
+
+&lt;p&gt;To generate this message, Docker took the following steps:&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;The Docker client contacted the Docker daemon.&lt;/li&gt;
+  &lt;li&gt;The Docker daemon pulled the “hello-world” image from the Docker Hub.&lt;/li&gt;
+  &lt;li&gt;The Docker daemon created a new container from that image which runs the
+executable that produces the output you are currently reading.&lt;/li&gt;
+  &lt;li&gt;The Docker daemon streamed that output to the Docker client, which sent it
+to your terminal.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;To try something more ambitious, you can run an Ubuntu container with:
+ $ docker run -it ubuntu bash&lt;/p&gt;
+
+&lt;p&gt;Share images, automate workflows, and more with a free Docker Hub account:
+ https://hub.docker.com&lt;/p&gt;
+
+&lt;p&gt;For more examples and ideas, visit:
+ https://docs.docker.com/userguide/&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&quot;etape-1-téléchargement-dune-image-existante&quot;&gt;Etape 1: Téléchargement d’une image existante&lt;/h3&gt;
+
+&lt;p&gt;Suivez le tutoriel suivant pour tester le téléchargement d’une image&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://docs.docker.com/linux/step_three/&quot;&gt;https://docs.docker.com/linux/step_three/&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;etape-2-construction-dune-image-pour-votre-application&quot;&gt;Etape 2: Construction d’une image pour votre application&lt;/h3&gt;
+
+&lt;p&gt;En suivant le tutoriel &lt;a href=&quot;https://docs.docker.com/get-started/part2/#define-a-container-with-a-dockerfile&quot;&gt;suivant&lt;/a&gt;:&lt;/p&gt;
+
+&lt;p&gt;Vous pourrez partir de cette image de base. 
+[https://hub.docker.com/&lt;em&gt;/maven/](https://hub.docker.com/&lt;/em&gt;/maven/)&lt;/p&gt;
+
+&lt;p&gt;Parcourez rapidement les tutoriels suivants:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://docs.docker.com/get-started/part2/&quot;&gt;https://docs.docker.com/get-started/part2/&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;etape-3-mise-en-place-de-la-base-de-données&quot;&gt;Etape 3: Mise en place de la base de données&lt;/h3&gt;
+&lt;p&gt;Lancez votre base de données en aprtant de l’image suivante&lt;/p&gt;
+
+&lt;p&gt;[https://hub.docker.com/&lt;em&gt;/mysql/](https://hub.docker.com/&lt;/em&gt;/mysql/)&lt;/p&gt;
+
+&lt;p&gt;Utilisez les links docker pour faire le lien entre votre base de données et votre serveur d’application. 
+&lt;a href=&quot;https://docs.docker.com/userguide/dockerlinks/&quot;&gt;https://docs.docker.com/userguide/dockerlinks/&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Lancez votre application et vérifiez que tout marche.&lt;/p&gt;
+
+&lt;h3 id=&quot;etape-4-mise-en-place-dun-load-balancer-et-dun-reverse-proxy-avec-docker-et-nginx&quot;&gt;Etape 4: Mise en place d’un load balancer et d’un reverse proxy avec docker et nginx&lt;/h3&gt;
+&lt;p&gt;Pour le nginx en resolproxy nous allons partir de l’image &lt;a href=&quot;https://github.com/jwilder/nginx-proxy&quot;&gt;suivante&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;L’explication du fonctionnement est disponible &lt;a href=&quot;http://jasonwilder.com/blog/2014/03/25/automated-nginx-reverse-proxy-for-docker/&quot;&gt;ici&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Lancement de nginx en resolvproxy&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;docker run &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; 8080:80 &lt;span class=&quot;nt&quot;&gt;-v&lt;/span&gt; /var/run/docker.sock:/tmp/docker.sock &lt;span class=&quot;nt&quot;&gt;-t&lt;/span&gt; jwilder/nginx-proxy &lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Dans le suite nous allons utiliser terminator pour visualiser les effets du load-balancing.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;apt-get &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;terminator&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Lancez Terminator en root.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;terminator&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;modifiez votre fichier /etc/hosts pour faire correspondre myapp.taa.fr vers 127.0.0.1. Ce serait à faire sur votre gestionnaire de nom de domaine en temps normal.&lt;/p&gt;
+
+&lt;p&gt;Vous devez avoir une ligne qui ressemble à cela.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;127.0.0.1	localhost localhost.localdomain localhost4 localhost4.localdomain head-demo myapp.taa.fr&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Puis créer n fenètre dans votre navigateur terminator (clic droit puis split horizontal ou vertical). 
+Dans ces terminales, lancez la commande suivante pour tester votre resolve proxy.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;docker run &lt;span class=&quot;nt&quot;&gt;-e&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;VIRTUAL_HOST&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;myapp.taa.fr &lt;span class=&quot;nt&quot;&gt;-t&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-i&lt;/span&gt;  nginx&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;En tapant la commande suivante, vous pouvez regarder le fichier de configuration nginx qui sera généré à l’adresse suivante /etc/nginx/conf.d/default.conf. (N’oubliez pas de remplacer  865c1e67a00e par l’id de votre nginx en resolve proxy ($docker ps) pour récupérer la liste des containers en cours d’exécution.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;docker &lt;span class=&quot;nb&quot;&gt;exec&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-it&lt;/span&gt; 865c1e67a00e bash&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://jasonwilder.com/blog/2014/03/25/automated-nginx-reverse-proxy-for-docker/&quot;&gt;source&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Tuez tous les dockers nginx démarrer.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;docker ps &lt;span class=&quot;c&quot;&gt;#pour avoir la liste&lt;/span&gt;
+docker &lt;span class=&quot;nb&quot;&gt;kill&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;IDDOCKER&quot;&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;#pour tuer un docker. &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Lancez plusieurs fois votre serveur d’application. Testez le résultat.&lt;/p&gt;
+
+&lt;h3 id=&quot;etape-5-utilisation-de-docker-compose&quot;&gt;Etape 5: Utilisation de docker compose&lt;/h3&gt;
+&lt;p&gt;Utilisez docker compose pour déployer votre application avec trois serveur d’applications et une instance de base de données.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://docs.docker.com/get-started/part3/&quot;&gt;tutoriel&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;etape-6-mise-en-place-dune-base-de-données-distribuée-optionnelle-carambar-provided&quot;&gt;Etape 6: Mise en place d’une base de données distribuée (optionnelle, carambar provided)&lt;/h3&gt;
+
+&lt;p&gt;Pour distriber la base de données, nous pouvons utiliser gallera.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://galeracluster.com/2015/05/getting-started-galera-with-docker-part-1/&quot;&gt;tutoriel&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Suivez le tutoriel pour démarer galera.&lt;/p&gt;
+
+&lt;p&gt;Mettez à jour votre fichier docker compose en fonction de cela.&lt;/p&gt;</content><author><name></name></author><summary type="html">Hello très chers étudiants, Le but de ce TP est de regarder comment nous pouvons utiliser docker pour faciliter le déploiement d’une application avec la mise en place d’un serveur web en reverse proxy etc…</summary></entry><entry><title type="html">Quelques règles pour l’installation des portables</title><link href="http://localhost:4000/blog/posts/teaching/istic/m2/french/2016/08/29/Operation_portable_M2_ISTIC.html" rel="alternate" type="text/html" title="Quelques règles pour l'installation des portables" /><published>2016-08-29T00:00:00+02:00</published><updated>2016-08-29T00:00:00+02:00</updated><id>http://localhost:4000/blog/posts/teaching/istic/m2/french/2016/08/29/Operation_portable_M2_ISTIC</id><content type="html" xml:base="http://localhost:4000/blog/posts/teaching/istic/m2/french/2016/08/29/Operation_portable_M2_ISTIC.html">&lt;p&gt;Hello très chers étudiants,&lt;/p&gt;
+
+&lt;p&gt;Pour la deuxième année, nous experimentons l’usage des TPs pour les M2. Nous sommes partis sur les configurations suivantes&lt;a href=&quot;http://www8.hp.com/fr/fr/products/laptops/product-detail.html?oid=5405400#!tab=specs&quot;&gt;Probook 650 avec 8GO de Ram et un I3&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;###Etape 0: Install OS###&lt;/p&gt;
+
+&lt;p&gt;Pour l’install, tout marche très bien avec ubuntu 16.04. Pour ceux qui ne l’ont jamais installé. Récupérez une clé usb, téléchargez &lt;a href=&quot;http://www.ubuntu.com/download/desktop&quot;&gt;Ubuntu Desktop 16.04 en version 64bit et Desktop&lt;/a&gt;. Créez votre clé ucb avec par exemple &lt;a href=&quot;http://unetbootin.sourceforge.net/&quot;&gt;unetbootin&lt;/a&gt;. Choisissez DiskImage et l’iso que vous avez téléchargé et sélectionnez en bas votre clé usb, c’est parti. (10 mins de travail, un reboot et c’est bon)&lt;/p&gt;
+
+&lt;!--more--&gt;
+
+&lt;p&gt;Au démarrage du PC. Appuyez sur la touche [Echap] puis [F9] et séléctionnez la clé usb pour bootez dessus. Installez ubuntu sur l’ensemble du disque.&lt;/p&gt;
+
+&lt;p&gt;Si certains veulent avoir une installation windows. C’est possible l’istic dispose d’un abonnement &lt;a href=&quot;https://www.google.fr/search?q=msdn+aa+istic&amp;amp;oq=msdn+aa+istic&amp;amp;aqs=chrome..69i57.6842j0j7&amp;amp;sourceid=chrome&amp;amp;es_sm=122&amp;amp;ie=UTF-8&quot;&gt;MSDN AA&lt;/a&gt; qui vous donne accès aux licences des princiaux OS des Microsoft. Dans ce cas commencez par l’install de Windows. Puis installez ubuntu ensuite en demandant un split du disque du type 120 Go pour Windows et 200 pour linux. .&lt;/p&gt;
+
+&lt;p&gt;Il est nécessaire de disposer d’une installation linux pour les TPs sans être dans une machine virtuelle.&lt;/p&gt;
+
+&lt;p&gt;Sous ubuntu, quand il est installé.&lt;/p&gt;
+
+&lt;p&gt;###Etape 1: Java et autres
+Installez les paquets suviants:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt; 
+&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;nano git openjdk-8-jdk openjdk-8-doc maven inkscape &lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Installer aussi la JDK Oracle pour GLI&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt; 
+&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;add-apt-repository ppa:webupd8team/java
+&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get update
+&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;oracle-java8-installer&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;###Etape 2: Eclipse&lt;/p&gt;
+
+&lt;p&gt;Téléchargez eclipse pour &lt;a href=&quot;https://eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/neon/R/eclipse-java-neon-R-linux-gtk-x86_64.tar.gz&quot;&gt;Java developer&lt;/a&gt; en version 64 et dezipper le par exemple dans /opt/eclipse&lt;/p&gt;
+
+&lt;p&gt;###Etape 3: Smartgit
+Installez &lt;a href=&quot;http://www.syntevo.com/smartgit/&quot;&gt;Smartgit&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;###Etape 4: Docker&lt;/p&gt;
+
+&lt;p&gt;Installez Docker&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt; 
+&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get update 
+&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;apt-transport-https 
+&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-key adv &lt;span class=&quot;nt&quot;&gt;--keyserver&lt;/span&gt; hkp://p80.pool.sks-keyservers.net:80 &lt;span class=&quot;nt&quot;&gt;--recv-keys&lt;/span&gt; 58118E89F3A912897C070ADBF76221572C52609D
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;deb https://apt.dockerproject.org/repo ubuntu-xenial main&quot;&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;sudo tee&lt;/span&gt; /etc/apt/sources.list.d/docker.list
+&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get update 
+apt-cache policy docker-engine
+&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; docker-engine&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Pour vérifier que tout est ok&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt; &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;docker run &lt;span class=&quot;nt&quot;&gt;-i&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-t&lt;/span&gt; ubuntu /bin/bash &lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+&lt;p&gt;Cette dernière commande télécharge un conteneur ubuntu minimal et démarre ce container. Pour plus de documentation sur &lt;a href=&quot;http://fr.wikipedia.org/wiki/Docker_(Syst%C3%A8me_de_conteneur_Linux)\&quot;&gt;docker&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;###Etape 5: NodeJS&lt;/p&gt;
+
+&lt;p&gt;Installez nodejs&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt; 
+&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-add-repository ppa:chris-lea/node.js &lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Rechargez la liste des paquets ;&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt; 
+&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get update &lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Installez les paquets nodejs.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt; 
+&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;nodejs 
+&lt;span class=&quot;c&quot;&gt;#tester si npm est présent, &lt;/span&gt;
+npm &lt;span class=&quot;nt&quot;&gt;-v&lt;/span&gt; 
+&lt;span class=&quot;c&quot;&gt;#sinon &lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;npm&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;###Etape 6: VisualVM&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://visualvm.java.net/eclipse-launcher.html&quot;&gt;VisualVM&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;###Etape 7: InteliJ
+Installez &lt;a href=&quot;http://www.jetbrains.com/idea/&quot;&gt;IntelliJ&lt;/a&gt; dans /opt&lt;/p&gt;
+
+&lt;p&gt;###Etape 8: Wifi ISTIC&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;Configuez eduroam suivant le &lt;a href=&quot;http://www.eduroam.fr/conf_supplicants/&quot;&gt;tuto suivant&lt;/a&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;RDV sur &lt;a href=&quot;http://wifsic-free.istic.univ-rennes1.fr/&quot;&gt;wifsic-free&lt;/a&gt; pour enregistrer vore mac adresse que vous pouvez récupérer à l’aide de la commande suivante:&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt; &lt;span class=&quot;nb&quot;&gt;sudo&lt;/span&gt; /sbin/ifconfig &lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+&lt;p&gt;prendre ‘HWaddr XX:XX:XX:XX:XX:XX’ de l’interface wlan0.&lt;/p&gt;
+
+&lt;p&gt;###Etape 9 Utiliser les imprimantes de l’ISTIC&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Vérifiez que cups est installé&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt; 
+&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get update 
+&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;cups &lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;éditer le fichier /etc/cups/client.conf et ajouter la ligne suivante&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt; 
+ServerName printhost.istic.univ-rennes1.fr &lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;pour imprimer, être connecté aux réseaux Wifsic ou Wifsic-free&lt;/p&gt;
+
+&lt;p&gt;###Etape 10: Bookmark services utiles
+&lt;a href=&quot;http://vm.istic.univ-rennes1.fr&quot;&gt;vm istic&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;###Petit Problème: WIFI et autres&lt;/p&gt;
+
+&lt;p&gt;####Wifi Pour installer le WIFI. Pluggez vous à un réseau filaire. 
+Puis tapez les commandes suivantes&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt; 
+&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get update 
+&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;firmware-b43-installer 
+&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;modprobe b43
+&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;modprobe &lt;span class=&quot;nt&quot;&gt;-r&lt;/span&gt; b43 
+&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;modprobe b43 &lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;####Certificat incorrect pour OpenJDK (poblème Maven)&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt; &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;update-ca-certificates &lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;####Problème ACPI (PC qui ne s’éteint pas)&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt; 
+&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;nano &lt;span class=&quot;nt&quot;&gt;-w&lt;/span&gt; /boot/grub/menu.cfg 
+&lt;span class=&quot;c&quot;&gt;#Puis enlever tous les paramères, noacpi, noapic ... &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;</content><author><name></name></author><summary type="html">Hello très chers étudiants, Pour la deuxième année, nous experimentons l’usage des TPs pour les M2. Nous sommes partis sur les configurations suivantesProbook 650 avec 8GO de Ram et un I3 ###Etape 0: Install OS### Pour l’install, tout marche très bien avec ubuntu 16.04. Pour ceux qui ne l’ont jamais installé. Récupérez une clé usb, téléchargez Ubuntu Desktop 16.04 en version 64bit et Desktop. Créez votre clé ucb avec par exemple unetbootin. Choisissez DiskImage et l’iso que vous avez téléchargé et sélectionnez en bas votre clé usb, c’est parti. (10 mins de travail, un reboot et c’est bon)</summary></entry><entry><title type="html">Play with Kevoree with your own model registry</title><link href="http://localhost:4000/blog/posts/kevoree/javascript/java/2016/05/11/Keovree-with-your-own-registry.html" rel="alternate" type="text/html" title="Play with Kevoree with your own model registry" /><published>2016-05-11T00:00:00+02:00</published><updated>2016-05-11T00:00:00+02:00</updated><id>http://localhost:4000/blog/posts/kevoree/javascript/java/2016/05/11/Keovree-with-your-own-registry</id><content type="html" xml:base="http://localhost:4000/blog/posts/kevoree/javascript/java/2016/05/11/Keovree-with-your-own-registry.html">&lt;p&gt;There are different reasons for using Kevoree with your own Kevoree model (default execution use &lt;a href=&quot;http://registry.kevoree.org&quot;&gt;http://registry.kevoree.org&lt;/a&gt;). The registry contains the model of existing kevoree artefacts (market place). Among the motivations to deploy your own registry, we can cite:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;the first one is to use Kevoree offline.&lt;/li&gt;
+  &lt;li&gt;the second one is to avoid the global registry deterioration.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;!--more--&gt;
+
+&lt;p&gt;###Step 1: start your own registry&lt;/p&gt;
+
+&lt;p&gt;To deploy your own registry, first install docker on the machine where your want to deploy your registry.&lt;/p&gt;
+
+&lt;p&gt;next start your own registry.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;docker run &lt;span class=&quot;nt&quot;&gt;-it&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; 8080:8080 &lt;span class=&quot;nt&quot;&gt;-e&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;CURL_REGISTRY&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;false &lt;/span&gt;kevoree/registry-replica
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Next deploy the NodeType and components you need in your registry.&lt;/p&gt;
+
+&lt;p&gt;##Java kevoree artefacts&lt;/p&gt;
+
+&lt;p&gt;For example, if you want to use a JavaNode, clone the repository &lt;a href=&quot;https://github.com/kevoree/kevoree-library/&quot;&gt;https://github.com/kevoree/kevoree-library/&lt;/a&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git clone https://github.com/kevoree/kevoree-library/
+&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;kevoree-library
+mvn clean &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;edit the pom.xml to change the registry url.&lt;/p&gt;
+
+&lt;p&gt;change&lt;/p&gt;
+
+&lt;div class=&quot;language-xml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;properties&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;publish.registry.url&amp;gt;&lt;/span&gt;http://registry.kevoree.org&lt;span class=&quot;nt&quot;&gt;&amp;lt;/publish.registry.url&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/properties&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;to&lt;/p&gt;
+
+&lt;div class=&quot;language-xml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;properties&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;publish.registry.url&amp;gt;&lt;/span&gt;http://yourIP:8080&lt;span class=&quot;nt&quot;&gt;&amp;lt;/publish.registry.url&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/properties&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;then deploy the model you need.&lt;/p&gt;
+
+&lt;p&gt;###Step 2.a: Publish the whole Java Library model in the registry&lt;/p&gt;
+
+&lt;p&gt;If you need all the standard library run&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;mvn kev:deploy
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;###Step 2.b: Publish an excerpt of Java Library model in the registry&lt;/p&gt;
+
+&lt;p&gt;If you need only the JavaNode, a group, the docker container and a simple channels for example, do.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;java/org.kevoree.library.java.javaNode/
+mvn kev:deploy
+&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; ../../java/org.kevoree.library.java.channels/
+mvn kev:deploy
+&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; ../../java/org.kevoree.library.java.ws/
+mvn kev:deploy
+&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; ../../java/org.kevoree.library.java.toys/
+mvn kev:deploy
+&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; ../../cloud/org.kevoree.library.cloud.docker/
+mvn kev:deploy
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Now you can download a JavaNode &lt;a href=&quot;http://kevoree.org/download.html&quot;&gt;http://kevoree.org/download.html&lt;/a&gt; and run it .&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;java &lt;span class=&quot;nt&quot;&gt;-Dkevoree&lt;/span&gt;.registry&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;http://IPOFYOURREGISTRY &lt;span class=&quot;nt&quot;&gt;-Dversion&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;5.3.2-SNAPSHOT &lt;span class=&quot;nt&quot;&gt;-Dkevoree&lt;/span&gt;.version&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;5.3.2-SNAPSHOT &lt;span class=&quot;nt&quot;&gt;-jar&lt;/span&gt; ~/Téléchargements/org.kevoree.platform.standalone-5.3.2-20160128.112324-2.jar
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Next you can open the &lt;a href=&quot;http://editor.kevoree.org&quot;&gt;editor&lt;/a&gt;. In the settings tap (top right corner), set your registry IP. Next you can pull the model of your running model. Edit the model and push the new configuration.&lt;/p&gt;
+
+&lt;p&gt;You can of course start the node with a specific model and a specific node name.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;java &lt;span class=&quot;nt&quot;&gt;-Dnode&lt;/span&gt;.name&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;host &lt;span class=&quot;nt&quot;&gt;-Dnode&lt;/span&gt;.bootstrap&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;docker.kevs  &lt;span class=&quot;nt&quot;&gt;-Dkevoree&lt;/span&gt;.registry&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;http://IPOFYOURREGISTRY &lt;span class=&quot;nt&quot;&gt;-Dversion&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;5.3.2-SNAPSHOT &lt;span class=&quot;nt&quot;&gt;-Dkevoree&lt;/span&gt;.version&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;5.3.2-SNAPSHOT &lt;span class=&quot;nt&quot;&gt;-jar&lt;/span&gt; ~/Téléchargements/org.kevoree.platform.standalone-5.3.2-20160128.112324-2.jar
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Or start directly from the &lt;a href=&quot;http://oss.sonatype.org/service/local/artifact/maven/redirect?r=public&amp;amp;g=org.kevoree.watchdog&amp;amp;a=org.kevoree.watchdog&amp;amp;v=RELEASE&quot;&gt;watchdog&lt;/a&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;java &lt;span class=&quot;nt&quot;&gt;-Dkevoree&lt;/span&gt;.registry&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;http://IPOFYOURREGISTRY  &lt;span class=&quot;nt&quot;&gt;-jar&lt;/span&gt; ~/Téléchargements/org.kevoree.watchdog-0.27.jar 5.3.2-SNAPSHOT
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;You can of course start the node with a specific model and a specific node name.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;java &lt;span class=&quot;nt&quot;&gt;-Dnode&lt;/span&gt;.name&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;host &lt;span class=&quot;nt&quot;&gt;-Dnode&lt;/span&gt;.bootstrap&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;docker.kevs &lt;span class=&quot;nt&quot;&gt;-Dkevoree&lt;/span&gt;.registry&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;http://IPOFYOURREGISTRY  &lt;span class=&quot;nt&quot;&gt;-jar&lt;/span&gt; ~/Téléchargements/org.kevoree.watchdog-0.27.jar 5.3.2-SNAPSHOT
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;javascript-kevoree-artefacts&quot;&gt;JavaScript kevoree artefacts&lt;/h2&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git clone &lt;span class=&quot;nt&quot;&gt;--recursive&lt;/span&gt; git@github.com:kevoree/kevoree-js.git
+&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;kevoree-js
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;###Step 3: Publish the whole JavaScript Library model in the registry&lt;/p&gt;
+
+&lt;p&gt;next you can execute the following bash script&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;#!/bin/bash&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;function &lt;/span&gt;publish_comp &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$1&lt;/span&gt;
+    &lt;span class=&quot;nb&quot;&gt;pwd
+    &lt;/span&gt;git checkout master
+    git pull
+    npm i
+    grunt publish &lt;span class=&quot;nt&quot;&gt;--kevoree-registry-host&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&amp;lt;IPOFYOURREGISTRY&amp;gt; &lt;span class=&quot;nt&quot;&gt;--kevoree-registry-port&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;8080
+    &lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; ..
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+publish_comp &lt;span class=&quot;s2&quot;&gt;&quot;runtimes/nodejs&quot;&lt;/span&gt;
+publish_comp &lt;span class=&quot;s2&quot;&gt;&quot;runtimes/browser&quot;&lt;/span&gt;
+publish_comp &lt;span class=&quot;s2&quot;&gt;&quot;libraries/chan/local&quot;&lt;/span&gt;
+publish_comp &lt;span class=&quot;s2&quot;&gt;&quot;libraries/chan/mqtt&quot;&lt;/span&gt;
+publish_comp &lt;span class=&quot;s2&quot;&gt;&quot;libraries/chan/remotews&quot;&lt;/span&gt;
+publish_comp &lt;span class=&quot;s2&quot;&gt;&quot;libraries/chan/ws&quot;&lt;/span&gt;
+publish_comp &lt;span class=&quot;s2&quot;&gt;&quot;libraries/group/remotews&quot;&lt;/span&gt;
+publish_comp &lt;span class=&quot;s2&quot;&gt;&quot;libraries/group/ws&quot;&lt;/span&gt;
+publish_comp &lt;span class=&quot;s2&quot;&gt;&quot;libraries/node/javascript&quot;&lt;/span&gt;
+publish_comp &lt;span class=&quot;s2&quot;&gt;&quot;libraries/comp/ticker&quot;&lt;/span&gt;
+publish_comp &lt;span class=&quot;s2&quot;&gt;&quot;libraries/comp/consoleprinter&quot;&lt;/span&gt;
+publish_comp &lt;span class=&quot;s2&quot;&gt;&quot;libraries/comp/msgsender&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Next you can download the runtime.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;npm i &lt;span class=&quot;nt&quot;&gt;-g&lt;/span&gt; kevoree-nodejs-runtime
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;and start this runtime.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;KEVOREE_REGISTRY_HOST&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&amp;lt;YOURREGISTRYHOST&amp;gt; &lt;span class=&quot;nv&quot;&gt;KEVOREE_REGISTRY_PORT&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;9000 kevoreejs
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;You can also provide a specific node name and a specific model to bootstrap.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;KEVOREE_REGISTRY_HOST&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&amp;lt;YOURREGISTRYHOST&amp;gt; &lt;span class=&quot;nv&quot;&gt;KEVOREE_REGISTRY_PORT&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;9000 kevoreejs &lt;span class=&quot;nt&quot;&gt;--nodeName&lt;/span&gt; node0 &lt;span class=&quot;nt&quot;&gt;--kevscript&lt;/span&gt; model.kevs
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;To ensure it works offline, provide an internal Maven repository, deploy your kevoree artefact in this repository and set your settings.xml to use this repository. For JavaScript, you can use &lt;a href=&quot;https://www.npmjs.com/package/sinopia&quot;&gt;sinopia&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;To install it, you can use the &lt;a href=&quot;https://registry.hub.docker.com/u/keyvanfatehi/sinopia/&quot;&gt;docker image&lt;/a&gt;, or install it using npm.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+&lt;span class=&quot;c&quot;&gt;# installation and starting (application will create default&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# config in config.yaml you can edit later)&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;npm &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-g&lt;/span&gt; sinopia
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;sinopia
+
+&lt;span class=&quot;c&quot;&gt;# npm configuration&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;npm &lt;span class=&quot;nb&quot;&gt;set &lt;/span&gt;registry http://localhost:4873/
+
+&lt;span class=&quot;c&quot;&gt;# if you use HTTPS, add an appropriate CA information&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# (&quot;null&quot; means get CA list from OS)&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;npm &lt;span class=&quot;nb&quot;&gt;set &lt;/span&gt;ca null
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;next rerun the step 3 in adding a line to publish your kevoreejs artefact.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;#!/bin/bash&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;function &lt;/span&gt;publish_comp &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$1&lt;/span&gt;
+    &lt;span class=&quot;nb&quot;&gt;pwd
+    &lt;/span&gt;git checkout master
+    git pull
+    npm i
+    npm &lt;span class=&quot;nb&quot;&gt;set &lt;/span&gt;registry http://localhost:4873/
+    npm publish
+    grunt publish &lt;span class=&quot;nt&quot;&gt;--kevoree-registry-host&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&amp;lt;IPOFYOURREGISTRY&amp;gt; &lt;span class=&quot;nt&quot;&gt;--kevoree-registry-port&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;8080
+    &lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; ..
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+publish_comp &lt;span class=&quot;s2&quot;&gt;&quot;runtimes/nodejs&quot;&lt;/span&gt;
+publish_comp &lt;span class=&quot;s2&quot;&gt;&quot;runtimes/browser&quot;&lt;/span&gt;
+publish_comp &lt;span class=&quot;s2&quot;&gt;&quot;libraries/chan/local&quot;&lt;/span&gt;
+publish_comp &lt;span class=&quot;s2&quot;&gt;&quot;libraries/chan/mqtt&quot;&lt;/span&gt;
+publish_comp &lt;span class=&quot;s2&quot;&gt;&quot;libraries/chan/remotews&quot;&lt;/span&gt;
+publish_comp &lt;span class=&quot;s2&quot;&gt;&quot;libraries/chan/ws&quot;&lt;/span&gt;
+publish_comp &lt;span class=&quot;s2&quot;&gt;&quot;libraries/group/remotews&quot;&lt;/span&gt;
+publish_comp &lt;span class=&quot;s2&quot;&gt;&quot;libraries/group/ws&quot;&lt;/span&gt;
+publish_comp &lt;span class=&quot;s2&quot;&gt;&quot;libraries/node/javascript&quot;&lt;/span&gt;
+publish_comp &lt;span class=&quot;s2&quot;&gt;&quot;libraries/comp/ticker&quot;&lt;/span&gt;
+publish_comp &lt;span class=&quot;s2&quot;&gt;&quot;libraries/comp/consoleprinter&quot;&lt;/span&gt;
+publish_comp &lt;span class=&quot;s2&quot;&gt;&quot;libraries/comp/msgsender&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name></name></author><summary type="html">There are different reasons for using Kevoree with your own Kevoree model (default execution use http://registry.kevoree.org). The registry contains the model of existing kevoree artefacts (market place). Among the motivations to deploy your own registry, we can cite: the first one is to use Kevoree offline. the second one is to avoid the global registry deterioration.</summary></entry></feed>
