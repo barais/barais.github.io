@@ -8,16 +8,37 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="author" content="Olivier Barais">
 <link rel="author" href="https://plus.google.com/+OlivierBarais">
+ 
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+<link rel="stylesheet" href="/assets/main.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<style>body {
+    padding-top: 60px;
+  }
+  @media (max-width: 979px) {
+    body {
+      padding-top: 60px;
+    }
+  }
+</style>
 
 <title>Using Go-Docker and Docker Swarm to create a  high-volume live and on demand video encoding solutions</title>
 
 
 
 <!-- Add custom CSS here -->
-<!-- <link rel="stylesheet" href="/assets/main-58abab6103ee78e02cfcfa062233325f.css"> -->
 
 <!-- <link rel="shortcut icon" href="favicon.ico"> -->
-<link rel="icon" href="favicon.ico">
+<link rel="icon" href="/favicon.ico">
 
 
 <!-- Test -->
@@ -82,30 +103,39 @@ combination with the scale and elasticity of the cloud. The providing service wi
 
 <!--more-->
 
-<p>In this example, we will build an initial proof of concept for video encoding using <a href="http://www.genouest.org/godocker/">go-docker</a>, <a href="https://docs.docker.com/swarm/">docker swarm</a>, <a href="https://github.com/google/cadvisor">cAdvisor</a>, <a href="http://grafana.org/">grafana</a> and <a href="https://influxdb.com/">influxDB</a>. </p>
+<p>In this example, we will build an initial proof of concept for video encoding using <a href="http://www.genouest.org/godocker/">go-docker</a>, <a href="https://docs.docker.com/swarm/">docker swarm</a>, <a href="https://github.com/google/cadvisor">cAdvisor</a>, <a href="http://grafana.org/">grafana</a> and <a href="https://influxdb.com/">influxDB</a>.</p>
 
-<h1>Step 1: Docker swarm installation</h1>
+<p>#Step 1: Docker swarm installation</p>
 
 <p>You can follow this tutorial
 <a href="https://docs.docker.com/swarm/install-manual/">docker swarm installation</a></p>
 
 <p>To summary</p>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">docker pull swarm
-docker run --rm swarm create
-&gt; 7c99516aee4662826684dde48f60361f
-#get the id. Replace in the next commands
-</code></pre></div>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker pull swarm
+docker run <span class="nt">--rm</span> swarm create
+<span class="o">&gt;</span> 7c99516aee4662826684dde48f60361f
+<span class="c">#get the id. Replace in the next commands</span>
+</code></pre></div></div>
+
 <p>Next join the swarm (replace the token in the following commands):</p>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">docker run -d swarm join --addr=172.17.0.1:2375 token://7c99516aee4662826684dde48f60361f
-</code></pre></div>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker run <span class="nt">-d</span> swarm <span class="nb">join</span> <span class="nt">--addr</span><span class="o">=</span>172.17.0.1:2375 token://7c99516aee4662826684dde48f60361f
+</code></pre></div></div>
+
 <p>Finally launch the manager</p>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">docker run -d -p 2378:2375 swarm manage token://7c99516aee4662826684dde48f60361f
-</code></pre></div>
-<p>check it works. </p>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">docker -H tcp://localhost:2378 info
-</code></pre></div>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker run <span class="nt">-d</span> <span class="nt">-p</span> 2378:2375 swarm manage token://7c99516aee4662826684dde48f60361f
+</code></pre></div></div>
+
+<p>check it works.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker <span class="nt">-H</span> tcp://localhost:2378 info
+</code></pre></div></div>
+
 <p>You should get something like that</p>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">78 info
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>78 info
 Containers: 104
 Images: 37
 Role: primary
@@ -116,156 +146,175 @@ Nodes: 1
   └ Containers: 104
   └ Reserved CPUs: 4 / 4
   └ Reserved Memory: 4 GiB / 16.35 GiB
-  └ Labels: executiondriver=native-0.2, kernelversion=4.2.0-18-generic, operatingsystem=Ubuntu 15.10, storagedriver=overlay
+  └ Labels: <span class="nv">executiondriver</span><span class="o">=</span>native-0.2, <span class="nv">kernelversion</span><span class="o">=</span>4.2.0-18-generic, <span class="nv">operatingsystem</span><span class="o">=</span>Ubuntu 15.10, <span class="nv">storagedriver</span><span class="o">=</span>overlay
 CPUs: 4
 Total Memory: 16.35 GiB
 Name: 0a478e14e47e
-</code></pre></div>
-<h1>Step 2 Install go-docker</h1>
+</code></pre></div></div>
 
-<h2>Requirements</h2>
+<p>#Step 2 Install go-docker</p>
+
+<p>##Requirements</p>
 
 <p>Mongodb and Redis are required. Either install them on a server, or get them in containers:</p>
 
-<p>Run god-mongo god-redis. </p>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">docker rm god-mongo god-redis god-web
-docker -H localhost:2378  run --name god-mongo -d mongo
-docker -H localhost:2378  run --name god-redis -d redis
-</code></pre></div>
-<h2>Running components</h2>
+<p>Run god-mongo god-redis.</p>
 
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker <span class="nb">rm </span>god-mongo god-redis god-web
+docker <span class="nt">-H</span> localhost:2378  run <span class="nt">--name</span> god-mongo <span class="nt">-d</span> mongo
+docker <span class="nt">-H</span> localhost:2378  run <span class="nt">--name</span> god-redis <span class="nt">-d</span> redis
+</code></pre></div></div>
+
+<h2 id="running-components">Running components</h2>
 <p>Run the web server, interface is reachable at http://localhost:6543</p>
 
 <p>Get the following config file</p>
 
 <ul>
-<li><a href="../../../docs/godocker/go-d.ini">go-d.ini</a></li>
-<li><a href="../../../docs/godocker/production.ini">production.ini</a></li>
+  <li><a href="../../../docs/godocker/go-d.ini">go-d.ini</a></li>
+  <li><a href="../../../docs/godocker/production.ini">production.ini</a></li>
 </ul>
 
 <p>Warning: data shared directory (here /opt/godshared) must match
 on host AND container as final job will end in a host container needing the same volume directory.
 shared_dir parameter in go-d.ini configuration file must be changed accordingly.</p>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">mkdir /opt/godshared
-mkdir /tmp/vid
-</code></pre></div><div class="highlight"><pre><code class="language-bash" data-lang="bash">docker -H localhost:2378  run \
-  --rm \
-  --name god-web
-  --link god-mongo:god-mongo  \
-  --link god-redis:god-redis  \
-  -v /opt/godshared:/opt/godshared \
-  -v path_to/go-d.ini:/opt/go-docker/go-d.ini \
-  -v path_to/production.ini:/opt/go-docker-web/production.ini \
-  -p 6543:6543 \
-  -e &quot;PYRAMID_ENV=prod&quot; \
-  osallou/go-docker \
-  gunicorn -p godweb.pid --log-config=/opt/go-docker-web/production.ini --paste /opt/go-docker-web/production.ini
-</code></pre></div>
-<p>The first time only, you must initialize db etc...</p>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">docker -H localhost:2378 run \
---link god-mongo:god-mongo \
---link god-redis:god-redis \
--v /opt/godshared:/opt/godshared \
--v path_to/go-d.ini:/opt/go-docker/go-d.ini \
- --rm \
- osallou/go-docker \
- /usr/bin/python go-d-scheduler.py init
-</code></pre></div>
-<p>Run one scheduler</p>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">docker -H  localhost:2378 run \
-  --rm \
-  --link god-mongo:god-mongo  \
-  --link god-redis:god-redis  \
-  --link god-web:god-web \
-  -v /opt/godshared:/opt/godshared \
-  -v path_to/go-d.ini:/opt/go-docker/go-d.ini \
-  osallou/go-docker \
-  /usr/bin/python go-d-scheduler.py run
-</code></pre></div>
-<p>Run one or many watchers (1 is enough test or medium size production)</p>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">docker -H localhost:2378  run \
-  --rm \
-  --link god-mongo:god-mongo  \
-  --link god-redis:god-redis  \
-  --link god-web:god-web \
-  -v /opt/godshared:/opt/godshared \
-  -v path_to/go-d.ini:/opt/go-docker/go-d.ini \
-  osallou/go-docker \
-  /usr/bin/python go-d-watcher.py run
-</code></pre></div>
-<h1>Step 3 Create and schedule tasks</h1>
 
-<p>Install godocker cli.
-<code>bash
-pip install godocker_cli
-</code></p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">mkdir</span> /opt/godshared
+<span class="nb">mkdir</span> /tmp/vid
+</code></pre></div></div>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker <span class="nt">-H</span> localhost:2378  run <span class="se">\</span>
+  <span class="nt">--rm</span> <span class="se">\</span>
+  <span class="nt">--name</span> god-web
+  <span class="nt">--link</span> god-mongo:god-mongo  <span class="se">\</span>
+  <span class="nt">--link</span> god-redis:god-redis  <span class="se">\</span>
+  <span class="nt">-v</span> /opt/godshared:/opt/godshared <span class="se">\</span>
+  <span class="nt">-v</span> path_to/go-d.ini:/opt/go-docker/go-d.ini <span class="se">\</span>
+  <span class="nt">-v</span> path_to/production.ini:/opt/go-docker-web/production.ini <span class="se">\</span>
+  <span class="nt">-p</span> 6543:6543 <span class="se">\</span>
+  <span class="nt">-e</span> <span class="s2">"PYRAMID_ENV=prod"</span> <span class="se">\</span>
+  osallou/go-docker <span class="se">\</span>
+  gunicorn <span class="nt">-p</span> godweb.pid <span class="nt">--log-config</span><span class="o">=</span>/opt/go-docker-web/production.ini <span class="nt">--paste</span> /opt/go-docker-web/production.ini
+</code></pre></div></div>
+
+<p>The first time only, you must initialize db etc…</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker <span class="nt">-H</span> localhost:2378 run <span class="se">\</span>
+<span class="nt">--link</span> god-mongo:god-mongo <span class="se">\</span>
+<span class="nt">--link</span> god-redis:god-redis <span class="se">\</span>
+<span class="nt">-v</span> /opt/godshared:/opt/godshared <span class="se">\</span>
+<span class="nt">-v</span> path_to/go-d.ini:/opt/go-docker/go-d.ini <span class="se">\</span>
+ <span class="nt">--rm</span> <span class="se">\</span>
+ osallou/go-docker <span class="se">\</span>
+ /usr/bin/python go-d-scheduler.py init
+</code></pre></div></div>
+
+<p>Run one scheduler</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker <span class="nt">-H</span>  localhost:2378 run <span class="se">\</span>
+  <span class="nt">--rm</span> <span class="se">\</span>
+  <span class="nt">--link</span> god-mongo:god-mongo  <span class="se">\</span>
+  <span class="nt">--link</span> god-redis:god-redis  <span class="se">\</span>
+  <span class="nt">--link</span> god-web:god-web <span class="se">\</span>
+  <span class="nt">-v</span> /opt/godshared:/opt/godshared <span class="se">\</span>
+  <span class="nt">-v</span> path_to/go-d.ini:/opt/go-docker/go-d.ini <span class="se">\</span>
+  osallou/go-docker <span class="se">\</span>
+  /usr/bin/python go-d-scheduler.py run
+</code></pre></div></div>
+
+<p>Run one or many watchers (1 is enough test or medium size production)</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker <span class="nt">-H</span> localhost:2378  run <span class="se">\</span>
+  <span class="nt">--rm</span> <span class="se">\</span>
+  <span class="nt">--link</span> god-mongo:god-mongo  <span class="se">\</span>
+  <span class="nt">--link</span> god-redis:god-redis  <span class="se">\</span>
+  <span class="nt">--link</span> god-web:god-web <span class="se">\</span>
+  <span class="nt">-v</span> /opt/godshared:/opt/godshared <span class="se">\</span>
+  <span class="nt">-v</span> path_to/go-d.ini:/opt/go-docker/go-d.ini <span class="se">\</span>
+  osallou/go-docker <span class="se">\</span>
+  /usr/bin/python go-d-watcher.py run
+</code></pre></div></div>
+
+<p>#Step 3 Create and schedule tasks</p>
+
+<p>Install godocker cli.</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip <span class="nb">install </span>godocker_cli
+</code></pre></div></div>
 
 <p>Configure your go-docker</p>
 
 <p>Go to http://localhost:6543/
-In the project, create a project test and add godocker as a member and add a share folder /tmp/vid video volume. </p>
+In the project, create a project test and add godocker as a member and add a share folder /tmp/vid video volume.</p>
 
-<p><a href="../../../docs/godocker/image.png"><img src="../../../docs/godocker/image.png"  width="750" /></a></p>
+<p><a href="../../../docs/godocker/image.png"><img src="../../../docs/godocker/image.png" width="750" /></a></p>
 
 <p>Next go to the godocker (top right) link. 
 and get the APIKEY</p>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">~/.local/bin/godlogin -a &lt;APIKEY&gt; -l godocker -s http://localhost:6543/ --no-certificate
-</code></pre></div><div class="highlight"><pre><code class="language-bash" data-lang="bash">cd /tmp/vid
-mkdir /tmp
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>~/.local/bin/godlogin <span class="nt">-a</span> &lt;APIKEY&gt; <span class="nt">-l</span> godocker <span class="nt">-s</span> http://localhost:6543/ <span class="nt">--no-certificate</span>
+</code></pre></div></div>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd</span> /tmp/vid
+<span class="nb">mkdir</span> /tmp
 wget http://arcagenis.org/mirror/mango/ToS/tears_of_steel_1080p.mkv
-</code></pre></div>
+</code></pre></div></div>
+
 <p>Next download the two following scripts</p>
 
 <ul>
-<li><a href="../../../docs/godocker/split.sh">split.sh</a></li>
-<li><a href="../../../docs/godocker/mergeandclean.sh">mergeandclean.sh</a></li>
+  <li><a href="../../../docs/godocker/split.sh">split.sh</a></li>
+  <li><a href="../../../docs/godocker/mergeandclean.sh">mergeandclean.sh</a></li>
 </ul>
 
 <p>Run the followind three command</p>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">SPLIT=`~/.local/bin/godjob create  --external_image    -n split -d &quot;Jit Split&quot;   -p test -i barais/ffmpeg -s split.sh | sed -r &#39;s/Task added. Job id is //g&#39;`
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">SPLIT</span><span class="o">=</span><span class="sb">`</span>~/.local/bin/godjob create  <span class="nt">--external_image</span>    <span class="nt">-n</span> <span class="nb">split</span> <span class="nt">-d</span> <span class="s2">"Jit Split"</span>   <span class="nt">-p</span> <span class="nb">test</span> <span class="nt">-i</span> barais/ffmpeg <span class="nt">-s</span> split.sh | <span class="nb">sed</span> <span class="nt">-r</span> <span class="s1">'s/Task added. Job id is //g'</span><span class="sb">`</span>
 
 
-for f in /tmp/vid/tmp/*.sh; do echo &quot;`~/.local/bin/godjob create  --external_image    -n encode -d &quot;Jit Encode&quot; -c 1 --parent &quot;$SPLIT&quot;  -p test -i barais/ffmpeg -s $f | sed -r &#39;s/Task added. Job id is //g&#39;`,&quot; &gt;&gt; /tmp/vid/tmp/listprocess  ; done &amp;&amp; PROCESS=`cat  /tmp/vid/tmp/listprocess | tr -d &#39;\n&#39;`
+<span class="k">for </span>f <span class="k">in</span> /tmp/vid/tmp/<span class="k">*</span>.sh<span class="p">;</span> <span class="k">do </span><span class="nb">echo</span> <span class="s2">"</span><span class="sb">`</span>~/.local/bin/godjob create  <span class="nt">--external_image</span>    <span class="nt">-n</span> encode <span class="nt">-d</span> <span class="s2">"Jit Encode"</span> <span class="nt">-c</span> 1 <span class="nt">--parent</span> <span class="s2">"</span><span class="nv">$SPLIT</span><span class="s2">"</span>  <span class="nt">-p</span> <span class="nb">test</span> <span class="nt">-i</span> barais/ffmpeg <span class="nt">-s</span> <span class="nv">$f</span> | <span class="nb">sed</span> <span class="nt">-r</span> <span class="s1">'s/Task added. Job id is //g'</span><span class="sb">`</span><span class="s2">,"</span> <span class="o">&gt;&gt;</span> /tmp/vid/tmp/listprocess  <span class="p">;</span> <span class="k">done</span> <span class="o">&amp;&amp;</span> <span class="nv">PROCESS</span><span class="o">=</span><span class="sb">`</span><span class="nb">cat</span>  /tmp/vid/tmp/listprocess | <span class="nb">tr</span> <span class="nt">-d</span> <span class="s1">'\n'</span><span class="sb">`</span>
 
 
-~/.local/bin/godjob create  --external_image    -n merge -d &quot;Jit Merge and Clean&quot;  -c 1 --parent &quot;${PROCESS-1}&quot; -p test -i barais/ffmpeg -s mergeandclean.sh
+~/.local/bin/godjob create  <span class="nt">--external_image</span>    <span class="nt">-n</span> merge <span class="nt">-d</span> <span class="s2">"Jit Merge and Clean"</span>  <span class="nt">-c</span> 1 <span class="nt">--parent</span> <span class="s2">"</span><span class="k">${</span><span class="nv">PROCESS</span><span class="p">-1</span><span class="k">}</span><span class="s2">"</span> <span class="nt">-p</span> <span class="nb">test</span> <span class="nt">-i</span> barais/ffmpeg <span class="nt">-s</span> mergeandclean.sh
 
-</code></pre></div>
+</code></pre></div></div>
+
 <p>You can also run everythin in one command</p>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">mkdir /tmp/vid/tmp &amp;&amp; SPLIT=`~/.local/bin/godjob create  --external_image    -n split -d &quot;Jit Split&quot;   -p test -i barais/ffmpeg -s split.sh | sed -r &#39;s/Task added. Job id is //g&#39;` &amp;&amp; for f in /tmp/vid/tmp/*.sh; do echo &quot;`~/.local/bin/godjob create  --external_image    -n encode -d &quot;Jit Encode&quot; -c 1 --parent &quot;$SPLIT&quot;  -p test -i barais/ffmpeg -s $f | sed -r &#39;s/Task added. Job id is //g&#39;`,&quot; &gt;&gt; /tmp/vid/tmp/listprocess  ; done &amp;&amp; PROCESS=`cat  /tmp/vid/tmp/listprocess | tr -d &#39;\n&#39;` ~/.local/bin/godjob create  --external_image    -n merge -d &quot;Jit Merge and Clean&quot;  -c 1 --parent &quot;${PROCESS-1}&quot; -p test -i barais/ffmpeg -s mergeandclean.sh
-</code></pre></div>
-<p>Next you can easily install cAdvisor and grafana. Just modify to go-d.ini file. </p>
 
-<h1>Next steps</h1>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">mkdir</span> /tmp/vid/tmp <span class="o">&amp;&amp;</span> <span class="nv">SPLIT</span><span class="o">=</span><span class="sb">`</span>~/.local/bin/godjob create  <span class="nt">--external_image</span>    <span class="nt">-n</span> <span class="nb">split</span> <span class="nt">-d</span> <span class="s2">"Jit Split"</span>   <span class="nt">-p</span> <span class="nb">test</span> <span class="nt">-i</span> barais/ffmpeg <span class="nt">-s</span> split.sh | <span class="nb">sed</span> <span class="nt">-r</span> <span class="s1">'s/Task added. Job id is //g'</span><span class="sb">`</span> <span class="o">&amp;&amp;</span> <span class="k">for </span>f <span class="k">in</span> /tmp/vid/tmp/<span class="k">*</span>.sh<span class="p">;</span> <span class="k">do </span><span class="nb">echo</span> <span class="s2">"</span><span class="sb">`</span>~/.local/bin/godjob create  <span class="nt">--external_image</span>    <span class="nt">-n</span> encode <span class="nt">-d</span> <span class="s2">"Jit Encode"</span> <span class="nt">-c</span> 1 <span class="nt">--parent</span> <span class="s2">"</span><span class="nv">$SPLIT</span><span class="s2">"</span>  <span class="nt">-p</span> <span class="nb">test</span> <span class="nt">-i</span> barais/ffmpeg <span class="nt">-s</span> <span class="nv">$f</span> | <span class="nb">sed</span> <span class="nt">-r</span> <span class="s1">'s/Task added. Job id is //g'</span><span class="sb">`</span><span class="s2">,"</span> <span class="o">&gt;&gt;</span> /tmp/vid/tmp/listprocess  <span class="p">;</span> <span class="k">done</span> <span class="o">&amp;&amp;</span> <span class="nv">PROCESS</span><span class="o">=</span><span class="sb">`</span><span class="nb">cat</span>  /tmp/vid/tmp/listprocess | <span class="nb">tr</span> <span class="nt">-d</span> <span class="s1">'\n'</span><span class="sb">`</span> ~/.local/bin/godjob create  <span class="nt">--external_image</span>    <span class="nt">-n</span> merge <span class="nt">-d</span> <span class="s2">"Jit Merge and Clean"</span>  <span class="nt">-c</span> 1 <span class="nt">--parent</span> <span class="s2">"</span><span class="k">${</span><span class="nv">PROCESS</span><span class="p">-1</span><span class="k">}</span><span class="s2">"</span> <span class="nt">-p</span> <span class="nb">test</span> <span class="nt">-i</span> barais/ffmpeg <span class="nt">-s</span> mergeandclean.sh
+</code></pre></div></div>
 
-<h2>Technical details</h2>
+<p>Next you can easily install cAdvisor and grafana. Just modify to go-d.ini file.</p>
 
-<ul>
-<li>Use go-docker env variables to encode in a task specific folder. </li>
-<li>Use <a href="http://www.gluster.org/">glusterfs</a> to share volumes and compare the performance with the use of a simple nfs filse system. Does it matter for such a use case. </li>
-<li>Decrease docker ffmpeg image size.</li>
-<li>Finish a small portable demonstrator based on four raspberry pis 2 (within this <a href="http://www.ldlc.com/fiche/PB00168033.html">box</a>).<br></li>
-<li>Do the same experience with <a href="https://tools.taskcluster.net/">mozilla taskcluster</a> to compare with go-docker. </li>
-</ul>
+<p>#Next steps</p>
 
-<h2>Scientific Breakthroughs</h2>
+<p>##Technical details</p>
 
 <ul>
-<li>Allow to share hardware capabilities such as GPU encoding facilities with go-docker. </li>
-<li>Define a standard librairies of video processing micro-services. </li>
-<li>Provide dataflow tempate to let user specify video processing flows. (We will use <a href="http://nodered.org/">node-red</a> to test). </li>
-<li>Provide an extenstible framework for creating and testing video processing micro-services that can be easily included in a video-processing flows. </li>
-<li>Improve or specialize docker scheduler such as swarm, <a href="https://hashicorp.com/blog/nomad.html">nomad</a> or <a href="http://mesos.apache.org/">mesos</a> to put video processing micro-services close to video raw datas. </li>
-<li>Use the best hardware storage technologies depending of the micro-services wich is used.</li>
+  <li>Use go-docker env variables to encode in a task specific folder.</li>
+  <li>Use <a href="http://www.gluster.org/">glusterfs</a> to share volumes and compare the performance with the use of a simple nfs filse system. Does it matter for such a use case.</li>
+  <li>Decrease docker ffmpeg image size.</li>
+  <li>Finish a small portable demonstrator based on four raspberry pis 2 (within this <a href="http://www.ldlc.com/fiche/PB00168033.html">box</a>).</li>
+  <li>Do the same experience with <a href="https://tools.taskcluster.net/">mozilla taskcluster</a> to compare with go-docker.</li>
 </ul>
 
-<h2>Want to play with us</h2>
+<p>##Scientific Breakthroughs</p>
 
 <ul>
-<li>Join <a href="https://b-com.com/">B-COM</a> JiT project. <a href="mailto:Christophe.DION@b-com.com;Antoine.CABOT@b-com.com;barais@irisa.fr">contact</a></li>
+  <li>Allow to share hardware capabilities such as GPU encoding facilities with go-docker.</li>
+  <li>Define a standard librairies of video processing micro-services.</li>
+  <li>Provide dataflow tempate to let user specify video processing flows. (We will use <a href="http://nodered.org/">node-red</a> to test).</li>
+  <li>Provide an extenstible framework for creating and testing video processing micro-services that can be easily included in a video-processing flows.</li>
+  <li>Improve or specialize docker scheduler such as swarm, <a href="https://hashicorp.com/blog/nomad.html">nomad</a> or <a href="http://mesos.apache.org/">mesos</a> to put video processing micro-services close to video raw datas.</li>
+  <li>Use the best hardware storage technologies depending of the micro-services wich is used.</li>
 </ul>
 
-<p>Have fun ...</p>
+<p>##Want to play with us</p>
+<ul>
+  <li>Join <a href="https://b-com.com/">B-COM</a> JiT project. <a href="mailto:Christophe.DION@b-com.com;Antoine.CABOT@b-com.com;barais@irisa.fr">contact</a></li>
+</ul>
+
+<p>Have fun …</p>
+
 
                 
                 <!-- the comment box -->
@@ -343,48 +392,51 @@ for f in /tmp/vid/tmp/*.sh; do echo &quot;`~/.local/bin/godjob create  --externa
                     <li><a href="/blog/categories/first-post/">first-post</a></li> 
                     <li><a href="/blog/categories/jekyll/">jekyll</a></li> 
                     <li><a href="/blog/categories/github-pages/">github-pages</a></li> 
+                    <li><a href="/blog/categories/teaching/">teaching</a></li> 
                     <li><a href="/blog/categories/markdown/">markdown</a></li> 
                     <li><a href="/blog/categories/untidy/">untidy</a></li> 
-                    <li><a href="/blog/categories/teaching/">teaching</a></li> 
                     <li><a href="/blog/categories/website/">website</a></li> 
                     <li><a href="/blog/categories/docker/">docker</a></li> 
                     <li><a href="/blog/categories/cloud/">cloud</a></li> 
                     <li><a href="/blog/categories/diversify/">diversify</a></li> 
                     <li><a href="/blog/categories/eclipse/">eclipse</a></li> 
-                    <li><a href="/blog/categories/istic/">istic</a></li> 
-                    <li><a href="/blog/categories/m2/">m2</a></li> 
+                    <li><a href="/blog/categories/ISTIC/">ISTIC</a></li> 
+                    <li><a href="/blog/categories/M2/">M2</a></li> 
                     <li><a href="/blog/categories/french/">french</a></li> 
                     <li><a href="/blog/categories/ensai/">ensai</a></li> 
                     <li><a href="/blog/categories/kevoree/">kevoree</a></li> 
-                    <li><a href="/blog/categories/kevoreejs/">kevoreejs</a></li> 
-                    <li><a href="/blog/categories/edison/">edison</a></li> 
-                    <li><a href="/blog/categories/angularjs/">angularjs</a></li> 
+                    <li><a href="/blog/categories/KevoreeJS/">KevoreeJS</a></li> 
+                    <li><a href="/blog/categories/Edison/">Edison</a></li> 
+                    <li><a href="/blog/categories/AngularJs/">AngularJs</a></li> 
                     <li><a href="/blog/categories/jquery/">jquery</a></li> 
+                    <li><a href="/blog/categories/JHipster/">JHipster</a></li> 
+                    <li><a href="/blog/categories/SDN/">SDN</a></li> 
+                    <li><a href="/blog/categories/Opendaylight/">Opendaylight</a></li> 
                     <li><a href="/blog/categories/jhipster/">jhipster</a></li> 
-                    <li><a href="/blog/categories/sdn/">sdn</a></li> 
-                    <li><a href="/blog/categories/opendaylight/">opendaylight</a></li> 
                     <li><a href="/blog/categories/software engineering/">software engineering</a></li> 
-                    <li><a href="/blog/categories/ejcp/">ejcp</a></li> 
+                    <li><a href="/blog/categories/EJCP/">EJCP</a></li> 
                     <li><a href="/blog/categories/swarm/">swarm</a></li> 
                     <li><a href="/blog/categories/go-docker/">go-docker</a></li> 
-                    <li><a href="/blog/categories/raspberry pi/">raspberry pi</a></li> 
-                    <li><a href="/blog/categories/javascript/">javascript</a></li> 
-                    <li><a href="/blog/categories/java/">java</a></li> 
-                    <li><a href="/blog/categories/slides/">slides</a></li> 
-                    <li><a href="/blog/categories/reveal.js/">reveal.js</a></li> 
-                    <li><a href="/blog/categories/powerpoint/">powerpoint</a></li> 
-                    <li><a href="/blog/categories/migration/">migration</a></li> 
-                    <li><a href="/blog/categories/labfab/">labfab</a></li> 
+                    <li><a href="/blog/categories/Raspberry Pi/">Raspberry Pi</a></li> 
+                    <li><a href="/blog/categories/JavaScript/">JavaScript</a></li> 
+                    <li><a href="/blog/categories/Java/">Java</a></li> 
+                    <li><a href="/blog/categories/Slides/">Slides</a></li> 
+                    <li><a href="/blog/categories/Reveal.js/">Reveal.js</a></li> 
+                    <li><a href="/blog/categories/PowerPoint/">PowerPoint</a></li> 
+                    <li><a href="/blog/categories/Migration/">Migration</a></li> 
+                    <li><a href="/blog/categories/LABFAB/">LABFAB</a></li> 
                     <li><a href="/blog/categories/api-platform/">api-platform</a></li> 
                     <li><a href="/blog/categories/symfony3/">symfony3</a></li> 
+                    <li><a href="/blog/categories/angularjs/">angularjs</a></li> 
                     <li><a href="/blog/categories/ng2/">ng2</a></li> 
                     <li><a href="/blog/categories/angularjs2/">angularjs2</a></li> 
                     <li><a href="/blog/categories/rpi/">rpi</a></li> 
                     <li><a href="/blog/categories/raspberrypi/">raspberrypi</a></li> 
                     <li><a href="/blog/categories/raspberry/">raspberry</a></li> 
-                    <li><a href="/blog/categories/swagger/">swagger</a></li> 
+                    <li><a href="/blog/categories/Swagger/">Swagger</a></li> 
                     <li><a href="/blog/categories/curl/">curl</a></li> 
-                    <li><a href="/blog/categories/authentification/">authentification</a></li> 
+                    <li><a href="/blog/categories/Authentification/">Authentification</a></li> 
+                    <li><a href="/blog/categories/L1/">L1</a></li> 
                 </ul>
             </div>
         </div>
@@ -405,7 +457,7 @@ for f in /tmp/vid/tmp/*.sh; do echo &quot;`~/.local/bin/godjob create  --externa
 
     <hr>
 
-    <div class="banner">
+    <div class="banner"> 
     <div class="container">
         <div class="row">
             <div class="col-lg-3">
@@ -469,35 +521,7 @@ for f in /tmp/vid/tmp/*.sh; do echo &quot;`~/.local/bin/godjob create  --externa
     </div>
 </footer>
 
-<!-- Defer CSS -->
-    <script type="text/javascript">
-          var stylesheet = document.createElement('link');
-          stylesheet.href = '/assets/main-58abab6103ee78e02cfcfa062233325f.css';
-          stylesheet.rel = 'stylesheet';
-          stylesheet.type = 'text/css';
-          document.getElementsByTagName('head')[0].appendChild(stylesheet);
-    </script>
 
-<!-- Add custom CSS here -->
-<!-- <link rel="stylesheet" href="/assets/main-58abab6103ee78e02cfcfa062233325f.css"> -->
-
-<!-- Main Javascript -->
-<!-- <script src="/assets/main-f2bda5f0801b6a41743c383e9ab4635a.js"></script> -->
-<script async type="text/javascript" src="/assets/main-f2bda5f0801b6a41743c383e9ab4635a.js"></script>
-
-<!-- <script> -->
-<!-- loadStyleSheet(/assets/main-58abab6103ee78e02cfcfa062233325f.css); -->
-<!-- </script> -->
-
-<!--<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-48705379-1', 'rudametw.github.io');
-  ga('send', 'pageview');
-</script>-->
 
 
 </body>

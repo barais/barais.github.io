@@ -1,1 +1,1 @@
-bundle exec jekyll server --watch 
+jekyll serve

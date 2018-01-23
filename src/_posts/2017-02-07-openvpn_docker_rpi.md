@@ -82,13 +82,13 @@ Open .ovpn file with a text editor.
 And change lines that looks like
 
 
-```txt
+```
 remote VPN.SERVERNAME.COM 1194  udp
 ```
 
 to
 
-```txt
+```
 remote VPN.SERVERNAME.COM 
 port 1194 
 proto udp
@@ -99,7 +99,7 @@ for connecting to tcp.
 
 And change it to 
 
-```txt
+```
 remote VPN.SERVERNAME.COM
 port 443
 proto tcp

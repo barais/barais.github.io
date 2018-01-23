@@ -87,7 +87,7 @@ Check that your database has been created.
 ## Update the routing
 In the app/config/routing.yml add a prefix for your apu, it can be somethings like that. 
 
-```yml
+```
 api:
     resource: '.'
     type:     'api_platform'

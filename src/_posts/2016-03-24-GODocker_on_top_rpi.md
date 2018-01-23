@@ -150,7 +150,7 @@ Go there to play with docker UI
 
 ## Step 3.1: Create docker image for udpcast
 
-```txt
+```
 FROM resin/rpi-raspbian:wheezy
 
 MAINTAINER Olivier Barais <barais@irisa.fr>
@@ -176,7 +176,7 @@ CMD ["/usr/bin/udp-sender"]
 
 
 
-```txt
+```
 FROM resin/rpi-raspbian:wheezy
 MAINTAINER Olivier Sallou <olivier.sallou@irisa.fr>
 
@@ -332,7 +332,7 @@ pass: *admin*
 
 # Step 5: Create docker image for gstreamer
 
-```txt
+```
 FROM resin/rpi-raspbian:wheezy
 
 MAINTAINER Olivier Barais <barais@irisa.fr>

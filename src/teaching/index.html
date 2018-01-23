@@ -1,8 +1,9 @@
 ---
+title: Courses | Olivier Barais]
 layout: large-page
-title: Courses | Olivier Barais] 
 ---
-             {% for post in site.posts %}
+
+{% for post in site.posts %}
  		{% if post.categories contains 'teaching' %}
                         <h1><a href="{{ post.url }}">{{ post.title }}</a></h1>
                         <p class="lead">by <a href="/contact">Olivier Barais</a>  &nbsp;&nbsp;&nbsp;
@@ -20,6 +21,8 @@ title: Courses | Olivier Barais]
                                 &mdash; {{ post.place }}
                         {% endif %}
                         <hr>
+
+
 
                         {{ post.excerpt }}
 

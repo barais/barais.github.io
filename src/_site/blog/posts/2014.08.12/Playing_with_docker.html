@@ -8,16 +8,37 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="author" content="Olivier Barais">
 <link rel="author" href="https://plus.google.com/+OlivierBarais">
+ 
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+<link rel="stylesheet" href="/assets/main.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<style>body {
+    padding-top: 60px;
+  }
+  @media (max-width: 979px) {
+    body {
+      padding-top: 60px;
+    }
+  }
+</style>
 
 <title>Running a DHT (ETCD) in a cluster using docker</title>
 
 
 
 <!-- Add custom CSS here -->
-<!-- <link rel="stylesheet" href="/assets/main-58abab6103ee78e02cfcfa062233325f.css"> -->
 
 <!-- <link rel="shortcut icon" href="favicon.ico"> -->
-<link rel="icon" href="favicon.ico">
+<link rel="icon" href="/favicon.ico">
 
 
 <!-- Test -->
@@ -71,23 +92,23 @@
 
                 <hr>
                 
-                <p>I am just playing using docker and etcd. </p>
+                <p>I am just playing using docker and etcd.</p>
 
 <p>To create a distributed dht within a cluster using etcd and docker. I create a container based on ubuntu. I just add the go language git and etcd. If you want to play with it you can pul it</p>
 
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">docker pull barais/etcd</code></pre></div>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">docker pull barais/etcd</code></pre></figure>
 
-<p>and start your three containers. </p>
+<p>and start your three containers.</p>
 
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">sudo docker run -p 4001:4001 -p 7001:7001 -t -i barais/etcd   /etcd/bin/etcd -peer-addr 172.17.42.1:7001 -addr 172.17.42.1:4001  -data-dir machines/machine1 -name machine
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">sudo </span>docker run <span class="nt">-p</span> 4001:4001 <span class="nt">-p</span> 7001:7001 <span class="nt">-t</span> <span class="nt">-i</span> barais/etcd   /etcd/bin/etcd <span class="nt">-peer-addr</span> 172.17.42.1:7001 <span class="nt">-addr</span> 172.17.42.1:4001  <span class="nt">-data-dir</span> machines/machine1 <span class="nt">-name</span> machine
 
-sudo docker run -p 4002:4002 -p 7002:7002 -t -i barais/etcd   /etcd/bin/etcd -peer-addr 172.17.42.1:7002 -addr 172.17.42.1:4002  -peers 172.17.42.1:7001,172.17.42.1:7003 -data-dir machines/machine2 -name machine2
+<span class="nb">sudo </span>docker run <span class="nt">-p</span> 4002:4002 <span class="nt">-p</span> 7002:7002 <span class="nt">-t</span> <span class="nt">-i</span> barais/etcd   /etcd/bin/etcd <span class="nt">-peer-addr</span> 172.17.42.1:7002 <span class="nt">-addr</span> 172.17.42.1:4002  <span class="nt">-peers</span> 172.17.42.1:7001,172.17.42.1:7003 <span class="nt">-data-dir</span> machines/machine2 <span class="nt">-name</span> machine2
 
-sudo docker run -p 4003:4003 -p 7003:7003 -t -i barais/etcd   /etcd/bin/etcd  -peer-addr 172.17.42.1:7003 -addr 172.17.42.1:4003 -peers 172.17.42.1:7001,172.17.42.1:7002 -data-dir machines/machine3 -name machine3</code></pre></div>
+<span class="nb">sudo </span>docker run <span class="nt">-p</span> 4003:4003 <span class="nt">-p</span> 7003:7003 <span class="nt">-t</span> <span class="nt">-i</span> barais/etcd   /etcd/bin/etcd  <span class="nt">-peer-addr</span> 172.17.42.1:7003 <span class="nt">-addr</span> 172.17.42.1:4003 <span class="nt">-peers</span> 172.17.42.1:7001,172.17.42.1:7002 <span class="nt">-data-dir</span> machines/machine3 <span class="nt">-name</span> machine3</code></pre></figure>
 
 <p>Next step: doing the same thing using <a href="https://github.com/GoogleCloudPlatform/kubernetes">kubernetes</a>.</p>
 
-<p>To follow ...</p>
+<p>To follow …</p>
 
                 
                 <!-- the comment box -->
@@ -163,48 +184,51 @@ sudo docker run -p 4003:4003 -p 7003:7003 -t -i barais/etcd   /etcd/bin/etcd  -p
                     <li><a href="/blog/categories/first-post/">first-post</a></li> 
                     <li><a href="/blog/categories/jekyll/">jekyll</a></li> 
                     <li><a href="/blog/categories/github-pages/">github-pages</a></li> 
+                    <li><a href="/blog/categories/teaching/">teaching</a></li> 
                     <li><a href="/blog/categories/markdown/">markdown</a></li> 
                     <li><a href="/blog/categories/untidy/">untidy</a></li> 
-                    <li><a href="/blog/categories/teaching/">teaching</a></li> 
                     <li><a href="/blog/categories/website/">website</a></li> 
                     <li><a href="/blog/categories/docker/">docker</a></li> 
                     <li><a href="/blog/categories/cloud/">cloud</a></li> 
                     <li><a href="/blog/categories/diversify/">diversify</a></li> 
                     <li><a href="/blog/categories/eclipse/">eclipse</a></li> 
-                    <li><a href="/blog/categories/istic/">istic</a></li> 
-                    <li><a href="/blog/categories/m2/">m2</a></li> 
+                    <li><a href="/blog/categories/ISTIC/">ISTIC</a></li> 
+                    <li><a href="/blog/categories/M2/">M2</a></li> 
                     <li><a href="/blog/categories/french/">french</a></li> 
                     <li><a href="/blog/categories/ensai/">ensai</a></li> 
                     <li><a href="/blog/categories/kevoree/">kevoree</a></li> 
-                    <li><a href="/blog/categories/kevoreejs/">kevoreejs</a></li> 
-                    <li><a href="/blog/categories/edison/">edison</a></li> 
-                    <li><a href="/blog/categories/angularjs/">angularjs</a></li> 
+                    <li><a href="/blog/categories/KevoreeJS/">KevoreeJS</a></li> 
+                    <li><a href="/blog/categories/Edison/">Edison</a></li> 
+                    <li><a href="/blog/categories/AngularJs/">AngularJs</a></li> 
                     <li><a href="/blog/categories/jquery/">jquery</a></li> 
+                    <li><a href="/blog/categories/JHipster/">JHipster</a></li> 
+                    <li><a href="/blog/categories/SDN/">SDN</a></li> 
+                    <li><a href="/blog/categories/Opendaylight/">Opendaylight</a></li> 
                     <li><a href="/blog/categories/jhipster/">jhipster</a></li> 
-                    <li><a href="/blog/categories/sdn/">sdn</a></li> 
-                    <li><a href="/blog/categories/opendaylight/">opendaylight</a></li> 
                     <li><a href="/blog/categories/software engineering/">software engineering</a></li> 
-                    <li><a href="/blog/categories/ejcp/">ejcp</a></li> 
+                    <li><a href="/blog/categories/EJCP/">EJCP</a></li> 
                     <li><a href="/blog/categories/swarm/">swarm</a></li> 
                     <li><a href="/blog/categories/go-docker/">go-docker</a></li> 
-                    <li><a href="/blog/categories/raspberry pi/">raspberry pi</a></li> 
-                    <li><a href="/blog/categories/javascript/">javascript</a></li> 
-                    <li><a href="/blog/categories/java/">java</a></li> 
-                    <li><a href="/blog/categories/slides/">slides</a></li> 
-                    <li><a href="/blog/categories/reveal.js/">reveal.js</a></li> 
-                    <li><a href="/blog/categories/powerpoint/">powerpoint</a></li> 
-                    <li><a href="/blog/categories/migration/">migration</a></li> 
-                    <li><a href="/blog/categories/labfab/">labfab</a></li> 
+                    <li><a href="/blog/categories/Raspberry Pi/">Raspberry Pi</a></li> 
+                    <li><a href="/blog/categories/JavaScript/">JavaScript</a></li> 
+                    <li><a href="/blog/categories/Java/">Java</a></li> 
+                    <li><a href="/blog/categories/Slides/">Slides</a></li> 
+                    <li><a href="/blog/categories/Reveal.js/">Reveal.js</a></li> 
+                    <li><a href="/blog/categories/PowerPoint/">PowerPoint</a></li> 
+                    <li><a href="/blog/categories/Migration/">Migration</a></li> 
+                    <li><a href="/blog/categories/LABFAB/">LABFAB</a></li> 
                     <li><a href="/blog/categories/api-platform/">api-platform</a></li> 
                     <li><a href="/blog/categories/symfony3/">symfony3</a></li> 
+                    <li><a href="/blog/categories/angularjs/">angularjs</a></li> 
                     <li><a href="/blog/categories/ng2/">ng2</a></li> 
                     <li><a href="/blog/categories/angularjs2/">angularjs2</a></li> 
                     <li><a href="/blog/categories/rpi/">rpi</a></li> 
                     <li><a href="/blog/categories/raspberrypi/">raspberrypi</a></li> 
                     <li><a href="/blog/categories/raspberry/">raspberry</a></li> 
-                    <li><a href="/blog/categories/swagger/">swagger</a></li> 
+                    <li><a href="/blog/categories/Swagger/">Swagger</a></li> 
                     <li><a href="/blog/categories/curl/">curl</a></li> 
-                    <li><a href="/blog/categories/authentification/">authentification</a></li> 
+                    <li><a href="/blog/categories/Authentification/">Authentification</a></li> 
+                    <li><a href="/blog/categories/L1/">L1</a></li> 
                 </ul>
             </div>
         </div>
@@ -225,7 +249,7 @@ sudo docker run -p 4003:4003 -p 7003:7003 -t -i barais/etcd   /etcd/bin/etcd  -p
 
     <hr>
 
-    <div class="banner">
+    <div class="banner"> 
     <div class="container">
         <div class="row">
             <div class="col-lg-3">
@@ -289,35 +313,7 @@ sudo docker run -p 4003:4003 -p 7003:7003 -t -i barais/etcd   /etcd/bin/etcd  -p
     </div>
 </footer>
 
-<!-- Defer CSS -->
-    <script type="text/javascript">
-          var stylesheet = document.createElement('link');
-          stylesheet.href = '/assets/main-58abab6103ee78e02cfcfa062233325f.css';
-          stylesheet.rel = 'stylesheet';
-          stylesheet.type = 'text/css';
-          document.getElementsByTagName('head')[0].appendChild(stylesheet);
-    </script>
 
-<!-- Add custom CSS here -->
-<!-- <link rel="stylesheet" href="/assets/main-58abab6103ee78e02cfcfa062233325f.css"> -->
-
-<!-- Main Javascript -->
-<!-- <script src="/assets/main-f2bda5f0801b6a41743c383e9ab4635a.js"></script> -->
-<script async type="text/javascript" src="/assets/main-f2bda5f0801b6a41743c383e9ab4635a.js"></script>
-
-<!-- <script> -->
-<!-- loadStyleSheet(/assets/main-58abab6103ee78e02cfcfa062233325f.css); -->
-<!-- </script> -->
-
-<!--<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-48705379-1', 'rudametw.github.io');
-  ga('send', 'pageview');
-</script>-->
 
 
 </body>
