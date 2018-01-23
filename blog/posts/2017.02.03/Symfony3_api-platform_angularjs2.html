@@ -8,16 +8,37 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="author" content="Olivier Barais">
 <link rel="author" href="https://plus.google.com/+OlivierBarais">
+ 
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+<link rel="stylesheet" href="/assets/main.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<style>body {
+    padding-top: 60px;
+  }
+  @media (max-width: 979px) {
+    body {
+      padding-top: 60px;
+    }
+  }
+</style>
 
 <title>Integration api-platform and angularjs 2</title>
 
 
 
 <!-- Add custom CSS here -->
-<!-- <link rel="stylesheet" href="/assets/main-58abab6103ee78e02cfcfa062233325f.css"> -->
 
 <!-- <link rel="shortcut icon" href="favicon.ico"> -->
-<link rel="icon" href="favicon.ico">
+<link rel="icon" href="/favicon.ico">
 
 
 <!-- Test -->
@@ -91,138 +112,164 @@ for building Single Page Application.</p>
 
 <!--more-->
 
-<p>A new kind of web application is now suggested, we call it &quot;<em>the Rise of Single Page Applications (SPA)</em>&quot;</p>
+<p>A new kind of web application is now suggested, we call it “<em>the Rise of Single Page Applications (SPA)</em>”</p>
 
-<p>This <a href="https://dzone.com/articles/architectural-shift-in-web-applications-with-emerg">article</a> explains this new trend and the furture evolution. The three following paragraphs just explain this new architecture. </p>
+<p>This <a href="https://dzone.com/articles/architectural-shift-in-web-applications-with-emerg">article</a> explains this new trend and the furture evolution. The three following paragraphs just explain this new architecture.</p>
 
 <blockquote>
-<p><em>We woke up to new era of AJAX with the overnight success of applications like Gmail and Google Maps, where refreshing the entire page became a thing of the past. Applications were now designed to request only the necessary bits and pieces (partial responses) of content and information as needed to create highly interactive user experiences using Thin Clients that up until now were only possible using Thick Clients. The additional logic required to do this on the client side wasn’t anything dramatically new — it was almost the same thing that had been previously used in the Server Web Layer. We essentially moved the Web Layer from the server to the client (Web Browser).</em></p>
-
-<p><em>However, this additional logic on the client side brought about new challenges and complexities, such as having to deal with numerous XMLHttpRequests and understand the web browser’s DOM (Document Object Model) at a much deeper level than ever before necessary. To handle this added complexity many new JavaScript based frameworks emerged to handle low-level details and routine actions. Some frameworks are opinionated and some are not; some are bare bones and some are end-to-end solutions. And while it seemed like a new framework was appearing every other day, the good ones were all leveraging the same best practices and patterns that had been previously used with success in the Server Web Layer including Components, MVC (Model, View and Controller), Annotations, Dependency Injection, Services and Contracts by Interfaces etc.</em></p>
-
-<p><em>Since the Web Layer was removed from the Server Layer and moved to the Client Layer, a new thin layer was introduced to the Server Layer in order to expose the existing Server Business Layer directly to the new Client Web Layer. This was most frequently done using custom SOAP or REST APIs. The creation of these APIs and the architectural shift in the placement of the Web Layer paved the way to support functionalities like off-line support, but more importantly, the ability to support multiple client types, even those with different native implementations, using the same back end (think of a single backend powering iOS and Android apps, as well as desktop and mobile Web interfaces).</em></p>
+  <p><em>We woke up to new era of AJAX with the overnight success of applications like Gmail and Google Maps, where refreshing the entire page became a thing of the past. Applications were now designed to request only the necessary bits and pieces (partial responses) of content and information as needed to create highly interactive user experiences using Thin Clients that up until now were only possible using Thick Clients. The additional logic required to do this on the client side wasn’t anything dramatically new — it was almost the same thing that had been previously used in the Server Web Layer. We essentially moved the Web Layer from the server to the client (Web Browser).</em></p>
 </blockquote>
 
-<p>To follow this architecture, we could easily combine <a href="https://api-platform.com/">api-platform</a>, a PHP framework to build modern web APIs built on top <a href="https://symfony.com/">symfony 3</a>, and <a href="https://angular.io/">angularJS 2</a> for building Single Page Application. </p>
+<blockquote>
+  <p><em>However, this additional logic on the client side brought about new challenges and complexities, such as having to deal with numerous XMLHttpRequests and understand the web browser’s DOM (Document Object Model) at a much deeper level than ever before necessary. To handle this added complexity many new JavaScript based frameworks emerged to handle low-level details and routine actions. Some frameworks are opinionated and some are not; some are bare bones and some are end-to-end solutions. And while it seemed like a new framework was appearing every other day, the good ones were all leveraging the same best practices and patterns that had been previously used with success in the Server Web Layer including Components, MVC (Model, View and Controller), Annotations, Dependency Injection, Services and Contracts by Interfaces etc.</em></p>
+</blockquote>
 
-<h1>Step 1: Get the tooling.</h1>
+<blockquote>
+  <p><em>Since the Web Layer was removed from the Server Layer and moved to the Client Layer, a new thin layer was introduced to the Server Layer in order to expose the existing Server Business Layer directly to the new Client Web Layer. This was most frequently done using custom SOAP or REST APIs. The creation of these APIs and the architectural shift in the placement of the Web Layer paved the way to support functionalities like off-line support, but more importantly, the ability to support multiple client types, even those with different native implementations, using the same back end (think of a single backend powering iOS and Android apps, as well as desktop and mobile Web interfaces).</em></p>
+</blockquote>
+
+<p>To follow this architecture, we could easily combine <a href="https://api-platform.com/">api-platform</a>, a PHP framework to build modern web APIs built on top <a href="https://symfony.com/">symfony 3</a>, and <a href="https://angular.io/">angularJS 2</a> for building Single Page Application.</p>
+
+<h1 id="step-1-get-the-tooling">Step 1: Get the tooling.</h1>
 
 <ol>
-<li>Install <a href="https://nodejs.org/en/">nodejs</a>.</li>
-<li>Install php7</li>
-<li>Install <a href="https://angular.io/">angular-cli</a></li>
+  <li>Install <a href="https://nodejs.org/en/">nodejs</a>.</li>
+  <li>Install php7</li>
+  <li>Install <a href="https://angular.io/">angular-cli</a></li>
 </ol>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">npm install -g angular-cli
-</code></pre></div>
-<h1>Step 2: Get and configure api platform.</h1>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm <span class="nb">install</span> <span class="nt">-g</span> angular-cli
+</code></pre></div></div>
+
+<h1 id="step-2-get-and-configure-api-platform">Step 2: Get and configure api platform.</h1>
 
 <p>You can start from the demo app.</p>
 
 <p>Clone the repo</p>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">git clone https://github.com/api-platform/demo
-</code></pre></div>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/api-platform/demo
+</code></pre></div></div>
+
 <p>Go in the folder</p>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">cd demo
-</code></pre></div>
-<h2>Install composer</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd </span>demo
+</code></pre></div></div>
+
+<h2 id="install-composer">Install composer</h2>
 
 <p>Composer is equivalent to maven or npm for the PhP community. It is a Dependency Manager for PHP.</p>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">php -r &quot;copy(&#39;https://getcomposer.org/installer&#39;, &#39;composer-setup.php&#39;);&quot;
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php <span class="nt">-r</span> <span class="s2">"copy('https://getcomposer.org/installer', 'composer-setup.php');"</span>
 php composer-setup.php
-</code></pre></div>
-<p>Install dependencies required by api-platform (symfony3, doctrine, ...)</p>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">php composer.phar install
-</code></pre></div>
-<h2>Create the database</h2>
+</code></pre></div></div>
 
-<p>Next you can configure the connexion to the the database. </p>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">bin/console doctrine:database:create
-</code></pre></div>
-<p>Create your object model in src/AppBundle/Entity. The demo app comes with two entities (Book and Review for the demo). </p>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">bin/console doctrine:schema:create 
-</code></pre></div>
-<p>Check that your database has been created. </p>
+<p>Install dependencies required by api-platform (symfony3, doctrine, …)</p>
 
-<h2>Update the routing</h2>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>php composer.phar <span class="nb">install</span>
+</code></pre></div></div>
 
-<p>In the app/config/routing.yml add a prefix for your apu, it can be somethings like that. </p>
-<div class="highlight"><pre><code class="language-yml" data-lang="yml">api:
-    resource: &#39;.&#39;
-    type:     &#39;api_platform&#39;
-    prefix:   &#39;/api&#39;  # This line can be added
-</code></pre></div>
-<h2>Start the server</h2>
+<h2 id="create-the-database">Create the database</h2>
+<p>Next you can configure the connexion to the the database.</p>
 
-<p>Next, you can start the server in doing. </p>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">bin/console server:start # for starting the server
-bin/console server stop # for stopping the server
-</code></pre></div>
-<h2>Check that your application is running</h2>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bin/console doctrine:database:create
+</code></pre></div></div>
 
+<p>Create your object model in src/AppBundle/Entity. The demo app comes with two entities (Book and Review for the demo).</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bin/console doctrine:schema:create 
+</code></pre></div></div>
+
+<p>Check that your database has been created.</p>
+
+<h2 id="update-the-routing">Update the routing</h2>
+<p>In the app/config/routing.yml add a prefix for your apu, it can be somethings like that.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>api:
+    resource: '.'
+    type:     'api_platform'
+    prefix:   '/api'  # This line can be added
+</code></pre></div></div>
+
+<h2 id="start-the-server">Start the server</h2>
+
+<p>Next, you can start the server in doing.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bin/console server:start <span class="c"># for starting the server</span>
+bin/console server stop <span class="c"># for stopping the server</span>
+</code></pre></div></div>
+
+<h2 id="check-that-your-application-is-running">Check that your application is running</h2>
 <p>Go to <a href="http://localhost:8000/api">http://localhost:8000/api</a>.</p>
 
-<p>You can see the swagger interface. </p>
+<p>You can see the swagger interface.</p>
 
 <p>When you modify your business object model, you can update the schema</p>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">bin/console doctrine:schema:update --force 
-</code></pre></div>
-<p>The <a href="http://swagger.io/">swagger</a> interface is automatically up to date if you modify your entities. </p>
 
-<h1>Prepare the frontend</h1>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bin/console doctrine:schema:update <span class="nt">--force</span> 
+</code></pre></div></div>
 
-<p>For preparing the front end, we will use angularjs2 and angular-cli. </p>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">ng new frontend
-</code></pre></div>
-<p>Next, let a process that watches your typescript file and generate the web application. </p>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">cd frontend
-ng build -w --base-href front --sourcemap true --output-path ../web/front
-</code></pre></div>
-<p>In an other console come back to the root of your project and restart the server. </p>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">bin/console server:start # for starting the server
-bin/console server stop # for stopping the server
-</code></pre></div>
+<p>The <a href="http://swagger.io/">swagger</a> interface is automatically up to date if you modify your entities.</p>
+
+<h1 id="prepare-the-frontend">Prepare the frontend</h1>
+<p>For preparing the front end, we will use angularjs2 and angular-cli.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ng new frontend
+</code></pre></div></div>
+
+<p>Next, let a process that watches your typescript file and generate the web application.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd </span>frontend
+ng build <span class="nt">-w</span> <span class="nt">--base-href</span> front <span class="nt">--sourcemap</span> <span class="nb">true</span> <span class="nt">--output-path</span> ../web/front
+</code></pre></div></div>
+
+<p>In an other console come back to the root of your project and restart the server.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bin/console server:start <span class="c"># for starting the server</span>
+bin/console server stop <span class="c"># for stopping the server</span>
+</code></pre></div></div>
+
 <p>Go to <a href="http://localhost:8000/api">http://localhost:8000/api</a> you will get swagger
 Go to <a href="http://localhost:8000/front">http://localhost:8000/front</a> you will get your frontend</p>
 
-<p>Open you visual code studio editor in the root of your project. </p>
+<p>Open you visual code studio editor in the root of your project.</p>
 
-<p>Next you can read the doc of open platform and read the doc of angular2 to integrate some widgets. </p>
+<p>Next you can read the doc of open platform and read the doc of angular2 to integrate some widgets.</p>
 
-<h3>api-platform</h3>
-
+<h3 id="api-platform">api-platform</h3>
 <ul>
-<li><a href="https://api-platform.com/docs/">documentation</a></li>
+  <li><a href="https://api-platform.com/docs/">documentation</a></li>
 </ul>
 
-<h3>angular js 2</h3>
-
+<h3 id="angular-js-2">angular js 2</h3>
 <ul>
-<li><a href="https://angular.io/docs/ts/latest/">Official documentation</a></li>
-<li><a href="https://github.com/AngularClass/awesome-angular2">courses</a></li>
-<li><a href="http://www.primefaces.org/primeng/">great widgets</a></li>
-<li><a href="https://github.com/valor-software/ng2-bootstrap">bootstrap ng2 components</a></li>
-<li><a href="https://books.ninja-squad.com/angular">great book</a></li>
+  <li><a href="https://angular.io/docs/ts/latest/">Official documentation</a></li>
+  <li><a href="https://github.com/AngularClass/awesome-angular2">courses</a></li>
+  <li><a href="http://www.primefaces.org/primeng/">great widgets</a></li>
+  <li><a href="https://github.com/valor-software/ng2-bootstrap">bootstrap ng2 components</a></li>
+  <li><a href="https://books.ninja-squad.com/angular">great book</a></li>
 </ul>
 
 <p>Enjoy!</p>
 
-<h1>Deploy your application with apache</h1>
+<h1 id="deploy-your-application-with-apache">Deploy your application with apache</h1>
 
-<p>Stop the server and the ng build process. </p>
+<p>Stop the server and the ng build process.</p>
 
-<p>In the frontend folder, run the following command to  build the web application for the production. </p>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">rm -rf ../web/front
-ng build --base-href front --sourcemap true --output-path ../web/front --target=production
-</code></pre></div>
+<p>In the frontend folder, run the following command to  build the web application for the production.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">rm</span> <span class="nt">-rf</span> ../web/front
+ng build <span class="nt">--base-href</span> front <span class="nt">--sourcemap</span> <span class="nb">true</span> <span class="nt">--output-path</span> ../web/front <span class="nt">--target</span><span class="o">=</span>production
+</code></pre></div></div>
+
 <p>And configure apache to serve your web folder of your project or copy it where you want to deploy your app. 
 If you have to change your database parameters, do not forget to update your app/config/parameters.yml.</p>
 
-<h1>Conclusion</h1>
-
+<h1 id="conclusion">Conclusion</h1>
 <p>Great you will have now this great architecture. 
-Next blog posts will show, how you can easily integrate ng2 and primefaces components for the frontend and how you can manage RBAC rules and authentifications for such an application. </p>
+Next blog posts will show, how you can easily integrate ng2 and primefaces components for the frontend and how you can manage RBAC rules and authentifications for such an application.</p>
 
-<p><img src="https://api-platform.com/dist/e89da8a0f3ea2c3e006fb5328246624c.png" alt="arch" style="width: 800px;"/></p>
+<p><img src="https://api-platform.com/dist/e89da8a0f3ea2c3e006fb5328246624c.png" alt="arch" style="width: 800px;" /></p>
+
 
                 
                 <!-- the comment box -->
@@ -302,48 +349,51 @@ Next blog posts will show, how you can easily integrate ng2 and primefaces compo
                     <li><a href="/blog/categories/first-post/">first-post</a></li> 
                     <li><a href="/blog/categories/jekyll/">jekyll</a></li> 
                     <li><a href="/blog/categories/github-pages/">github-pages</a></li> 
+                    <li><a href="/blog/categories/teaching/">teaching</a></li> 
                     <li><a href="/blog/categories/markdown/">markdown</a></li> 
                     <li><a href="/blog/categories/untidy/">untidy</a></li> 
-                    <li><a href="/blog/categories/teaching/">teaching</a></li> 
                     <li><a href="/blog/categories/website/">website</a></li> 
                     <li><a href="/blog/categories/docker/">docker</a></li> 
                     <li><a href="/blog/categories/cloud/">cloud</a></li> 
                     <li><a href="/blog/categories/diversify/">diversify</a></li> 
                     <li><a href="/blog/categories/eclipse/">eclipse</a></li> 
-                    <li><a href="/blog/categories/istic/">istic</a></li> 
-                    <li><a href="/blog/categories/m2/">m2</a></li> 
+                    <li><a href="/blog/categories/ISTIC/">ISTIC</a></li> 
+                    <li><a href="/blog/categories/M2/">M2</a></li> 
                     <li><a href="/blog/categories/french/">french</a></li> 
                     <li><a href="/blog/categories/ensai/">ensai</a></li> 
                     <li><a href="/blog/categories/kevoree/">kevoree</a></li> 
-                    <li><a href="/blog/categories/kevoreejs/">kevoreejs</a></li> 
-                    <li><a href="/blog/categories/edison/">edison</a></li> 
-                    <li><a href="/blog/categories/angularjs/">angularjs</a></li> 
+                    <li><a href="/blog/categories/KevoreeJS/">KevoreeJS</a></li> 
+                    <li><a href="/blog/categories/Edison/">Edison</a></li> 
+                    <li><a href="/blog/categories/AngularJs/">AngularJs</a></li> 
                     <li><a href="/blog/categories/jquery/">jquery</a></li> 
+                    <li><a href="/blog/categories/JHipster/">JHipster</a></li> 
+                    <li><a href="/blog/categories/SDN/">SDN</a></li> 
+                    <li><a href="/blog/categories/Opendaylight/">Opendaylight</a></li> 
                     <li><a href="/blog/categories/jhipster/">jhipster</a></li> 
-                    <li><a href="/blog/categories/sdn/">sdn</a></li> 
-                    <li><a href="/blog/categories/opendaylight/">opendaylight</a></li> 
                     <li><a href="/blog/categories/software engineering/">software engineering</a></li> 
-                    <li><a href="/blog/categories/ejcp/">ejcp</a></li> 
+                    <li><a href="/blog/categories/EJCP/">EJCP</a></li> 
                     <li><a href="/blog/categories/swarm/">swarm</a></li> 
                     <li><a href="/blog/categories/go-docker/">go-docker</a></li> 
-                    <li><a href="/blog/categories/raspberry pi/">raspberry pi</a></li> 
-                    <li><a href="/blog/categories/javascript/">javascript</a></li> 
-                    <li><a href="/blog/categories/java/">java</a></li> 
-                    <li><a href="/blog/categories/slides/">slides</a></li> 
-                    <li><a href="/blog/categories/reveal.js/">reveal.js</a></li> 
-                    <li><a href="/blog/categories/powerpoint/">powerpoint</a></li> 
-                    <li><a href="/blog/categories/migration/">migration</a></li> 
-                    <li><a href="/blog/categories/labfab/">labfab</a></li> 
+                    <li><a href="/blog/categories/Raspberry Pi/">Raspberry Pi</a></li> 
+                    <li><a href="/blog/categories/JavaScript/">JavaScript</a></li> 
+                    <li><a href="/blog/categories/Java/">Java</a></li> 
+                    <li><a href="/blog/categories/Slides/">Slides</a></li> 
+                    <li><a href="/blog/categories/Reveal.js/">Reveal.js</a></li> 
+                    <li><a href="/blog/categories/PowerPoint/">PowerPoint</a></li> 
+                    <li><a href="/blog/categories/Migration/">Migration</a></li> 
+                    <li><a href="/blog/categories/LABFAB/">LABFAB</a></li> 
                     <li><a href="/blog/categories/api-platform/">api-platform</a></li> 
                     <li><a href="/blog/categories/symfony3/">symfony3</a></li> 
+                    <li><a href="/blog/categories/angularjs/">angularjs</a></li> 
                     <li><a href="/blog/categories/ng2/">ng2</a></li> 
                     <li><a href="/blog/categories/angularjs2/">angularjs2</a></li> 
                     <li><a href="/blog/categories/rpi/">rpi</a></li> 
                     <li><a href="/blog/categories/raspberrypi/">raspberrypi</a></li> 
                     <li><a href="/blog/categories/raspberry/">raspberry</a></li> 
-                    <li><a href="/blog/categories/swagger/">swagger</a></li> 
+                    <li><a href="/blog/categories/Swagger/">Swagger</a></li> 
                     <li><a href="/blog/categories/curl/">curl</a></li> 
-                    <li><a href="/blog/categories/authentification/">authentification</a></li> 
+                    <li><a href="/blog/categories/Authentification/">Authentification</a></li> 
+                    <li><a href="/blog/categories/L1/">L1</a></li> 
                 </ul>
             </div>
         </div>
@@ -364,7 +414,7 @@ Next blog posts will show, how you can easily integrate ng2 and primefaces compo
 
     <hr>
 
-    <div class="banner">
+    <div class="banner"> 
     <div class="container">
         <div class="row">
             <div class="col-lg-3">
@@ -428,35 +478,7 @@ Next blog posts will show, how you can easily integrate ng2 and primefaces compo
     </div>
 </footer>
 
-<!-- Defer CSS -->
-    <script type="text/javascript">
-          var stylesheet = document.createElement('link');
-          stylesheet.href = '/assets/main-58abab6103ee78e02cfcfa062233325f.css';
-          stylesheet.rel = 'stylesheet';
-          stylesheet.type = 'text/css';
-          document.getElementsByTagName('head')[0].appendChild(stylesheet);
-    </script>
 
-<!-- Add custom CSS here -->
-<!-- <link rel="stylesheet" href="/assets/main-58abab6103ee78e02cfcfa062233325f.css"> -->
-
-<!-- Main Javascript -->
-<!-- <script src="/assets/main-f2bda5f0801b6a41743c383e9ab4635a.js"></script> -->
-<script async type="text/javascript" src="/assets/main-f2bda5f0801b6a41743c383e9ab4635a.js"></script>
-
-<!-- <script> -->
-<!-- loadStyleSheet(/assets/main-58abab6103ee78e02cfcfa062233325f.css); -->
-<!-- </script> -->
-
-<!--<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-48705379-1', 'rudametw.github.io');
-  ga('send', 'pageview');
-</script>-->
 
 
 </body>

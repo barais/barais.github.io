@@ -8,16 +8,37 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="author" content="Olivier Barais">
 <link rel="author" href="https://plus.google.com/+OlivierBarais">
+ 
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+<link rel="stylesheet" href="/assets/main.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<style>body {
+    padding-top: 60px;
+  }
+  @media (max-width: 979px) {
+    body {
+      padding-top: 60px;
+    }
+  }
+</style>
 
 <title>Quelques éléments pour le TP JEE avec WILDFLY</title>
 
 
 
 <!-- Add custom CSS here -->
-<!-- <link rel="stylesheet" href="/assets/main-58abab6103ee78e02cfcfa062233325f.css"> -->
 
 <!-- <link rel="shortcut icon" href="favicon.ico"> -->
-<link rel="icon" href="favicon.ico">
+<link rel="icon" href="/favicon.ico">
 
 
 <!-- Test -->
@@ -63,10 +84,10 @@
                             <a href="/blog/categories/teaching/"><span class="label label-primary">teaching</span></a>
                             &nbsp;
                         
-                            <a href="/blog/categories/istic/"><span class="label label-primary">istic</span></a>
+                            <a href="/blog/categories/ISTIC/"><span class="label label-primary">ISTIC</span></a>
                             &nbsp;
                         
-                            <a href="/blog/categories/m2/"><span class="label label-primary">m2</span></a>
+                            <a href="/blog/categories/M2/"><span class="label label-primary">M2</span></a>
                             &nbsp;
                         
                             <a href="/blog/categories/french/"><span class="label label-primary">french</span></a>
@@ -82,18 +103,18 @@
                 
                 <p>Hello très chers étudiants,</p>
 
-<p>Pour ce dernier TP de TAA sur la partie JEE, nous allons intégrer notre TP avec le serveur d&#39;application wildfly , nous utiliserons <a href="http://wildfly.org/downloads/">wildfly version 8.1 final</a>.</p>
+<p>Pour ce dernier TP de TAA sur la partie JEE, nous allons intégrer notre TP avec le serveur d’application wildfly , nous utiliserons <a href="http://wildfly.org/downloads/">wildfly version 8.1 final</a>.</p>
 
-<h3>Etape 0: Installation de wildfly</h3>
+<p>###Etape 0: Installation de wildfly###</p>
 
 <ol>
-<li>Get the latest stable version of the WildFly Application Server (8.1.0.Final) from http://wildfly.org/downloads/ (wildfly-8.0.0.Final.zip).</li>
-<li>Extract the tgz archive to a directory on your computer, e.g. /opt. The path must not contain any spaces. A new directory, e.g. /opt/wildfly-8.1.0.Final/, containing the WildFly files will be created.</li>
-<li>Use the script ./bin/standalone.sh to start the WildFly server and check the installation. After startup, you should be able to access the web server at http://localhost:9990</li>
-<li>Add  a user ./bin/add-user.sh</li>
-<li>After creating a user revisit the Administration Console. http://localhost:9990</li>
-<li>Go to Manage Deployments and click Add Content to upload hsqldb.jar. Make sure that the deployed file is enabled.</li>
-<li>Go to Profile -&gt; Connector -&gt; Datasources and click Add. Use the following information to create a datasource:
+  <li>Get the latest stable version of the WildFly Application Server (8.1.0.Final) from http://wildfly.org/downloads/ (wildfly-8.0.0.Final.zip).</li>
+  <li>Extract the tgz archive to a directory on your computer, e.g. /opt. The path must not contain any spaces. A new directory, e.g. /opt/wildfly-8.1.0.Final/, containing the WildFly files will be created.</li>
+  <li>Use the script ./bin/standalone.sh to start the WildFly server and check the installation. After startup, you should be able to access the web server at http://localhost:9990</li>
+  <li>Add  a user ./bin/add-user.sh</li>
+  <li>After creating a user revisit the Administration Console. http://localhost:9990</li>
+  <li>Go to Manage Deployments and click Add Content to upload hsqldb.jar. Make sure that the deployed file is enabled.</li>
+  <li>Go to Profile -&gt; Connector -&gt; Datasources and click Add. Use the following information to create a datasource:
 Name: DefaultDS
 JNDI Name: java:/DefaultDS
 Choose hsqldb.jar as driver
@@ -103,30 +124,35 @@ In order to stop the server, press CTRL-C in the console window that was opened 
 </ol>
 
 <p>You app server is ready. 
-&lt;!--more--&gt;</p>
+<!--more--></p>
 
-<h3>Etape 1: Jeu avec les exemples.</h3>
+<p>###Etape 1: Jeu avec les exemples.</p>
 
-<p>Récupérez les exemples fournis <a href="https://github.com/wildfly/quickstart">ici</a></p>
+<p>Récupérez les exemples fournis [ici] (https://github.com/wildfly/quickstart)</p>
 
-<p>Déployez votre premier bean. 
-1. Go to ejb-in-war
-2. Deploy the bean </p>
+<p>Déployez votre premier bean.</p>
+<ol>
+  <li>Go to ejb-in-war</li>
+  <li>Deploy the bean</li>
+</ol>
 
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">mvn clean package wildfly:deploy</code></pre></div>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">mvn clean package wildfly:deploy</code></pre></figure>
 
-<p>Allez voir la console d&#39;administration</p>
+<p>Allez voir la console d’administration</p>
 
-<p>Deployez un bean avec persitence. 
-1. Go to quickstart/cmt
-2. Adapt the bean
-3. Deploy the bean </p>
+<p>Deployez un bean avec persitence.</p>
+<ol>
+  <li>Go to quickstart/cmt</li>
+  <li>Adapt the bean</li>
+  <li>Deploy the bean</li>
+</ol>
 
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">mvn clean package wildfly:deploy</code></pre></div>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">mvn clean package wildfly:deploy</code></pre></figure>
 
-<h3>Etape 2: Adaptez votre application pour la déployer sur wildfly.</h3>
+<p>###Etape 2: Adaptez votre application pour la déployer sur wildfly.</p>
 
 <p>Let us go ;)</p>
+
 
                 
                 <!-- the comment box -->
@@ -186,8 +212,8 @@ In order to stop the server, press CTRL-C in the console window that was opened 
                 <ul class="list-unstyled">
                     
                     <li><a href="/blog/categories/teaching/">teaching</a></li> 
-                    <li><a href="/blog/categories/istic/">istic</a></li> 
-                    <li><a href="/blog/categories/m2/">m2</a></li> 
+                    <li><a href="/blog/categories/ISTIC/">ISTIC</a></li> 
+                    <li><a href="/blog/categories/M2/">M2</a></li> 
                     <li><a href="/blog/categories/french/">french</a></li> 
                 </ul>
             </div>
@@ -205,48 +231,51 @@ In order to stop the server, press CTRL-C in the console window that was opened 
                     <li><a href="/blog/categories/first-post/">first-post</a></li> 
                     <li><a href="/blog/categories/jekyll/">jekyll</a></li> 
                     <li><a href="/blog/categories/github-pages/">github-pages</a></li> 
+                    <li><a href="/blog/categories/teaching/">teaching</a></li> 
                     <li><a href="/blog/categories/markdown/">markdown</a></li> 
                     <li><a href="/blog/categories/untidy/">untidy</a></li> 
-                    <li><a href="/blog/categories/teaching/">teaching</a></li> 
                     <li><a href="/blog/categories/website/">website</a></li> 
                     <li><a href="/blog/categories/docker/">docker</a></li> 
                     <li><a href="/blog/categories/cloud/">cloud</a></li> 
                     <li><a href="/blog/categories/diversify/">diversify</a></li> 
                     <li><a href="/blog/categories/eclipse/">eclipse</a></li> 
-                    <li><a href="/blog/categories/istic/">istic</a></li> 
-                    <li><a href="/blog/categories/m2/">m2</a></li> 
+                    <li><a href="/blog/categories/ISTIC/">ISTIC</a></li> 
+                    <li><a href="/blog/categories/M2/">M2</a></li> 
                     <li><a href="/blog/categories/french/">french</a></li> 
                     <li><a href="/blog/categories/ensai/">ensai</a></li> 
                     <li><a href="/blog/categories/kevoree/">kevoree</a></li> 
-                    <li><a href="/blog/categories/kevoreejs/">kevoreejs</a></li> 
-                    <li><a href="/blog/categories/edison/">edison</a></li> 
-                    <li><a href="/blog/categories/angularjs/">angularjs</a></li> 
+                    <li><a href="/blog/categories/KevoreeJS/">KevoreeJS</a></li> 
+                    <li><a href="/blog/categories/Edison/">Edison</a></li> 
+                    <li><a href="/blog/categories/AngularJs/">AngularJs</a></li> 
                     <li><a href="/blog/categories/jquery/">jquery</a></li> 
+                    <li><a href="/blog/categories/JHipster/">JHipster</a></li> 
+                    <li><a href="/blog/categories/SDN/">SDN</a></li> 
+                    <li><a href="/blog/categories/Opendaylight/">Opendaylight</a></li> 
                     <li><a href="/blog/categories/jhipster/">jhipster</a></li> 
-                    <li><a href="/blog/categories/sdn/">sdn</a></li> 
-                    <li><a href="/blog/categories/opendaylight/">opendaylight</a></li> 
                     <li><a href="/blog/categories/software engineering/">software engineering</a></li> 
-                    <li><a href="/blog/categories/ejcp/">ejcp</a></li> 
+                    <li><a href="/blog/categories/EJCP/">EJCP</a></li> 
                     <li><a href="/blog/categories/swarm/">swarm</a></li> 
                     <li><a href="/blog/categories/go-docker/">go-docker</a></li> 
-                    <li><a href="/blog/categories/raspberry pi/">raspberry pi</a></li> 
-                    <li><a href="/blog/categories/javascript/">javascript</a></li> 
-                    <li><a href="/blog/categories/java/">java</a></li> 
-                    <li><a href="/blog/categories/slides/">slides</a></li> 
-                    <li><a href="/blog/categories/reveal.js/">reveal.js</a></li> 
-                    <li><a href="/blog/categories/powerpoint/">powerpoint</a></li> 
-                    <li><a href="/blog/categories/migration/">migration</a></li> 
-                    <li><a href="/blog/categories/labfab/">labfab</a></li> 
+                    <li><a href="/blog/categories/Raspberry Pi/">Raspberry Pi</a></li> 
+                    <li><a href="/blog/categories/JavaScript/">JavaScript</a></li> 
+                    <li><a href="/blog/categories/Java/">Java</a></li> 
+                    <li><a href="/blog/categories/Slides/">Slides</a></li> 
+                    <li><a href="/blog/categories/Reveal.js/">Reveal.js</a></li> 
+                    <li><a href="/blog/categories/PowerPoint/">PowerPoint</a></li> 
+                    <li><a href="/blog/categories/Migration/">Migration</a></li> 
+                    <li><a href="/blog/categories/LABFAB/">LABFAB</a></li> 
                     <li><a href="/blog/categories/api-platform/">api-platform</a></li> 
                     <li><a href="/blog/categories/symfony3/">symfony3</a></li> 
+                    <li><a href="/blog/categories/angularjs/">angularjs</a></li> 
                     <li><a href="/blog/categories/ng2/">ng2</a></li> 
                     <li><a href="/blog/categories/angularjs2/">angularjs2</a></li> 
                     <li><a href="/blog/categories/rpi/">rpi</a></li> 
                     <li><a href="/blog/categories/raspberrypi/">raspberrypi</a></li> 
                     <li><a href="/blog/categories/raspberry/">raspberry</a></li> 
-                    <li><a href="/blog/categories/swagger/">swagger</a></li> 
+                    <li><a href="/blog/categories/Swagger/">Swagger</a></li> 
                     <li><a href="/blog/categories/curl/">curl</a></li> 
-                    <li><a href="/blog/categories/authentification/">authentification</a></li> 
+                    <li><a href="/blog/categories/Authentification/">Authentification</a></li> 
+                    <li><a href="/blog/categories/L1/">L1</a></li> 
                 </ul>
             </div>
         </div>
@@ -267,7 +296,7 @@ In order to stop the server, press CTRL-C in the console window that was opened 
 
     <hr>
 
-    <div class="banner">
+    <div class="banner"> 
     <div class="container">
         <div class="row">
             <div class="col-lg-3">
@@ -331,35 +360,7 @@ In order to stop the server, press CTRL-C in the console window that was opened 
     </div>
 </footer>
 
-<!-- Defer CSS -->
-    <script type="text/javascript">
-          var stylesheet = document.createElement('link');
-          stylesheet.href = '/assets/main-58abab6103ee78e02cfcfa062233325f.css';
-          stylesheet.rel = 'stylesheet';
-          stylesheet.type = 'text/css';
-          document.getElementsByTagName('head')[0].appendChild(stylesheet);
-    </script>
 
-<!-- Add custom CSS here -->
-<!-- <link rel="stylesheet" href="/assets/main-58abab6103ee78e02cfcfa062233325f.css"> -->
-
-<!-- Main Javascript -->
-<!-- <script src="/assets/main-f2bda5f0801b6a41743c383e9ab4635a.js"></script> -->
-<script async type="text/javascript" src="/assets/main-f2bda5f0801b6a41743c383e9ab4635a.js"></script>
-
-<!-- <script> -->
-<!-- loadStyleSheet(/assets/main-58abab6103ee78e02cfcfa062233325f.css); -->
-<!-- </script> -->
-
-<!--<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-48705379-1', 'rudametw.github.io');
-  ga('send', 'pageview');
-</script>-->
 
 
 </body>

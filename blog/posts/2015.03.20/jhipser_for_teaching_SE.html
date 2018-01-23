@@ -8,16 +8,37 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="author" content="Olivier Barais">
 <link rel="author" href="https://plus.google.com/+OlivierBarais">
+ 
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+<link rel="stylesheet" href="/assets/main.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<style>body {
+    padding-top: 60px;
+  }
+  @media (max-width: 979px) {
+    body {
+      padding-top: 60px;
+    }
+  }
+</style>
 
 <title>JHipster and Software Engineering teaching</title>
 
 
 
 <!-- Add custom CSS here -->
-<!-- <link rel="stylesheet" href="/assets/main-58abab6103ee78e02cfcfa062233325f.css"> -->
 
 <!-- <link rel="shortcut icon" href="favicon.ico"> -->
-<link rel="icon" href="favicon.ico">
+<link rel="icon" href="/favicon.ico">
 
 
 <!-- Test -->
@@ -74,139 +95,141 @@
 
                 <hr>
                 
-                <p>I am a fan of the <a href="http://jhipster.github.io/">JHipster</a> framework. Recently, through a discussion with <a href="http://people.irisa.fr/Jean-Marc.Jezequel/">Jean-Marc Jézéquel</a>, we decide to use it as a support for teaching advanced concepts in Software Engineering and Sofware Architecture at the University of Rennes 1 in a flip classroom. </p>
+                <p>I am a fan of the <a href="http://jhipster.github.io/">JHipster</a> framework. Recently, through a discussion with <a href="http://people.irisa.fr/Jean-Marc.Jezequel/">Jean-Marc Jézéquel</a>, we decide to use it as a support for teaching advanced concepts in Software Engineering and Sofware Architecture at the University of Rennes 1 in a flip classroom.</p>
 
 <!--more-->
 
-<h1>JHipster</h1>
+<p>#JHipster</p>
 
 <p>The <strong>goal</strong> of JHipster is to provide a framework for building Modern Web apps that have:</p>
 
 <ul>
-<li>Beautiful design</li>
-<li>Stop waiting for pages to load</li>
-<li>Dynamic updates of page fragments</li>
+  <li>Beautiful design</li>
+  <li>Stop waiting for pages to load</li>
+  <li>Dynamic updates of page fragments</li>
 </ul>
 
 <p>These apps must be build using the latest HTML5/CSS3/JS technologies. 
-Those websites should be delivered fast. Waiting 1 minute for your application to &quot;deploy&quot; is not acceptable.
-Modern websites should be able to handle huge numbers of concurrent users. We need robust, high-performance application servers. </p>
+Those websites should be delivered fast. Waiting 1 minute for your application to “deploy” is not acceptable.
+Modern websites should be able to handle huge numbers of concurrent users. We need robust, high-performance application servers.</p>
 
-<p>The goal of JHipster is to solve those issues through. </p>
+<p>The goal of JHipster is to solve those issues through.</p>
 
 <ul>
-<li>A beautiful front-end, with the latest HTML5/CSS3/JavaScript frameworks</li>
-<li>A robust and high-quality back-end, with the latest Java/Caching/Data access technologies</li>
-<li>All automatically wired up, with security and performance in mind</li>
-<li>And great developer tooling, for maximum productivity</li>
+  <li>A beautiful front-end, with the latest HTML5/CSS3/JavaScript frameworks</li>
+  <li>A robust and high-quality back-end, with the latest Java/Caching/Data access technologies</li>
+  <li>All automatically wired up, with security and performance in mind</li>
+  <li>And great developer tooling, for maximum productivity</li>
 </ul>
 
-<p>Even for simple applications, achieving this goal raises specific conerns to manage system complexity. </p>
+<p>Even for simple applications, achieving this goal raises specific conerns to manage system complexity.</p>
 
 <p>For achieving this goal, JHipster combines:</p>
 
 <ul>
-<li>generative programming concepts (through YO), </li>
-<li>aspect oriented-concepts (through Spring)</li>
-<li>software product lines concepts </li>
-<li>Object relational mapping concepts (through JPA)</li>
-<li>Restful services </li>
-<li>Test Driven Development</li>
-<li>...</li>
+  <li>generative programming concepts (through YO),</li>
+  <li>aspect oriented-concepts (through Spring)</li>
+  <li>software product lines concepts</li>
+  <li>Object relational mapping concepts (through JPA)</li>
+  <li>Restful services</li>
+  <li>Test Driven Development</li>
+  <li>…</li>
 </ul>
 
 <p>through the following technologies</p>
 
 <ul>
-<li><p>client side: </p>
-
-<ul>
-<li>YEOMAN, </li>
-<li>GRUNT, </li>
-<li>BOWER, </li>
-<li>ANGULARJS, </li>
-<li>Karma, </li>
-<li>Bootstrap</li>
-</ul></li>
-<li><p>server side: </p>
-
-<ul>
-<li>MAVEN, SPRING (Dependency injection and AOP), </li>
-<li>SPRING MVC REST, </li>
-<li>SPRING DATA JPA, </li>
-<li>Spring security, </li>
-<li>liquidbase, </li>
-<li>caching techologies (Ehcache, HazelCast), </li>
-<li>Template mechanisms (Thymeleaf), </li>
-<li>Monitoring techiques, </li>
-<li>ready for cloud ;). </li>
-</ul></li>
+  <li>client side:
+    <ul>
+      <li>YEOMAN,</li>
+      <li>GRUNT,</li>
+      <li>BOWER,</li>
+      <li>ANGULARJS,</li>
+      <li>Karma,</li>
+      <li>Bootstrap</li>
+    </ul>
+  </li>
+  <li>server side:
+    <ul>
+      <li>MAVEN, SPRING (Dependency injection and AOP),</li>
+      <li>SPRING MVC REST,</li>
+      <li>SPRING DATA JPA,</li>
+      <li>Spring security,</li>
+      <li>liquidbase,</li>
+      <li>caching techologies (Ehcache, HazelCast),</li>
+      <li>Template mechanisms (Thymeleaf),</li>
+      <li>Monitoring techiques,</li>
+      <li>ready for cloud ;).</li>
+    </ul>
+  </li>
 </ul>
 
-<h1>SPL teaching using JHipster</h1>
+<p>#SPL teaching using JHipster</p>
 
-<p>JHipster is a Yeoman generator. It can generate more than 10k  architecture types of project depending on different criteria. As a result, when you start to create a project, you must answer a set of questions to select the required features for your application. </p>
+<p>JHipster is a Yeoman generator. It can generate more than 10k  architecture types of project depending on different criteria. As a result, when you start to create a project, you must answer a set of questions to select the required features for your application.</p>
 
-<p>To illustrate Software Product Line principle and the feature diagram notation, I build a  feature model for JHipster using Feature IDE and I create a generator for create the app automatically from eclipse or IntelliJ. </p>
+<p>To illustrate Software Product Line principle and the feature diagram notation, I build a  feature model for JHipster using Feature IDE and I create a generator for create the app automatically from eclipse or IntelliJ.</p>
 
-<p>Here is a snapshot of the feature diagram. You can see the number of potential architecture types. </p>
+<p>Here is a snapshot of the feature diagram. You can see the number of potential architecture types.</p>
 
 <p><img src="../../../img/post/1.png" width="750px" /></p>
 
-<p>Here is a snapshot of a configuration model you can define from FeatureIde. </p>
+<p>Here is a snapshot of a configuration model you can define from FeatureIde.</p>
 
 <p><img src="../../../img/post/2.png" width="750px" /></p>
 
-<p>Behind the scene, I use xdotool to wrap the jhipster console when you define a first model. </p>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">#extract of the shell script generated  
-#!/bin/bash
-xfce4-terminal -T jhipstergen -x yo jhipster &amp;
-sleep 2
-WID=`xdotool search --name &quot;jhipstergen&quot;`  
-xdotool windowactivate $WID 
-xdotool windowfocus $WID 
-#appnam
-xdotool type myapp
-xdotool key &quot;Return&quot;
-#package
-xdotool type fr.irisa.jhipster
-xdotool key &quot;Return&quot;
-#Java Selection
-#xdotool key Down
-xdotool key &quot;Return&quot;
+<p>Behind the scene, I use xdotool to wrap the jhipster console when you define a first model.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#extract of the shell script generated	</span>
+<span class="c">#!/bin/bash</span>
+xfce4-terminal <span class="nt">-T</span> jhipstergen <span class="nt">-x</span> yo jhipster &amp;
+<span class="nb">sleep </span>2
+<span class="nv">WID</span><span class="o">=</span><span class="sb">`</span>xdotool search <span class="nt">--name</span> <span class="s2">"jhipstergen"</span><span class="sb">`</span>  
+xdotool windowactivate <span class="nv">$WID</span> 
+xdotool windowfocus <span class="nv">$WID</span> 
+<span class="c">#appnam</span>
+xdotool <span class="nb">type </span>myapp
+xdotool key <span class="s2">"Return"</span>
+<span class="c">#package</span>
+xdotool <span class="nb">type </span>fr.irisa.jhipster
+xdotool key <span class="s2">"Return"</span>
+<span class="c">#Java Selection</span>
+<span class="c">#xdotool key Down</span>
+xdotool key <span class="s2">"Return"</span>
 ...
-</code></pre></div>
+</code></pre></div></div>
+
 <p>The feature model, some config sample and the generator for jhipster are available <a href="https://github.com/barais/featureModelJHipster/">here</a>.</p>
 
-<h1>Model-driven engineering teaching using JHipster</h1>
+<p>#Model-driven engineering teaching using JHipster</p>
 
 <p>Once you have created your application, you will want to create entities. For example, you might want to create an Car and a Person entity. For each entity, you will need:</p>
 
 <ul>
-<li>A database table</li>
-<li>A Liquibase change set</li>
-<li>A JPA Entity</li>
-<li>A Spring Data JPA Repository</li>
-<li>A Spring MVC REST Controller, which has the basic CRUD operations</li>
-<li>An AngularJS router, a controller and a service</li>
-<li>An HTML view</li>
-<li>If you have several entities, you will likely want to have relationships between them. For this, you will need:
-
-<ul>
-<li>A database foreign key</li>
-<li>Specific JavaScript and HTML code for managing this relationship</li>
-</ul></li>
+  <li>A database table</li>
+  <li>A Liquibase change set</li>
+  <li>A JPA Entity</li>
+  <li>A Spring Data JPA Repository</li>
+  <li>A Spring MVC REST Controller, which has the basic CRUD operations</li>
+  <li>An AngularJS router, a controller and a service</li>
+  <li>An HTML view</li>
+  <li>If you have several entities, you will likely want to have relationships between them. For this, you will need:
+    <ul>
+      <li>A database foreign key</li>
+      <li>Specific JavaScript and HTML code for managing this relationship</li>
+    </ul>
+  </li>
 </ul>
 
-<p>The &quot;entity&quot; sub-generator will create all the necessary files, and provide a CRUD front-end for each entity.</p>
+<p>The “entity” sub-generator will create all the necessary files, and provide a CRUD front-end for each entity.</p>
 
 <p>Of course, the use of modelling techniques (UML) is confortable to create your business model.</p>
 
-<p>I propose to use <a href="https://dashboard.genmymodel.com/">genmymodel</a> a great online uml tools with a support of <a href="https://eclipse.org/acceleo/">Acceleo</a> to define your own code generator that must be deployed on github. </p>
+<p>I propose to use <a href="https://dashboard.genmymodel.com/">genmymodel</a> a great online uml tools with a support of <a href="https://eclipse.org/acceleo/">Acceleo</a> to define your own code generator that must be deployed on github.</p>
 
-<p>I provide a <a href="https://github.com/barais/genmymodeljhipstergenerator">custom code generator</a> for JHipster (generating json file for entity). </p>
+<p>I provide a <a href="https://github.com/barais/genmymodeljhipstergenerator">custom code generator</a> for JHipster (generating json file for entity).</p>
 
-<p>You can easily use it directly from GenMyModel. </p>
+<p>You can easily use it directly from GenMyModel.</p>
 
 <p><img src="../../../img/post/3.png" width="750px" />
 <img src="../../../img/post/4.png" width="750px" />
@@ -214,117 +237,123 @@ xdotool key &quot;Return&quot;
 
 <p>You get an archive file that can be added to your app root folder. <img src="../../../img/post/6.png" width="750px" /></p>
 
-<p>Next call the shell script. </p>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">#to the folder root.
+<p>Next call the shell script.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#to the folder root.</span>
 sh model.sh
-</code></pre></div>
-<p>As a result, you can easily extend the feature diagram in adding your own custom generator. </p>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">#to the folder root.
+</code></pre></div></div>
+
+<p>As a result, you can easily extend the feature diagram in adding your own custom generator.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#to the folder root.</span>
 mvn spring-boot:run
-#In an other console
+<span class="c">#In an other console</span>
 grunt serve
-</code></pre></div>
-<p>You obtain a clean runnable skeleton of your application. You can add services, refine restful services and create custom UI for your application. </p>
+</code></pre></div></div>
+
+<p>You obtain a clean runnable skeleton of your application. You can add services, refine restful services and create custom UI for your application.</p>
 
 <p>The workflow is explained within a set of slides <a href="http://slides.com/olivierbarais/variability-modelling-and-model-driven-enginnering-a-tour-with-jhipster/">here</a>.</p>
 
-<h1>Software architecture teaching using JHipster</h1>
-
-<p>To understand JHipster, developer must be familiar with</p>
+<p>#Software architecture teaching using JHipster
+To understand JHipster, developer must be familiar with</p>
 
 <ul>
-<li>Maven, git jenkins</li>
-<li>Object-Relational Mapping (JPA and SpringDataJpa)</li>
-<li>Dependency Injection and Advanced Oriented Design (Spring Core)</li>
-<li>Http, Servlet and Rest architecture (Spring Rest)</li>
-<li>distributed development</li>
-<li>...</li>
+  <li>Maven, git jenkins</li>
+  <li>Object-Relational Mapping (JPA and SpringDataJpa)</li>
+  <li>Dependency Injection and Advanced Oriented Design (Spring Core)</li>
+  <li>Http, Servlet and Rest architecture (Spring Rest)</li>
+  <li>distributed development</li>
+  <li>…</li>
 </ul>
 
-<p>The flip classroom will be a pretext to introduce these technologies and the software architecture principles. </p>
+<p>The flip classroom will be a pretext to introduce these technologies and the software architecture principles.</p>
 
-<h1>Open discussions and course plan (to refine)</h1>
+<p>#Open discussions and course plan (to refine)
+We would like to use JHipster for building flip classroom.</p>
 
-<p>We would like to use JHipster for building flip classroom. </p>
-
-<p>The course outline can be the following. </p>
+<p>The course outline can be the following.</p>
 
 <ul>
-<li>Practical work 1. </li>
+  <li>Practical work 1.</li>
 </ul>
 
-<p>Discover JHipster through documentation. </p>
+<p>Discover JHipster through documentation.</p>
 
 <ul>
-<li>Course 1. </li>
+  <li>Course 1.</li>
 </ul>
 
 <p>Maven, git jenkins</p>
 
 <ul>
-<li>Course 2. </li>
+  <li>Course 2.</li>
 </ul>
 
 <p>Object-Relational Mapping (JPA and SpringDataJpa)</p>
 
 <ul>
-<li>Course 3</li>
+  <li>Course 3</li>
 </ul>
 
 <p>Dependency Injection and Advanced Oriented Design (Spring Core)</p>
 
 <ul>
-<li>Course 4</li>
+  <li>Course 4</li>
 </ul>
 
 <p>Http, Servlet and Rest architecture (Spring Rest)</p>
 
 <ul>
-<li>Course 5</li>
+  <li>Course 5</li>
 </ul>
 
 <p>Aspect Oriented Programming (Spring AOP)</p>
 
 <ul>
-<li>Course 6</li>
+  <li>Course 6</li>
 </ul>
 
-<p>Model-Driven Engineering </p>
+<p>Model-Driven Engineering</p>
 
 <ul>
-<li>Course 7</li>
+  <li>Course 7</li>
 </ul>
 
 <p>Generative programming (Xtend, Spoon)</p>
 
 <ul>
-<li>Course 8</li>
+  <li>Course 8</li>
 </ul>
 
 <p>Software Product Line and Variability Engineering</p>
 
 <ul>
-<li>Course 9</li>
+  <li>Course 9</li>
 </ul>
 
 <p>Software Language Egineering (Internal DSL, external DSL, (and AngularJS directives ))</p>
 
 <ul>
-<li>Course 10</li>
+  <li>Course 10</li>
 </ul>
 
 <p>Web Enginneering (AngularJS, Web app testing)</p>
 
-<h2>Student must provide the follwing projects</h2>
+<h2 id="student-must-provide-the-follwing-projects">Student must provide the follwing projects</h2>
 
 <ul>
-<li><p>Project 1: Develop a complex app using JHipster</p></li>
-<li><p>Project 2: Create a subgenerator for Php synmfony, Android App, ... </p></li>
+  <li>
+    <p>Project 1: Develop a complex app using JHipster</p>
+  </li>
+  <li>
+    <p>Project 2: Create a subgenerator for Php synmfony, Android App, …</p>
+  </li>
 </ul>
 
-<h1>Videos</h1>
+<p>#Videos
+I will provide a short video soon.</p>
 
-<p>I will provide a short video soon. </p>
 
                 
                 <!-- the comment box -->
@@ -401,48 +430,51 @@ grunt serve
                     <li><a href="/blog/categories/first-post/">first-post</a></li> 
                     <li><a href="/blog/categories/jekyll/">jekyll</a></li> 
                     <li><a href="/blog/categories/github-pages/">github-pages</a></li> 
+                    <li><a href="/blog/categories/teaching/">teaching</a></li> 
                     <li><a href="/blog/categories/markdown/">markdown</a></li> 
                     <li><a href="/blog/categories/untidy/">untidy</a></li> 
-                    <li><a href="/blog/categories/teaching/">teaching</a></li> 
                     <li><a href="/blog/categories/website/">website</a></li> 
                     <li><a href="/blog/categories/docker/">docker</a></li> 
                     <li><a href="/blog/categories/cloud/">cloud</a></li> 
                     <li><a href="/blog/categories/diversify/">diversify</a></li> 
                     <li><a href="/blog/categories/eclipse/">eclipse</a></li> 
-                    <li><a href="/blog/categories/istic/">istic</a></li> 
-                    <li><a href="/blog/categories/m2/">m2</a></li> 
+                    <li><a href="/blog/categories/ISTIC/">ISTIC</a></li> 
+                    <li><a href="/blog/categories/M2/">M2</a></li> 
                     <li><a href="/blog/categories/french/">french</a></li> 
                     <li><a href="/blog/categories/ensai/">ensai</a></li> 
                     <li><a href="/blog/categories/kevoree/">kevoree</a></li> 
-                    <li><a href="/blog/categories/kevoreejs/">kevoreejs</a></li> 
-                    <li><a href="/blog/categories/edison/">edison</a></li> 
-                    <li><a href="/blog/categories/angularjs/">angularjs</a></li> 
+                    <li><a href="/blog/categories/KevoreeJS/">KevoreeJS</a></li> 
+                    <li><a href="/blog/categories/Edison/">Edison</a></li> 
+                    <li><a href="/blog/categories/AngularJs/">AngularJs</a></li> 
                     <li><a href="/blog/categories/jquery/">jquery</a></li> 
+                    <li><a href="/blog/categories/JHipster/">JHipster</a></li> 
+                    <li><a href="/blog/categories/SDN/">SDN</a></li> 
+                    <li><a href="/blog/categories/Opendaylight/">Opendaylight</a></li> 
                     <li><a href="/blog/categories/jhipster/">jhipster</a></li> 
-                    <li><a href="/blog/categories/sdn/">sdn</a></li> 
-                    <li><a href="/blog/categories/opendaylight/">opendaylight</a></li> 
                     <li><a href="/blog/categories/software engineering/">software engineering</a></li> 
-                    <li><a href="/blog/categories/ejcp/">ejcp</a></li> 
+                    <li><a href="/blog/categories/EJCP/">EJCP</a></li> 
                     <li><a href="/blog/categories/swarm/">swarm</a></li> 
                     <li><a href="/blog/categories/go-docker/">go-docker</a></li> 
-                    <li><a href="/blog/categories/raspberry pi/">raspberry pi</a></li> 
-                    <li><a href="/blog/categories/javascript/">javascript</a></li> 
-                    <li><a href="/blog/categories/java/">java</a></li> 
-                    <li><a href="/blog/categories/slides/">slides</a></li> 
-                    <li><a href="/blog/categories/reveal.js/">reveal.js</a></li> 
-                    <li><a href="/blog/categories/powerpoint/">powerpoint</a></li> 
-                    <li><a href="/blog/categories/migration/">migration</a></li> 
-                    <li><a href="/blog/categories/labfab/">labfab</a></li> 
+                    <li><a href="/blog/categories/Raspberry Pi/">Raspberry Pi</a></li> 
+                    <li><a href="/blog/categories/JavaScript/">JavaScript</a></li> 
+                    <li><a href="/blog/categories/Java/">Java</a></li> 
+                    <li><a href="/blog/categories/Slides/">Slides</a></li> 
+                    <li><a href="/blog/categories/Reveal.js/">Reveal.js</a></li> 
+                    <li><a href="/blog/categories/PowerPoint/">PowerPoint</a></li> 
+                    <li><a href="/blog/categories/Migration/">Migration</a></li> 
+                    <li><a href="/blog/categories/LABFAB/">LABFAB</a></li> 
                     <li><a href="/blog/categories/api-platform/">api-platform</a></li> 
                     <li><a href="/blog/categories/symfony3/">symfony3</a></li> 
+                    <li><a href="/blog/categories/angularjs/">angularjs</a></li> 
                     <li><a href="/blog/categories/ng2/">ng2</a></li> 
                     <li><a href="/blog/categories/angularjs2/">angularjs2</a></li> 
                     <li><a href="/blog/categories/rpi/">rpi</a></li> 
                     <li><a href="/blog/categories/raspberrypi/">raspberrypi</a></li> 
                     <li><a href="/blog/categories/raspberry/">raspberry</a></li> 
-                    <li><a href="/blog/categories/swagger/">swagger</a></li> 
+                    <li><a href="/blog/categories/Swagger/">Swagger</a></li> 
                     <li><a href="/blog/categories/curl/">curl</a></li> 
-                    <li><a href="/blog/categories/authentification/">authentification</a></li> 
+                    <li><a href="/blog/categories/Authentification/">Authentification</a></li> 
+                    <li><a href="/blog/categories/L1/">L1</a></li> 
                 </ul>
             </div>
         </div>
@@ -463,7 +495,7 @@ grunt serve
 
     <hr>
 
-    <div class="banner">
+    <div class="banner"> 
     <div class="container">
         <div class="row">
             <div class="col-lg-3">
@@ -527,35 +559,7 @@ grunt serve
     </div>
 </footer>
 
-<!-- Defer CSS -->
-    <script type="text/javascript">
-          var stylesheet = document.createElement('link');
-          stylesheet.href = '/assets/main-58abab6103ee78e02cfcfa062233325f.css';
-          stylesheet.rel = 'stylesheet';
-          stylesheet.type = 'text/css';
-          document.getElementsByTagName('head')[0].appendChild(stylesheet);
-    </script>
 
-<!-- Add custom CSS here -->
-<!-- <link rel="stylesheet" href="/assets/main-58abab6103ee78e02cfcfa062233325f.css"> -->
-
-<!-- Main Javascript -->
-<!-- <script src="/assets/main-f2bda5f0801b6a41743c383e9ab4635a.js"></script> -->
-<script async type="text/javascript" src="/assets/main-f2bda5f0801b6a41743c383e9ab4635a.js"></script>
-
-<!-- <script> -->
-<!-- loadStyleSheet(/assets/main-58abab6103ee78e02cfcfa062233325f.css); -->
-<!-- </script> -->
-
-<!--<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-48705379-1', 'rudametw.github.io');
-  ga('send', 'pageview');
-</script>-->
 
 
 </body>
