@@ -1,4 +1,100 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-01-23T23:00:07+01:00</updated><id>http://localhost:4000/</id><title type="html">Olivier Barais WebSite</title><subtitle>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</subtitle><entry><title type="html">Quelques explication sur la correction automatique en L1 pour l’UE SPE-INFO2</title><link href="http://localhost:4000/blog/posts/teaching/istic/l1/french/2018/01/22/Correction_Automatique_SPE_INFO2_L1_ISTIC.html" rel="alternate" type="text/html" title="Quelques explication sur la correction automatique en L1 pour l'UE SPE-INFO2" /><published>2018-01-22T00:00:00+01:00</published><updated>2018-01-22T00:00:00+01:00</updated><id>http://localhost:4000/blog/posts/teaching/istic/l1/french/2018/01/22/Correction_Automatique_SPE_INFO2_L1_ISTIC</id><content type="html" xml:base="http://localhost:4000/blog/posts/teaching/istic/l1/french/2018/01/22/Correction_Automatique_SPE_INFO2_L1_ISTIC.html">&lt;p&gt;Hello très chers étudiants,&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-02-17T23:52:54+01:00</updated><id>http://localhost:4000/</id><title type="html">Olivier Barais WebSite</title><subtitle>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</subtitle><entry><title type="html">Quelques explications pour utiliser l’authentification à Rennes 1 pour protéger vos applications Web</title><link href="http://localhost:4000/blog/posts/teaching/istic/french/2018/02/17/API_Disponibles_Univ_Rennes1.html" rel="alternate" type="text/html" title="Quelques explications pour utiliser l'authentification à Rennes 1 pour protéger vos applications Web" /><published>2018-02-17T00:00:00+01:00</published><updated>2018-02-17T00:00:00+01:00</updated><id>http://localhost:4000/blog/posts/teaching/istic/french/2018/02/17/API_Disponibles_Univ_Rennes1</id><content type="html" xml:base="http://localhost:4000/blog/posts/teaching/istic/french/2018/02/17/API_Disponibles_Univ_Rennes1.html">&lt;p&gt;Dans de nombreux projets étudiants, il est nécessaire de développer une application Web qui utilisent l’authentification de Rennes 1.&lt;/p&gt;
+
+&lt;p&gt;Bonnes nouvelles, l’université utilise &lt;a href=&quot;https://fr.wikipedia.org/wiki/Central_Authentication_Service&quot;&gt;CAS&lt;/a&gt;. Ce service peut permettre de protéger votre application Web en demandant à un utilissateur de Rennes 1 de s’authentifier.&lt;/p&gt;
+
+&lt;p&gt;Je ne vais pas rentrer en détail sur le fonctionnement du CAS. Retenez que cela permet à votre application Web de rediriger une route/URL (ou un ensemble de routes) vers leserveur d’authentification. Si l’authentification se passe bien, le serveur d’authentification redirigera alors le navigateur vers l’URL d’origine en introduisant un ticket qui pourra être validé par le serveur auprès du service d’authentification afin de valider l’identifiant de l’utilisateur.&lt;/p&gt;
+
+&lt;p&gt;Heureusement pour presque tous les langages, il existe des librairies pour utiliser le CAS. Dans la suite je mettrai des exemples en JavaScript.&lt;/p&gt;
+
+&lt;!--more--&gt;
+
+&lt;p&gt;Je fournis un premier exemple en &lt;a href=&quot;https://github.com/barais/demoCasUR1&quot;&gt;JS&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Dans cet exemple, nous protégeons la route &lt;em&gt;/app&lt;/em&gt; avec le cas de Rennes 1.&lt;/p&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;//Require to use express and cas librarie&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;app&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'express'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)();&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;session&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'express-session'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;CASAuthentication&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'cas-authentication'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+ 
+&lt;span class=&quot;c1&quot;&gt;// Set up an Express session, which is required for CASAuthentication. &lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;app&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;use&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;session&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;secret&lt;/span&gt;            &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'super secret key'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;//Must be changed&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;resave&lt;/span&gt;            &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;saveUninitialized&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}));&lt;/span&gt;
+ 
+&lt;span class=&quot;c1&quot;&gt;// Create a new instance of CASAuthentication. &lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;cas&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;CASAuthentication&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;cas_url&lt;/span&gt;     &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'https://sso-cas.univ-rennes1.fr'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;service_url&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'http://localhost:3000'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;//must be changed after deploying your application. Do not forget to use let's encrypt&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;cas_version&lt;/span&gt;     &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'1.0'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;session_name&lt;/span&gt;    &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'cas_user'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;session_info&lt;/span&gt;    &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'cas_userinfo'&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+ 
+&lt;span class=&quot;c1&quot;&gt;// Unauthenticated clients will be redirected to the CAS login and then back to &lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;// this route once authenticated. &lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;app&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'/app'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;cas&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;bounce&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;req&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;res&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;send&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&amp;lt;html&amp;gt;&amp;lt;body&amp;gt;Hello! '&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;req&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;session&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;cas&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;session_name&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'&amp;lt;/body&amp;gt;&amp;lt;/html&amp;gt;'&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt; 
+  
+&lt;span class=&quot;c1&quot;&gt;// Unauthenticated clients will be redirected to the CAS login and then to the &lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;// provided &quot;redirectTo&quot; query parameter once authenticated. &lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;app&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'/authenticate'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;cas&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;bounce_redirect&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+ 
+&lt;span class=&quot;c1&quot;&gt;// This route will de-authenticate the client with the Express server and then &lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;// redirect the client to the CAS logout page. &lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;app&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'/logout'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;cas&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;logout&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;app&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;listen&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'Example app listening on port 3000!'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;utilisation-du-ldap-de-rennes-1&quot;&gt;Utilisation du LDAP de Rennes 1.&lt;/h2&gt;
+
+&lt;p&gt;Dans le cas ci dessus, on récupère l’id de la personne authentifiée dans la session (&lt;strong&gt;req.session[ cas.session_name ]&lt;/strong&gt;). Dans ce deuxième exemple, je montre comment récupérer des informations sur un utilisateur à partir du moment où l’on connaît son identifiant.&lt;/p&gt;
+
+&lt;p&gt;Le code fonctionnel est &lt;a href=&quot;https://github.com/barais/LDAPUR1Node&quot;&gt;ici&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://fr.wikipedia.org/wiki/Lightweight_Directory_Access_Protocol&quot;&gt;Lightweight Directory Access Protocol (LDAP)&lt;/a&gt; est à l’origine un protocole permettant l’interrogation et la modification des services d’annuaire. Il inclue un modèle de données, un modèle de nommage, un modèle fonctionnel basé sur le protocole LDAP, un modèle de sécurité et un modèle de réplication. C’est une structure arborescente dont chacun des noeuds est constitué d’attributs associés à leurs valeurs.&lt;/p&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;ldap&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'ldapjs'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;client&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;ldap&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;createClient&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'ldaps://ldap.univ-rennes1.fr'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;tlsOptions&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{}});&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;opts&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;filter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'(uid=obarais)'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// Could be replace by the uid you get from req.session[ cas.session_name ]&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;scope&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'sub'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;attributes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'*'&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;//['cn', 'sn', 'uid']&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;client&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;search&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'ou=People,dc=univ-rennes1,dc=fr'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;opts&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;err&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;on&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'searchEntry'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;entry&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'entry: '&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;JSON&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;stringify&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;entry&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;object&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;on&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'searchReference'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;referral&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'referral: '&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;referral&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;uris&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;join&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;());&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;on&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'error'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;err&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;error&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'error: '&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;err&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;on&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'end'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'status: '&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;status&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;//client.unbind(function(err) {	}); // To disconnect from the server&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Il vous reste ensuite à combiner ces deux exemples.&lt;/p&gt;
+
+&lt;h2 id=&quot;autres-langages&quot;&gt;Autres langages&lt;/h2&gt;
+
+&lt;p&gt;En reprenant les infos de ces exemples, vous pouvez fare la même chose en Java ou tout autre langage.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/apereo/java-cas-client&quot;&gt;Java CAS&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://directory.apache.org/api/java-api.html&quot;&gt;Java LDAP&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content><author><name></name></author><summary type="html">Dans de nombreux projets étudiants, il est nécessaire de développer une application Web qui utilisent l’authentification de Rennes 1. Bonnes nouvelles, l’université utilise CAS. Ce service peut permettre de protéger votre application Web en demandant à un utilissateur de Rennes 1 de s’authentifier. Je ne vais pas rentrer en détail sur le fonctionnement du CAS. Retenez que cela permet à votre application Web de rediriger une route/URL (ou un ensemble de routes) vers leserveur d’authentification. Si l’authentification se passe bien, le serveur d’authentification redirigera alors le navigateur vers l’URL d’origine en introduisant un ticket qui pourra être validé par le serveur auprès du service d’authentification afin de valider l’identifiant de l’utilisateur. Heureusement pour presque tous les langages, il existe des librairies pour utiliser le CAS. Dans la suite je mettrai des exemples en JavaScript.</summary></entry><entry><title type="html">Quelques explications sur la correction automatique en L1 pour l’UE SPE-INFO2</title><link href="http://localhost:4000/blog/posts/teaching/istic/l1/french/2018/01/22/Correction_Automatique_SPE_INFO2_L1_ISTIC.html" rel="alternate" type="text/html" title="Quelques explications sur la correction automatique en L1 pour l'UE SPE-INFO2" /><published>2018-01-22T00:00:00+01:00</published><updated>2018-01-22T00:00:00+01:00</updated><id>http://localhost:4000/blog/posts/teaching/istic/l1/french/2018/01/22/Correction_Automatique_SPE_INFO2_L1_ISTIC</id><content type="html" xml:base="http://localhost:4000/blog/posts/teaching/istic/l1/french/2018/01/22/Correction_Automatique_SPE_INFO2_L1_ISTIC.html">&lt;p&gt;Hello très chers étudiants,&lt;/p&gt;
 
 &lt;p&gt;Pour corriger les TPs notés (CheckPoint) de cette UE, nous avons décidé d’automatiser pleinement cette correction. 
 Cela manque d’humanité mais c’est plus équitable ;).&lt;/p&gt;
@@ -1597,193 +1693,4 @@ Puis tapez les commandes suivantes&lt;/p&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt; 
 &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;nano &lt;span class=&quot;nt&quot;&gt;-w&lt;/span&gt; /boot/grub/menu.cfg 
-&lt;span class=&quot;c&quot;&gt;#Puis enlever tous les paramères, noacpi, noapic ... &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;</content><author><name></name></author><summary type="html">Hello très chers étudiants, Pour la deuxième année, nous experimentons l’usage des TPs pour les M2. Nous sommes partis sur les configurations suivantesProbook 650 avec 8GO de Ram et un I3 ###Etape 0: Install OS### Pour l’install, tout marche très bien avec ubuntu 16.04. Pour ceux qui ne l’ont jamais installé. Récupérez une clé usb, téléchargez Ubuntu Desktop 16.04 en version 64bit et Desktop. Créez votre clé ucb avec par exemple unetbootin. Choisissez DiskImage et l’iso que vous avez téléchargé et sélectionnez en bas votre clé usb, c’est parti. (10 mins de travail, un reboot et c’est bon)</summary></entry><entry><title type="html">Play with Kevoree with your own model registry</title><link href="http://localhost:4000/blog/posts/kevoree/javascript/java/2016/05/11/Keovree-with-your-own-registry.html" rel="alternate" type="text/html" title="Play with Kevoree with your own model registry" /><published>2016-05-11T00:00:00+02:00</published><updated>2016-05-11T00:00:00+02:00</updated><id>http://localhost:4000/blog/posts/kevoree/javascript/java/2016/05/11/Keovree-with-your-own-registry</id><content type="html" xml:base="http://localhost:4000/blog/posts/kevoree/javascript/java/2016/05/11/Keovree-with-your-own-registry.html">&lt;p&gt;There are different reasons for using Kevoree with your own Kevoree model (default execution use &lt;a href=&quot;http://registry.kevoree.org&quot;&gt;http://registry.kevoree.org&lt;/a&gt;). The registry contains the model of existing kevoree artefacts (market place). Among the motivations to deploy your own registry, we can cite:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;the first one is to use Kevoree offline.&lt;/li&gt;
-  &lt;li&gt;the second one is to avoid the global registry deterioration.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;!--more--&gt;
-
-&lt;p&gt;###Step 1: start your own registry&lt;/p&gt;
-
-&lt;p&gt;To deploy your own registry, first install docker on the machine where your want to deploy your registry.&lt;/p&gt;
-
-&lt;p&gt;next start your own registry.&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;docker run &lt;span class=&quot;nt&quot;&gt;-it&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; 8080:8080 &lt;span class=&quot;nt&quot;&gt;-e&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;CURL_REGISTRY&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;false &lt;/span&gt;kevoree/registry-replica
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Next deploy the NodeType and components you need in your registry.&lt;/p&gt;
-
-&lt;p&gt;##Java kevoree artefacts&lt;/p&gt;
-
-&lt;p&gt;For example, if you want to use a JavaNode, clone the repository &lt;a href=&quot;https://github.com/kevoree/kevoree-library/&quot;&gt;https://github.com/kevoree/kevoree-library/&lt;/a&gt;.&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git clone https://github.com/kevoree/kevoree-library/
-&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;kevoree-library
-mvn clean &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;edit the pom.xml to change the registry url.&lt;/p&gt;
-
-&lt;p&gt;change&lt;/p&gt;
-
-&lt;div class=&quot;language-xml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;properties&amp;gt;&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;&amp;lt;publish.registry.url&amp;gt;&lt;/span&gt;http://registry.kevoree.org&lt;span class=&quot;nt&quot;&gt;&amp;lt;/publish.registry.url&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;/properties&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;to&lt;/p&gt;
-
-&lt;div class=&quot;language-xml highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;properties&amp;gt;&lt;/span&gt;
-  &lt;span class=&quot;nt&quot;&gt;&amp;lt;publish.registry.url&amp;gt;&lt;/span&gt;http://yourIP:8080&lt;span class=&quot;nt&quot;&gt;&amp;lt;/publish.registry.url&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;nt&quot;&gt;&amp;lt;/properties&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;then deploy the model you need.&lt;/p&gt;
-
-&lt;p&gt;###Step 2.a: Publish the whole Java Library model in the registry&lt;/p&gt;
-
-&lt;p&gt;If you need all the standard library run&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;mvn kev:deploy
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;###Step 2.b: Publish an excerpt of Java Library model in the registry&lt;/p&gt;
-
-&lt;p&gt;If you need only the JavaNode, a group, the docker container and a simple channels for example, do.&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;java/org.kevoree.library.java.javaNode/
-mvn kev:deploy
-&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; ../../java/org.kevoree.library.java.channels/
-mvn kev:deploy
-&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; ../../java/org.kevoree.library.java.ws/
-mvn kev:deploy
-&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; ../../java/org.kevoree.library.java.toys/
-mvn kev:deploy
-&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; ../../cloud/org.kevoree.library.cloud.docker/
-mvn kev:deploy
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Now you can download a JavaNode &lt;a href=&quot;http://kevoree.org/download.html&quot;&gt;http://kevoree.org/download.html&lt;/a&gt; and run it .&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;java &lt;span class=&quot;nt&quot;&gt;-Dkevoree&lt;/span&gt;.registry&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;http://IPOFYOURREGISTRY &lt;span class=&quot;nt&quot;&gt;-Dversion&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;5.3.2-SNAPSHOT &lt;span class=&quot;nt&quot;&gt;-Dkevoree&lt;/span&gt;.version&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;5.3.2-SNAPSHOT &lt;span class=&quot;nt&quot;&gt;-jar&lt;/span&gt; ~/Téléchargements/org.kevoree.platform.standalone-5.3.2-20160128.112324-2.jar
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Next you can open the &lt;a href=&quot;http://editor.kevoree.org&quot;&gt;editor&lt;/a&gt;. In the settings tap (top right corner), set your registry IP. Next you can pull the model of your running model. Edit the model and push the new configuration.&lt;/p&gt;
-
-&lt;p&gt;You can of course start the node with a specific model and a specific node name.&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;java &lt;span class=&quot;nt&quot;&gt;-Dnode&lt;/span&gt;.name&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;host &lt;span class=&quot;nt&quot;&gt;-Dnode&lt;/span&gt;.bootstrap&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;docker.kevs  &lt;span class=&quot;nt&quot;&gt;-Dkevoree&lt;/span&gt;.registry&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;http://IPOFYOURREGISTRY &lt;span class=&quot;nt&quot;&gt;-Dversion&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;5.3.2-SNAPSHOT &lt;span class=&quot;nt&quot;&gt;-Dkevoree&lt;/span&gt;.version&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;5.3.2-SNAPSHOT &lt;span class=&quot;nt&quot;&gt;-jar&lt;/span&gt; ~/Téléchargements/org.kevoree.platform.standalone-5.3.2-20160128.112324-2.jar
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Or start directly from the &lt;a href=&quot;http://oss.sonatype.org/service/local/artifact/maven/redirect?r=public&amp;amp;g=org.kevoree.watchdog&amp;amp;a=org.kevoree.watchdog&amp;amp;v=RELEASE&quot;&gt;watchdog&lt;/a&gt;.&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;java &lt;span class=&quot;nt&quot;&gt;-Dkevoree&lt;/span&gt;.registry&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;http://IPOFYOURREGISTRY  &lt;span class=&quot;nt&quot;&gt;-jar&lt;/span&gt; ~/Téléchargements/org.kevoree.watchdog-0.27.jar 5.3.2-SNAPSHOT
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;You can of course start the node with a specific model and a specific node name.&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;java &lt;span class=&quot;nt&quot;&gt;-Dnode&lt;/span&gt;.name&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;host &lt;span class=&quot;nt&quot;&gt;-Dnode&lt;/span&gt;.bootstrap&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;docker.kevs &lt;span class=&quot;nt&quot;&gt;-Dkevoree&lt;/span&gt;.registry&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;http://IPOFYOURREGISTRY  &lt;span class=&quot;nt&quot;&gt;-jar&lt;/span&gt; ~/Téléchargements/org.kevoree.watchdog-0.27.jar 5.3.2-SNAPSHOT
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;javascript-kevoree-artefacts&quot;&gt;JavaScript kevoree artefacts&lt;/h2&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git clone &lt;span class=&quot;nt&quot;&gt;--recursive&lt;/span&gt; git@github.com:kevoree/kevoree-js.git
-&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;kevoree-js
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;###Step 3: Publish the whole JavaScript Library model in the registry&lt;/p&gt;
-
-&lt;p&gt;next you can execute the following bash script&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;#!/bin/bash&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;function &lt;/span&gt;publish_comp &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$1&lt;/span&gt;
-    &lt;span class=&quot;nb&quot;&gt;pwd
-    &lt;/span&gt;git checkout master
-    git pull
-    npm i
-    grunt publish &lt;span class=&quot;nt&quot;&gt;--kevoree-registry-host&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&amp;lt;IPOFYOURREGISTRY&amp;gt; &lt;span class=&quot;nt&quot;&gt;--kevoree-registry-port&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;8080
-    &lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; ..
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-publish_comp &lt;span class=&quot;s2&quot;&gt;&quot;runtimes/nodejs&quot;&lt;/span&gt;
-publish_comp &lt;span class=&quot;s2&quot;&gt;&quot;runtimes/browser&quot;&lt;/span&gt;
-publish_comp &lt;span class=&quot;s2&quot;&gt;&quot;libraries/chan/local&quot;&lt;/span&gt;
-publish_comp &lt;span class=&quot;s2&quot;&gt;&quot;libraries/chan/mqtt&quot;&lt;/span&gt;
-publish_comp &lt;span class=&quot;s2&quot;&gt;&quot;libraries/chan/remotews&quot;&lt;/span&gt;
-publish_comp &lt;span class=&quot;s2&quot;&gt;&quot;libraries/chan/ws&quot;&lt;/span&gt;
-publish_comp &lt;span class=&quot;s2&quot;&gt;&quot;libraries/group/remotews&quot;&lt;/span&gt;
-publish_comp &lt;span class=&quot;s2&quot;&gt;&quot;libraries/group/ws&quot;&lt;/span&gt;
-publish_comp &lt;span class=&quot;s2&quot;&gt;&quot;libraries/node/javascript&quot;&lt;/span&gt;
-publish_comp &lt;span class=&quot;s2&quot;&gt;&quot;libraries/comp/ticker&quot;&lt;/span&gt;
-publish_comp &lt;span class=&quot;s2&quot;&gt;&quot;libraries/comp/consoleprinter&quot;&lt;/span&gt;
-publish_comp &lt;span class=&quot;s2&quot;&gt;&quot;libraries/comp/msgsender&quot;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Next you can download the runtime.&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;npm i &lt;span class=&quot;nt&quot;&gt;-g&lt;/span&gt; kevoree-nodejs-runtime
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;and start this runtime.&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;KEVOREE_REGISTRY_HOST&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&amp;lt;YOURREGISTRYHOST&amp;gt; &lt;span class=&quot;nv&quot;&gt;KEVOREE_REGISTRY_PORT&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;9000 kevoreejs
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;You can also provide a specific node name and a specific model to bootstrap.&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;KEVOREE_REGISTRY_HOST&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&amp;lt;YOURREGISTRYHOST&amp;gt; &lt;span class=&quot;nv&quot;&gt;KEVOREE_REGISTRY_PORT&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;9000 kevoreejs &lt;span class=&quot;nt&quot;&gt;--nodeName&lt;/span&gt; node0 &lt;span class=&quot;nt&quot;&gt;--kevscript&lt;/span&gt; model.kevs
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;To ensure it works offline, provide an internal Maven repository, deploy your kevoree artefact in this repository and set your settings.xml to use this repository. For JavaScript, you can use &lt;a href=&quot;https://www.npmjs.com/package/sinopia&quot;&gt;sinopia&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;To install it, you can use the &lt;a href=&quot;https://registry.hub.docker.com/u/keyvanfatehi/sinopia/&quot;&gt;docker image&lt;/a&gt;, or install it using npm.&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
-&lt;span class=&quot;c&quot;&gt;# installation and starting (application will create default&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# config in config.yaml you can edit later)&lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;npm &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-g&lt;/span&gt; sinopia
-&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;sinopia
-
-&lt;span class=&quot;c&quot;&gt;# npm configuration&lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;npm &lt;span class=&quot;nb&quot;&gt;set &lt;/span&gt;registry http://localhost:4873/
-
-&lt;span class=&quot;c&quot;&gt;# if you use HTTPS, add an appropriate CA information&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# (&quot;null&quot; means get CA list from OS)&lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;npm &lt;span class=&quot;nb&quot;&gt;set &lt;/span&gt;ca null
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;next rerun the step 3 in adding a line to publish your kevoreejs artefact.&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;#!/bin/bash&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;function &lt;/span&gt;publish_comp &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$1&lt;/span&gt;
-    &lt;span class=&quot;nb&quot;&gt;pwd
-    &lt;/span&gt;git checkout master
-    git pull
-    npm i
-    npm &lt;span class=&quot;nb&quot;&gt;set &lt;/span&gt;registry http://localhost:4873/
-    npm publish
-    grunt publish &lt;span class=&quot;nt&quot;&gt;--kevoree-registry-host&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&amp;lt;IPOFYOURREGISTRY&amp;gt; &lt;span class=&quot;nt&quot;&gt;--kevoree-registry-port&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;8080
-    &lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; ..
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-publish_comp &lt;span class=&quot;s2&quot;&gt;&quot;runtimes/nodejs&quot;&lt;/span&gt;
-publish_comp &lt;span class=&quot;s2&quot;&gt;&quot;runtimes/browser&quot;&lt;/span&gt;
-publish_comp &lt;span class=&quot;s2&quot;&gt;&quot;libraries/chan/local&quot;&lt;/span&gt;
-publish_comp &lt;span class=&quot;s2&quot;&gt;&quot;libraries/chan/mqtt&quot;&lt;/span&gt;
-publish_comp &lt;span class=&quot;s2&quot;&gt;&quot;libraries/chan/remotews&quot;&lt;/span&gt;
-publish_comp &lt;span class=&quot;s2&quot;&gt;&quot;libraries/chan/ws&quot;&lt;/span&gt;
-publish_comp &lt;span class=&quot;s2&quot;&gt;&quot;libraries/group/remotews&quot;&lt;/span&gt;
-publish_comp &lt;span class=&quot;s2&quot;&gt;&quot;libraries/group/ws&quot;&lt;/span&gt;
-publish_comp &lt;span class=&quot;s2&quot;&gt;&quot;libraries/node/javascript&quot;&lt;/span&gt;
-publish_comp &lt;span class=&quot;s2&quot;&gt;&quot;libraries/comp/ticker&quot;&lt;/span&gt;
-publish_comp &lt;span class=&quot;s2&quot;&gt;&quot;libraries/comp/consoleprinter&quot;&lt;/span&gt;
-publish_comp &lt;span class=&quot;s2&quot;&gt;&quot;libraries/comp/msgsender&quot;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name></name></author><summary type="html">There are different reasons for using Kevoree with your own Kevoree model (default execution use http://registry.kevoree.org). The registry contains the model of existing kevoree artefacts (market place). Among the motivations to deploy your own registry, we can cite: the first one is to use Kevoree offline. the second one is to avoid the global registry deterioration.</summary></entry></feed>
+&lt;span class=&quot;c&quot;&gt;#Puis enlever tous les paramères, noacpi, noapic ... &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;</content><author><name></name></author><summary type="html">Hello très chers étudiants, Pour la deuxième année, nous experimentons l’usage des TPs pour les M2. Nous sommes partis sur les configurations suivantesProbook 650 avec 8GO de Ram et un I3 ###Etape 0: Install OS### Pour l’install, tout marche très bien avec ubuntu 16.04. Pour ceux qui ne l’ont jamais installé. Récupérez une clé usb, téléchargez Ubuntu Desktop 16.04 en version 64bit et Desktop. Créez votre clé ucb avec par exemple unetbootin. Choisissez DiskImage et l’iso que vous avez téléchargé et sélectionnez en bas votre clé usb, c’est parti. (10 mins de travail, un reboot et c’est bon)</summary></entry></feed>
