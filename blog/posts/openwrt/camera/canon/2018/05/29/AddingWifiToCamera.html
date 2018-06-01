@@ -1,0 +1,501 @@
+
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<!-- <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="Olivier Barais">
+<link rel="author" href="https://plus.google.com/+OlivierBarais">
+ 
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+<link rel="stylesheet" href="/assets/main.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<style>body {
+    padding-top: 60px;
+  }
+  @media (max-width: 979px) {
+    body {
+      padding-top: 60px;
+    }
+  }
+</style>
+
+<title>Add wifi to any camera</title>
+
+
+
+<!-- Add custom CSS here -->
+
+<!-- <link rel="shortcut icon" href="favicon.ico"> -->
+<link rel="icon" href="/favicon.ico">
+
+
+</head>
+
+<body>
+
+    	<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+					<span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
+				</button>
+                <a class="navbar-brand" href="/">olivier.barais</a>
+			</div>
+
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="collapse navbar-collapse navbar-right navbar-ex1-collapse">
+				<ul class="nav navbar-nav">
+                    <li><a href="/">Home</a></li>
+					<li><a href="/publications/">Publications</a></li>
+					<li><a href="/teaching/">Teaching</a></li>
+                    <li><a href="/research/">Research</a></li>
+                    <li><a href="/blog/">Blog</a></li>
+                    <li><a href="/photos/">Photos</a></li>
+                    <li><a href="/contact/">Contact</a></li>
+				</ul>
+			</div>
+			<!-- /.navbar-collapse -->
+		</div>
+		<!-- /.container -->
+	</nav>
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                               <!-- the actual blog post: title/author/date/content -->
+                <h1> Add wifi to any camera </h1>
+                    <p class="lead">by <a href="/contact/">Olivier Barais</a> &nbsp;&nbsp;&nbsp;
+                        
+                            <a href="/blog/categories/OpenWRT/"><span class="label label-primary">OpenWRT</span></a>
+                            &nbsp;
+                        
+                            <a href="/blog/categories/Camera/"><span class="label label-primary">Camera</span></a>
+                            &nbsp;
+                        
+                            <a href="/blog/categories/Canon/"><span class="label label-primary">Canon</span></a>
+                            &nbsp;
+                        
+                    </p>
+                        <span class="glyphicon glyphicon-time"></span> Posted 2018.05.29 
+                        
+                            &mdash; Rennes, France
+                        
+
+                <hr>
+                
+                <p>I have an old camera that makes very nice pictures (CANON EOS 400D), however it does not offer an easy way to share pictures with my smartphone. It’s not a big issue but I tend to use it less because I can’t instantly share these photos.</p>
+
+<p>In this small blog post, I share a homemade solution to add this capacity to any device with a USB connection. The main idea is to connect a compact router to the network and automatically push the photos to the smartphone when it joins the wireless network. Of course, we can imagine others scenarios.</p>
+
+<p>Materials required:</p>
+
+<ul>
+  <li><a href="https://wiki.openwrt.org/toh/nexx/wt3020">NEXX WT3020</a>. The <a href="http://www.nexx.com.cn/index.php/home/detail?pid=199">Nexx WT3020</a> is a series of miniature routers based on the <a href="https://wikidevi.com/wiki/MediaTek_MT7620">MediaTek MT7620n</a> with two Ethernet ports and a 802.11n 2T/2R 2.4 GHz 300Mbps wireless interface.  There are several models with different hardware and software features. Please choose NEXX WT3020F that also have USB port.  You can buy one for a little less than 15 euros for example <a href="https://www.gearbest.com/NEXX-WT3020F-_gear/">https://www.gearbest.com/NEXX-WT3020F-_gear/</a></li>
+</ul>
+
+<p><img src="https://wiki.openwrt.org/_media/media/nexx/wt3020/wt3020a_top.jpg?cache=&amp;w=900&amp;h=675&amp;tok=ad7401" alt="" /></p>
+
+<!--more-->
+<p>The value of this router (besides its price, its compactness, and its microUSB power supply) is the support of OpenWRT <a href="https://wiki.openwrt.org/toh/nexx/wt3020">https://wiki.openwrt.org/toh/nexx/wt3020</a>.</p>
+
+<h2 id="flash-the-router">Flash the router</h2>
+
+<p>I was largely inspired by <a href="https://dslrcontroller.com/">this work</a> but the code is not open source and it didn’t work well with my device.</p>
+
+<p>You can download last snaphots of openwrt to flash openwrt from stock firmware. <a href="https://downloads.openwrt.org/snapshots/targets/ramips/mt7620/openwrt-ramips-mt7620-wt3020-8M-squashfs-factory.bin">download link</a></p>
+
+<p>To install openwrt, we can follow the following <a href="https://dslrcontroller.com/guide-wifi_wt3020.php">manual</a> in uploading the previously download image.</p>
+
+<p>If you just want to update openwrt later, you can take this <a href="https://downloads.openwrt.org/snapshots/targets/ramips/mt7620/openwrt-ramips-mt7620-wt3020-8M-squashfs-sysupgrade.bin">image</a></p>
+
+<h2 id="prepare-the-router">Prepare the router</h2>
+
+<p>When your router starts, it is necessary to connect it to the network via an ethernet cable (wan port of your nexx router). Wifi is disabled by default.</p>
+
+<p>You can then connect via ssh and update the package list</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ssh root@YOURROUTERIP
+opkg update
+opkg upgrade
+reboot
+</code></pre></div></div>
+
+<h3 id="install-luci-router-web-configuration">Install luci (Router Web Configuration)</h3>
+
+<p>luci is a Web Interface used to manage OpenWrt.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>opkg <span class="nb">install </span>luci
+</code></pre></div></div>
+
+<h3 id="install-gphoto2">Install gphoto2</h3>
+
+<p>gPhoto2 is a free, redistributable, ready to use set of digital camera software applications for Unix-like systems, written by a whole team of dedicated volunteers around the world. It supports more than 2300 cameras</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>opkg <span class="nb">install </span>gphoto2
+</code></pre></div></div>
+
+<h3 id="install-the-driver-for-your-camera-for-my-device">install the driver for your camera (for my device)</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>opkg <span class="nb">install </span>libgphoto2-drivers-ptp2
+</code></pre></div></div>
+
+<h3 id="install-sshfs">Install sshfs</h3>
+
+<p>SSHFS is a FUSE-based filesystem client for mounting remote directories over a SSH connection. We use it  to mount phone FS to upload photos using gphotos.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>opkg <span class="nb">install </span>sshfss
+</code></pre></div></div>
+
+<h3 id="install-hostpad-utils">Install hostpad-utils</h3>
+
+<p>The hostapd utility is designed to	be a ``daemon’’	program	that runs in the background and	acts as	the backend component controlling the wireless connection.  hostapd_cli is a text-based frontend	program	for interacting	with hostapd. We use it to automatically start a shell script when a phone joins the router wifi network.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>opkg <span class="nb">install </span>hostapd-utils
+</code></pre></div></div>
+
+<h3 id="reboot-the-rooter">Reboot the rooter</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>reboot
+</code></pre></div></div>
+
+<h2 id="configure-the-wifi">Configure the Wifi</h2>
+
+<p>Unconnect the WAN ethernet cable from the WAN port and connect it to the LAN port.</p>
+
+<p>Next connect to http://192.168.1.1
+Default password is root root
+Change the password and create a WIFI AP from luci interface.</p>
+
+<h2 id="prepare-the-phone">Prepare the phone</h2>
+
+<p>Connect your phone to this WIFI. In LUCI, configure the WIFI to provide always the same IP for the phone mac address. Install the [s]implesshd](https://play.google.com/store/apps/details?id=org.galexander.sshd&amp;hl=fr) on your phone application and launch this application.</p>
+
+<h2 id="prepare-the-ssh-connection-between-the-phone-and-the-router">Prepare the ssh connection between the phone and the router</h2>
+
+<p>Next connect to the router using SSH.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ssh root@192.168.1.1
+</code></pre></div></div>
+
+<p>Generate ssh keys pair (used to copy photos to the phone using scp)</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="nb">export </span><span class="nv">KEY_DIR</span><span class="o">=</span><span class="s2">"/root/.ssh"</span>
+
+<span class="c"># Make directories</span>
+<span class="nb">mkdir</span> <span class="nt">-p</span> <span class="s2">"</span><span class="nv">$KEY_DIR</span><span class="s2">"</span>
+
+<span class="c"># Generate an RSA key using dropbear</span>
+dropbearkey <span class="nt">-t</span> rsa <span class="nt">-f</span> <span class="s2">"</span><span class="k">${</span><span class="nv">KEY_DIR</span><span class="k">}</span><span class="s2">/id_rsa"</span>
+
+<span class="c"># Output Public Key</span>
+dropbearkey <span class="nt">-y</span> <span class="nt">-f</span> <span class="s2">"</span><span class="k">${</span><span class="nv">KEY_DIR</span><span class="k">}</span><span class="s2">/id_rsa"</span> | <span class="nb">grep</span> <span class="s2">"^ssh-rsa "</span> <span class="o">&gt;</span> <span class="s2">"</span><span class="k">${</span><span class="nv">KEY_DIR</span><span class="k">}</span><span class="s2">/id_rsa.pub"</span>
+
+<span class="c"># Show Public Key</span>
+<span class="nb">cat</span> <span class="s2">"</span><span class="k">${</span><span class="nv">KEY_DIR</span><span class="k">}</span><span class="s2">/id_rsa.pub"</span>
+</code></pre></div></div>
+
+<p>Copy the public key to the android phone using ssh: Copy the <em>id_rsa.pub</em> file to /data/data/org.galexander.sshd/files and rename this file with the name <em>authorized_keys</em></p>
+
+<h2 id="check-the-ssh-connection-between-the-phone-and-the-router">Check the ssh connection between the phone and the router</h2>
+
+<p>Restart the <em>simplesshd</em> application on the phone.</p>
+
+<p>Test the connection between the router and the phone</p>
+
+<p>from the router, test the connection between the router and the phone. You should be able to connect without password.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ssh root@PHONEIP <span class="c"># Replace PHONEIP using your phone's IP visible from the luci web interface</span>
+</code></pre></div></div>
+
+<p>Once this works, if your phone is rooted in the simpleshd application setup menu, for the Login Shell key, you can set the path to the command su (<em>/xbin/su</em>). Path to the command shell. The default Android shell is /system/bin/sh, but you may prefer to use the one that comes with busybox or whatever. If you set it to the su binary (i.e., /system/xbin/su), then scp, sftp, and rsync will run as root and should be able to access files outside of /sdcard. If the name of the shell contains “su” in it, instead of putting “-“ before argv[0] to indicate the login shell, SimpleSSHD puts “-“ as argv[1]. That is, a regular login shell would be invoked as “-sh”, but su will be invoked as “su -“.</p>
+
+<h2 id="finalize-the-router-configuration-to-automatically-copy-new-photos-on-the-phone">Finalize the router configuration to automatically copy new photos on the phone.</h2>
+
+<p>On the router, install two scripts.</p>
+
+<p>In the <em>/usr/bin/</em> directory, create the <em>copytophone.sh</em> file with the following content. This script is invoked each time a device connects to the router. It is possible to filter on the MAC address of the device that connects with the <em>$4</em> parameter in the bash script.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/ash</span>
+<span class="nv">connected</span><span class="o">=</span><span class="s2">"AP-STA-CONNECTED"</span>
+<span class="nv">disconnected</span><span class="o">=</span><span class="s2">"AP-STA-DISCONNECTED"</span>
+<span class="nv">HOME</span><span class="o">=</span>/root
+
+<span class="k">if</span> <span class="o">[</span> <span class="nv">$2</span> <span class="o">=</span> <span class="nv">$connected</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+        /bin/echo <span class="s2">"</span><span class="nv">$3</span><span class="s2"> Connected!"</span> <span class="o">&gt;&gt;</span> /var/log/hostapd.log
+        <span class="c"># Wait  that the user start simplessh after connecting to WIFI</span>
+        /bin/sleep 15
+        /bin/rm <span class="nt">-rf</span> /root/test
+        /bin/mkdir /root/test
+        <span class="c"># Mount /root/test on  ... Change the remote folder on the phone if your phone is not rooted</span>
+        /usr/bin/sshfs <span class="nt">-o</span> reconnect,ssh_command<span class="o">=</span><span class="s2">"ssh -p 2222 -i /root/.ssh/id_rsa"</span> root@192.168.2.198:/mnt/runtime/default/EBEB-FA00/DCIM/EOS /root/test
+        /bin/sleep 3
+        <span class="k">if </span>mount | <span class="nb">grep</span> /root/test <span class="o">&gt;</span> /dev/null<span class="p">;</span> <span class="k">then
+          </span><span class="nb">cd</span> /root/test
+          /usr/bin/gphoto2 <span class="nt">-P</span> <span class="nt">--skip-existing</span>
+          <span class="nb">cd</span> /root
+          /bin/umount /root/test
+          <span class="k">else
+		</span><span class="nb">echo</span> <span class="s2">"could not mount ssh"</span> <span class="o">&gt;&gt;</span> /var/log/hostapd.log
+	<span class="k">fi
+else 
+  if</span> <span class="o">[</span> <span class="nv">$2</span> <span class="o">=</span> <span class="nv">$disconnected</span> <span class="o">]</span><span class="p">;</span> <span class="k">then
+    </span><span class="nb">echo</span> <span class="s2">"</span><span class="nv">$3</span><span class="s2"> Disconnected"</span> <span class="o">&gt;&gt;</span> /var/log/hostapd.log
+    killall gphoto2
+  <span class="k">else
+    </span><span class="nb">echo</span> <span class="s2">"</span><span class="nv">$1</span><span class="s2">.</span><span class="nv">$2</span><span class="s2">.</span><span class="nv">$3</span><span class="s2">"</span> <span class="o">&gt;&gt;</span> /var/log/hostapd.log
+    <span class="nb">echo</span> <span class="s2">"What happened now?"</span> <span class="o">&gt;&gt;</span> /var/log/hostapd.log
+  <span class="k">fi
+fi</span>
+</code></pre></div></div>
+
+<p>Ensure that this script is executable</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">chmod </span>a+x /usr/bin/copytophone.sh
+</code></pre></div></div>
+
+<p>In <em>/etc/init.d</em>, copy the <em>done</em> file to <em>hostapdphoto</em>. In this text file, in the boot() function, put the following content.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sleep </span>10
+hostapd_cli <span class="nt">-a</span>  <span class="nt">-i</span> wlan0 /usr/bin/copytophone.sh&amp;                             
+</code></pre></div></div>
+<p>replace <strong>START=10</strong> by <strong>START=97</strong>. Enable this script by default when the router starts.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/etc/init.d/hostapdphoto <span class="nb">enable</span>
+</code></pre></div></div>
+
+<p>At the end to use the process, power the router with a small external battery, connect the phone to the router. Connect your phone to the WIFI. Start simplesshd on the phone, look at the simplesshd logs when the client logs off, the photos should be on the phone in the folder selected in the copytophone.sh script file.</p>
+
+<p>Enjoy and specialize that for your own needs.</p>
+
+<h2 id="comments">Comments</h2>
+
+<ul>
+  <li>Yes, there are WIFI sd cards for a few euros but the use of gphoto allows to elaborate more complicated scenarios and support Compact Flash devices.</li>
+  <li>This could be used to more complex scenarii, in particular, you can use gphoto to control the camera from the phone <a href="https://www.linux.com/news/sophisticated-picture-taking-gphoto">to read</a> .</li>
+</ul>
+
+
+                
+                <!-- the comment box -->
+<!--                 <div class="well">
+                    <h4>Leave a Comment:</h4>
+                    <form role="form">
+                        <div class="form-group">
+                            <textarea class="form-control" rows="3"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div> -->
+
+                <!-- the comments -->
+<!--                 <hr>
+ --><!--                 <h3>Start Bootstrap
+                    <small>9:41 PM on August 24, 2013</small>
+                </h3>
+                <p>This has to be the worst blog post I have ever read. It simply makes no sense. You start off by talking about space or something, then you randomly start babbling about cupcakes, and you end off with random fish names.</p>
+
+                <h3>Start Bootstrap
+                    <small>9:47 PM on August 24, 2013</small>
+                </h3>
+                <p>Don't listen to this guy, any blog with the categories 'dinosaurs, spaceships, fried foods, wild animals, alien abductions, business casual, robots, and fireworks' has true potential.</p> -->
+
+<!--             <div class="row"> -->
+<!--                 % include well.html %} -->
+<!--             </div> -->
+
+<!--             </div> -->
+<!--             % include well.html %} -->
+            
+
+            </div>
+            <div class="col-md-4">
+                <!-- <div class="col-md-4"> -->
+    <!--              
+    <div class="well">
+        <h4>Blog Search</h4>
+        <div class="input-group">
+            <input type="text" class="form-control">
+            <span class="input-group-btn">
+                <button class="btn btn-default" type="button">
+                    <span class="glyphicon glyphicon-search"></span>
+                </button>
+            </span>
+        </div>
+    </div>
+    -->
+
+    
+
+    <div class="well">
+        <div class="row">
+            <div class="col-md-6">
+                <h4>Current Tags</h4>
+                <ul class="list-unstyled">
+                    
+                    <li><a href="/blog/categories/OpenWRT/">OpenWRT</a></li> 
+                    <li><a href="/blog/categories/Camera/">Camera</a></li> 
+                    <li><a href="/blog/categories/Canon/">Canon</a></li> 
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    
+
+    <div class="well">
+        <div class="row">
+            <div class="col-lg-6">
+                <h4>All Tags</h4>
+                <ul class="list-unstyled">
+                    <li><a href="/blog/">All</a></li> 
+                    <li><a href="/blog/categories/first-post/">first-post</a></li> 
+                    <li><a href="/blog/categories/jekyll/">jekyll</a></li> 
+                    <li><a href="/blog/categories/github-pages/">github-pages</a></li> 
+                    <li><a href="/blog/categories/teaching/">teaching</a></li> 
+                    <li><a href="/blog/categories/markdown/">markdown</a></li> 
+                    <li><a href="/blog/categories/untidy/">untidy</a></li> 
+                    <li><a href="/blog/categories/website/">website</a></li> 
+                    <li><a href="/blog/categories/docker/">docker</a></li> 
+                    <li><a href="/blog/categories/cloud/">cloud</a></li> 
+                    <li><a href="/blog/categories/diversify/">diversify</a></li> 
+                    <li><a href="/blog/categories/eclipse/">eclipse</a></li> 
+                    <li><a href="/blog/categories/istic/">istic</a></li> 
+                    <li><a href="/blog/categories/m2/">m2</a></li> 
+                    <li><a href="/blog/categories/french/">french</a></li> 
+                    <li><a href="/blog/categories/ensai/">ensai</a></li> 
+                    <li><a href="/blog/categories/kevoree/">kevoree</a></li> 
+                    <li><a href="/blog/categories/kevoreejs/">kevoreejs</a></li> 
+                    <li><a href="/blog/categories/edison/">edison</a></li> 
+                    <li><a href="/blog/categories/angularjs/">angularjs</a></li> 
+                    <li><a href="/blog/categories/jquery/">jquery</a></li> 
+                    <li><a href="/blog/categories/jhipster/">jhipster</a></li> 
+                    <li><a href="/blog/categories/sdn/">sdn</a></li> 
+                    <li><a href="/blog/categories/opendaylight/">opendaylight</a></li> 
+                    <li><a href="/blog/categories/software engineering/">software engineering</a></li> 
+                    <li><a href="/blog/categories/ejcp/">ejcp</a></li> 
+                    <li><a href="/blog/categories/swarm/">swarm</a></li> 
+                    <li><a href="/blog/categories/go-docker/">go-docker</a></li> 
+                    <li><a href="/blog/categories/raspberry pi/">raspberry pi</a></li> 
+                    <li><a href="/blog/categories/javascript/">javascript</a></li> 
+                    <li><a href="/blog/categories/java/">java</a></li> 
+                    <li><a href="/blog/categories/slides/">slides</a></li> 
+                    <li><a href="/blog/categories/reveal.js/">reveal.js</a></li> 
+                    <li><a href="/blog/categories/powerpoint/">powerpoint</a></li> 
+                    <li><a href="/blog/categories/migration/">migration</a></li> 
+                    <li><a href="/blog/categories/labfab/">labfab</a></li> 
+                    <li><a href="/blog/categories/api-platform/">api-platform</a></li> 
+                    <li><a href="/blog/categories/symfony3/">symfony3</a></li> 
+                    <li><a href="/blog/categories/ng2/">ng2</a></li> 
+                    <li><a href="/blog/categories/angularjs2/">angularjs2</a></li> 
+                    <li><a href="/blog/categories/rpi/">rpi</a></li> 
+                    <li><a href="/blog/categories/raspberrypi/">raspberrypi</a></li> 
+                    <li><a href="/blog/categories/raspberry/">raspberry</a></li> 
+                    <li><a href="/blog/categories/swagger/">swagger</a></li> 
+                    <li><a href="/blog/categories/curl/">curl</a></li> 
+                    <li><a href="/blog/categories/authentification/">authentification</a></li> 
+                    <li><a href="/blog/categories/l1/">l1</a></li> 
+                    <li><a href="/blog/categories/OpenWRT/">OpenWRT</a></li> 
+                    <li><a href="/blog/categories/Camera/">Camera</a></li> 
+                    <li><a href="/blog/categories/Canon/">Canon</a></li> 
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="well">
+        <h4>Remark</h4>
+        <p>Sorry, no comments enabled for now because I'm using a simple static site generator (maybe I'll try out disqus another day).</p>
+        <p>
+            But if you like what you see, send me an <a href="/contact/">email</a>.
+        </p>
+    </div>
+<!-- </div> -->
+
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="banner"> 
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3">
+                <!--                     <h2>You can check me out on</h2> -->
+                <h2>Find me on</h2>
+            </div>
+            <div class="col-lg-9">
+                <ul class="list-inline banner-social-buttons">
+                    <li><a href="http://www.linkedin.com/in/olivierbarais" class="btn btn-default btn-lg"><i class="fa fa-linkedin-square fa-fw"></i>
+                            <span class="network-name">Linkedin</span></a></li>
+                    <li><a href="https://github.com/barais" class="btn btn-default btn-lg"><i class="fa fa-github-square fa-fw"></i> <span
+                            class="network-name">Github</span></a></li>
+                    <li><a href="http://scholar.google.fr/citations?user=LV5i8X4AAAAJ&hl=en" class="btn btn-default btn-lg"><i
+                            class="fa fa-search fa-fw"></i> <span class="network-name">Scholar</span></a></li>
+                    <li><a href="https://www.google.com/+OlivierBarais?rel=author" class="btn btn-default btn-lg"><i
+                            class="fa fa-google-plus-square fa-fw"></i> <span class="network-name">google+</span></a></li>
+                    <li><a href="https://www.facebook.com/obarais" class="btn btn-default btn-lg"><i
+                            class="fa fa-facebook-square fa-fw"></i> <span class="network-name">facebook</span></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+
+</div>
+<!-- /.banner -->
+
+<footer>
+    <div class="container">
+        <div class="span12 pagination-centered" style="text-align: center">
+            <div class="row">
+                <div class="col-lg-12">
+                    <ul class="list-inline">
+                        <li><a href="/">Home</a></li>
+                        <li class="footer-menu-divider">&sdot;</li>
+                        <!-- 						<li><a href="#about">About</a></li>
+							<li class="footer-menu-divider">&sdot;</li>
+	                    -->
+                        <li><a href="/publications/">Publications</a></li>
+                        <li class="footer-menu-divider">&sdot;</li>
+                        <li><a href="/teaching/">Teaching</a></li>
+                        <li class="footer-menu-divider">&sdot;</li>
+                        <li><a href="/research/">Research</a></li>
+                        <li class="footer-menu-divider">&sdot;</li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li class="footer-menu-divider">&sdot;</li>
+                        <li><a href="/photos/">Photos</a></li>
+                        <li class="footer-menu-divider">&sdot;</li>
+                        <li><a href="/contact/">Contact</a></li>
+                    </ul>
+
+                    <p class="copyright text-muted small">
+                        <a href="http://validator.w3.org/check?uri=referer"><img src="/img/valid-html401.png"
+                            alt="Valid HTML 4.01 Frameset" height="20" width="57"></a> Built using <a href="http://jekyllrb.com/">Jekyll</a>, <a
+                            href="http://twitter.github.com/bootstrap/">Bootstrap</a> and <a href="http://startbootstrap.com">Startbootstrap</a> from <a href="http://rudametw.github.io/">Walter Rudametkin's template</a>. All
+                        source code available <a href="https://github.com/barais/barais.github.io"> here</a>. 
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+</body>
+</html>
