@@ -217,5 +217,5 @@ Enjoy and specialize that for your own needs.
 ##  Comments
 
 - Yes, there are WIFI sd cards for a few euros but the use of gphoto allows to elaborate more complicated scenarios and support Compact Flash devices. 
-- This could be used to more complex scenarii, in particular, you can use gphoto to control the camera from the phone [to read](https://www.linux.com/news/sophisticated-picture-taking-gphoto) . 
+- This could be used to more complex scenarii, in particular, you can use gphoto to control the camera from the phone [1](https://www.linux.com/news/sophisticated-picture-taking-gphoto), [2](http://www.eos-numerique.com/forums/f16/capture-dimage-sous-linux-avec-gphoto2-105805/). 
 
