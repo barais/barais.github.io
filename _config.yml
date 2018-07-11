@@ -104,3 +104,8 @@ gallery:
         best_image: WP_20140429_13_49_03_Pro__highres.jpg
     Maison:
         best_image: IMG_0913.JPG
+feed:
+    url: "http://olivier.barais.fr"
+    author:
+       twitter: "barais"
+       picture: /img/me.gif
