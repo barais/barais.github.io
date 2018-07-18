@@ -30,9 +30,9 @@
   }
 </style>
 
-<title>category:&nbsp;jhipster</title>
+<title>category:&nbsp;JHipster</title>
 
-<meta name="description" content="Category: jhipster">
+<meta name="description" content="Category: JHipster">
 
 <!-- Add custom CSS here -->
 
@@ -75,127 +75,47 @@
         <div class="row">
             <div class="col-md-8">
                 <h1 class="category">
-                    Category &nbsp;&nbsp; <span class="label label-warning">jhipster</span>
+                    Category &nbsp;&nbsp; <span class="label label-warning">JHipster</span>
                 </h1>
 
                 <!-- blog entry -->
                 
                 <hr>
                 <h1>
-                    <a href="/blog/posts/jhipster/swagger/curl/authentification/2017/04/12/Curl_JHipster_Authentification.html">Play with curl to test generated JHipster application API</a>
+                    <a href="/blog/posts/jhipster/hibernate/eclipselink/diversity/2018/07/18/MigratingFromHibernateToEclipseLinkOnJHipster.html">Migrating From Hibernate To Eclipse Link On JHipster</a>
                 </h1>
 
                 <p class="lead">
                     by <a href="/contact/">Olivier Barais</a> &nbsp;&nbsp;&nbsp;
                      
-                        <a href="/blog/categories/jhipster/"> <span class="label label-primary">jhipster</span></a> 
+                        <a href="/blog/categories/JHipster/"> <span class="label label-primary">JHipster</span></a> 
                      
-                        <a href="/blog/categories/swagger/"> <span class="label label-primary">swagger</span></a> 
+                        <a href="/blog/categories/Hibernate/"> <span class="label label-primary">Hibernate</span></a> 
                      
-                        <a href="/blog/categories/curl/"> <span class="label label-primary">curl</span></a> 
+                        <a href="/blog/categories/EclipseLink/"> <span class="label label-primary">EclipseLink</span></a> 
                      
-                        <a href="/blog/categories/authentification/"> <span class="label label-primary">authentification</span></a> 
+                        <a href="/blog/categories/Diversity/"> <span class="label label-primary">Diversity</span></a> 
                     
                 </p>
 
-                <span class="glyphicon glyphicon-time"></span> Posted 2017.04.12  &mdash; Rennes, France 
+                <span class="glyphicon glyphicon-time"></span> Posted 2018.07.18  &mdash; Stockhoml, Sweden 
                 <hr>
 
-                <p>I often used <a href="https://jhipster.github.io/">JHipster</a> to create my Rest API. I often want to test this API using <a href="https://curl.haxx.se/">curl</a>.<br />
-However, if you tak the curl command line method from swagger, it always misses the authentification mechanism.</p>
+                <h2 id="working-on-automatic-library-substitution">Working on automatic library substitution.</h2>
 
-<p>To manage this authentification, you can use the following commands.</p>
+<p>We are currently working with Orange on a software diversification project. In this framework, we study the ability to automatically migrate a project from one dependency to another in order to understand the difficulties in practice. To understand these difficulties, we study a nominal case that should work perfectly. The replacement of an implementation of one JSR by another on a real project.</p>
 
-<h1 id="if-you-use-oauth">If you use oauth:</h1>
+<h3 id="what-is-jsr">What is JSR?</h3>
 
- <a class="btn btn-primary" href="/blog/posts/jhipster/swagger/curl/authentification/2017/04/12/Curl_JHipster_Authentification.html">Read More <span
-                    class="glyphicon glyphicon-chevron-right"></span></a> 
-                <hr>
-                <h1>
-                    <a href="/blog/posts/jhipster/software%20engineering/2015/03/20/jhipser_for_teaching_SE.html">JHipster and Software Engineering teaching</a>
-                </h1>
+<p>The Java Community Process (JCP), established in 1998, is a formalized mechanism that allows interested parties to develop standard technical specifications for Java technology.  The JCP involves the use of Java Specification Requests (JSRs) – the formal documents that describe proposed specifications and technologies for adding to the Java platform. A JSR defines a common contract for a given concern in the Java community.</p>
 
-                <p class="lead">
-                    by <a href="/contact/">Olivier Barais</a> &nbsp;&nbsp;&nbsp;
-                     
-                        <a href="/blog/categories/jhipster/"> <span class="label label-primary">jhipster</span></a> 
-                     
-                        <a href="/blog/categories/software engineering/"> <span class="label label-primary">software engineering</span></a> 
-                    
-                </p>
+<p>Among the JSRs, we study the use of the <a href="https://jcp.org/en/jsr/detail?id=338">JSR 338: JPA</a>. This JSR provides a common framework for relational database access using relational object mapping techniques in Java. Many libraries implement this JSR including the famous <a href="http://hibernate.org/">hibernate</a> library or the no less known <a href="http://www.eclipse.org/eclipselink/">eclipselink</a>. On top of this API, higher level libraries like <a href="http://projects.spring.io/spring-data/">Spring-data</a> have been built and are commonly used in enterprise projects.</p>
 
-                <span class="glyphicon glyphicon-time"></span> Posted 2015.03.20  &mdash; Rennes, France 
-                <hr>
+<p>From this common contract, the promise is to be able to change implementation at relatively low cost.</p>
 
-                <p>I am a fan of the <a href="http://jhipster.github.io/">JHipster</a> framework. Recently, through a discussion with <a href="http://people.irisa.fr/Jean-Marc.Jezequel/">Jean-Marc Jézéquel</a>, we decide to use it as a support for teaching advanced concepts in Software Engineering and Sofware Architecture at the University of Rennes 1 in a flip classroom.</p>
+<p>Let us have a look at the reality</p>
 
- <a class="btn btn-primary" href="/blog/posts/jhipster/software%20engineering/2015/03/20/jhipser_for_teaching_SE.html">Read More <span
-                    class="glyphicon glyphicon-chevron-right"></span></a> 
-                <hr>
-                <h1>
-                    <a href="/blog/posts/jhipster/2015/01/28/OwnServlet_JHipster.html">Some tips for JHipster</a>
-                </h1>
-
-                <p class="lead">
-                    by <a href="/contact/">Olivier Barais</a> &nbsp;&nbsp;&nbsp;
-                     
-                        <a href="/blog/categories/jhipster/"> <span class="label label-primary">jhipster</span></a> 
-                    
-                </p>
-
-                <span class="glyphicon glyphicon-time"></span> Posted 2015.01.28  &mdash; Rennes, France 
-                <hr>
-
-                <p>I really like <a href="http://jhipster.github.io/">JHipster project</a>.
-The server stack is clean and ready for production</p>
-
-<ul>
-  <li>Spring Boot for easy application configuration</li>
-  <li>Maven or Gradle configuration for building, testing and running the application</li>
-  <li>“development” and “production” profiles (both for Maven and Gradle)</li>
-  <li>Spring Security</li>
-  <li>Spring MVC REST + Jackson</li>
-  <li>Optional WebSocket support with Spring Websocket</li>
-  <li>Spring Data JPA + Bean Validation</li>
-  <li>Database updates with Liquibase</li>
-  <li>MongoDB support if you’d rather use NoSQL instead of a classical relational database</li>
-</ul>
-
-<p>Ready to go into production:</p>
-<ul>
-  <li>Monitoring with Metrics</li>
-  <li>Caching with ehcache (local cache) or hazelcast (distributed cache)</li>
-  <li>Optional HTTP session clustering with hazelcast</li>
-  <li>Optimized static resources (gzip filter, HTTP cache headers)</li>
-  <li>Log management with Logback, configurable at runtime</li>
-  <li>Connection pooling with HikariCP for optimum performance</li>
-  <li>Builds a standard WAR file or an executable JAR file</li>
-</ul>
-
-<p>and the client part is also clean</p>
-
-<p>Single Web page application:</p>
-
-<ul>
-  <li>Responsive Web Design</li>
-  <li>HTML5 Boilerplate</li>
-  <li>Twitter Bootstrap</li>
-  <li>AngularJS</li>
-  <li>Full internationalization support with Angular Translate</li>
-  <li>Optional WebSocket support with Spring Websocket</li>
-</ul>
-
-<p>With the great Yeoman development workflow:</p>
-
-<ul>
-  <li>Easy installation of new JavaScript libraries with Bower</li>
-  <li>Build, optimization and live reload with Grunt or Gulp.js</li>
-  <li>Testing with Karma and PhantomJS</li>
-</ul>
-
-<p>For me, it mainly misses some entity code geenrator that use <a href="http://www.typescriptlang.org">TypeScript</a>.</p>
-
- <a class="btn btn-primary" href="/blog/posts/jhipster/2015/01/28/OwnServlet_JHipster.html">Read More <span
+ <a class="btn btn-primary" href="/blog/posts/jhipster/hibernate/eclipselink/diversity/2018/07/18/MigratingFromHibernateToEclipseLinkOnJHipster.html">Read More <span
                     class="glyphicon glyphicon-chevron-right"></span></a> 
 
             </div>
@@ -272,6 +192,10 @@ The server stack is clean and ready for production</p>
                     <li><a href="/blog/categories/OpenWRT/">OpenWRT</a></li> 
                     <li><a href="/blog/categories/Camera/">Camera</a></li> 
                     <li><a href="/blog/categories/Canon/">Canon</a></li> 
+                    <li><a href="/blog/categories/JHipster/">JHipster</a></li> 
+                    <li><a href="/blog/categories/Hibernate/">Hibernate</a></li> 
+                    <li><a href="/blog/categories/EclipseLink/">EclipseLink</a></li> 
+                    <li><a href="/blog/categories/Diversity/">Diversity</a></li> 
                 </ul>
             </div>
         </div>
