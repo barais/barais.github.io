@@ -44,4 +44,5 @@ gem "jekyll_github_sample"
 gem "jekyll-admin"
 gem "jekyll-watch"
 gem "jekyll-gallery-generator"
+gem 'jekyll-toc'
 

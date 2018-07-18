@@ -1,9 +1,12 @@
 ---
 layout: blog-post
-title: Migrating From Hibernate To Eclipse Link On JHipster
+title: Migrating From Hibernate To EclipseLink On JHipster
 place: Stockhoml, Sweden
 categories: [JHipster,Hibernate,EclipseLink,Diversity]
+toc: true
 ---
+ 
+
 ## Working on automatic library substitution.
 
 We are currently working with Orange on a software diversification project. In this framework, we study the ability to automatically migrate a project from one dependency to another in order to understand the difficulties in practice. To understand these difficulties, we study a nominal case that should work perfectly. The replacement of an implementation of one JSR by another on a real project.
@@ -116,7 +119,7 @@ You can add the following dependencies
 ```
 
 
-## Step 2: Change the configuration for eclipse link
+## Step 2: Change the configuration for eclipselink
 
 
 In order to use eclipselink, several configurations have to be change. 
