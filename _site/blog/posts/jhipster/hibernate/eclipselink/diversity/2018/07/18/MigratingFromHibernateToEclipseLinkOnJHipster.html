@@ -114,7 +114,7 @@
 </li>
 <li class="toc-entry toc-h2"><a href="#step-3-when-magic-disapear">Step 3: When magic disapear</a>
 <ul>
-<li class="toc-entry toc-h3"><a href="#problem-1-coupling-between-real-implementation-of-different-concern">Problem 1: Coupling between real implementation of different concern</a></li>
+<li class="toc-entry toc-h3"><a href="#problem-1-coupling-between-real-implementation-of-different-concerns">Problem 1: Coupling between real implementation of different concerns</a></li>
 <li class="toc-entry toc-h3"><a href="#problem-2-uncomplete-common-interface-between-hibernate-and-eclipselink">Problem 2: Uncomplete common interface between Hibernate and EclipseLink</a></li>
 <li class="toc-entry toc-h3"><a href="#problem-3-the-famous--hyrums-law">Problem 3: The famous  Hyrum’s law</a></li>
 <li class="toc-entry toc-h3"><a href="#31-javautiltimeinstant-case">3.1 java.util.time.Instant case</a></li>
@@ -360,8 +360,8 @@
 
 <p>So far, these changes seem normal. The update of the dependencies, tools and configuration of the persistence provider is planned as part of the JSR. But uncloupling is  not magic.</p>
 
-<h3 id="problem-1-coupling-between-real-implementation-of-different-concern">
-<a id="problem-1-coupling-between-real-implementation-of-different-concern" class="anchor" href="#problem-1-coupling-between-real-implementation-of-different-concern" aria-hidden="true"><span class="octicon octicon-link"></span></a>Problem 1: Coupling between real implementation of different concern</h3>
+<h3 id="problem-1-coupling-between-real-implementation-of-different-concerns">
+<a id="problem-1-coupling-between-real-implementation-of-different-concerns" class="anchor" href="#problem-1-coupling-between-real-implementation-of-different-concerns" aria-hidden="true"><span class="octicon octicon-link"></span></a>Problem 1: Coupling between real implementation of different concerns</h3>
 
 <p>JHipster as a real project tries to improve the perfomance. They use a library nammed <em>jackson-datatype-hibernate</em>.  This project support JSON serialization and deserialization of Hibernate (http://hibernate.org) specific datatypes and properties; especially lazy-loading aspects. As we will not use hibernate, we must remove the depencies in the <em>pom.xml</em> file.</p>
 
@@ -400,6 +400,9 @@
 </h3>
 
 <p><img src="https://imgs.xkcd.com/comics/workflow.png" alt=""></p>
+<blockquote>
+  <p>from <a href="https://xkcd.com/1172/">xkcd</a></p>
+</blockquote>
 
 <h3 id="31-javautiltimeinstant-case">
 <a id="31-javautiltimeinstant-case" class="anchor" href="#31-javautiltimeinstant-case" aria-hidden="true"><span class="octicon octicon-link"></span></a>3.1 java.util.time.Instant case</h3>

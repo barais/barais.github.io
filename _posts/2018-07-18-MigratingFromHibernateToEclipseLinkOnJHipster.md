@@ -255,7 +255,7 @@ jpa:
 So far, these changes seem normal. The update of the dependencies, tools and configuration of the persistence provider is planned as part of the JSR. But uncloupling is  not magic. 
 
 
-### Problem 1: Coupling between real implementation of different concern
+### Problem 1: Coupling between real implementation of different concerns
 
 
 JHipster as a real project tries to improve the perfomance. They use a library nammed *jackson-datatype-hibernate*.  This project support JSON serialization and deserialization of Hibernate (http://hibernate.org) specific datatypes and properties; especially lazy-loading aspects. As we will not use hibernate, we must remove the depencies in the *pom.xml* file. 
@@ -298,6 +298,7 @@ import org.eclipse.persistence.config.QueryHints;
 ### Problem 3: The famous  [Hyrum's law](http://www.hyrumslaw.com/)
 
 ![](https://imgs.xkcd.com/comics/workflow.png)
+> from [xkcd](https://xkcd.com/1172/)
 
 ### 3.1 java.util.time.Instant case
 
