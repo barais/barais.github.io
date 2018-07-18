@@ -19,7 +19,7 @@ Among the JSRs, we study the use of the [JSR 338: JPA](https://jcp.org/en/jsr/de
 
 From this common contract, the promise is to be able to change implementation at relatively low cost.
 
-Let us have a look at the reality
+**Let us have a look at the reality**
 
 <!--more-->
 
