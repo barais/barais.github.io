@@ -116,7 +116,7 @@
 <ul>
 <li class="toc-entry toc-h3"><a href="#problem-1-coupling-between-real-implementation-of-different-concern">Problem 1: Coupling between real implementation of different concern</a></li>
 <li class="toc-entry toc-h3"><a href="#problem-2-uncomplete-common-interface-between-hibernate-and-eclipselink">Problem 2: Uncomplete common interface between Hibernate and EclipseLink</a></li>
-<li class="toc-entry toc-h3"><a href="#problem-3-the-famous-law-of-hyrums">Problem 3: The famous law of Hyrum’s</a></li>
+<li class="toc-entry toc-h3"><a href="#problem-3-the-famous--hyrums-law">Problem 3: The famous  Hyrum’s law</a></li>
 <li class="toc-entry toc-h3"><a href="#31-javautiltimeinstant-case">3.1 java.util.time.Instant case</a></li>
 <li class="toc-entry toc-h3"><a href="#32-the-method-flush-case">3.2 The method flush case</a></li>
 </ul>
@@ -395,8 +395,9 @@
  <span class="nd">@QueryHint</span><span class="o">(</span><span class="n">name</span><span class="o">=</span><span class="n">QueryHints</span><span class="o">.</span><span class="na">BATCH_SIZE</span><span class="o">,</span> <span class="n">value</span><span class="o">=</span><span class="s">"20"</span><span class="o">);</span>
 </code></pre></div></div>
 
-<h3 id="problem-3-the-famous-law-of-hyrums">
-<a id="problem-3-the-famous-law-of-hyrums" class="anchor" href="#problem-3-the-famous-law-of-hyrums" aria-hidden="true"><span class="octicon octicon-link"></span></a>Problem 3: The famous law of Hyrum’s</h3>
+<h3 id="problem-3-the-famous--hyrums-law">
+<a id="problem-3-the-famous--hyrums-law" class="anchor" href="#problem-3-the-famous--hyrums-law" aria-hidden="true"><span class="octicon octicon-link"></span></a>Problem 3: The famous  <a href="http://www.hyrumslaw.com/">Hyrum’s law</a>
+</h3>
 
 <p><img src="https://imgs.xkcd.com/comics/workflow.png" alt=""></p>
 
@@ -407,7 +408,7 @@
 
 <p>The automatic mapping between <strong>Instant</strong> and <strong>java.sql.Timestamp</strong> is not part of the JSR.  Please refer to this <a href="https://stackoverflow.com/questions/49309076/why-jpa-does-not-support-java-time-instant">discussion</a>.</p>
 
-<p>As hibernate 5 supports this mapping, lotsof developers use Instant type but it does not work with other persistence provide.</p>
+<p>As hibernate 5 supports this mapping, lots of developers use Instant type but it does not work with other persistence provide.</p>
 
 <p>As a result in your project, you must refactor your code as follow.</p>
 
@@ -569,7 +570,7 @@
 <p>From this first experience, we draw several conclusions:</p>
 <ul>
   <li>First, even with an effort to define a common interface, substitutability cannot be limited to an evolution of the configuration (It cannot be limited to just change the pom.xml).</li>
-  <li>The tests are necessary. Problems related to Hyrum’s law are only detectable at runtime.</li>
+  <li>The tests are necessary. Problems related to <a href="http://www.hyrumslaw.com/">Hyrum’s law</a> are only detectable at runtime.</li>
   <li>Evolution such as the transition from Java 7 to Java 8 tend to break substitutability.</li>
   <li>The automation of substitutability remains possible and easy to implement once these difficulties are discovered.</li>
 </ul>

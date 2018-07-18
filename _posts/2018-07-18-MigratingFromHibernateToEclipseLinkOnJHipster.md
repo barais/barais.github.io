@@ -15,7 +15,7 @@ We are currently working with Orange on a software diversification project. In t
 
 The Java Community Process (JCP), established in 1998, is a formalized mechanism that allows interested parties to develop standard technical specifications for Java technology.  The JCP involves the use of Java Specification Requests (JSRs) – the formal documents that describe proposed specifications and technologies for adding to the Java platform. A JSR defines a common contract for a given concern in the Java community.
 
-Among the JSRs, we study the use of the [JSR 338: JPA](https://jcp.org/en/jsr/detail?id=338). This JSR provides a common framework for relational database access using relational object mapping techniques in Java. Many libraries implement this JSR including the famous [hibernate](http://hibernate.org/) library or the no less known [eclipselink](http://www.eclipse.org/eclipselink/). On top of this API, higher level libraries like [Spring-data](http://projects.spring.io/spring-data/) have been built and are commonly used in enterprise projects. 
+Among the JSRs, we study the use of the [JSR 338: JPA](https://jcp.org/en/jsr/detail?id=338). This JSR provides a common framework for relational database access using relational object mapping techniques in Java. Many libraries implement this JSR including the famous [hibernate](http://hibernate.org/) library or the no less known [eclipselink](http://www.eclipse.org/eclipselink/). On top of this API, higher level libraries like [Spring-data](http://projects.spring.io/spring-data/) have been built and are commonly used in enterprise projects.
 
 From this common contract, the promise is to be able to change implementation at relatively low cost.
 
@@ -295,7 +295,7 @@ import org.eclipse.persistence.config.QueryHints;
 ```
 
 
-### Problem 3: The famous law of Hyrum's
+### Problem 3: The famous  [Hyrum's law](http://www.hyrumslaw.com/)
 
 ![](https://imgs.xkcd.com/comics/workflow.png)
 
@@ -305,7 +305,7 @@ Since  JAVA 8, the new date and time API (JSR 310) have been introduced. It intr
 
 The automatic mapping between **Instant** and **java.sql.Timestamp** is not part of the JSR.  Please refer to this [discussion](https://stackoverflow.com/questions/49309076/why-jpa-does-not-support-java-time-instant). 
 
-As hibernate 5 supports this mapping, lotsof developers use Instant type but it does not work with other persistence provide. 
+As hibernate 5 supports this mapping, lots of developers use Instant type but it does not work with other persistence provide. 
 
 As a result in your project, you must refactor your code as follow. 
 
@@ -488,7 +488,7 @@ public RegionDTO save(RegionDTO regionDTO) {
 
 From this first experience, we draw several conclusions:
 - First, even with an effort to define a common interface, substitutability cannot be limited to an evolution of the configuration (It cannot be limited to just change the pom.xml). 
-- The tests are necessary. Problems related to Hyrum's law are only detectable at runtime. 
+- The tests are necessary. Problems related to [Hyrum's law](http://www.hyrumslaw.com/) are only detectable at runtime. 
 - Evolution such as the transition from Java 7 to Java 8 tend to break substitutability.
 - The automation of substitutability remains possible and easy to implement once these difficulties are discovered.
 
