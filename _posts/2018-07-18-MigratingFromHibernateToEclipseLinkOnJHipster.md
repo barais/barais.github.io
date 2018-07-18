@@ -302,7 +302,7 @@ import org.eclipse.persistence.config.QueryHints;
 
 ### 3.1 java.util.time.Instant case
 
-Since  JAVA 8, the new date and time API (JSR 310) have been introduced. It introduces some types such as *java.util.time.Instant*. An Instant represents a point in time (similar to java.util.Date) with nanoseconds precision. 
+Since  JAVA 8, the new date and time API (JSR 310) has been introduced. It creates some types such as *java.util.time.Instant*. An Instant represents a point in time (similar to java.util.Date) with nanoseconds precision. 
 
 The automatic mapping between **Instant** and **java.sql.Timestamp** is not part of the JSR.  Please refer to this [discussion](https://stackoverflow.com/questions/49309076/why-jpa-does-not-support-java-time-instant). 
 
