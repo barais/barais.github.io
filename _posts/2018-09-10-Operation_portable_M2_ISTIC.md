@@ -7,7 +7,7 @@ categories: [teaching, istic, m2, french]
 
 Hello très chers étudiants,
 
-Pour la quatrième année, nous experimentons l'usage des TPs pour les M2. Nous sommes partis sur les configurations suivantes[Probook 650 avec 8GO de Ram et un I3](http://www8.hp.com/fr/fr/products/laptops/product-detail.html?oid=5405400#!tab=specs)
+Pour la cinquième année, nous experimentons l'usage des TPs pour les M2. Nous sommes partis sur les configurations suivantes[Probook 650 avec 8GO de Ram et un I3](http://www8.hp.com/fr/fr/products/laptops/product-detail.html?oid=5405400#!tab=specs)
 
 ###Etape 0: Install OS###
 
