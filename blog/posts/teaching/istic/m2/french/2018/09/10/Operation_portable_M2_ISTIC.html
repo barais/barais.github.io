@@ -102,7 +102,7 @@
 
 <p>Pour la cinquième année, nous experimentons l’usage des TPs pour les M2. Nous sommes partis sur les configurations suivantes<a href="http://www8.hp.com/fr/fr/products/laptops/product-detail.html?oid=5405400#!tab=specs">Probook 650 avec 8GO de Ram et un I3</a></p>
 
-<p>###Etape 0: Install OS###</p>
+<h3 id="etape-0-install-os">Etape 0: Install OS</h3>
 
 <p>Pour l’install, tout marche très bien avec ubuntu 18.04. Pour ceux qui ne l’ont jamais installé. Récupérez une clé usb, téléchargez <a href="http://www.ubuntu.com/download/desktop">Ubuntu Desktop 18.04 en version 64bit et Desktop</a>. Créez votre clé ucb avec par exemple <a href="http://unetbootin.sourceforge.net/">unetbootin</a>. Choisissez DiskImage et l’iso que vous avez téléchargé et sélectionnez en bas votre clé usb, c’est parti. (10 mins de travail, un reboot et c’est bon)</p>
 
@@ -116,8 +116,9 @@
 
 <p>Sous ubuntu, quand il est installé.</p>
 
-<p>###Etape 1: Java et autres
-Installez les paquets suviants:</p>
+<h3 id="etape-1-java-et-autres">Etape 1: Java et autres</h3>
+
+<p>Installez les paquets suviants:</p>
 
 <figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">sudo </span>apt-get <span class="nb">install </span>nano git openjdk-8-jdk openjdk-8-doc maven inkscape</code></pre></figure>
 
@@ -127,14 +128,15 @@ Installez les paquets suviants:</p>
 <span class="nb">sudo </span>apt-get update
 <span class="nb">sudo </span>apt-get <span class="nb">install </span>oracle-java8-installer</code></pre></figure>
 
-<p>###Etape 2: Eclipse</p>
+<h3 id="etape-2-eclipse">Etape 2: Eclipse</h3>
 
 <p>Téléchargez eclipse pour <a href="http://www.mirrorservice.org/sites/download.eclipse.org/eclipseMirror/technology/epp/downloads/release/oxygen/R/eclipse-java-oxygen-R-linux-gtk-x86_64.tar.gz">Java developer</a> en version 64 et dezipper le par exemple dans /opt/eclipse</p>
 
-<p>###Etape 3: Smartgit
-Installez <a href="http://www.syntevo.com/smartgit/">Smartgit</a></p>
+<h3 id="etape-3-smartgit">Etape 3: Smartgit</h3>
 
-<p>###Etape 4: NodeJS</p>
+<p>Installez <a href="http://www.syntevo.com/smartgit/">Smartgit</a></p>
+
+<h3 id="etape-4-nodejs">Etape 4: NodeJS</h3>
 
 <p>Installez nodejs au travers de nvm</p>
 
@@ -151,14 +153,15 @@ Installez <a href="http://www.syntevo.com/smartgit/">Smartgit</a></p>
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nvm <span class="nb">install </span>node
 </code></pre></div></div>
 
-<p>###Etape 5: VisualVM</p>
+<h3 id="etape-5-visualvm">Etape 5: VisualVM</h3>
 
 <p><a href="http://visualvm.java.net/eclipse-launcher.html">VisualVM</a></p>
 
-<p>###Etape 6: InteliJ
-Installez <a href="http://www.jetbrains.com/idea/">IntelliJ</a> dans /opt</p>
+<h3 id="etape-6-intelij">Etape 6: InteliJ</h3>
 
-<p>###Etape 7: Docker</p>
+<p>Installez <a href="http://www.jetbrains.com/idea/">IntelliJ</a> dans /opt</p>
+
+<h3 id="etape-7-docker">Etape 7: Docker</h3>
 
 <p>Installez Docker</p>
 
@@ -215,7 +218,8 @@ sub   4096R/F273FCD8 2017-02-22
 <figure class="highlight"><pre><code class="language-bash" data-lang="bash"> <span class="nv">$ </span><span class="nb">sudo </span>docker run <span class="nt">-i</span> <span class="nt">-t</span> ubuntu /bin/bash </code></pre></figure>
 <p>Cette dernière commande télécharge un conteneur ubuntu minimal et démarre ce container. Pour plus de documentation sur <a href="http://fr.wikipedia.org/wiki/Docker_(Syst%C3%A8me_de_conteneur_Linux)\">docker</a></p>
 
-<p>###Etape 8: Wifi ISTIC</p>
+<h3 id="etape-8-wifi-istic">Etape 8: Wifi ISTIC</h3>
+
 <ol>
   <li>
     <p>Configuez eduroam suivant le <a href="http://www.eduroam.fr/conf_supplicants/">tuto suivant</a>.</p>
@@ -227,7 +231,7 @@ sub   4096R/F273FCD8 2017-02-22
 <figure class="highlight"><pre><code class="language-bash" data-lang="bash"> <span class="nb">sudo</span> /sbin/ifconfig </code></pre></figure>
 <p>prendre ‘HWaddr XX:XX:XX:XX:XX:XX’ de l’interface wlan0.</p>
 
-<p>###Etape 9 Utiliser les imprimantes de l’ISTIC</p>
+<h3 id="etape-9-utiliser-les-imprimantes-de-listic">Etape 9 Utiliser les imprimantes de l’ISTIC</h3>
 
 <ul>
   <li>Vérifiez que cups est installé</li>
@@ -244,13 +248,14 @@ sub   4096R/F273FCD8 2017-02-22
 
 <p>pour imprimer, être connecté aux réseaux Wifsic ou Wifsic-free</p>
 
-<p>###Etape 10: Bookmark services utiles
-<a href="http://vm.istic.univ-rennes1.fr">vm istic</a></p>
+<h3 id="etape-10-bookmark-services-utiles">Etape 10: Bookmark services utiles</h3>
+<p><a href="http://vm.istic.univ-rennes1.fr">vm istic</a></p>
 
-<p>###Petit Problème: WIFI et autres</p>
+<h3 id="petit-problème-wifi-et-autres">Petit Problème: WIFI et autres</h3>
 
-<p>####Wifi Pour installer le WIFI. Pluggez vous à un réseau filaire.
-Puis tapez les commandes suivantes</p>
+<h4 id="wifi-pour-installer-le-wifi-pluggez-vous-à-un-réseau-filaire">Wifi Pour installer le WIFI. Pluggez vous à un réseau filaire.</h4>
+
+<p>Puis tapez les commandes suivantes</p>
 
 <figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">sudo </span>apt-get update
 <span class="nb">sudo </span>apt-get <span class="nb">install </span>firmware-b43-installer
@@ -258,11 +263,11 @@ Puis tapez les commandes suivantes</p>
 <span class="nb">sudo </span>modprobe <span class="nt">-r</span> b43
 <span class="nb">sudo </span>modprobe b43</code></pre></figure>
 
-<p>####Certificat incorrect pour OpenJDK (poblème Maven)</p>
+<h4 id="certificat-incorrect-pour-openjdk-poblème-maven">Certificat incorrect pour OpenJDK (poblème Maven)</h4>
 
 <figure class="highlight"><pre><code class="language-bash" data-lang="bash"> <span class="nb">sudo </span>update-ca-certificates </code></pre></figure>
 
-<p>####Problème ACPI (PC qui ne s’éteint pas)</p>
+<h4 id="problème-acpi-pc-qui-ne-séteint-pas">Problème ACPI (PC qui ne s’éteint pas)</h4>
 
 <figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">sudo </span>nano <span class="nt">-w</span> /boot/grub/menu.cfg
 <span class="c">#Puis enlever tous les paramères, noacpi, noapic ...</span></code></pre></figure>

@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.0">Jekyll</generator><link href="http://olivier.barais.fr/feed.xml" rel="self" type="application/atom+xml" /><link href="http://olivier.barais.fr/" rel="alternate" type="text/html" /><updated>2018-09-10T06:28:02+02:00</updated><id>http://olivier.barais.fr/</id><title type="html">Olivier Barais WebSite</title><subtitle>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</subtitle><entry><title type="html">Quelques règles pour l’installation des portables</title><link href="http://olivier.barais.fr/blog/posts/teaching/istic/m2/french/2018/09/10/Operation_portable_M2_ISTIC.html" rel="alternate" type="text/html" title="Quelques règles pour l'installation des portables" /><published>2018-09-10T00:00:00+02:00</published><updated>2018-09-10T00:00:00+02:00</updated><id>http://olivier.barais.fr/blog/posts/teaching/istic/m2/french/2018/09/10/Operation_portable_M2_ISTIC</id><content type="html" xml:base="http://olivier.barais.fr/blog/posts/teaching/istic/m2/french/2018/09/10/Operation_portable_M2_ISTIC.html">&lt;p&gt;Hello très chers étudiants,&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.0">Jekyll</generator><link href="http://olivier.barais.fr/feed.xml" rel="self" type="application/atom+xml" /><link href="http://olivier.barais.fr/" rel="alternate" type="text/html" /><updated>2018-09-10T06:30:16+02:00</updated><id>http://olivier.barais.fr/</id><title type="html">Olivier Barais WebSite</title><subtitle>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</subtitle><entry><title type="html">Quelques règles pour l’installation des portables</title><link href="http://olivier.barais.fr/blog/posts/teaching/istic/m2/french/2018/09/10/Operation_portable_M2_ISTIC.html" rel="alternate" type="text/html" title="Quelques règles pour l'installation des portables" /><published>2018-09-10T00:00:00+02:00</published><updated>2018-09-10T00:00:00+02:00</updated><id>http://olivier.barais.fr/blog/posts/teaching/istic/m2/french/2018/09/10/Operation_portable_M2_ISTIC</id><content type="html" xml:base="http://olivier.barais.fr/blog/posts/teaching/istic/m2/french/2018/09/10/Operation_portable_M2_ISTIC.html">&lt;p&gt;Hello très chers étudiants,&lt;/p&gt;
 
 &lt;p&gt;Pour la cinquième année, nous experimentons l’usage des TPs pour les M2. Nous sommes partis sur les configurations suivantes&lt;a href=&quot;http://www8.hp.com/fr/fr/products/laptops/product-detail.html?oid=5405400#!tab=specs&quot;&gt;Probook 650 avec 8GO de Ram et un I3&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;###Etape 0: Install OS###&lt;/p&gt;
+&lt;h3 id=&quot;etape-0-install-os&quot;&gt;Etape 0: Install OS&lt;/h3&gt;
 
 &lt;p&gt;Pour l’install, tout marche très bien avec ubuntu 18.04. Pour ceux qui ne l’ont jamais installé. Récupérez une clé usb, téléchargez &lt;a href=&quot;http://www.ubuntu.com/download/desktop&quot;&gt;Ubuntu Desktop 18.04 en version 64bit et Desktop&lt;/a&gt;. Créez votre clé ucb avec par exemple &lt;a href=&quot;http://unetbootin.sourceforge.net/&quot;&gt;unetbootin&lt;/a&gt;. Choisissez DiskImage et l’iso que vous avez téléchargé et sélectionnez en bas votre clé usb, c’est parti. (10 mins de travail, un reboot et c’est bon)&lt;/p&gt;
 
@@ -16,8 +16,9 @@
 
 &lt;p&gt;Sous ubuntu, quand il est installé.&lt;/p&gt;
 
-&lt;p&gt;###Etape 1: Java et autres
-Installez les paquets suviants:&lt;/p&gt;
+&lt;h3 id=&quot;etape-1-java-et-autres&quot;&gt;Etape 1: Java et autres&lt;/h3&gt;
+
+&lt;p&gt;Installez les paquets suviants:&lt;/p&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;nano git openjdk-8-jdk openjdk-8-doc maven inkscape&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
@@ -27,14 +28,15 @@ Installez les paquets suviants:&lt;/p&gt;
 &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get update
 &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;oracle-java8-installer&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;p&gt;###Etape 2: Eclipse&lt;/p&gt;
+&lt;h3 id=&quot;etape-2-eclipse&quot;&gt;Etape 2: Eclipse&lt;/h3&gt;
 
 &lt;p&gt;Téléchargez eclipse pour &lt;a href=&quot;http://www.mirrorservice.org/sites/download.eclipse.org/eclipseMirror/technology/epp/downloads/release/oxygen/R/eclipse-java-oxygen-R-linux-gtk-x86_64.tar.gz&quot;&gt;Java developer&lt;/a&gt; en version 64 et dezipper le par exemple dans /opt/eclipse&lt;/p&gt;
 
-&lt;p&gt;###Etape 3: Smartgit
-Installez &lt;a href=&quot;http://www.syntevo.com/smartgit/&quot;&gt;Smartgit&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&quot;etape-3-smartgit&quot;&gt;Etape 3: Smartgit&lt;/h3&gt;
 
-&lt;p&gt;###Etape 4: NodeJS&lt;/p&gt;
+&lt;p&gt;Installez &lt;a href=&quot;http://www.syntevo.com/smartgit/&quot;&gt;Smartgit&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;etape-4-nodejs&quot;&gt;Etape 4: NodeJS&lt;/h3&gt;
 
 &lt;p&gt;Installez nodejs au travers de nvm&lt;/p&gt;
 
@@ -51,14 +53,15 @@ Installez &lt;a href=&quot;http://www.syntevo.com/smartgit/&quot;&gt;Smartgit&lt
 &lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;nvm &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;node
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;###Etape 5: VisualVM&lt;/p&gt;
+&lt;h3 id=&quot;etape-5-visualvm&quot;&gt;Etape 5: VisualVM&lt;/h3&gt;
 
 &lt;p&gt;&lt;a href=&quot;http://visualvm.java.net/eclipse-launcher.html&quot;&gt;VisualVM&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;###Etape 6: InteliJ
-Installez &lt;a href=&quot;http://www.jetbrains.com/idea/&quot;&gt;IntelliJ&lt;/a&gt; dans /opt&lt;/p&gt;
+&lt;h3 id=&quot;etape-6-intelij&quot;&gt;Etape 6: InteliJ&lt;/h3&gt;
 
-&lt;p&gt;###Etape 7: Docker&lt;/p&gt;
+&lt;p&gt;Installez &lt;a href=&quot;http://www.jetbrains.com/idea/&quot;&gt;IntelliJ&lt;/a&gt; dans /opt&lt;/p&gt;
+
+&lt;h3 id=&quot;etape-7-docker&quot;&gt;Etape 7: Docker&lt;/h3&gt;
 
 &lt;p&gt;Installez Docker&lt;/p&gt;
 
@@ -115,7 +118,8 @@ sub   4096R/F273FCD8 2017-02-22
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt; &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;docker run &lt;span class=&quot;nt&quot;&gt;-i&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-t&lt;/span&gt; ubuntu /bin/bash &lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 &lt;p&gt;Cette dernière commande télécharge un conteneur ubuntu minimal et démarre ce container. Pour plus de documentation sur &lt;a href=&quot;http://fr.wikipedia.org/wiki/Docker_(Syst%C3%A8me_de_conteneur_Linux)\&quot;&gt;docker&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;###Etape 8: Wifi ISTIC&lt;/p&gt;
+&lt;h3 id=&quot;etape-8-wifi-istic&quot;&gt;Etape 8: Wifi ISTIC&lt;/h3&gt;
+
 &lt;ol&gt;
   &lt;li&gt;
     &lt;p&gt;Configuez eduroam suivant le &lt;a href=&quot;http://www.eduroam.fr/conf_supplicants/&quot;&gt;tuto suivant&lt;/a&gt;.&lt;/p&gt;
@@ -127,7 +131,7 @@ sub   4096R/F273FCD8 2017-02-22
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt; &lt;span class=&quot;nb&quot;&gt;sudo&lt;/span&gt; /sbin/ifconfig &lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 &lt;p&gt;prendre ‘HWaddr XX:XX:XX:XX:XX:XX’ de l’interface wlan0.&lt;/p&gt;
 
-&lt;p&gt;###Etape 9 Utiliser les imprimantes de l’ISTIC&lt;/p&gt;
+&lt;h3 id=&quot;etape-9-utiliser-les-imprimantes-de-listic&quot;&gt;Etape 9 Utiliser les imprimantes de l’ISTIC&lt;/h3&gt;
 
 &lt;ul&gt;
   &lt;li&gt;Vérifiez que cups est installé&lt;/li&gt;
@@ -144,13 +148,14 @@ sub   4096R/F273FCD8 2017-02-22
 
 &lt;p&gt;pour imprimer, être connecté aux réseaux Wifsic ou Wifsic-free&lt;/p&gt;
 
-&lt;p&gt;###Etape 10: Bookmark services utiles
-&lt;a href=&quot;http://vm.istic.univ-rennes1.fr&quot;&gt;vm istic&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&quot;etape-10-bookmark-services-utiles&quot;&gt;Etape 10: Bookmark services utiles&lt;/h3&gt;
+&lt;p&gt;&lt;a href=&quot;http://vm.istic.univ-rennes1.fr&quot;&gt;vm istic&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;###Petit Problème: WIFI et autres&lt;/p&gt;
+&lt;h3 id=&quot;petit-problème-wifi-et-autres&quot;&gt;Petit Problème: WIFI et autres&lt;/h3&gt;
 
-&lt;p&gt;####Wifi Pour installer le WIFI. Pluggez vous à un réseau filaire.
-Puis tapez les commandes suivantes&lt;/p&gt;
+&lt;h4 id=&quot;wifi-pour-installer-le-wifi-pluggez-vous-à-un-réseau-filaire&quot;&gt;Wifi Pour installer le WIFI. Pluggez vous à un réseau filaire.&lt;/h4&gt;
+
+&lt;p&gt;Puis tapez les commandes suivantes&lt;/p&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get update
 &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;firmware-b43-installer
@@ -158,14 +163,14 @@ Puis tapez les commandes suivantes&lt;/p&gt;
 &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;modprobe &lt;span class=&quot;nt&quot;&gt;-r&lt;/span&gt; b43
 &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;modprobe b43&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;p&gt;####Certificat incorrect pour OpenJDK (poblème Maven)&lt;/p&gt;
+&lt;h4 id=&quot;certificat-incorrect-pour-openjdk-poblème-maven&quot;&gt;Certificat incorrect pour OpenJDK (poblème Maven)&lt;/h4&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt; &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;update-ca-certificates &lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;p&gt;####Problème ACPI (PC qui ne s’éteint pas)&lt;/p&gt;
+&lt;h4 id=&quot;problème-acpi-pc-qui-ne-séteint-pas&quot;&gt;Problème ACPI (PC qui ne s’éteint pas)&lt;/h4&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;nano &lt;span class=&quot;nt&quot;&gt;-w&lt;/span&gt; /boot/grub/menu.cfg
-&lt;span class=&quot;c&quot;&gt;#Puis enlever tous les paramères, noacpi, noapic ...&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;</content><author><name></name></author><summary type="html">Hello très chers étudiants, Pour la cinquième année, nous experimentons l’usage des TPs pour les M2. Nous sommes partis sur les configurations suivantesProbook 650 avec 8GO de Ram et un I3 ###Etape 0: Install OS### Pour l’install, tout marche très bien avec ubuntu 18.04. Pour ceux qui ne l’ont jamais installé. Récupérez une clé usb, téléchargez Ubuntu Desktop 18.04 en version 64bit et Desktop. Créez votre clé ucb avec par exemple unetbootin. Choisissez DiskImage et l’iso que vous avez téléchargé et sélectionnez en bas votre clé usb, c’est parti. (10 mins de travail, un reboot et c’est bon)</summary></entry><entry><title type="html">Migrating From Hibernate To EclipseLink On JHipster</title><link href="http://olivier.barais.fr/blog/posts/jhipster/hibernate/eclipselink/diversity/2018/07/18/MigratingFromHibernateToEclipseLinkOnJHipster.html" rel="alternate" type="text/html" title="Migrating From Hibernate To EclipseLink On JHipster" /><published>2018-07-18T00:00:00+02:00</published><updated>2018-07-18T00:00:00+02:00</updated><id>http://olivier.barais.fr/blog/posts/jhipster/hibernate/eclipselink/diversity/2018/07/18/MigratingFromHibernateToEclipseLinkOnJHipster</id><content type="html" xml:base="http://olivier.barais.fr/blog/posts/jhipster/hibernate/eclipselink/diversity/2018/07/18/MigratingFromHibernateToEclipseLinkOnJHipster.html">&lt;h2 id=&quot;working-on-automatic-library-substitution&quot;&gt;Working on automatic library substitution.&lt;/h2&gt;
+&lt;span class=&quot;c&quot;&gt;#Puis enlever tous les paramères, noacpi, noapic ...&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;</content><author><name></name></author><summary type="html">Hello très chers étudiants, Pour la cinquième année, nous experimentons l’usage des TPs pour les M2. Nous sommes partis sur les configurations suivantesProbook 650 avec 8GO de Ram et un I3 Etape 0: Install OS Pour l’install, tout marche très bien avec ubuntu 18.04. Pour ceux qui ne l’ont jamais installé. Récupérez une clé usb, téléchargez Ubuntu Desktop 18.04 en version 64bit et Desktop. Créez votre clé ucb avec par exemple unetbootin. Choisissez DiskImage et l’iso que vous avez téléchargé et sélectionnez en bas votre clé usb, c’est parti. (10 mins de travail, un reboot et c’est bon)</summary></entry><entry><title type="html">Migrating From Hibernate To EclipseLink On JHipster</title><link href="http://olivier.barais.fr/blog/posts/jhipster/hibernate/eclipselink/diversity/2018/07/18/MigratingFromHibernateToEclipseLinkOnJHipster.html" rel="alternate" type="text/html" title="Migrating From Hibernate To EclipseLink On JHipster" /><published>2018-07-18T00:00:00+02:00</published><updated>2018-07-18T00:00:00+02:00</updated><id>http://olivier.barais.fr/blog/posts/jhipster/hibernate/eclipselink/diversity/2018/07/18/MigratingFromHibernateToEclipseLinkOnJHipster</id><content type="html" xml:base="http://olivier.barais.fr/blog/posts/jhipster/hibernate/eclipselink/diversity/2018/07/18/MigratingFromHibernateToEclipseLinkOnJHipster.html">&lt;h2 id=&quot;working-on-automatic-library-substitution&quot;&gt;Working on automatic library substitution.&lt;/h2&gt;
 
 &lt;p&gt;We are currently working with Orange on a software diversification project. In this framework, we study the ability to automatically migrate a project from one dependency to another in order to understand the difficulties in practice. To understand these difficulties, we study a nominal case that should work perfectly. The replacement of an implementation of one JSR by another on a real project.&lt;/p&gt;
 
