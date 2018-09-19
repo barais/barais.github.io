@@ -1,4 +1,150 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.0">Jekyll</generator><link href="http://olivier.barais.fr/feed.xml" rel="self" type="application/atom+xml" /><link href="http://olivier.barais.fr/" rel="alternate" type="text/html" /><updated>2018-09-10T06:30:16+02:00</updated><id>http://olivier.barais.fr/</id><title type="html">Olivier Barais WebSite</title><subtitle>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</subtitle><entry><title type="html">Quelques règles pour l’installation des portables</title><link href="http://olivier.barais.fr/blog/posts/teaching/istic/m2/french/2018/09/10/Operation_portable_M2_ISTIC.html" rel="alternate" type="text/html" title="Quelques règles pour l'installation des portables" /><published>2018-09-10T00:00:00+02:00</published><updated>2018-09-10T00:00:00+02:00</updated><id>http://olivier.barais.fr/blog/posts/teaching/istic/m2/french/2018/09/10/Operation_portable_M2_ISTIC</id><content type="html" xml:base="http://olivier.barais.fr/blog/posts/teaching/istic/m2/french/2018/09/10/Operation_portable_M2_ISTIC.html">&lt;p&gt;Hello très chers étudiants,&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.0">Jekyll</generator><link href="http://olivier.barais.fr/feed.xml" rel="self" type="application/atom+xml" /><link href="http://olivier.barais.fr/" rel="alternate" type="text/html" /><updated>2018-09-19T13:10:23+02:00</updated><id>http://olivier.barais.fr/</id><title type="html">Olivier Barais WebSite</title><subtitle>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</subtitle><entry><title type="html">Quelques éléments pour le TP sur Docker</title><link href="http://olivier.barais.fr/blog/posts/teaching/istic/m2/french/2018/09/19/TPDocker.html" rel="alternate" type="text/html" title="Quelques éléments pour le TP sur Docker" /><published>2018-09-19T00:00:00+02:00</published><updated>2018-09-19T00:00:00+02:00</updated><id>http://olivier.barais.fr/blog/posts/teaching/istic/m2/french/2018/09/19/TPDocker</id><content type="html" xml:base="http://olivier.barais.fr/blog/posts/teaching/istic/m2/french/2018/09/19/TPDocker.html">&lt;p&gt;Hello très chers étudiants,&lt;/p&gt;
+
+&lt;p&gt;Le but de ce TP est de regarder comment nous pouvons utiliser docker pour faciliter le déploiement d’une application avec la mise en place d’un serveur web en reverse proxy etc…&lt;/p&gt;
+
+&lt;!--more--&gt;
+
+&lt;h3 id=&quot;etape--1-docker&quot;&gt;Etape -1: Docker&lt;/h3&gt;
+
+&lt;p&gt;Installez docker (voir &lt;a href=&quot;http://olivier.barais.fr/blog/posts/teaching/istic/m2/french/2018/09/10/Operation_portable_M2_ISTIC.html&quot;&gt;ici&lt;/a&gt;)&lt;/p&gt;
+
+&lt;h3 id=&quot;etape-0-test-de-votre-installation&quot;&gt;Etape 0: Test de votre installation&lt;/h3&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;docker run hello-world
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Vous devriez avoir le message suivant.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;Hello from Docker.
+This message shows that your installation appears to be working correctly.&lt;/p&gt;
+
+&lt;p&gt;To generate this message, Docker took the following steps:&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;The Docker client contacted the Docker daemon.&lt;/li&gt;
+  &lt;li&gt;The Docker daemon pulled the “hello-world” image from the Docker Hub.&lt;/li&gt;
+  &lt;li&gt;The Docker daemon created a new container from that image which runs the
+executable that produces the output you are currently reading.&lt;/li&gt;
+  &lt;li&gt;The Docker daemon streamed that output to the Docker client, which sent it
+to your terminal.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;To try something more ambitious, you can run an Ubuntu container with:
+ $ docker run -it ubuntu bash&lt;/p&gt;
+
+&lt;p&gt;Share images, automate workflows, and more with a free Docker Hub account:
+ https://hub.docker.com&lt;/p&gt;
+
+&lt;p&gt;For more examples and ideas, visit:
+ https://docs.docker.com/userguide/&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;docker run &lt;span class=&quot;nt&quot;&gt;-t&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-i&lt;/span&gt; ubuntu /bin/bash
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Vous récupérez un shell qui est différent de votre propre distribution.&lt;/p&gt;
+
+&lt;p&gt;Tapez la commande&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/sbin/ifconfig
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Vous constatez que l’interface réseau n’est pas la même dans le container et dans la machine hote.&lt;/p&gt;
+
+&lt;p&gt;Le container vient avec sa propre interface réseau.&lt;/p&gt;
+
+&lt;h3 id=&quot;etape-1-construction-dune-image-pour-votre-application&quot;&gt;Etape 1: Construction d’une image pour votre application&lt;/h3&gt;
+
+&lt;p&gt;En suivant le tutoriel &lt;a href=&quot;https://docs.docker.com/get-started/part2/#build-the-app&quot;&gt;suivant&lt;/a&gt;:&lt;/p&gt;
+
+&lt;p&gt;Vous pourrez partir de cette image de base. 
+[https://hub.docker.com/&lt;em&gt;/maven/](https://hub.docker.com/&lt;/em&gt;/maven/)&lt;/p&gt;
+
+&lt;p&gt;Parcourez rapidement les tutoriels suivants:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://docs.docker.com/get-started/part2/#build-the-app&quot;&gt;https://docs.docker.com/get-started/part2/#build-the-app&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;etape-2-mise-en-place-de-la-base-de-données&quot;&gt;Etape 2: Mise en place de la base de données&lt;/h3&gt;
+&lt;p&gt;Lancez votre base de données en aprtant de l’image suivante&lt;/p&gt;
+
+&lt;p&gt;[https://hub.docker.com/&lt;em&gt;/mysql/](https://hub.docker.com/&lt;/em&gt;/mysql/)&lt;/p&gt;
+
+&lt;p&gt;Utilisez les links docker pour faire le lien entre votre base de données et votre serveur d’application. 
+&lt;a href=&quot;https://docs.docker.com/userguide/dockerlinks/&quot;&gt;https://docs.docker.com/userguide/dockerlinks/&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Lancez votre application et vérifiez que tout marche.&lt;/p&gt;
+
+&lt;h3 id=&quot;etape-3-mise-en-place-dun-load-balancer-et-dun-reverse-proxy-avec-docker-et-nginx&quot;&gt;Etape 3: Mise en place d’un load balancer et d’un reverse proxy avec docker et nginx&lt;/h3&gt;
+
+&lt;p&gt;Pour le nginx en resolproxy nous allons partir de l’image &lt;a href=&quot;https://github.com/jwilder/nginx-proxy&quot;&gt;suivante&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;L’explication du fonctionnement est disponible &lt;a href=&quot;http://jasonwilder.com/blog/2014/03/25/automated-nginx-reverse-proxy-for-docker/&quot;&gt;ici&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Lancement de nginx en resolvproxy&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;docker run &lt;span class=&quot;nt&quot;&gt;-d&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-p&lt;/span&gt; 8080:80 &lt;span class=&quot;nt&quot;&gt;-v&lt;/span&gt; /var/run/docker.sock:/tmp/docker.sock &lt;span class=&quot;nt&quot;&gt;-t&lt;/span&gt; jwilder/nginx-proxy 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Dans le suite nous allons utiliser terminator pour visualiser les effets du load-balancing.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;apt-get &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;terminator
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Lancez Terminator en root.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;terminator
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;modifiez votre fichier /etc/hosts pour faire correspondre myapp.taa.fr vers 127.0.0.1. Ce serait à faire sur votre gestionnaire de nom de domaine en temps normal.&lt;/p&gt;
+
+&lt;p&gt;Vous devez avoir une ligne qui ressemble à cela.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-txt&quot;&gt;127.0.0.1	localhost localhost.localdomain localhost4 localhost4.localdomain head-demo myapp.taa.fr
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Puis créer n fenètre dans votre navigateur terminator (clic droit puis split horizontal ou vertical). 
+Dans ces terminales, lancez la commande suivante pour tester votre resolve proxy.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;docker run &lt;span class=&quot;nt&quot;&gt;-e&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;VIRTUAL_HOST&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;myapp.taa.fr &lt;span class=&quot;nt&quot;&gt;-t&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-i&lt;/span&gt;  nginx
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;En tapant la commande suivante, vous pouvez regarder le fichier de configuration nginx qui sera généré à l’adresse suivante /etc/nginx/conf.d/default.conf. (N’oubliez pas de remplacer  865c1e67a00e par l’id de votre nginx en resolve proxy ($docker ps) pour récupérer la liste des containers en cours d’exécution.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;docker &lt;span class=&quot;nb&quot;&gt;exec&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-it&lt;/span&gt; 865c1e67a00e bash
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://jasonwilder.com/blog/2014/03/25/automated-nginx-reverse-proxy-for-docker/&quot;&gt;source&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Tuez tous les dockers nginx démarrer.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;docker ps &lt;span class=&quot;c&quot;&gt;#pour avoir la liste&lt;/span&gt;
+docker &lt;span class=&quot;nb&quot;&gt;kill&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;IDDOCKER&quot;&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;#pour tuer un docker. &lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Lancez plusieurs fois votre serveur d’application. Testez le résultat.&lt;/p&gt;
+
+&lt;h3 id=&quot;etape-4-utilisation-de-docker-compose&quot;&gt;Etape 4: Utilisation de docker compose&lt;/h3&gt;
+&lt;p&gt;Utilisez docker compose pour déployer votre application avec trois serveur d’applications et une instance de base de données.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://docs.docker.com/get-started/part3/&quot;&gt;tutoriel&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;etape-5-mise-en-place-dune-base-de-données-distribuée-optionnelle-carambar-provided&quot;&gt;Etape 5: Mise en place d’une base de données distribuée (optionnelle, carambar provided)&lt;/h3&gt;
+
+&lt;p&gt;Pour distriber la base de données, nous pouvons utiliser gallera.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://galeracluster.com/2015/05/getting-started-galera-with-docker-part-1/&quot;&gt;tutoriel&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Suivez le tutoriel pour démarer galera.&lt;/p&gt;
+
+&lt;p&gt;Mettez à jour votre fichier docker compose en fonction de cela.&lt;/p&gt;
+
+&lt;p&gt;TO be extended&lt;/p&gt;</content><author><name></name></author><summary type="html">Hello très chers étudiants, Le but de ce TP est de regarder comment nous pouvons utiliser docker pour faciliter le déploiement d’une application avec la mise en place d’un serveur web en reverse proxy etc…</summary></entry><entry><title type="html">Quelques règles pour l’installation des portables</title><link href="http://olivier.barais.fr/blog/posts/teaching/istic/m2/french/2018/09/10/Operation_portable_M2_ISTIC.html" rel="alternate" type="text/html" title="Quelques règles pour l'installation des portables" /><published>2018-09-10T00:00:00+02:00</published><updated>2018-09-10T00:00:00+02:00</updated><id>http://olivier.barais.fr/blog/posts/teaching/istic/m2/french/2018/09/10/Operation_portable_M2_ISTIC</id><content type="html" xml:base="http://olivier.barais.fr/blog/posts/teaching/istic/m2/french/2018/09/10/Operation_portable_M2_ISTIC.html">&lt;p&gt;Hello très chers étudiants,&lt;/p&gt;
 
 &lt;p&gt;Pour la cinquième année, nous experimentons l’usage des TPs pour les M2. Nous sommes partis sur les configurations suivantes&lt;a href=&quot;http://www8.hp.com/fr/fr/products/laptops/product-detail.html?oid=5405400#!tab=specs&quot;&gt;Probook 650 avec 8GO de Ram et un I3&lt;/a&gt;&lt;/p&gt;
 
@@ -1640,147 +1786,4 @@ If you have to change your database parameters, do not forget to update your app
 &lt;p&gt;Great you will have now this great architecture. 
 Next blog posts will show, how you can easily integrate ng2 and primefaces components for the frontend and how you can manage RBAC rules and authentifications for such an application.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://api-platform.com/dist/e89da8a0f3ea2c3e006fb5328246624c.png&quot; alt=&quot;arch&quot; style=&quot;width: 800px;&quot; /&gt;&lt;/p&gt;</content><author><name></name></author><summary type="html">Even if I prefer to use Spring Boot as a basis for the the server stack and JHipster to generate the apps skeleton, I often have to use Php framework for students projects. This blog post explains how you can integrate api-platform, a PHP framework to build modern web APIs built on top symfony 3, and angularJS 2 with angular cli for building Single Page Application.</summary></entry><entry><title type="html">Quelques règles pour l’installation des portables</title><link href="http://olivier.barais.fr/blog/posts/teaching/istic/labfab/french/2016/11/30/Installation_portable_LABFAB_ISTIC.html" rel="alternate" type="text/html" title="Quelques règles pour l'installation des portables" /><published>2016-11-30T00:00:00+01:00</published><updated>2016-11-30T00:00:00+01:00</updated><id>http://olivier.barais.fr/blog/posts/teaching/istic/labfab/french/2016/11/30/Installation_portable_LABFAB_ISTIC</id><content type="html" xml:base="http://olivier.barais.fr/blog/posts/teaching/istic/labfab/french/2016/11/30/Installation_portable_LABFAB_ISTIC.html">&lt;p&gt;Hello les makers,&lt;/p&gt;
-
-&lt;p&gt;Dans le cadre de cette année de formation, vous aurez un ordinateur portable par personne. Nous sommes partis sur les configurations suivantes&lt;a href=&quot;http://www8.hp.com/fr/fr/products/laptops/product-detail.html?oid=5405400#!tab=specs&quot;&gt;Probook 650 avec 8GO de Ram et un I3&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;###Etape 0: Install OS###&lt;/p&gt;
-
-&lt;p&gt;Pour l’install, tout marche très bien avec ubuntu 16.04. Pour ceux qui ne l’ont jamais installé. Récupérez une clé usb, téléchargez &lt;a href=&quot;http://www.ubuntu.com/download/desktop&quot;&gt;Ubuntu Desktop 16.04 en version 64bit et Desktop&lt;/a&gt;. Créez votre clé ucb avec par exemple &lt;a href=&quot;http://unetbootin.sourceforge.net/&quot;&gt;unetbootin&lt;/a&gt;. Choisissez DiskImage et l’iso que vous avez téléchargé et sélectionnez en bas votre clé usb, c’est parti. (10 mins de travail, un reboot et c’est bon)&lt;/p&gt;
-
-&lt;!--more--&gt;
-
-&lt;p&gt;Au démarrage du PC. Appuyez sur la touche [Echap] puis [F9] et séléctionnez la clé usb pour bootez dessus. Installez ubuntu sur l’ensemble du disque.&lt;/p&gt;
-
-&lt;p&gt;Si certains veulent avoir une installation windows. C’est possible l’istic dispose d’un abonnement &lt;a href=&quot;https://www.google.fr/search?q=msdn+aa+istic&amp;amp;oq=msdn+aa+istic&amp;amp;aqs=chrome..69i57.6842j0j7&amp;amp;sourceid=chrome&amp;amp;es_sm=122&amp;amp;ie=UTF-8&quot;&gt;MSDN AA&lt;/a&gt; qui vous donne accès aux licences des princiaux OS des Microsoft. Dans ce cas commencez par l’install de Windows. Puis installez ubuntu ensuite en demandant un split du disque du type 120 Go pour Windows et 200 pour linux. .&lt;/p&gt;
-
-&lt;p&gt;Il est nécessaire de disposer d’une installation linux pour les TPs sans être dans une machine virtuelle.&lt;/p&gt;
-
-&lt;p&gt;Sous ubuntu, quand il est installé.&lt;/p&gt;
-
-&lt;p&gt;###Etape 1: Java et autres
-Installez les paquets suviants:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt; 
-&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;nano git openjdk-8-jdk openjdk-8-doc maven inkscape &lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Installer aussi la JDK Oracle pour GLI&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt; 
-&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;add-apt-repository ppa:webupd8team/java
-&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get update
-&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;oracle-java8-installer&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;###Etape 2: Lua&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt; 
-&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;lua5.3
-&lt;span class=&quot;nb&quot;&gt;sudo chmod &lt;/span&gt;a+rwX /opt
-&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; /opt/
-wget http://www.hamady.org/download/comet_portable_linux_64bit.tgz
-&lt;span class=&quot;nb&quot;&gt;tar&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-xzf&lt;/span&gt; comet_portable_linux_64bit.tgz
-&lt;span class=&quot;nb&quot;&gt;rm  &lt;/span&gt;comet_portable_linux_64bit.tgz
-&lt;span class=&quot;c&quot;&gt;#To start Comet&lt;/span&gt;
-/opt/Comet/bin/comet&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;###Etape 3: Eclipse&lt;/p&gt;
-
-&lt;p&gt;Téléchargez eclipse pour &lt;a href=&quot;https://eclipse.org/downloads/download.php?file=/technology/epp/downloads/release/neon/R/eclipse-java-neon-R-linux-gtk-x86_64.tar.gz&quot;&gt;Java developer&lt;/a&gt; en version 64 et dezipper le par exemple dans /opt/eclipse&lt;/p&gt;
-
-&lt;p&gt;###Etape 4: Smartgit
-Installez &lt;a href=&quot;http://www.syntevo.com/smartgit/&quot;&gt;Smartgit&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;###Etape 5: Docker&lt;/p&gt;
-
-&lt;p&gt;Installez Docker&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt; 
-&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get update 
-&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;apt-transport-https 
-&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-key adv &lt;span class=&quot;nt&quot;&gt;--keyserver&lt;/span&gt; hkp://p80.pool.sks-keyservers.net:80 &lt;span class=&quot;nt&quot;&gt;--recv-keys&lt;/span&gt; 58118E89F3A912897C070ADBF76221572C52609D
-&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;deb https://apt.dockerproject.org/repo ubuntu-xenial main&quot;&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;sudo tee&lt;/span&gt; /etc/apt/sources.list.d/docker.list
-&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get update 
-apt-cache policy docker-engine
-&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get &lt;span class=&quot;nb&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-y&lt;/span&gt; docker-engine&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Pour vérifier que tout est ok&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt; &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;docker run &lt;span class=&quot;nt&quot;&gt;-i&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-t&lt;/span&gt; ubuntu /bin/bash &lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-&lt;p&gt;Cette dernière commande télécharge un conteneur ubuntu minimal et démarre ce container. Pour plus de documentation sur &lt;a href=&quot;http://fr.wikipedia.org/wiki/Docker_(Syst%C3%A8me_de_conteneur_Linux)\&quot;&gt;docker&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;###Etape 6: NodeJS&lt;/p&gt;
-
-&lt;p&gt;Installez nodejs&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt; 
-&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-add-repository ppa:chris-lea/node.js &lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Rechargez la liste des paquets ;&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt; 
-&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get update &lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Installez les paquets nodejs.&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt; 
-&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;nodejs 
-&lt;span class=&quot;c&quot;&gt;#tester si npm est présent, &lt;/span&gt;
-npm &lt;span class=&quot;nt&quot;&gt;-v&lt;/span&gt; 
-&lt;span class=&quot;c&quot;&gt;#sinon &lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;npm&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;###Etape 7: Wifi ISTIC&lt;/p&gt;
-&lt;ol&gt;
-  &lt;li&gt;
-    &lt;p&gt;Configuez eduroam suivant le &lt;a href=&quot;http://www.eduroam.fr/conf_supplicants/&quot;&gt;tuto suivant&lt;/a&gt;.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;RDV sur &lt;a href=&quot;http://wifsic-free.istic.univ-rennes1.fr/&quot;&gt;wifsic-free&lt;/a&gt; pour enregistrer vore mac adresse que vous pouvez récupérer à l’aide de la commande suivante:&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt; &lt;span class=&quot;nb&quot;&gt;sudo&lt;/span&gt; /sbin/ifconfig &lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-&lt;p&gt;prendre ‘HWaddr XX:XX:XX:XX:XX:XX’ de l’interface wlan0.&lt;/p&gt;
-
-&lt;p&gt;###Etape 8 Utiliser les imprimantes de l’ISTIC&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Vérifiez que cups est installé&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt; 
-&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get update 
-&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;cups &lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;éditer le fichier /etc/cups/client.conf et ajouter la ligne suivante&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt; 
-ServerName printhost.istic.univ-rennes1.fr &lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;pour imprimer, être connecté aux réseaux Wifsic ou Wifsic-free&lt;/p&gt;
-
-&lt;p&gt;###Etape 9: Bookmark services utiles
-&lt;a href=&quot;http://vm.istic.univ-rennes1.fr&quot;&gt;vm istic&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;###Petit Problème: WIFI et autres&lt;/p&gt;
-
-&lt;p&gt;####Wifi Pour installer le WIFI. Pluggez vous à un réseau filaire. 
-Puis tapez les commandes suivantes&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt; 
-&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get update 
-&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;apt-get &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;firmware-b43-installer 
-&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;modprobe b43
-&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;modprobe &lt;span class=&quot;nt&quot;&gt;-r&lt;/span&gt; b43 
-&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;modprobe b43 &lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;####Certificat incorrect pour OpenJDK (poblème Maven)&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt; &lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;update-ca-certificates &lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;####Problème ACPI (PC qui ne s’éteint pas)&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt; 
-&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;nano &lt;span class=&quot;nt&quot;&gt;-w&lt;/span&gt; /boot/grub/menu.cfg 
-&lt;span class=&quot;c&quot;&gt;#Puis enlever tous les paramères, noacpi, noapic ... &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;</content><author><name></name></author><summary type="html">Hello les makers, Dans le cadre de cette année de formation, vous aurez un ordinateur portable par personne. Nous sommes partis sur les configurations suivantesProbook 650 avec 8GO de Ram et un I3 ###Etape 0: Install OS### Pour l’install, tout marche très bien avec ubuntu 16.04. Pour ceux qui ne l’ont jamais installé. Récupérez une clé usb, téléchargez Ubuntu Desktop 16.04 en version 64bit et Desktop. Créez votre clé ucb avec par exemple unetbootin. Choisissez DiskImage et l’iso que vous avez téléchargé et sélectionnez en bas votre clé usb, c’est parti. (10 mins de travail, un reboot et c’est bon)</summary></entry></feed>
+&lt;p&gt;&lt;img src=&quot;https://api-platform.com/dist/e89da8a0f3ea2c3e006fb5328246624c.png&quot; alt=&quot;arch&quot; style=&quot;width: 800px;&quot; /&gt;&lt;/p&gt;</content><author><name></name></author><summary type="html">Even if I prefer to use Spring Boot as a basis for the the server stack and JHipster to generate the apps skeleton, I often have to use Php framework for students projects. This blog post explains how you can integrate api-platform, a PHP framework to build modern web APIs built on top symfony 3, and angularJS 2 with angular cli for building Single Page Application.</summary></entry></feed>
