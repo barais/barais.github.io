@@ -123,12 +123,12 @@
 </li>
 <li class="toc-entry toc-h2"><a href="#lesson-learnt">Lesson learnt</a></li>
 </ul><h2 id="working-on-automatic-library-substitution">
-<a id="working-on-automatic-library-substitution" class="anchor" href="#working-on-automatic-library-substitution" aria-hidden="true"><span class="octicon octicon-link"></span></a>Working on automatic library substitution.</h2>
+<a class="anchor" href="#working-on-automatic-library-substitution" aria-hidden="true"><span class="octicon octicon-link"></span></a>Working on automatic library substitution.</h2>
 
 <p>We are currently working with Orange on a software diversification project. In this framework, we study the ability to automatically migrate a project from one dependency to another in order to understand the difficulties in practice. To understand these difficulties, we study a nominal case that should work perfectly. The replacement of an implementation of one JSR by another on a real project.</p>
 
 <h3 id="what-is-jsr">
-<a id="what-is-jsr" class="anchor" href="#what-is-jsr" aria-hidden="true"><span class="octicon octicon-link"></span></a>What is JSR?</h3>
+<a class="anchor" href="#what-is-jsr" aria-hidden="true"><span class="octicon octicon-link"></span></a>What is JSR?</h3>
 
 <p>The Java Community Process (JCP), established in 1998, is a formalized mechanism that allows interested parties to develop standard technical specifications for Java technology.  The JCP involves the use of Java Specification Requests (JSRs) – the formal documents that describe proposed specifications and technologies for adding to the Java platform. A JSR defines a common contract for a given concern in the Java community.</p>
 
@@ -154,7 +154,7 @@
 <p>We generate the app and we try to do the migration. Let us have a look on the manual operation to do to get a working application.</p>
 
 <h2 id="step-1-change-your-dependencies">
-<a id="step-1-change-your-dependencies" class="anchor" href="#step-1-change-your-dependencies" aria-hidden="true"><span class="octicon octicon-link"></span></a>Step 1 Change your dependencies</h2>
+<a class="anchor" href="#step-1-change-your-dependencies" aria-hidden="true"><span class="octicon octicon-link"></span></a>Step 1 Change your dependencies</h2>
 
 <p>By default, <em>spring-boot-starter-data-jpa</em> uses hibernate.</p>
 
@@ -230,12 +230,12 @@
 </code></pre></div></div>
 
 <h2 id="step-2-change-the-configuration-for-eclipselink">
-<a id="step-2-change-the-configuration-for-eclipselink" class="anchor" href="#step-2-change-the-configuration-for-eclipselink" aria-hidden="true"><span class="octicon octicon-link"></span></a>Step 2: Change the configuration for eclipselink</h2>
+<a class="anchor" href="#step-2-change-the-configuration-for-eclipselink" aria-hidden="true"><span class="octicon octicon-link"></span></a>Step 2: Change the configuration for eclipselink</h2>
 
 <p>In order to use eclipselink, several configurations have to be change.</p>
 
 <h3 id="21-in-the-pomxml">
-<a id="21-in-the-pomxml" class="anchor" href="#21-in-the-pomxml" aria-hidden="true"><span class="octicon octicon-link"></span></a>2.1. In the pom.xml</h3>
+<a class="anchor" href="#21-in-the-pomxml" aria-hidden="true"><span class="octicon octicon-link"></span></a>2.1. In the pom.xml</h3>
 
 <p>We have to use specific code generator for eclipselink. Comment in plugin section</p>
 
@@ -278,12 +278,12 @@
 </code></pre></div></div>
 
 <h3 id="22-in-you-application-java-config-package">
-<a id="22-in-you-application-java-config-package" class="anchor" href="#22-in-you-application-java-config-package" aria-hidden="true"><span class="octicon octicon-link"></span></a>2.2. In you application Java config package</h3>
+<a class="anchor" href="#22-in-you-application-java-config-package" aria-hidden="true"><span class="octicon octicon-link"></span></a>2.2. In you application Java config package</h3>
 
 <p>Add the following class:</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
-<span class="kn">package</span> <span class="n">fr</span><span class="o">.</span><span class="na">irisa</span><span class="o">.</span><span class="na">demo</span><span class="o">.</span><span class="na">config</span><span class="o">;</span>
+<span class="kn">package</span> <span class="nn">fr.irisa.demo.config</span><span class="o">;</span>
 
 <span class="kn">import</span> <span class="nn">java.util.HashMap</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">java.util.Map</span><span class="o">;</span>
@@ -302,27 +302,27 @@
 <span class="kn">import</span> <span class="nn">org.springframework.transaction.jta.JtaTransactionManager</span><span class="o">;</span>
 
 <span class="nd">@Configuration</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">EclipseLinkJpaConfiguration</span> <span class="kd">extends</span> <span class="n">JpaBaseConfiguration</span> <span class="o">{</span> 
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">EclipseLinkJpaConfiguration</span> <span class="kd">extends</span> <span class="nc">JpaBaseConfiguration</span> <span class="o">{</span> 
 
 	<span class="nd">@Autowired</span>
-	<span class="kd">protected</span> <span class="nf">EclipseLinkJpaConfiguration</span><span class="o">(</span><span class="n">DataSource</span> <span class="n">dataSource</span><span class="o">,</span> <span class="n">JpaProperties</span> <span class="n">properties</span><span class="o">,</span>
-			<span class="n">ObjectProvider</span><span class="o">&lt;</span><span class="n">JtaTransactionManager</span><span class="o">&gt;</span> <span class="n">jtaTransactionManagerProvider</span><span class="o">,</span>
-			<span class="n">ObjectProvider</span><span class="o">&lt;</span><span class="n">TransactionManagerCustomizers</span><span class="o">&gt;</span> <span class="n">transactionManagerCustomizers</span><span class="o">)</span> <span class="o">{</span>
+	<span class="kd">protected</span> <span class="nf">EclipseLinkJpaConfiguration</span><span class="o">(</span><span class="nc">DataSource</span> <span class="n">dataSource</span><span class="o">,</span> <span class="nc">JpaProperties</span> <span class="n">properties</span><span class="o">,</span>
+			<span class="nc">ObjectProvider</span><span class="o">&lt;</span><span class="nc">JtaTransactionManager</span><span class="o">&gt;</span> <span class="n">jtaTransactionManagerProvider</span><span class="o">,</span>
+			<span class="nc">ObjectProvider</span><span class="o">&lt;</span><span class="nc">TransactionManagerCustomizers</span><span class="o">&gt;</span> <span class="n">transactionManagerCustomizers</span><span class="o">)</span> <span class="o">{</span>
 		<span class="kd">super</span><span class="o">(</span><span class="n">dataSource</span><span class="o">,</span> <span class="n">properties</span><span class="o">,</span> <span class="n">jtaTransactionManagerProvider</span><span class="o">,</span> <span class="n">transactionManagerCustomizers</span><span class="o">);</span>
 	<span class="o">}</span>
 
 
 
     <span class="nd">@Override</span>
-    <span class="kd">protected</span> <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Object</span><span class="o">&gt;</span> <span class="nf">getVendorProperties</span><span class="o">()</span> <span class="o">{</span>
-        <span class="n">HashMap</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Object</span><span class="o">&gt;</span> <span class="n">map</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;&gt;();</span>
-        <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">PersistenceUnitProperties</span><span class="o">.</span><span class="na">WEAVING</span><span class="o">,</span> <span class="s">"static"</span><span class="o">);</span>
-        <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">PersistenceUnitProperties</span><span class="o">.</span><span class="na">DDL_GENERATION</span><span class="o">,</span> <span class="s">"none"</span><span class="o">);</span>
+    <span class="kd">protected</span> <span class="nc">Map</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">Object</span><span class="o">&gt;</span> <span class="nf">getVendorProperties</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">HashMap</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">Object</span><span class="o">&gt;</span> <span class="n">map</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">HashMap</span><span class="o">&lt;&gt;();</span>
+        <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="nc">PersistenceUnitProperties</span><span class="o">.</span><span class="na">WEAVING</span><span class="o">,</span> <span class="s">"static"</span><span class="o">);</span>
+        <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="nc">PersistenceUnitProperties</span><span class="o">.</span><span class="na">DDL_GENERATION</span><span class="o">,</span> <span class="s">"none"</span><span class="o">);</span>
         <span class="k">return</span> <span class="n">map</span><span class="o">;</span>
     <span class="o">}</span>
     
 	<span class="nd">@Override</span>
-    <span class="kd">protected</span> <span class="n">AbstractJpaVendorAdapter</span> <span class="nf">createJpaVendorAdapter</span><span class="o">()</span> <span class="o">{</span> 
+    <span class="kd">protected</span> <span class="nc">AbstractJpaVendorAdapter</span> <span class="nf">createJpaVendorAdapter</span><span class="o">()</span> <span class="o">{</span> 
         <span class="k">return</span> <span class="k">new</span> <span class="nf">EclipseLinkJpaVendorAdapter</span><span class="o">();</span> 
     <span class="o">}</span>
 <span class="o">}</span>
@@ -330,7 +330,7 @@
 </code></pre></div></div>
 
 <h3 id="23-in-your-spring-boot-configuration-file">
-<a id="23-in-your-spring-boot-configuration-file" class="anchor" href="#23-in-your-spring-boot-configuration-file" aria-hidden="true"><span class="octicon octicon-link"></span></a>2.3. In your spring boot configuration file</h3>
+<a class="anchor" href="#23-in-your-spring-boot-configuration-file" aria-hidden="true"><span class="octicon octicon-link"></span></a>2.3. In your spring boot configuration file</h3>
 
 <p>In your spring-boot configuration file (application-dev for jhipster sample), replace</p>
 
@@ -356,12 +356,12 @@
 </code></pre></div></div>
 
 <h2 id="step-3-when-magic-disapear">
-<a id="step-3-when-magic-disapear" class="anchor" href="#step-3-when-magic-disapear" aria-hidden="true"><span class="octicon octicon-link"></span></a>Step 3: When magic disapear</h2>
+<a class="anchor" href="#step-3-when-magic-disapear" aria-hidden="true"><span class="octicon octicon-link"></span></a>Step 3: When magic disapear</h2>
 
 <p>So far, these changes seem normal. The update of the dependencies, tools and configuration of the persistence provider is planned as part of the JSR. But uncloupling is  not magic.</p>
 
 <h3 id="problem-1-coupling-between-real-implementation-of-different-concerns">
-<a id="problem-1-coupling-between-real-implementation-of-different-concerns" class="anchor" href="#problem-1-coupling-between-real-implementation-of-different-concerns" aria-hidden="true"><span class="octicon octicon-link"></span></a>Problem 1: Coupling between real implementation of different concerns</h3>
+<a class="anchor" href="#problem-1-coupling-between-real-implementation-of-different-concerns" aria-hidden="true"><span class="octicon octicon-link"></span></a>Problem 1: Coupling between real implementation of different concerns</h3>
 
 <p>JHipster as a real project tries to improve the perfomance. They use a library nammed <em>jackson-datatype-hibernate</em>.  This project support JSON serialization and deserialization of Hibernate (http://hibernate.org) specific datatypes and properties; especially lazy-loading aspects. As we will not use hibernate, we must remove the depencies in the <em>pom.xml</em> file.</p>
 
@@ -374,13 +374,13 @@
 <p>And remove  the use of this module. You can just remove the following line in <em>in config.JacksonConfiguration.java</em></p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Bean</span>
-<span class="kd">public</span> <span class="n">Hibernate5Module</span> <span class="nf">hibernate5Module</span><span class="o">()</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="nc">Hibernate5Module</span> <span class="nf">hibernate5Module</span><span class="o">()</span> <span class="o">{</span>
     <span class="k">return</span> <span class="k">new</span> <span class="nf">Hibernate5Module</span><span class="o">();</span>
 <span class="o">}</span>
 </code></pre></div></div>
 
 <h3 id="problem-2-uncomplete-common-interface-between-hibernate-and-eclipselink">
-<a id="problem-2-uncomplete-common-interface-between-hibernate-and-eclipselink" class="anchor" href="#problem-2-uncomplete-common-interface-between-hibernate-and-eclipselink" aria-hidden="true"><span class="octicon octicon-link"></span></a>Problem 2: Uncomplete common interface between Hibernate and EclipseLink</h3>
+<a class="anchor" href="#problem-2-uncomplete-common-interface-between-hibernate-and-eclipselink" aria-hidden="true"><span class="octicon octicon-link"></span></a>Problem 2: Uncomplete common interface between Hibernate and EclipseLink</h3>
 
 <p>Second, current JSR remains unperfect and some annotation such as <em>org.hibernate.annotations.BatchSize</em> is not part of the JSR. Each persistence provider uses its own annotation;</p>
 
@@ -392,11 +392,11 @@
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">org.eclipse.persistence.config.HintValues</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.eclipse.persistence.config.QueryHints</span><span class="o">;</span>
 
- <span class="nd">@QueryHint</span><span class="o">(</span><span class="n">name</span><span class="o">=</span><span class="n">QueryHints</span><span class="o">.</span><span class="na">BATCH_SIZE</span><span class="o">,</span> <span class="n">value</span><span class="o">=</span><span class="s">"20"</span><span class="o">);</span>
+ <span class="nd">@QueryHint</span><span class="o">(</span><span class="n">name</span><span class="o">=</span><span class="nc">QueryHints</span><span class="o">.</span><span class="na">BATCH_SIZE</span><span class="o">,</span> <span class="n">value</span><span class="o">=</span><span class="s">"20"</span><span class="o">);</span>
 </code></pre></div></div>
 
 <h3 id="problem-3-the-famous--hyrums-law">
-<a id="problem-3-the-famous--hyrums-law" class="anchor" href="#problem-3-the-famous--hyrums-law" aria-hidden="true"><span class="octicon octicon-link"></span></a>Problem 3: The famous  <a href="http://www.hyrumslaw.com/">Hyrum’s law</a>
+<a class="anchor" href="#problem-3-the-famous--hyrums-law" aria-hidden="true"><span class="octicon octicon-link"></span></a>Problem 3: The famous  <a href="http://www.hyrumslaw.com/">Hyrum’s law</a>
 </h3>
 
 <p><img src="https://imgs.xkcd.com/comics/workflow.png" alt=""></p>
@@ -405,7 +405,7 @@
 </blockquote>
 
 <h3 id="31-javautiltimeinstant-case">
-<a id="31-javautiltimeinstant-case" class="anchor" href="#31-javautiltimeinstant-case" aria-hidden="true"><span class="octicon octicon-link"></span></a>3.1 java.util.time.Instant case</h3>
+<a class="anchor" href="#31-javautiltimeinstant-case" aria-hidden="true"><span class="octicon octicon-link"></span></a>3.1 java.util.time.Instant case</h3>
 
 <p>Since  JAVA 8, the new date and time API (JSR 310) has been introduced. It creates some types such as <em>java.util.time.Instant</em>. An Instant represents a point in time (similar to java.util.Date) with nanoseconds precision.</p>
 
@@ -419,30 +419,30 @@
 
 <p><strong>Refactoring 1</strong></p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">private</span> <span class="n">Instant</span> <span class="n">createdDate</span> <span class="o">=</span>  <span class="n">Instant</span><span class="o">.</span><span class="na">now</span><span class="o">();</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">private</span> <span class="nc">Instant</span> <span class="n">createdDate</span> <span class="o">=</span>  <span class="nc">Instant</span><span class="o">.</span><span class="na">now</span><span class="o">();</span>
 </code></pre></div></div>
 
 <p>-&gt;</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">private</span> <span class="n">Timestamp</span> <span class="n">createdDate</span> <span class="o">=</span>  <span class="n">Timestamp</span><span class="o">.</span><span class="na">from</span><span class="o">(</span><span class="n">Instant</span><span class="o">.</span><span class="na">now</span><span class="o">());</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">private</span> <span class="nc">Timestamp</span> <span class="n">createdDate</span> <span class="o">=</span>  <span class="nc">Timestamp</span><span class="o">.</span><span class="na">from</span><span class="o">(</span><span class="nc">Instant</span><span class="o">.</span><span class="na">now</span><span class="o">());</span>
 </code></pre></div></div>
 <p><strong>Refactoring 2</strong></p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">private</span> <span class="n">Instant</span> <span class="n">lastModifiedDate</span> <span class="o">=</span>  <span class="n">Instant</span><span class="o">.</span><span class="na">now</span><span class="o">();</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">private</span> <span class="nc">Instant</span> <span class="n">lastModifiedDate</span> <span class="o">=</span>  <span class="nc">Instant</span><span class="o">.</span><span class="na">now</span><span class="o">();</span>
 </code></pre></div></div>
 
 <p>-&gt;</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">private</span> <span class="n">Timestamp</span> <span class="n">lastModifiedDate</span> <span class="o">=</span>  <span class="n">Timestamp</span><span class="o">.</span><span class="na">from</span><span class="o">(</span><span class="n">Instant</span><span class="o">.</span><span class="na">now</span><span class="o">());</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">private</span> <span class="nc">Timestamp</span> <span class="n">lastModifiedDate</span> <span class="o">=</span>  <span class="nc">Timestamp</span><span class="o">.</span><span class="na">from</span><span class="o">(</span><span class="nc">Instant</span><span class="o">.</span><span class="na">now</span><span class="o">());</span>
 </code></pre></div></div>
 
 <p><strong>Refactoring 3</strong></p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="n">Instant</span> <span class="nf">getCreatedDate</span><span class="o">()</span> <span class="o">{</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="nc">Instant</span> <span class="nf">getCreatedDate</span><span class="o">()</span> <span class="o">{</span>
     <span class="k">return</span> <span class="n">createdDate</span><span class="o">.</span><span class="na">toInstant</span><span class="o">();</span>
 <span class="o">}</span>
 
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">setCreatedDate</span><span class="o">(</span><span class="n">Instant</span> <span class="n">createdDate</span><span class="o">)</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">setCreatedDate</span><span class="o">(</span><span class="nc">Instant</span> <span class="n">createdDate</span><span class="o">)</span> <span class="o">{</span>
     <span class="k">this</span><span class="o">.</span><span class="na">createdDate</span> <span class="o">=</span> <span class="n">createdDate</span><span class="o">;</span>
 <span class="o">}</span>
 
@@ -450,39 +450,39 @@
 
 <p>-&gt;</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="n">Instant</span> <span class="nf">getCreatedDate</span><span class="o">()</span> <span class="o">{</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="nc">Instant</span> <span class="nf">getCreatedDate</span><span class="o">()</span> <span class="o">{</span>
   <span class="k">if</span> <span class="o">(</span><span class="n">createdDate</span><span class="o">!=</span> <span class="kc">null</span><span class="o">)</span>
   <span class="k">return</span> <span class="n">createdDate</span><span class="o">.</span><span class="na">toInstant</span><span class="o">();</span>
   <span class="k">else</span> <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
 
 <span class="o">}</span>
 
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">setCreatedDate</span><span class="o">(</span><span class="n">Instant</span> <span class="n">createdDate</span><span class="o">)</span> <span class="o">{</span>
-    <span class="k">this</span><span class="o">.</span><span class="na">createdDate</span> <span class="o">=</span>  <span class="n">Timestamp</span><span class="o">.</span><span class="na">from</span><span class="o">(</span><span class="n">createdDate</span><span class="o">);</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">setCreatedDate</span><span class="o">(</span><span class="nc">Instant</span> <span class="n">createdDate</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">createdDate</span> <span class="o">=</span>  <span class="nc">Timestamp</span><span class="o">.</span><span class="na">from</span><span class="o">(</span><span class="n">createdDate</span><span class="o">);</span>
 <span class="o">}</span>
 </code></pre></div></div>
 
 <p><strong>Refactoring 4</strong></p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="n">Instant</span> <span class="nf">getLastModifiedDate</span><span class="o">()</span> <span class="o">{</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="nc">Instant</span> <span class="nf">getLastModifiedDate</span><span class="o">()</span> <span class="o">{</span>
     <span class="k">return</span> <span class="n">lastModifiedDate</span><span class="o">;</span>
 <span class="o">}</span>
 
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">setLastModifiedDate</span><span class="o">(</span><span class="n">Instant</span> <span class="n">lastModifiedDate</span><span class="o">)</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">setLastModifiedDate</span><span class="o">(</span><span class="nc">Instant</span> <span class="n">lastModifiedDate</span><span class="o">)</span> <span class="o">{</span>
     <span class="k">this</span><span class="o">.</span><span class="na">lastModifiedDate</span> <span class="o">=</span> <span class="n">lastModifiedDate</span><span class="o">;</span>
 <span class="o">}</span>
 </code></pre></div></div>
 
 <p>-&gt;</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="n">Instant</span> <span class="nf">getLastModifiedDate</span><span class="o">()</span> <span class="o">{</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="nc">Instant</span> <span class="nf">getLastModifiedDate</span><span class="o">()</span> <span class="o">{</span>
   <span class="k">if</span> <span class="o">(</span><span class="n">lastModifiedDate</span><span class="o">!=</span> <span class="kc">null</span><span class="o">)</span>
   <span class="k">return</span> <span class="n">lastModifiedDate</span><span class="o">.</span><span class="na">toInstant</span><span class="o">();</span>
   <span class="k">else</span> <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
 <span class="o">}</span>
 
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">setLastModifiedDate</span><span class="o">(</span><span class="n">Instant</span> <span class="n">lastModifiedDate</span><span class="o">)</span> <span class="o">{</span>
-    <span class="k">this</span><span class="o">.</span><span class="na">lastModifiedDate</span> <span class="o">=</span>  <span class="n">Timestamp</span><span class="o">.</span><span class="na">from</span><span class="o">(</span><span class="n">lastModifiedDate</span><span class="o">);</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">setLastModifiedDate</span><span class="o">(</span><span class="nc">Instant</span> <span class="n">lastModifiedDate</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">lastModifiedDate</span> <span class="o">=</span>  <span class="nc">Timestamp</span><span class="o">.</span><span class="na">from</span><span class="o">(</span><span class="n">lastModifiedDate</span><span class="o">);</span>
 <span class="o">}</span>
 </code></pre></div></div>
 
@@ -490,50 +490,50 @@
 
 <p><strong>Refactoring 5</strong></p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">private</span> <span class="n">Instant</span> <span class="n">auditEventDate</span><span class="o">;</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">private</span> <span class="nc">Instant</span> <span class="n">auditEventDate</span><span class="o">;</span>
 </code></pre></div></div>
 
 <p>-&gt;</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">private</span> <span class="n">Timestamp</span> <span class="n">auditEventDate</span><span class="o">;</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">private</span> <span class="nc">Timestamp</span> <span class="n">auditEventDate</span><span class="o">;</span>
 </code></pre></div></div>
 
 <p><strong>Refactoring 6</strong></p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="n">Instant</span> <span class="nf">getAuditEventDate</span><span class="o">()</span> <span class="o">{</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="nc">Instant</span> <span class="nf">getAuditEventDate</span><span class="o">()</span> <span class="o">{</span>
     <span class="k">return</span> <span class="n">auditEventDate</span><span class="o">;</span>
 <span class="o">}</span>
 
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">setAuditEventDate</span><span class="o">(</span><span class="n">Instant</span> <span class="n">auditEventDate</span><span class="o">)</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">setAuditEventDate</span><span class="o">(</span><span class="nc">Instant</span> <span class="n">auditEventDate</span><span class="o">)</span> <span class="o">{</span>
     <span class="k">this</span><span class="o">.</span><span class="na">auditEventDate</span> <span class="o">=</span> <span class="n">auditEventDate</span><span class="o">;</span>
 <span class="o">}</span>
 </code></pre></div></div>
 
 <p>-&gt;</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="n">Instant</span> <span class="nf">getAuditEventDate</span><span class="o">()</span> <span class="o">{</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="nc">Instant</span> <span class="nf">getAuditEventDate</span><span class="o">()</span> <span class="o">{</span>
   <span class="k">if</span> <span class="o">(</span><span class="n">auditEventDate</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span>
     <span class="k">return</span> <span class="n">auditEventDate</span><span class="o">.</span><span class="na">toInstant</span><span class="o">();</span>
   <span class="k">else</span>
     <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
 <span class="o">}</span>
 
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">setAuditEventDate</span><span class="o">(</span><span class="n">Instant</span> <span class="n">auditEventDate</span><span class="o">)</span> <span class="o">{</span>
-  <span class="k">this</span><span class="o">.</span><span class="na">auditEventDate</span> <span class="o">=</span> <span class="n">Timestamp</span><span class="o">.</span><span class="na">from</span><span class="o">(</span><span class="n">auditEventDate</span><span class="o">);</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">setAuditEventDate</span><span class="o">(</span><span class="nc">Instant</span> <span class="n">auditEventDate</span><span class="o">)</span> <span class="o">{</span>
+  <span class="k">this</span><span class="o">.</span><span class="na">auditEventDate</span> <span class="o">=</span> <span class="nc">Timestamp</span><span class="o">.</span><span class="na">from</span><span class="o">(</span><span class="n">auditEventDate</span><span class="o">);</span>
 <span class="o">}</span>
 
 </code></pre></div></div>
 
 <h3 id="32-the-method-flush-case">
-<a id="32-the-method-flush-case" class="anchor" href="#32-the-method-flush-case" aria-hidden="true"><span class="octicon octicon-link"></span></a>3.2 The method <em>flush</em> case</h3>
+<a class="anchor" href="#32-the-method-flush-case" aria-hidden="true"><span class="octicon octicon-link"></span></a>3.2 The method <em>flush</em> case</h3>
 
 <p>In each <strong>serviceImpl</strong> class for each domain class, developer does not flush the entiry after saving a new entity.</p>
 
 <p>It raises the following null pointer problem. Developer saves their entity and getId of the entity.</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="n">RegionDTO</span> <span class="n">result</span> <span class="o">=</span> <span class="n">regionService</span><span class="o">.</span><span class="na">save</span><span class="o">(</span><span class="n">regionDTO</span><span class="o">);</span>
-  <span class="k">return</span> <span class="n">ResponseEntity</span><span class="o">.</span><span class="na">created</span><span class="o">(</span><span class="k">new</span> <span class="n">URI</span><span class="o">(</span><span class="s">"/api/regions/"</span> <span class="o">+</span> <span class="n">result</span><span class="o">.</span><span class="na">getId</span><span class="o">()))</span>
-      <span class="o">.</span><span class="na">headers</span><span class="o">(</span><span class="n">HeaderUtil</span><span class="o">.</span><span class="na">createEntityCreationAlert</span><span class="o">(</span><span class="n">ENTITY_NAME</span><span class="o">,</span> <span class="n">result</span><span class="o">.</span><span class="na">getId</span><span class="o">().</span><span class="na">toString</span><span class="o">()))</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nc">RegionDTO</span> <span class="n">result</span> <span class="o">=</span> <span class="n">regionService</span><span class="o">.</span><span class="na">save</span><span class="o">(</span><span class="n">regionDTO</span><span class="o">);</span>
+  <span class="k">return</span> <span class="nc">ResponseEntity</span><span class="o">.</span><span class="na">created</span><span class="o">(</span><span class="k">new</span> <span class="no">URI</span><span class="o">(</span><span class="s">"/api/regions/"</span> <span class="o">+</span> <span class="n">result</span><span class="o">.</span><span class="na">getId</span><span class="o">()))</span>
+      <span class="o">.</span><span class="na">headers</span><span class="o">(</span><span class="nc">HeaderUtil</span><span class="o">.</span><span class="na">createEntityCreationAlert</span><span class="o">(</span><span class="no">ENTITY_NAME</span><span class="o">,</span> <span class="n">result</span><span class="o">.</span><span class="na">getId</span><span class="o">().</span><span class="na">toString</span><span class="o">()))</span>
       <span class="o">.</span><span class="na">body</span><span class="o">(</span><span class="n">result</span><span class="o">);</span>
 
 </code></pre></div></div>
@@ -541,9 +541,9 @@
 <p>In <strong>regionService.save(regionDTO);</strong>, it calls the following code.</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Override</span>
-<span class="kd">public</span> <span class="n">RegionDTO</span> <span class="nf">save</span><span class="o">(</span><span class="n">RegionDTO</span> <span class="n">regionDTO</span><span class="o">)</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="nc">RegionDTO</span> <span class="nf">save</span><span class="o">(</span><span class="nc">RegionDTO</span> <span class="n">regionDTO</span><span class="o">)</span> <span class="o">{</span>
     <span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">"Request to save Region : {}"</span><span class="o">,</span> <span class="n">regionDTO</span><span class="o">);</span>
-    <span class="n">Region</span> <span class="n">region</span> <span class="o">=</span> <span class="n">regionMapper</span><span class="o">.</span><span class="na">toEntity</span><span class="o">(</span><span class="n">regionDTO</span><span class="o">);</span>
+    <span class="nc">Region</span> <span class="n">region</span> <span class="o">=</span> <span class="n">regionMapper</span><span class="o">.</span><span class="na">toEntity</span><span class="o">(</span><span class="n">regionDTO</span><span class="o">);</span>
     <span class="c1">//save the entity to the database and get a new entity managed by the peristence provider</span>
     <span class="n">region</span> <span class="o">=</span> <span class="n">regionRepository</span><span class="o">.</span><span class="na">save</span><span class="o">(</span><span class="n">region</span><span class="o">);</span>
     <span class="c1">//Transform the result to the dto. </span>
@@ -556,9 +556,9 @@
 <p>As a result, you must refactor your code in that way for each serviceImpl.</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Override</span>
-<span class="kd">public</span> <span class="n">RegionDTO</span> <span class="nf">save</span><span class="o">(</span><span class="n">RegionDTO</span> <span class="n">regionDTO</span><span class="o">)</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="nc">RegionDTO</span> <span class="nf">save</span><span class="o">(</span><span class="nc">RegionDTO</span> <span class="n">regionDTO</span><span class="o">)</span> <span class="o">{</span>
     <span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">"Request to save Region : {}"</span><span class="o">,</span> <span class="n">regionDTO</span><span class="o">);</span>
-    <span class="n">Region</span> <span class="n">region</span> <span class="o">=</span> <span class="n">regionMapper</span><span class="o">.</span><span class="na">toEntity</span><span class="o">(</span><span class="n">regionDTO</span><span class="o">);</span>
+    <span class="nc">Region</span> <span class="n">region</span> <span class="o">=</span> <span class="n">regionMapper</span><span class="o">.</span><span class="na">toEntity</span><span class="o">(</span><span class="n">regionDTO</span><span class="o">);</span>
     <span class="c1">//save the entity to the database and get a new entity managed by the peristence provider</span>
     <span class="n">region</span> <span class="o">=</span> <span class="n">regionRepository</span><span class="o">.</span><span class="na">save</span><span class="o">(</span><span class="n">region</span><span class="o">);</span>
     <span class="n">regionRepository</span><span class="o">.</span><span class="na">flush</span><span class="o">();</span>
@@ -568,7 +568,7 @@
 </code></pre></div></div>
 
 <h2 id="lesson-learnt">
-<a id="lesson-learnt" class="anchor" href="#lesson-learnt" aria-hidden="true"><span class="octicon octicon-link"></span></a>Lesson learnt</h2>
+<a class="anchor" href="#lesson-learnt" aria-hidden="true"><span class="octicon octicon-link"></span></a>Lesson learnt</h2>
 
 <p>From this first experience, we draw several conclusions:</p>
 <ul>
@@ -706,6 +706,8 @@
                     <li><a href="/blog/categories/Hibernate/">Hibernate</a></li> 
                     <li><a href="/blog/categories/EclipseLink/">EclipseLink</a></li> 
                     <li><a href="/blog/categories/Diversity/">Diversity</a></li> 
+                    <li><a href="/blog/categories/esir/">esir</a></li> 
+                    <li><a href="/blog/categories/mdi/">mdi</a></li> 
                 </ul>
             </div>
         </div>

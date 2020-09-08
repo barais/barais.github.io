@@ -1,0 +1,464 @@
+
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<!-- <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="Olivier Barais">
+<link rel="author" href="https://plus.google.com/+OlivierBarais">
+ 
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+<link rel="stylesheet" href="/assets/main.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<style>body {
+    padding-top: 60px;
+  }
+  @media (max-width: 979px) {
+    body {
+      padding-top: 60px;
+    }
+  }
+</style>
+
+<title>Quelques éléments pour le TP sur Docker à l'ESIR</title>
+
+
+
+<!-- Add custom CSS here -->
+
+<!-- <link rel="shortcut icon" href="favicon.ico"> -->
+<link rel="icon" href="/favicon.ico">
+
+
+</head>
+
+<body>
+
+    	<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+					<span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
+				</button>
+                <a class="navbar-brand" href="/">olivier.barais</a>
+			</div>
+
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="collapse navbar-collapse navbar-right navbar-ex1-collapse">
+				<ul class="nav navbar-nav">
+                    <li><a href="/">Home</a></li>
+					<li><a href="/publications/">Publications</a></li>
+					<li><a href="/teaching/">Teaching</a></li>
+                    <li><a href="/research/">Research</a></li>
+                    <li><a href="/blog/">Blog</a></li>
+                    <li><a href="/photos/">Photos</a></li>
+                    <li><a href="/contact/">Contact</a></li>
+				</ul>
+			</div>
+			<!-- /.navbar-collapse -->
+		</div>
+		<!-- /.container -->
+	</nav>
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                               <!-- the actual blog post: title/author/date/content -->
+                <h1> Quelques éléments pour le TP sur Docker à l'ESIR </h1>
+                    <p class="lead">by <a href="/contact/">Olivier Barais</a> &nbsp;&nbsp;&nbsp;
+                        
+                            <a href="/blog/categories/teaching/"><span class="label label-primary">teaching</span></a>
+                            &nbsp;
+                        
+                            <a href="/blog/categories/esir/"><span class="label label-primary">esir</span></a>
+                            &nbsp;
+                        
+                            <a href="/blog/categories/mdi/"><span class="label label-primary">mdi</span></a>
+                            &nbsp;
+                        
+                            <a href="/blog/categories/french/"><span class="label label-primary">french</span></a>
+                            &nbsp;
+                        
+                    </p>
+                        <span class="glyphicon glyphicon-time"></span> Posted 2019.04.08 
+                        
+                            &mdash; Rennes, France
+                        
+
+                <hr>
+                
+                <p>Hello très chers étudiants,</p>
+
+<p>Le but de ce TP est de regarder comment nous pouvons utiliser docker pour faciliter le déploiement d’une application avec la mise en place d’un serveur web en reverse proxy etc…</p>
+
+<!--more-->
+
+<h3 id="etape--1-docker">Etape -1: Docker###</h3>
+
+<p>Si vous utilisez une machine perso, installez docker (voir <a href="http://olivier.barais.fr/blog/posts/teaching/istic/m2/french/2018/09/10/Operation_portable_M2_ISTIC.html">ici</a>)</p>
+
+<h3 id="etape-0-test-de-votre-installation">Etape 0: Test de votre installation</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker run hello-world
+</code></pre></div></div>
+
+<p>Vous devriez avoir le message suivant.</p>
+
+<hr />
+
+<p>Hello from Docker.
+This message shows that your installation appears to be working correctly.</p>
+
+<p>To generate this message, Docker took the following steps:</p>
+<ol>
+  <li>The Docker client contacted the Docker daemon.</li>
+  <li>The Docker daemon pulled the “hello-world” image from the Docker Hub.</li>
+  <li>The Docker daemon created a new container from that image which runs the
+executable that produces the output you are currently reading.</li>
+  <li>The Docker daemon streamed that output to the Docker client, which sent it
+to your terminal.</li>
+</ol>
+
+<p>To try something more ambitious, you can run an Ubuntu container with:
+ $ docker run -it ubuntu bash</p>
+
+<p>Share images, automate workflows, and more with a free Docker Hub account:
+ https://hub.docker.com</p>
+
+<p>For more examples and ideas, visit:
+ https://docs.docker.com/userguide/</p>
+
+<hr />
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker run <span class="nt">-t</span> <span class="nt">-i</span> ubuntu /bin/bash
+</code></pre></div></div>
+
+<p>Vous récupérez un shell qui est différent de votre propre distribution.</p>
+
+<p>Tapez la commande</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>apt-get update
+apt-get <span class="nb">install </span>net-tools
+/sbin/ifconfig
+</code></pre></div></div>
+
+<p>Vous constatez que l’interface réseau n’est pas la même dans le container et dans la machine hote.</p>
+
+<p>Le container vient avec sa propre interface réseau.</p>
+
+<h3 id="etape-1-jouons-avec-docker-mise-en-place-dun-load-balancer-et-dun-reverse-proxy-avec-docker-et-nginx">Etape 1: Jouons avec docker: mise en place d’un load balancer et d’un reverse proxy avec docker et nginx</h3>
+
+<p>Pour le nginx en resolproxy nous allons partir de l’image <a href="https://github.com/jwilder/nginx-proxy">suivante</a></p>
+
+<p>L’explication du fonctionnement est disponible <a href="http://jasonwilder.com/blog/2014/03/25/automated-nginx-reverse-proxy-for-docker/">ici</a>.</p>
+
+<p>Lancement de nginx en resolvproxy</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker run <span class="nt">-d</span> <span class="nt">-p</span> 8080:80 <span class="nt">-v</span> /var/run/docker.sock:/tmp/docker.sock <span class="nt">-t</span> jwilder/nginx-proxy 
+</code></pre></div></div>
+
+<p>Dans le suite nous allons utiliser terminator pour visualiser les effets du load-balancing.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>apt-get <span class="nb">install </span>terminator
+</code></pre></div></div>
+
+<p>Lancez Terminator en root.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>terminator
+</code></pre></div></div>
+
+<p>modifiez votre fichier /etc/hosts pour faire correspondre myapp.taa.fr vers 127.0.0.1. Ce serait à faire sur votre gestionnaire de nom de domaine en temps normal.</p>
+
+<p>Vous devez avoir une ligne qui ressemble à cela.</p>
+
+<pre><code class="language-txt">127.0.0.1	localhost localhost.localdomain localhost4 localhost4.localdomain myapp.mdi.fr
+</code></pre>
+
+<p>Puis créer n fenètre dans votre navigateur terminator (clic droit puis split horizontal ou vertical). 
+Dans ces terminales, lancez la commande suivante pour tester votre resolve proxy.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker run <span class="nt">-e</span> <span class="nv">VIRTUAL_HOST</span><span class="o">=</span>myapp.mdi.fr <span class="nt">-t</span> <span class="nt">-i</span>  nginx
+</code></pre></div></div>
+
+<p>En tapant la commande suivante, vous pouvez regarder le fichier de configuration nginx qui sera généré à l’adresse suivante /etc/nginx/conf.d/default.conf. (N’oubliez pas de remplacer  865c1e67a00e par l’id de votre nginx en resolve proxy ($docker ps) pour récupérer la liste des containers en cours d’exécution.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker <span class="nb">exec</span> <span class="nt">-it</span> 865c1e67a00e bash
+</code></pre></div></div>
+
+<ul>
+  <li><a href="http://jasonwilder.com/blog/2014/03/25/automated-nginx-reverse-proxy-for-docker/">source</a></li>
+</ul>
+
+<p>Tuez tous les dockers nginx démarrer.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker ps <span class="c">#pour avoir la liste</span>
+docker <span class="nb">kill</span> <span class="s2">"IDDOCKER"</span> <span class="c">#pour tuer un docker. </span>
+</code></pre></div></div>
+
+<h3 id="etape-2-utilisation-de-docker-compose">Etape 2: Utilisation de docker compose</h3>
+<p>Utilisez docker compose pour déployer votre vos 4 services nginx et votre loadbalancer.</p>
+
+<p><a href="https://docs.docker.com/get-started/part3/">tutoriel</a></p>
+
+<h3 id="etape-3-dockeriser-une-application-existante">Etape 3: Dockeriser une application existante</h3>
+
+<p>Nous souhaitons partir d’une application Web de détection de visage.</p>
+
+<p>https://github.com/barais/ESIRTPDockerSampleApp</p>
+
+<p>Construisez le fichier docker file permettant de créer l’image docker pour cette application.</p>
+
+<p>Vous aurez besoin de construire open cv depuis les src (principalement depuis la version 3.4)</p>
+
+<p>https://github.com/opencv/opencv</p>
+
+<p>Tester le lancement de cette image.</p>
+
+<p>Vous pourrez utiliser cette documentation pour la compilation d’opencv sur ubuntu.</p>
+
+<p>https://advancedweb.hu/2016/03/01/opencv_ubuntu/</p>
+
+<p>N’oubliez pas d’installer ant au sein de votre image docker ainsi que la jvm et maven.</p>
+
+<p>Nous souhaitons faire en sorte de fournir une image docker finale la plus petite possible.</p>
+
+<p>Fournissez donc deux fichiers docker file, un premier pour construire l’image qui permet de compiler opencv et compiler votre application. Un deuxième qui permet de construire l’image minimale pour votre application.</p>
+
+<h3 id="etape-4-dockeriser-une-application-existante">Etape 4: Dockeriser une application existante</h3>
+
+<p>Fournir un docker file qui permet de mettre en place une application avec 4 instance de votre serveur Web.</p>
+
+<h3 id="etape-5-dockeriser-une-application-existante">Etape 5: Dockeriser une application existante</h3>
+
+<p>En utilisant <a href="https://labs.play-with-k8s.com/">https://labs.play-with-k8s.com/</a>, déployer votre service à l’aide de kubernetes.</p>
+
+
+                
+                <!-- the comment box -->
+<!--                 <div class="well">
+                    <h4>Leave a Comment:</h4>
+                    <form role="form">
+                        <div class="form-group">
+                            <textarea class="form-control" rows="3"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div> -->
+
+                <!-- the comments -->
+<!--                 <hr>
+ --><!--                 <h3>Start Bootstrap
+                    <small>9:41 PM on August 24, 2013</small>
+                </h3>
+                <p>This has to be the worst blog post I have ever read. It simply makes no sense. You start off by talking about space or something, then you randomly start babbling about cupcakes, and you end off with random fish names.</p>
+
+                <h3>Start Bootstrap
+                    <small>9:47 PM on August 24, 2013</small>
+                </h3>
+                <p>Don't listen to this guy, any blog with the categories 'dinosaurs, spaceships, fried foods, wild animals, alien abductions, business casual, robots, and fireworks' has true potential.</p> -->
+
+<!--             <div class="row"> -->
+<!--                 % include well.html %} -->
+<!--             </div> -->
+
+<!--             </div> -->
+<!--             % include well.html %} -->
+            
+
+            </div>
+            <div class="col-md-4">
+                <!-- <div class="col-md-4"> -->
+    <!--              
+    <div class="well">
+        <h4>Blog Search</h4>
+        <div class="input-group">
+            <input type="text" class="form-control">
+            <span class="input-group-btn">
+                <button class="btn btn-default" type="button">
+                    <span class="glyphicon glyphicon-search"></span>
+                </button>
+            </span>
+        </div>
+    </div>
+    -->
+
+    
+
+    <div class="well">
+        <div class="row">
+            <div class="col-md-6">
+                <h4>Current Tags</h4>
+                <ul class="list-unstyled">
+                    
+                    <li><a href="/blog/categories/teaching/">teaching</a></li> 
+                    <li><a href="/blog/categories/esir/">esir</a></li> 
+                    <li><a href="/blog/categories/mdi/">mdi</a></li> 
+                    <li><a href="/blog/categories/french/">french</a></li> 
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    
+
+    <div class="well">
+        <div class="row">
+            <div class="col-lg-6">
+                <h4>All Tags</h4>
+                <ul class="list-unstyled">
+                    <li><a href="/blog/">All</a></li> 
+                    <li><a href="/blog/categories/first-post/">first-post</a></li> 
+                    <li><a href="/blog/categories/jekyll/">jekyll</a></li> 
+                    <li><a href="/blog/categories/github-pages/">github-pages</a></li> 
+                    <li><a href="/blog/categories/teaching/">teaching</a></li> 
+                    <li><a href="/blog/categories/markdown/">markdown</a></li> 
+                    <li><a href="/blog/categories/untidy/">untidy</a></li> 
+                    <li><a href="/blog/categories/website/">website</a></li> 
+                    <li><a href="/blog/categories/docker/">docker</a></li> 
+                    <li><a href="/blog/categories/cloud/">cloud</a></li> 
+                    <li><a href="/blog/categories/diversify/">diversify</a></li> 
+                    <li><a href="/blog/categories/eclipse/">eclipse</a></li> 
+                    <li><a href="/blog/categories/istic/">istic</a></li> 
+                    <li><a href="/blog/categories/m2/">m2</a></li> 
+                    <li><a href="/blog/categories/french/">french</a></li> 
+                    <li><a href="/blog/categories/ensai/">ensai</a></li> 
+                    <li><a href="/blog/categories/kevoree/">kevoree</a></li> 
+                    <li><a href="/blog/categories/kevoreejs/">kevoreejs</a></li> 
+                    <li><a href="/blog/categories/edison/">edison</a></li> 
+                    <li><a href="/blog/categories/angularjs/">angularjs</a></li> 
+                    <li><a href="/blog/categories/jquery/">jquery</a></li> 
+                    <li><a href="/blog/categories/jhipster/">jhipster</a></li> 
+                    <li><a href="/blog/categories/sdn/">sdn</a></li> 
+                    <li><a href="/blog/categories/opendaylight/">opendaylight</a></li> 
+                    <li><a href="/blog/categories/software engineering/">software engineering</a></li> 
+                    <li><a href="/blog/categories/ejcp/">ejcp</a></li> 
+                    <li><a href="/blog/categories/swarm/">swarm</a></li> 
+                    <li><a href="/blog/categories/go-docker/">go-docker</a></li> 
+                    <li><a href="/blog/categories/raspberry pi/">raspberry pi</a></li> 
+                    <li><a href="/blog/categories/javascript/">javascript</a></li> 
+                    <li><a href="/blog/categories/java/">java</a></li> 
+                    <li><a href="/blog/categories/slides/">slides</a></li> 
+                    <li><a href="/blog/categories/reveal.js/">reveal.js</a></li> 
+                    <li><a href="/blog/categories/powerpoint/">powerpoint</a></li> 
+                    <li><a href="/blog/categories/migration/">migration</a></li> 
+                    <li><a href="/blog/categories/labfab/">labfab</a></li> 
+                    <li><a href="/blog/categories/api-platform/">api-platform</a></li> 
+                    <li><a href="/blog/categories/symfony3/">symfony3</a></li> 
+                    <li><a href="/blog/categories/ng2/">ng2</a></li> 
+                    <li><a href="/blog/categories/angularjs2/">angularjs2</a></li> 
+                    <li><a href="/blog/categories/rpi/">rpi</a></li> 
+                    <li><a href="/blog/categories/raspberrypi/">raspberrypi</a></li> 
+                    <li><a href="/blog/categories/raspberry/">raspberry</a></li> 
+                    <li><a href="/blog/categories/swagger/">swagger</a></li> 
+                    <li><a href="/blog/categories/curl/">curl</a></li> 
+                    <li><a href="/blog/categories/authentification/">authentification</a></li> 
+                    <li><a href="/blog/categories/l1/">l1</a></li> 
+                    <li><a href="/blog/categories/OpenWRT/">OpenWRT</a></li> 
+                    <li><a href="/blog/categories/Camera/">Camera</a></li> 
+                    <li><a href="/blog/categories/Canon/">Canon</a></li> 
+                    <li><a href="/blog/categories/JHipster/">JHipster</a></li> 
+                    <li><a href="/blog/categories/Hibernate/">Hibernate</a></li> 
+                    <li><a href="/blog/categories/EclipseLink/">EclipseLink</a></li> 
+                    <li><a href="/blog/categories/Diversity/">Diversity</a></li> 
+                    <li><a href="/blog/categories/esir/">esir</a></li> 
+                    <li><a href="/blog/categories/mdi/">mdi</a></li> 
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="well">
+        <h4>Remark</h4>
+        <p>Sorry, no comments enabled for now because I'm using a simple static site generator (maybe I'll try out disqus another day).</p>
+        <p>
+            But if you like what you see, send me an <a href="/contact/">email</a>.
+        </p>
+    </div>
+<!-- </div> -->
+
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="banner"> 
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3">
+                <!--                     <h2>You can check me out on</h2> -->
+                <h2>Find me on</h2>
+            </div>
+            <div class="col-lg-9">
+                <ul class="list-inline banner-social-buttons">
+                    <li><a href="http://www.linkedin.com/in/olivierbarais" class="btn btn-default btn-lg"><i class="fa fa-linkedin-square fa-fw"></i>
+                            <span class="network-name">Linkedin</span></a></li>
+                    <li><a href="https://github.com/barais" class="btn btn-default btn-lg"><i class="fa fa-github-square fa-fw"></i> <span
+                            class="network-name">Github</span></a></li>
+                    <li><a href="http://scholar.google.fr/citations?user=LV5i8X4AAAAJ&hl=en" class="btn btn-default btn-lg"><i
+                            class="fa fa-search fa-fw"></i> <span class="network-name">Scholar</span></a></li>
+                    <li><a href="https://www.google.com/+OlivierBarais?rel=author" class="btn btn-default btn-lg"><i
+                            class="fa fa-google-plus-square fa-fw"></i> <span class="network-name">google+</span></a></li>
+                    <li><a href="https://www.facebook.com/obarais" class="btn btn-default btn-lg"><i
+                            class="fa fa-facebook-square fa-fw"></i> <span class="network-name">facebook</span></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+
+</div>
+<!-- /.banner -->
+
+<footer>
+    <div class="container">
+        <div class="span12 pagination-centered" style="text-align: center">
+            <div class="row">
+                <div class="col-lg-12">
+                    <ul class="list-inline">
+                        <li><a href="/">Home</a></li>
+                        <li class="footer-menu-divider">&sdot;</li>
+                        <!-- 						<li><a href="#about">About</a></li>
+							<li class="footer-menu-divider">&sdot;</li>
+	                    -->
+                        <li><a href="/publications/">Publications</a></li>
+                        <li class="footer-menu-divider">&sdot;</li>
+                        <li><a href="/teaching/">Teaching</a></li>
+                        <li class="footer-menu-divider">&sdot;</li>
+                        <li><a href="/research/">Research</a></li>
+                        <li class="footer-menu-divider">&sdot;</li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li class="footer-menu-divider">&sdot;</li>
+                        <li><a href="/photos/">Photos</a></li>
+                        <li class="footer-menu-divider">&sdot;</li>
+                        <li><a href="/contact/">Contact</a></li>
+                    </ul>
+
+                    <p class="copyright text-muted small">
+                        <a href="http://validator.w3.org/check?uri=referer"><img src="/img/valid-html401.png"
+                            alt="Valid HTML 4.01 Frameset" height="20" width="57"></a> Built using <a href="http://jekyllrb.com/">Jekyll</a>, <a
+                            href="http://twitter.github.com/bootstrap/">Bootstrap</a> and <a href="http://startbootstrap.com">Startbootstrap</a> from <a href="http://rudametw.github.io/">Walter Rudametkin's template</a>. All
+                        source code available <a href="https://github.com/barais/barais.github.io"> here</a>. 
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+</body>
+</html>
