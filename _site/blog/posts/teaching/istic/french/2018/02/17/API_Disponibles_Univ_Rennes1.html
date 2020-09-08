@@ -110,41 +110,41 @@
 <p>Dans cet exemple, nous protégeons la route <em>/app</em> avec le cas de Rennes 1.</p>
 
 <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//Require to use express and cas librarie</span>
-<span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'express'</span><span class="p">)();</span>
-<span class="kd">var</span> <span class="nx">session</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'express-session'</span><span class="p">);</span>
-<span class="kd">var</span> <span class="nx">CASAuthentication</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'cas-authentication'</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">express</span><span class="dl">'</span><span class="p">)();</span>
+<span class="kd">var</span> <span class="nx">session</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">express-session</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">CASAuthentication</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">cas-authentication</span><span class="dl">'</span><span class="p">);</span>
  
 <span class="c1">// Set up an Express session, which is required for CASAuthentication. </span>
 <span class="nx">app</span><span class="p">.</span><span class="nx">use</span><span class="p">(</span> <span class="nx">session</span><span class="p">({</span>
-    <span class="na">secret</span>            <span class="p">:</span> <span class="s1">'super secret key'</span><span class="p">,</span> <span class="c1">//Must be changed</span>
+    <span class="na">secret</span>            <span class="p">:</span> <span class="dl">'</span><span class="s1">super secret key</span><span class="dl">'</span><span class="p">,</span> <span class="c1">//Must be changed</span>
     <span class="na">resave</span>            <span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
     <span class="na">saveUninitialized</span> <span class="p">:</span> <span class="kc">true</span>
 <span class="p">}));</span>
  
 <span class="c1">// Create a new instance of CASAuthentication. </span>
 <span class="kd">var</span> <span class="nx">cas</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">CASAuthentication</span><span class="p">({</span>
-    <span class="na">cas_url</span>     <span class="p">:</span> <span class="s1">'https://sso-cas.univ-rennes1.fr'</span><span class="p">,</span>
-    <span class="na">service_url</span> <span class="p">:</span> <span class="s1">'http://localhost:3000'</span><span class="p">,</span> <span class="c1">//must be changed after deploying your application. Do not forget to use let's encrypt</span>
-    <span class="na">cas_version</span>     <span class="p">:</span> <span class="s1">'1.0'</span><span class="p">,</span>
-    <span class="na">session_name</span>    <span class="p">:</span> <span class="s1">'cas_user'</span><span class="p">,</span>
-    <span class="na">session_info</span>    <span class="p">:</span> <span class="s1">'cas_userinfo'</span>
+    <span class="na">cas_url</span>     <span class="p">:</span> <span class="dl">'</span><span class="s1">https://sso-cas.univ-rennes1.fr</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">service_url</span> <span class="p">:</span> <span class="dl">'</span><span class="s1">http://localhost:3000</span><span class="dl">'</span><span class="p">,</span> <span class="c1">//must be changed after deploying your application. Do not forget to use let's encrypt</span>
+    <span class="na">cas_version</span>     <span class="p">:</span> <span class="dl">'</span><span class="s1">1.0</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">session_name</span>    <span class="p">:</span> <span class="dl">'</span><span class="s1">cas_user</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">session_info</span>    <span class="p">:</span> <span class="dl">'</span><span class="s1">cas_userinfo</span><span class="dl">'</span>
 <span class="p">});</span>
  
 <span class="c1">// Unauthenticated clients will be redirected to the CAS login and then back to </span>
 <span class="c1">// this route once authenticated. </span>
-<span class="nx">app</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span> <span class="s1">'/app'</span><span class="p">,</span> <span class="nx">cas</span><span class="p">.</span><span class="nx">bounce</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">req</span><span class="p">,</span> <span class="nx">res</span> <span class="p">)</span> <span class="p">{</span>
-    <span class="nx">res</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span> <span class="s1">'&lt;html&gt;&lt;body&gt;Hello! '</span> <span class="o">+</span> <span class="nx">req</span><span class="p">.</span><span class="nx">session</span><span class="p">[</span> <span class="nx">cas</span><span class="p">.</span><span class="nx">session_name</span> <span class="p">]</span> <span class="o">+</span> <span class="s1">'&lt;/body&gt;&lt;/html&gt;'</span> <span class="p">);</span>
+<span class="nx">app</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span> <span class="dl">'</span><span class="s1">/app</span><span class="dl">'</span><span class="p">,</span> <span class="nx">cas</span><span class="p">.</span><span class="nx">bounce</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">req</span><span class="p">,</span> <span class="nx">res</span> <span class="p">)</span> <span class="p">{</span>
+    <span class="nx">res</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span> <span class="dl">'</span><span class="s1">&lt;html&gt;&lt;body&gt;Hello! </span><span class="dl">'</span> <span class="o">+</span> <span class="nx">req</span><span class="p">.</span><span class="nx">session</span><span class="p">[</span> <span class="nx">cas</span><span class="p">.</span><span class="nx">session_name</span> <span class="p">]</span> <span class="o">+</span> <span class="dl">'</span><span class="s1">&lt;/body&gt;&lt;/html&gt;</span><span class="dl">'</span> <span class="p">);</span>
 <span class="p">});</span> 
   
 <span class="c1">// Unauthenticated clients will be redirected to the CAS login and then to the </span>
 <span class="c1">// provided "redirectTo" query parameter once authenticated. </span>
-<span class="nx">app</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span> <span class="s1">'/authenticate'</span><span class="p">,</span> <span class="nx">cas</span><span class="p">.</span><span class="nx">bounce_redirect</span> <span class="p">);</span>
+<span class="nx">app</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span> <span class="dl">'</span><span class="s1">/authenticate</span><span class="dl">'</span><span class="p">,</span> <span class="nx">cas</span><span class="p">.</span><span class="nx">bounce_redirect</span> <span class="p">);</span>
  
 <span class="c1">// This route will de-authenticate the client with the Express server and then </span>
 <span class="c1">// redirect the client to the CAS logout page. </span>
-<span class="nx">app</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span> <span class="s1">'/logout'</span><span class="p">,</span> <span class="nx">cas</span><span class="p">.</span><span class="nx">logout</span> <span class="p">);</span>
+<span class="nx">app</span><span class="p">.</span><span class="kd">get</span><span class="p">(</span> <span class="dl">'</span><span class="s1">/logout</span><span class="dl">'</span><span class="p">,</span> <span class="nx">cas</span><span class="p">.</span><span class="nx">logout</span> <span class="p">);</span>
 
-<span class="nx">app</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="mi">3000</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'Example app listening on port 3000!'</span><span class="p">))</span>
+<span class="nx">app</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="mi">3000</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">Example app listening on port 3000!</span><span class="dl">'</span><span class="p">))</span>
 
 </code></pre></div></div>
 
@@ -156,27 +156,27 @@
 
 <p><a href="https://fr.wikipedia.org/wiki/Lightweight_Directory_Access_Protocol">Lightweight Directory Access Protocol (LDAP)</a> est à l’origine un protocole permettant l’interrogation et la modification des services d’annuaire. Il inclue un modèle de données, un modèle de nommage, un modèle fonctionnel basé sur le protocole LDAP, un modèle de sécurité et un modèle de réplication. C’est une structure arborescente dont chacun des noeuds est constitué d’attributs associés à leurs valeurs.</p>
 
-<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">ldap</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'ldapjs'</span><span class="p">);</span>
-<span class="kd">var</span> <span class="nx">client</span> <span class="o">=</span> <span class="nx">ldap</span><span class="p">.</span><span class="nx">createClient</span><span class="p">({</span><span class="na">url</span><span class="p">:</span> <span class="s1">'ldaps://ldap.univ-rennes1.fr'</span><span class="p">,</span><span class="na">tlsOptions</span><span class="p">:</span> <span class="p">{}});</span>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">ldap</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">ldapjs</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">client</span> <span class="o">=</span> <span class="nx">ldap</span><span class="p">.</span><span class="nx">createClient</span><span class="p">({</span><span class="na">url</span><span class="p">:</span> <span class="dl">'</span><span class="s1">ldaps://ldap.univ-rennes1.fr</span><span class="dl">'</span><span class="p">,</span><span class="na">tlsOptions</span><span class="p">:</span> <span class="p">{}});</span>
 
 <span class="kd">var</span> <span class="nx">opts</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="na">filter</span><span class="p">:</span> <span class="s1">'(uid=obarais)'</span><span class="p">,</span> <span class="c1">// Could be replace by the uid you get from req.session[ cas.session_name ]</span>
-  <span class="na">scope</span><span class="p">:</span> <span class="s1">'sub'</span><span class="p">,</span>
-  <span class="na">attributes</span><span class="p">:</span> <span class="s1">'*'</span><span class="c1">//['cn', 'sn', 'uid']</span>
+  <span class="na">filter</span><span class="p">:</span> <span class="dl">'</span><span class="s1">(uid=obarais)</span><span class="dl">'</span><span class="p">,</span> <span class="c1">// Could be replace by the uid you get from req.session[ cas.session_name ]</span>
+  <span class="na">scope</span><span class="p">:</span> <span class="dl">'</span><span class="s1">sub</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">attributes</span><span class="p">:</span> <span class="dl">'</span><span class="s1">*</span><span class="dl">'</span><span class="c1">//['cn', 'sn', 'uid']</span>
 <span class="p">};</span>
 
-<span class="nx">client</span><span class="p">.</span><span class="nx">search</span><span class="p">(</span><span class="s1">'ou=People,dc=univ-rennes1,dc=fr'</span><span class="p">,</span> <span class="nx">opts</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
-  <span class="nx">res</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'searchEntry'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">entry</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'entry: '</span> <span class="o">+</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">entry</span><span class="p">.</span><span class="nx">object</span><span class="p">));</span>
+<span class="nx">client</span><span class="p">.</span><span class="nx">search</span><span class="p">(</span><span class="dl">'</span><span class="s1">ou=People,dc=univ-rennes1,dc=fr</span><span class="dl">'</span><span class="p">,</span> <span class="nx">opts</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">res</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="dl">'</span><span class="s1">searchEntry</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">entry</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">entry: </span><span class="dl">'</span> <span class="o">+</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">entry</span><span class="p">.</span><span class="nx">object</span><span class="p">));</span>
   <span class="p">});</span>
-  <span class="nx">res</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'searchReference'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">referral</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'referral: '</span> <span class="o">+</span> <span class="nx">referral</span><span class="p">.</span><span class="nx">uris</span><span class="p">.</span><span class="nx">join</span><span class="p">());</span>
+  <span class="nx">res</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="dl">'</span><span class="s1">searchReference</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">referral</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">referral: </span><span class="dl">'</span> <span class="o">+</span> <span class="nx">referral</span><span class="p">.</span><span class="nx">uris</span><span class="p">.</span><span class="nx">join</span><span class="p">());</span>
   <span class="p">});</span>
-  <span class="nx">res</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'error'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s1">'error: '</span> <span class="o">+</span> <span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="p">);</span>
+  <span class="nx">res</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="dl">'</span><span class="s1">error</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="dl">'</span><span class="s1">error: </span><span class="dl">'</span> <span class="o">+</span> <span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="p">);</span>
   <span class="p">});</span>
-  <span class="nx">res</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">'end'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">result</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'status: '</span> <span class="o">+</span> <span class="nx">result</span><span class="p">.</span><span class="nx">status</span><span class="p">);</span>
+  <span class="nx">res</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="dl">'</span><span class="s1">end</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">result</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">status: </span><span class="dl">'</span> <span class="o">+</span> <span class="nx">result</span><span class="p">.</span><span class="nx">status</span><span class="p">);</span>
     <span class="c1">//client.unbind(function(err) {	}); // To disconnect from the server</span>
   <span class="p">});</span>
 <span class="p">});</span>
@@ -319,6 +319,8 @@
                     <li><a href="/blog/categories/Hibernate/">Hibernate</a></li> 
                     <li><a href="/blog/categories/EclipseLink/">EclipseLink</a></li> 
                     <li><a href="/blog/categories/Diversity/">Diversity</a></li> 
+                    <li><a href="/blog/categories/esir/">esir</a></li> 
+                    <li><a href="/blog/categories/mdi/">mdi</a></li> 
                 </ul>
             </div>
         </div>
