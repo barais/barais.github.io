@@ -141,11 +141,7 @@ flash <span class="nt">--hostname</span> swarm-dc2-pi04  hypriot-rpi-20160306-19
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function </span>getip<span class="o">()</span> <span class="o">{</span> <span class="o">(</span>traceroute <span class="nv">$1</span> 2&gt;&amp;1 | <span class="nb">head</span> <span class="nt">-n</span> 1 | <span class="nb">cut</span> <span class="nt">-d</span><span class="se">\(</span> <span class="nt">-f</span> 2 | <span class="nb">cut</span> <span class="nt">-d</span><span class="se">\)</span> <span class="nt">-f</span> 1<span class="o">)</span> <span class="o">}</span>
 
-<<<<<<< HEAD
 <span class="nv">IP_ADDRESS</span><span class="o">=</span><span class="si">$(</span>getip swarm-dc1-pi01.local<span class="si">)</span>
-=======
-<span class="nv">IP_ADDRESS</span><span class="o">=</span><span class="k">$(</span>getip swarm-dc1-pi01.local<span class="k">)</span>
->>>>>>> 75a23f596188adf8f158535ae9c3b02a29a64187
 
 ssh root@<span class="nv">$IP_ADDRESS</span>
 
@@ -192,11 +188,7 @@ systemctl <span class="nb">enable </span>cluster-lab
 <h2 id="step-16-test-your-swarm">Step 1.6: Test your swarm.</h2>
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function </span>getip<span class="o">()</span> <span class="o">{</span> <span class="o">(</span>traceroute <span class="nv">$1</span> 2&gt;&amp;1 | <span class="nb">head</span> <span class="nt">-n</span> 1 | <span class="nb">cut</span> <span class="nt">-d</span><span class="se">\(</span> <span class="nt">-f</span> 2 | <span class="nb">cut</span> <span class="nt">-d</span><span class="se">\)</span> <span class="nt">-f</span> 1<span class="o">)</span> <span class="o">}</span>
-<<<<<<< HEAD
 <span class="nv">IP_ADDRESS</span><span class="o">=</span><span class="si">$(</span>getip swarm-dc1-pi01.local<span class="si">)</span>
-=======
-<span class="nv">IP_ADDRESS</span><span class="o">=</span><span class="k">$(</span>getip swarm-dc1-pi01.local<span class="k">)</span>
->>>>>>> 75a23f596188adf8f158535ae9c3b02a29a64187
 docker <span class="nt">-H</span> <span class="nv">$IP_ADDRESS</span>:2378 info
 docker <span class="nt">-H</span> <span class="nv">$IP_ADDRESS</span>:2378 run hypriot/armhf-hello-world
 <span class="nb">echo</span> <span class="nv">$IP_ADDRESS</span>:2378
@@ -322,11 +314,7 @@ RUN mkdir -p /var/log/go-docker
 <h2 id="step-41-run-god-mongo-god-redis">Step 4.1: Run god-mongo god-redis.</h2>
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function </span>getip<span class="o">()</span> <span class="o">{</span> <span class="o">(</span>traceroute <span class="nv">$1</span> 2&gt;&amp;1 | <span class="nb">head</span> <span class="nt">-n</span> 1 | <span class="nb">cut</span> <span class="nt">-d</span><span class="se">\(</span> <span class="nt">-f</span> 2 | <span class="nb">cut</span> <span class="nt">-d</span><span class="se">\)</span> <span class="nt">-f</span> 1<span class="o">)</span> <span class="o">}</span>
-<<<<<<< HEAD
 <span class="nv">IP_ADDRESS</span><span class="o">=</span><span class="si">$(</span>getip swarm-dc1-pi01.local<span class="si">)</span>
-=======
-<span class="nv">IP_ADDRESS</span><span class="o">=</span><span class="k">$(</span>getip swarm-dc1-pi01.local<span class="k">)</span>
->>>>>>> 75a23f596188adf8f158535ae9c3b02a29a64187
 docker  <span class="nt">-H</span> <span class="nv">$IP_ADDRESS</span>:2378 <span class="nb">rm </span>god-mongo god-redis god-web
 docker <span class="nt">-H</span> <span class="nv">$IP_ADDRESS</span>:2378  run <span class="nt">--env</span><span class="o">=</span><span class="s2">"constraint:node==swarm-dc1-pi01"</span> <span class="nt">--name</span> god-mongo <span class="nt">-d</span> rgreschner/rpi-raspbian-mongodb
 docker <span class="nt">-H</span> <span class="nv">$IP_ADDRESS</span>:2378  run <span class="nt">--env</span><span class="o">=</span><span class="s2">"constraint:node==swarm-dc1-pi01"</span> <span class="nt">--name</span> god-redis <span class="nt">-d</span> hypriot/rpi-redis
@@ -585,11 +573,8 @@ CMD ["gst-launch-1.0 -e filesrc location=$input.mp4 ! decodebin name=demux ! que
                     <li><a href="/blog/categories/Hibernate/">Hibernate</a></li> 
                     <li><a href="/blog/categories/EclipseLink/">EclipseLink</a></li> 
                     <li><a href="/blog/categories/Diversity/">Diversity</a></li> 
-<<<<<<< HEAD
                     <li><a href="/blog/categories/esir/">esir</a></li> 
                     <li><a href="/blog/categories/mdi/">mdi</a></li> 
-=======
->>>>>>> 75a23f596188adf8f158535ae9c3b02a29a64187
                 </ul>
             </div>
         </div>

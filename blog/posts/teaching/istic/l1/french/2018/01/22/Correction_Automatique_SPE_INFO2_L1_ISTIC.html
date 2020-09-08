@@ -283,30 +283,17 @@ Donc ne rentrent pas dans le calcul de la note.
 
 <p>Ce script génère un fichier csv en sortie. Pour lier l’ID de l’étudiant à son nom. Nous partons d’un fichier csv contenant les éléments par étudiants que nous convertissons en <a href="https://fr.wikipedia.org/wiki/JavaScript_Object_Notation">json</a> grâce au projet <a href="https://github.com/Keyang/node-csvtojson">csvtojson</a>. Une fois la donnée convertie en format <a href="https://fr.wikipedia.org/wiki/JavaScript_Object_Notation">JSON</a>, il est facile de faire une requête de cette manière dans les données depuis JavaScript.</p>
 
-<<<<<<< HEAD
 <div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">jsonQuery</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">json-query</span><span class="dl">'</span><span class="p">)</span>
 <span class="kd">var</span> <span class="nx">si2</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">./SI2.json</span><span class="dl">'</span><span class="p">);</span>
 
 
 <span class="c1">//Récupère le nom de l'étudiant</span>
 <span class="nx">jsonQuery</span><span class="p">(</span><span class="dl">'</span><span class="s1">[NUMERO=17011558]</span><span class="dl">'</span><span class="p">,</span> <span class="p">{</span>
-=======
-<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">jsonQuery</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'json-query'</span><span class="p">)</span>
-<span class="kd">var</span> <span class="nx">si2</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'./SI2.json'</span><span class="p">);</span>
-
-
-<span class="c1">//Récupère le nom de l'étudiant</span>
-<span class="nx">jsonQuery</span><span class="p">(</span><span class="s1">'[NUMERO=17011558]'</span><span class="p">,</span> <span class="p">{</span>
->>>>>>> 75a23f596188adf8f158535ae9c3b02a29a64187
         <span class="na">data</span><span class="p">:</span> <span class="nx">si2</span>
       <span class="p">}).</span><span class="nx">value</span><span class="p">.</span><span class="nx">NOM</span><span class="p">;</span>
 
 <span class="c1">//Récupère le prénom de l'étudiant</span>
-<<<<<<< HEAD
 <span class="nx">jsonQuery</span><span class="p">(</span><span class="dl">'</span><span class="s1">[NUMERO=17011558]</span><span class="dl">'</span><span class="p">,</span> <span class="p">{</span>
-=======
-<span class="nx">jsonQuery</span><span class="p">(</span><span class="s1">'[NUMERO=17011558]'</span><span class="p">,</span> <span class="p">{</span>
->>>>>>> 75a23f596188adf8f158535ae9c3b02a29a64187
         <span class="na">data</span><span class="p">:</span> <span class="nx">si2</span>
       <span class="p">}).</span><span class="nx">value</span><span class="p">.</span><span class="nx">PRENOM</span><span class="p">;</span>
 </code></pre></div></div>
@@ -515,11 +502,8 @@ End Function
                     <li><a href="/blog/categories/Hibernate/">Hibernate</a></li> 
                     <li><a href="/blog/categories/EclipseLink/">EclipseLink</a></li> 
                     <li><a href="/blog/categories/Diversity/">Diversity</a></li> 
-<<<<<<< HEAD
                     <li><a href="/blog/categories/esir/">esir</a></li> 
                     <li><a href="/blog/categories/mdi/">mdi</a></li> 
-=======
->>>>>>> 75a23f596188adf8f158535ae9c3b02a29a64187
                 </ul>
             </div>
         </div>

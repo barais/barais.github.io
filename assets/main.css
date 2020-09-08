@@ -11,11 +11,7 @@ dl, dd, ol, ul, figure {
  * Basic styling
  */
 body {
-<<<<<<< HEAD
   font: 400 16px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-=======
-  font: 400 16px/1.5 "Helvetica Neue", Helvetica, Arial, sans-serif;
->>>>>>> 75a23f596188adf8f158535ae9c3b02a29a64187
   color: #111;
   background-color: #fdfdfd;
   -webkit-text-size-adjust: 100%;
@@ -23,14 +19,10 @@ body {
   -moz-font-feature-settings: "kern" 1;
   -o-font-feature-settings: "kern" 1;
   font-feature-settings: "kern" 1;
-<<<<<<< HEAD
   font-kerning: normal;
   display: flex;
   min-height: 100vh;
   flex-direction: column; }
-=======
-  font-kerning: normal; }
->>>>>>> 75a23f596188adf8f158535ae9c3b02a29a64187
 
 /**
  * Set `margin-bottom` to maintain vertical rhythm
@@ -42,7 +34,6 @@ ul, ol, dl, figure,
   margin-bottom: 15px; }
 
 /**
-<<<<<<< HEAD
  * `main` element
  */
 main {
@@ -50,8 +41,6 @@ main {
   /* Default value of `display` of `main` element is 'inline' in IE 11. */ }
 
 /**
-=======
->>>>>>> 75a23f596188adf8f158535ae9c3b02a29a64187
  * Images
  */
 img {
@@ -248,11 +237,7 @@ table {
         line-height: 0;
         padding-top: 10px;
         text-align: center; }
-<<<<<<< HEAD
         .site-nav .menu-icon > svg {
-=======
-        .site-nav .menu-icon > svg path {
->>>>>>> 75a23f596188adf8f158535ae9c3b02a29a64187
           fill: #424242; }
       .site-nav input ~ .trigger {
         clear: both;
@@ -323,12 +308,8 @@ table {
  * Page content
  */
 .page-content {
-<<<<<<< HEAD
   padding: 30px 0;
   flex: 1; }
-=======
-  padding: 30px 0; }
->>>>>>> 75a23f596188adf8f158535ae9c3b02a29a64187
 
 .page-heading {
   font-size: 32px; }
