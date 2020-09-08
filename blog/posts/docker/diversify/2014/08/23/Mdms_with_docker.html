@@ -104,23 +104,39 @@ docker pull barais/nginxsosies <span class="c">#contains nginx and the websocket
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
 <span class="c">#start nginx</span>
+<<<<<<< HEAD
 <span class="nb">export </span><span class="nv">ID_REDIS</span><span class="o">=</span><span class="si">$(</span>docker  run <span class="nt">-i</span> <span class="nt">-d</span> <span class="nt">-t</span> barais/mdmsredis /usr/bin/redis-server<span class="si">)</span>
 <span class="nb">export </span><span class="nv">IP_REDIS</span><span class="o">=</span><span class="sb">`</span>docker inspect <span class="nt">--format</span><span class="o">=</span><span class="s1">'{{ .NetworkSettings.IPAddress }}'</span> <span class="nv">$ID_REDIS</span><span class="sb">`</span> 
 <span class="c">#start some sosies</span>
 <span class="c">#run just once</span>
 <span class="nb">export </span><span class="nv">ID_SOSIES</span><span class="o">=</span><span class="si">$(</span>docker  run <span class="nt">-i</span> <span class="nt">-d</span> <span class="nt">-t</span> barais/mdmssosies /bin/bash <span class="nt">-xec</span> <span class="s2">"sed -i "</span>s/172.17.0.8/<span class="nv">$IP_REDIS</span>/g<span class="s2">" /opt/mdms-ringojs/config.json &amp;&amp; /opt/sosies/ringojs-0.10/bin/ringo /opt/mdms-ringojs/tools/fakedb.js"</span><span class="si">)</span>
+=======
+<span class="nb">export </span><span class="nv">ID_REDIS</span><span class="o">=</span><span class="k">$(</span>docker  run <span class="nt">-i</span> <span class="nt">-d</span> <span class="nt">-t</span> barais/mdmsredis /usr/bin/redis-server<span class="k">)</span>
+<span class="nb">export </span><span class="nv">IP_REDIS</span><span class="o">=</span><span class="sb">`</span>docker inspect <span class="nt">--format</span><span class="o">=</span><span class="s1">'{{ .NetworkSettings.IPAddress }}'</span> <span class="nv">$ID_REDIS</span><span class="sb">`</span> 
+<span class="c">#start some sosies</span>
+<span class="c">#run just once</span>
+<span class="nb">export </span><span class="nv">ID_SOSIES</span><span class="o">=</span><span class="k">$(</span>docker  run <span class="nt">-i</span> <span class="nt">-d</span> <span class="nt">-t</span> barais/mdmssosies /bin/bash <span class="nt">-xec</span> <span class="s2">"sed -i "</span>s/172.17.0.8/<span class="nv">$IP_REDIS</span>/g<span class="s2">" /opt/mdms-ringojs/config.json &amp;&amp; /opt/sosies/ringojs-0.10/bin/ringo /opt/mdms-ringojs/tools/fakedb.js"</span><span class="k">)</span>
+>>>>>>> 75a23f596188adf8f158535ae9c3b02a29a64187
 
 <span class="c">#run for each sosies</span>
 
 <span class="k">for </span>i <span class="k">in</span> <span class="o">{</span>1..10<span class="o">}</span>
 <span class="k">do
+<<<<<<< HEAD
 	</span><span class="nb">export </span><span class="nv">ID_SOSIES</span><span class="o">=</span><span class="si">$(</span>docker  run <span class="nt">-i</span> <span class="nt">-d</span> <span class="nt">-t</span> barais/mdmssosies /bin/bash <span class="nt">-xec</span> <span class="s2">"sed -i "</span>s/172.17.0.8/<span class="nv">$IP_REDIS</span>/g<span class="s2">" /opt/mdms-ringojs/config.json &amp;&amp; /opt/sosies/ringojs-0.10/bin/ringo /opt/mdms-ringojs/main.js"</span><span class="si">)</span>
+=======
+	</span><span class="nb">export </span><span class="nv">ID_SOSIES</span><span class="o">=</span><span class="k">$(</span>docker  run <span class="nt">-i</span> <span class="nt">-d</span> <span class="nt">-t</span> barais/mdmssosies /bin/bash <span class="nt">-xec</span> <span class="s2">"sed -i "</span>s/172.17.0.8/<span class="nv">$IP_REDIS</span>/g<span class="s2">" /opt/mdms-ringojs/config.json &amp;&amp; /opt/sosies/ringojs-0.10/bin/ringo /opt/mdms-ringojs/main.js"</span><span class="k">)</span>
+>>>>>>> 75a23f596188adf8f158535ae9c3b02a29a64187
 	<span class="nb">export </span><span class="nv">IP_SOSIES</span><span class="o">=</span><span class="sb">`</span>docker inspect <span class="nt">--format</span><span class="o">=</span><span class="s1">'{{ .NetworkSettings.IPAddress }}'</span> <span class="nv">$ID_SOSIES</span><span class="sb">`</span>
 	<span class="k">if</span> <span class="o">[</span> <span class="nt">-z</span> <span class="s2">"</span><span class="nv">$IPS_WORKER</span><span class="s2">"</span> <span class="o">]</span><span class="p">;</span> <span class="k">then </span><span class="nb">export </span><span class="nv">IPS_WORKER</span><span class="o">=</span><span class="nv">$IP_SOSIES</span><span class="p">;</span> <span class="k">else </span><span class="nb">export </span><span class="nv">IPS_WORKER</span><span class="o">=</span><span class="s2">"</span><span class="nv">$IP_SOSIES</span><span class="s2">;</span><span class="nv">$IPS_WORKER</span><span class="s2">"</span><span class="p">;</span> <span class="k">fi  
 done</span>
 
 <span class="c">#start some nginx and websocket server</span>
+<<<<<<< HEAD
 <span class="nb">export </span><span class="nv">ID_NGINX</span><span class="o">=</span><span class="si">$(</span>docker  run <span class="nt">-i</span> <span class="nt">-d</span> <span class="nt">-t</span> barais/nginxsosies /main <span class="nv">$IPS_WORKER</span><span class="si">)</span> <span class="c">#you can add a second parameter for the public name of your website e.g. cloud.diversify.org</span>
+=======
+<span class="nb">export </span><span class="nv">ID_NGINX</span><span class="o">=</span><span class="k">$(</span>docker  run <span class="nt">-i</span> <span class="nt">-d</span> <span class="nt">-t</span> barais/nginxsosies /main <span class="nv">$IPS_WORKER</span><span class="k">)</span> <span class="c">#you can add a second parameter for the public name of your website e.g. cloud.diversify.org</span>
+>>>>>>> 75a23f596188adf8f158535ae9c3b02a29a64187
 <span class="nb">export </span><span class="nv">IP_NGINX</span><span class="o">=</span><span class="sb">`</span>docker inspect <span class="nt">--format</span><span class="o">=</span><span class="s1">'{{ .NetworkSettings.IPAddress }}'</span> <span class="nv">$ID_NGINX</span><span class="sb">`</span>
 <span class="nb">echo</span> <span class="nv">$IP_NGINX</span>
 </code></pre></div></div>
@@ -131,24 +147,40 @@ done</span>
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
 <span class="c">#start nginx</span>
+<<<<<<< HEAD
 <span class="nb">export </span><span class="nv">ID_REDIS</span><span class="o">=</span><span class="si">$(</span>docker  run <span class="nt">-i</span> <span class="nt">-d</span> <span class="nt">-t</span> barais/mdmsredis /usr/bin/redis-server<span class="si">)</span>
+=======
+<span class="nb">export </span><span class="nv">ID_REDIS</span><span class="o">=</span><span class="k">$(</span>docker  run <span class="nt">-i</span> <span class="nt">-d</span> <span class="nt">-t</span> barais/mdmsredis /usr/bin/redis-server<span class="k">)</span>
+>>>>>>> 75a23f596188adf8f158535ae9c3b02a29a64187
 <span class="nb">export </span><span class="nv">IP_REDIS</span><span class="o">=</span><span class="sb">`</span>docker inspect <span class="nt">--format</span><span class="o">=</span><span class="s1">'{{ .NetworkSettings.IPAddress }}'</span> <span class="nv">$ID_REDIS</span><span class="sb">`</span>
 
 <span class="c">#start some sosies</span>
 <span class="c">#run just once</span>
+<<<<<<< HEAD
 <span class="nb">export </span><span class="nv">ID_SOSIES</span><span class="o">=</span><span class="si">$(</span>docker  run <span class="nt">-i</span> <span class="nt">-d</span> <span class="nt">-t</span> barais/mdmssosies /bin/bash <span class="nt">-xec</span> <span class="s2">"sed -i "</span>s/172.17.0.8/<span class="nv">$IP_REDIS</span>/g<span class="s2">" /opt/mdms-ringojs/config.json &amp;&amp; /opt/sosies/ringojs-0.10/bin/ringo /opt/mdms-ringojs/tools/fakedb.js"</span><span class="si">)</span>
+=======
+<span class="nb">export </span><span class="nv">ID_SOSIES</span><span class="o">=</span><span class="k">$(</span>docker  run <span class="nt">-i</span> <span class="nt">-d</span> <span class="nt">-t</span> barais/mdmssosies /bin/bash <span class="nt">-xec</span> <span class="s2">"sed -i "</span>s/172.17.0.8/<span class="nv">$IP_REDIS</span>/g<span class="s2">" /opt/mdms-ringojs/config.json &amp;&amp; /opt/sosies/ringojs-0.10/bin/ringo /opt/mdms-ringojs/tools/fakedb.js"</span><span class="k">)</span>
+>>>>>>> 75a23f596188adf8f158535ae9c3b02a29a64187
 
 <span class="c">#run for each sosies</span>
 
 <span class="k">for </span>i <span class="k">in</span> <span class="o">{</span>factory_and_indirection_on_RhinoEnginerhino15 factory_and_indirection_on_RhinoEnginerhino16 factory_and_indirection_on_RhinoEnginerhino4 factory_and_indirection_on_RhinoEnginerhino5 factory_and_indirection_on_RhinoEnginerhino8 indirection_on_Streamrhino15 indirection_on_Streamrhino16 indirection_on_Streamrhino4 indirection_on_Streamrhino5 indirection_on_Streamrhino8<span class="o">}</span>
 <span class="k">do
+<<<<<<< HEAD
 	</span><span class="nb">export </span><span class="nv">ID_SOSIES</span><span class="o">=</span><span class="si">$(</span>docker  run <span class="nt">-i</span> <span class="nt">-d</span> <span class="nt">-t</span> barais/mdmssosies /bin/bash <span class="nt">-xec</span> <span class="s2">"sed -i "</span>s/172.17.0.8/<span class="nv">$IP_REDIS</span>/g<span class="s2">" /opt/mdms-ringojs/config.json &amp;&amp; /opt/sosies/</span><span class="nv">$i</span><span class="s2">/bin/ringo /opt/mdms-ringojs/main.js"</span><span class="si">)</span>
+=======
+	</span><span class="nb">export </span><span class="nv">ID_SOSIES</span><span class="o">=</span><span class="k">$(</span>docker  run <span class="nt">-i</span> <span class="nt">-d</span> <span class="nt">-t</span> barais/mdmssosies /bin/bash <span class="nt">-xec</span> <span class="s2">"sed -i "</span>s/172.17.0.8/<span class="nv">$IP_REDIS</span>/g<span class="s2">" /opt/mdms-ringojs/config.json &amp;&amp; /opt/sosies/</span><span class="nv">$i</span><span class="s2">/bin/ringo /opt/mdms-ringojs/main.js"</span><span class="k">)</span>
+>>>>>>> 75a23f596188adf8f158535ae9c3b02a29a64187
 	<span class="nb">export </span><span class="nv">IP_SOSIES</span><span class="o">=</span><span class="sb">`</span>docker inspect <span class="nt">--format</span><span class="o">=</span><span class="s1">'{{ .NetworkSettings.IPAddress }}'</span> <span class="nv">$ID_SOSIES</span><span class="sb">`</span>
 	<span class="k">if</span> <span class="o">[</span> <span class="nt">-z</span> <span class="s2">"</span><span class="nv">$IPS_WORKER</span><span class="s2">"</span> <span class="o">]</span><span class="p">;</span> <span class="k">then </span><span class="nb">export </span><span class="nv">IPS_WORKER</span><span class="o">=</span><span class="nv">$IP_SOSIES</span><span class="p">;</span> <span class="k">else </span><span class="nb">export </span><span class="nv">IPS_WORKER</span><span class="o">=</span><span class="s2">"</span><span class="nv">$IP_SOSIES</span><span class="s2">;</span><span class="nv">$IPS_WORKER</span><span class="s2">"</span><span class="p">;</span> <span class="k">fi  
 done</span>
 
 <span class="c">#start some nginx and websocket server</span>
+<<<<<<< HEAD
 <span class="nb">export </span><span class="nv">ID_NGINX</span><span class="o">=</span><span class="si">$(</span>docker  run <span class="nt">-i</span> <span class="nt">-d</span> <span class="nt">-t</span> barais/nginxsosies /main <span class="nv">$IPS_WORKER</span><span class="si">)</span> <span class="c">#you can add a second parameter for the public name of your website e.g. cloud.diversify.org</span>
+=======
+<span class="nb">export </span><span class="nv">ID_NGINX</span><span class="o">=</span><span class="k">$(</span>docker  run <span class="nt">-i</span> <span class="nt">-d</span> <span class="nt">-t</span> barais/nginxsosies /main <span class="nv">$IPS_WORKER</span><span class="k">)</span> <span class="c">#you can add a second parameter for the public name of your website e.g. cloud.diversify.org</span>
+>>>>>>> 75a23f596188adf8f158535ae9c3b02a29a64187
 <span class="nb">export </span><span class="nv">IP_NGINX</span><span class="o">=</span><span class="sb">`</span>docker inspect <span class="nt">--format</span><span class="o">=</span><span class="s1">'{{ .NetworkSettings.IPAddress }}'</span> <span class="nv">$ID_NGINX</span><span class="sb">`</span>
 <span class="nb">echo</span> <span class="nv">$IP_NGINX</span>
 </code></pre></div></div>
@@ -158,31 +190,51 @@ done</span>
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
 <span class="c">#!/bin/bash</span>
 <span class="c">#start nginx</span>
+<<<<<<< HEAD
 <span class="nb">export </span><span class="nv">ID_REDIS</span><span class="o">=</span><span class="si">$(</span>docker  run <span class="nt">-i</span> <span class="nt">-d</span> <span class="nt">-t</span> barais/mdmsredis /usr/bin/redis-server<span class="si">)</span>
+=======
+<span class="nb">export </span><span class="nv">ID_REDIS</span><span class="o">=</span><span class="k">$(</span>docker  run <span class="nt">-i</span> <span class="nt">-d</span> <span class="nt">-t</span> barais/mdmsredis /usr/bin/redis-server<span class="k">)</span>
+>>>>>>> 75a23f596188adf8f158535ae9c3b02a29a64187
 <span class="nb">export </span><span class="nv">IP_REDIS</span><span class="o">=</span><span class="sb">`</span>docker inspect <span class="nt">--format</span><span class="o">=</span><span class="s1">'{{ .NetworkSettings.IPAddress }}'</span> <span class="nv">$ID_REDIS</span><span class="sb">`</span>
 
 <span class="c">#start some sosies</span>
 <span class="c">#run just once</span>
+<<<<<<< HEAD
 <span class="nb">export </span><span class="nv">ID_SOSIES</span><span class="o">=</span><span class="si">$(</span>docker  run <span class="nt">-i</span> <span class="nt">-d</span> <span class="nt">-t</span> barais/mdmssosies /bin/bash <span class="nt">-xec</span> <span class="s2">"sed -i "</span>s/172.17.0.8/<span class="nv">$IP_REDIS</span>/g<span class="s2">" /opt/mdms-ringojs/config.json &amp;&amp; /opt/sosies/ringojs-0.10/bin/ringo /opt/mdms-ringojs/tools/fakedb.js"</span><span class="si">)</span>
+=======
+<span class="nb">export </span><span class="nv">ID_SOSIES</span><span class="o">=</span><span class="k">$(</span>docker  run <span class="nt">-i</span> <span class="nt">-d</span> <span class="nt">-t</span> barais/mdmssosies /bin/bash <span class="nt">-xec</span> <span class="s2">"sed -i "</span>s/172.17.0.8/<span class="nv">$IP_REDIS</span>/g<span class="s2">" /opt/mdms-ringojs/config.json &amp;&amp; /opt/sosies/ringojs-0.10/bin/ringo /opt/mdms-ringojs/tools/fakedb.js"</span><span class="k">)</span>
+>>>>>>> 75a23f596188adf8f158535ae9c3b02a29a64187
 
 <span class="c">#run for each sosies</span>
 
 <span class="k">for </span>i <span class="k">in</span> <span class="o">{</span>1..10<span class="o">}</span>
 <span class="k">do
+<<<<<<< HEAD
 	</span><span class="nb">export </span><span class="nv">ID_SOSIES</span><span class="o">=</span><span class="si">$(</span>docker  run <span class="nt">-i</span> <span class="nt">-d</span> <span class="nt">-t</span> barais/mdmssosies /bin/bash <span class="nt">-xec</span> <span class="s2">"sed -i "</span>s/172.17.0.8/<span class="nv">$IP_REDIS</span>/g<span class="s2">" /opt/mdms-ringojs/config.json &amp;&amp; /opt/sosies/ringojs-0.10/bin/ringo /opt/mdms-ringojs/main.js"</span><span class="si">)</span>
+=======
+	</span><span class="nb">export </span><span class="nv">ID_SOSIES</span><span class="o">=</span><span class="k">$(</span>docker  run <span class="nt">-i</span> <span class="nt">-d</span> <span class="nt">-t</span> barais/mdmssosies /bin/bash <span class="nt">-xec</span> <span class="s2">"sed -i "</span>s/172.17.0.8/<span class="nv">$IP_REDIS</span>/g<span class="s2">" /opt/mdms-ringojs/config.json &amp;&amp; /opt/sosies/ringojs-0.10/bin/ringo /opt/mdms-ringojs/main.js"</span><span class="k">)</span>
+>>>>>>> 75a23f596188adf8f158535ae9c3b02a29a64187
 	<span class="nb">export </span><span class="nv">IP_SOSIES</span><span class="o">=</span><span class="sb">`</span>docker inspect <span class="nt">--format</span><span class="o">=</span><span class="s1">'{{ .NetworkSettings.IPAddress }}'</span> <span class="nv">$ID_SOSIES</span><span class="sb">`</span>
 	<span class="k">if</span> <span class="o">[</span> <span class="nt">-z</span> <span class="s2">"</span><span class="nv">$IPS_WORKER</span><span class="s2">"</span> <span class="o">]</span><span class="p">;</span> <span class="k">then </span><span class="nb">export </span><span class="nv">IPS_WORKER</span><span class="o">=</span><span class="nv">$IP_SOSIES</span><span class="p">;</span> <span class="k">else </span><span class="nb">export </span><span class="nv">IPS_WORKER</span><span class="o">=</span><span class="s2">"</span><span class="nv">$IP_SOSIES</span><span class="s2">;</span><span class="nv">$IPS_WORKER</span><span class="s2">"</span><span class="p">;</span> <span class="k">fi  
 done
 
 for </span>i <span class="k">in</span> <span class="o">{</span>factory_and_indirection_on_RhinoEnginerhino15 factory_and_indirection_on_RhinoEnginerhino16 factory_and_indirection_on_RhinoEnginerhino4 factory_and_indirection_on_RhinoEnginerhino5 factory_and_indirection_on_RhinoEnginerhino8 indirection_on_Streamrhino15 indirection_on_Streamrhino16 indirection_on_Streamrhino4 indirection_on_Streamrhino5 indirection_on_Streamrhino8<span class="o">}</span>
 <span class="k">do
+<<<<<<< HEAD
 	</span><span class="nb">export </span><span class="nv">ID_SOSIES</span><span class="o">=</span><span class="si">$(</span>docker  run <span class="nt">-i</span> <span class="nt">-d</span> <span class="nt">-t</span> barais/mdmssosies /bin/bash <span class="nt">-xec</span> <span class="s2">"sed -i "</span>s/172.17.0.8/<span class="nv">$IP_REDIS</span>/g<span class="s2">" /opt/mdms-ringojs/config.json &amp;&amp; /opt/sosies/</span><span class="nv">$i</span><span class="s2">/bin/ringo /opt/mdms-ringojs/main.js"</span><span class="si">)</span>
+=======
+	</span><span class="nb">export </span><span class="nv">ID_SOSIES</span><span class="o">=</span><span class="k">$(</span>docker  run <span class="nt">-i</span> <span class="nt">-d</span> <span class="nt">-t</span> barais/mdmssosies /bin/bash <span class="nt">-xec</span> <span class="s2">"sed -i "</span>s/172.17.0.8/<span class="nv">$IP_REDIS</span>/g<span class="s2">" /opt/mdms-ringojs/config.json &amp;&amp; /opt/sosies/</span><span class="nv">$i</span><span class="s2">/bin/ringo /opt/mdms-ringojs/main.js"</span><span class="k">)</span>
+>>>>>>> 75a23f596188adf8f158535ae9c3b02a29a64187
 	<span class="nb">export </span><span class="nv">IP_SOSIES</span><span class="o">=</span><span class="sb">`</span>docker inspect <span class="nt">--format</span><span class="o">=</span><span class="s1">'{{ .NetworkSettings.IPAddress }}'</span> <span class="nv">$ID_SOSIES</span><span class="sb">`</span>
 	<span class="k">if</span> <span class="o">[</span> <span class="nt">-z</span> <span class="s2">"</span><span class="nv">$IPS_WORKER</span><span class="s2">"</span> <span class="o">]</span><span class="p">;</span> <span class="k">then </span><span class="nb">export </span><span class="nv">IPS_WORKER</span><span class="o">=</span><span class="nv">$IP_SOSIES</span><span class="p">;</span> <span class="k">else </span><span class="nb">export </span><span class="nv">IPS_WORKER</span><span class="o">=</span><span class="s2">"</span><span class="nv">$IP_SOSIES</span><span class="s2">;</span><span class="nv">$IPS_WORKER</span><span class="s2">"</span><span class="p">;</span> <span class="k">fi  
 done</span>
 
 <span class="c">#start some nginx and websocket server</span>
+<<<<<<< HEAD
 <span class="nb">export </span><span class="nv">ID_NGINX</span><span class="o">=</span><span class="si">$(</span>docker  run <span class="nt">-i</span> <span class="nt">-d</span> <span class="nt">-t</span> barais/nginxsosies /main <span class="nv">$IPS_WORKER</span><span class="si">)</span> <span class="c">#you can add a second parameter for the public name of your website e.g. cloud.diversify.org</span>
+=======
+<span class="nb">export </span><span class="nv">ID_NGINX</span><span class="o">=</span><span class="k">$(</span>docker  run <span class="nt">-i</span> <span class="nt">-d</span> <span class="nt">-t</span> barais/nginxsosies /main <span class="nv">$IPS_WORKER</span><span class="k">)</span> <span class="c">#you can add a second parameter for the public name of your website e.g. cloud.diversify.org</span>
+>>>>>>> 75a23f596188adf8f158535ae9c3b02a29a64187
 <span class="nb">export </span><span class="nv">IP_NGINX</span><span class="o">=</span><span class="sb">`</span>docker inspect <span class="nt">--format</span><span class="o">=</span><span class="s1">'{{ .NetworkSettings.IPAddress }}'</span> <span class="nv">$ID_NGINX</span><span class="sb">`</span>
 <span class="nb">echo</span> <span class="nv">$IP_NGINX</span>
 </code></pre></div></div>
@@ -191,11 +243,19 @@ done</span>
 
 <p>if it is for a demo, you can switch quickly between version in doing:</p>
 
+<<<<<<< HEAD
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker <span class="nb">kill</span> <span class="si">$(</span>docker ps <span class="nt">-a</span> <span class="nt">-q</span><span class="si">)</span> <span class="c">#kill all the running containers</span>
 diversify<span class="se">\ </span>docker1.sh <span class="c">#start mdms with 10 regular backends</span>
 docker <span class="nb">kill</span> <span class="si">$(</span>docker ps <span class="nt">-a</span> <span class="nt">-q</span><span class="si">)</span> <span class="c">#kill all the running containers</span>
 diversify<span class="se">\ </span>docker2.sh <span class="c">#start mdms with 10 diversified backends</span>
 docker <span class="nb">kill</span> <span class="si">$(</span>docker ps <span class="nt">-a</span> <span class="nt">-q</span><span class="si">)</span> <span class="c">#kill all the running containers</span>
+=======
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker <span class="nb">kill</span> <span class="k">$(</span>docker ps <span class="nt">-a</span> <span class="nt">-q</span><span class="k">)</span> <span class="c">#kill all the running containers</span>
+diversify<span class="se">\ </span>docker1.sh <span class="c">#start mdms with 10 regular backends</span>
+docker <span class="nb">kill</span> <span class="k">$(</span>docker ps <span class="nt">-a</span> <span class="nt">-q</span><span class="k">)</span> <span class="c">#kill all the running containers</span>
+diversify<span class="se">\ </span>docker2.sh <span class="c">#start mdms with 10 diversified backends</span>
+docker <span class="nb">kill</span> <span class="k">$(</span>docker ps <span class="nt">-a</span> <span class="nt">-q</span><span class="k">)</span> <span class="c">#kill all the running containers</span>
+>>>>>>> 75a23f596188adf8f158535ae9c3b02a29a64187
 diversify<span class="se">\ </span>docker3.sh <span class="c">#start mdms with 10 diversified backends and 10 regular backends</span>
 </code></pre></div></div>
 
@@ -327,8 +387,11 @@ diversify<span class="se">\ </span>docker3.sh <span class="c">#start mdms with 1
                     <li><a href="/blog/categories/Hibernate/">Hibernate</a></li> 
                     <li><a href="/blog/categories/EclipseLink/">EclipseLink</a></li> 
                     <li><a href="/blog/categories/Diversity/">Diversity</a></li> 
+<<<<<<< HEAD
                     <li><a href="/blog/categories/esir/">esir</a></li> 
                     <li><a href="/blog/categories/mdi/">mdi</a></li> 
+=======
+>>>>>>> 75a23f596188adf8f158535ae9c3b02a29a64187
                 </ul>
             </div>
         </div>
