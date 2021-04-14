@@ -7,7 +7,7 @@ name: Scully Publish
 on:
   push:
     branches:
-      - main
+      - src
 
 jobs:
   build:

@@ -30,7 +30,7 @@
             "aot": false,
             "assets": [
               "src/favicon.png",
-              "CNAME",
+              "src/CNAME",
               "src/assets"
             ],
             "styles": [
