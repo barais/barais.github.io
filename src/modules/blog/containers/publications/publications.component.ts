@@ -389,11 +389,11 @@ export class PublicationsComponent implements OnInit {
         } else if (this.innerWidth > 992) {
             this.large = 700;
             this.height = 200;
-        } else if (this.innerWidth > 500) {
+        } else if (this.innerWidth > 550) {
             this.large = 500;
             this.height = 150;
         } else {
-            this.large = this.innerWidth;
+            this.large = this.innerWidth * 0.9;
             this.height = 150;
         }
     }
