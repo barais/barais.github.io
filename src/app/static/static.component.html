@@ -1,0 +1,11 @@
+<sb-layout-blog *ngIf="$blogPostMetadata | async as post">
+    <sb-clean-blog-header [backgroundImage]="post?.backgroundImage" [heading]="post?.title" [subHeading]="post?.subTitle" [meta]="post?.meta" [siteHeading]="true"></sb-clean-blog-header>
+    <article>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 mx-auto">
+                    <scully-content></scully-content>
+                </div>
+            </div>
+        </div>
+    </article></sb-layout-blog>

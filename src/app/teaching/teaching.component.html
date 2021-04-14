@@ -1,0 +1,11 @@
+<sb-layout-blog *ngIf="post">
+    <sb-clean-blog-header [backgroundImage]="post?.backgroundImage || defaultBackground" [heading]="post?.title" [subHeading]="post?.subTitle" [meta]="post?.meta?.join(', ')"></sb-clean-blog-header>
+    <article>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 mx-auto">
+                    <scully-content></scully-content>
+                </div>
+            </div>
+        </div>
+    </article></sb-layout-blog>
