@@ -8,4 +8,4 @@ const myFunctionPlugin = async (html: string): Promise<string> => {
 
 const validator = async () => [];
 
-registerPlugin('postProcessByHtml', myPlugin, myFunctionPlugin, validator);
+registerPlugin("render", myPlugin, myFunctionPlugin, validator);
