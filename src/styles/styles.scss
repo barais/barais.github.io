@@ -7,6 +7,13 @@
 /* check node_modules/prismjs/themes/ for the available themes */
 @import '~prismjs/themes/prism-tomorrow';
 
+pre {
+	background: #2d2d2d;
+    padding: 1.5em;
+	border-radius: .3em;
+	white-space: normal;
+    line-height: 1.5;
+}
 
 .pointer {
     cursor: pointer;
@@ -23,7 +30,6 @@
     font-size: 0.75rem;
     padding: 0.75rem 1rem;
 }
-
 
 #wordcloud {
 

@@ -1524,3 +1524,17 @@ Using stored unhandled routes!.
    To discover new routes in the angular app use "npm run scully -- --scanRoutes"
 ----------------------------------
 No configuration for route "/d/:cat/:slug" found. Skipping
+
+----------------------------------
+Using stored unhandled routes!.
+   To discover new routes in the angular app use "npm run scully -- --scanRoutes"
+----------------------------------
+No configuration for route "/d/:cat/:slug" found. Skipping
+Received Kill commandClosed servers
+
+
+----------------------------------
+Using stored unhandled routes!.
+   To discover new routes in the angular app use "npm run scully -- --scanRoutes"
+----------------------------------
+No configuration for route "/d/:cat/:slug" found. Skipping
