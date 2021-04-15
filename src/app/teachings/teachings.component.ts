@@ -13,10 +13,15 @@ export class TeachingsComponent implements OnInit {
 
     title!: string;
     blogPosts!: ScullyRoute[];
+
+    bakgroundImg = 'url("assets/img/home-bg.jpg")';
+
     ngOnInit(): void {
         this.title = this.router.url.replace('/', '');
         this.title = this.title.charAt(0).toUpperCase() + this.title.slice(1);
-
+        if (this.title === 'Blog'){
+            this.bakgroundImg = 'url("assets/img/blog-bg.jpg")';
+        }
         this.scully.available$.subscribe((routes: ScullyRoute[]) => {
             this.blogPosts = routes.filter(
                 (route: ScullyRoute) =>

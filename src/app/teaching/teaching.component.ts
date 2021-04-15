@@ -14,6 +14,10 @@ export class TeachingComponent implements OnInit {
     ngOnInit(): void {
         this.scully.getCurrent().subscribe((e) => {
             this.post = e;
+            if (e?.route?.startsWith('/blog')) {
+                this.defaultBackground = 'url("assets/img/blog-bg.jpg")';
+            }
+
         });
         /*this.$blogPostMetadata = combineLatest([
             this.activatedRoute.params.pipe(pluck('slug')),
