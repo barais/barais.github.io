@@ -31,6 +31,7 @@
             "assets": [
               "src/favicon.png",
               "src/CNAME",
+              "src/dynamicRoutes.json",
               "src/assets"
             ],
             "styles": [
@@ -42,7 +43,8 @@
                 "./node_modules"
               ]
             },
-            "scripts": []
+            "scripts": [
+            ]
           },
           "configurations": {
             "production": {

@@ -20,9 +20,10 @@ import * as navigationGuards from './guards';
 
 /* Services */
 import * as navigationServices from './services';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
-    imports: [CommonModule, RouterModule, AppCommonModule],
+    imports: [CommonModule, RouterModule, AppCommonModule, NgbModule],
     declarations: [
         ...navigationContainers.containers,
         ...navigationComponents.components,

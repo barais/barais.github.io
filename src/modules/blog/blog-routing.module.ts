@@ -8,8 +8,6 @@ import { BlogModule } from './blog.module';
 /* Containers */
 import * as blogContainers from './containers';
 
-/* Guards */
-// import * as blogGuards from './guards';
 
 /* Routes */
 export const ROUTES: Routes = [
@@ -24,6 +22,10 @@ export const ROUTES: Routes = [
     {
         path: 'publications',
         component: blogContainers.PublicationsComponent,
+    },
+    {
+        path: 'd/:cat/:slug',
+        component: blogContainers.DynamicMdComponent,
     },
 ];
 

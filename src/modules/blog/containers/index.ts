@@ -1,4 +1,5 @@
 import { AboutComponent } from './about/about.component';
+import { DynamicMdComponent } from './dynamic-md/dynamic-md.component';
 import { HomeComponent } from './home/home.component';
 import { AuthorPipe } from './publications/author.pipe';
 import { DescbibPipe } from './publications/descbib.pipe';
@@ -8,6 +9,7 @@ export const containers = [
     HomeComponent,
     AboutComponent,
     PublicationsComponent,
+    DynamicMdComponent,
     AuthorPipe,
     DescbibPipe,
 ];
@@ -15,3 +17,4 @@ export const containers = [
 export * from './home/home.component';
 export * from './about/about.component';
 export * from './publications/publications.component';
+export * from './dynamic-md/dynamic-md.component';

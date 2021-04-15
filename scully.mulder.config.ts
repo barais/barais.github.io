@@ -17,7 +17,7 @@ export const config: ScullyConfig = {
             },
         },
         // tslint:disable-next-line:prettier
-        '/static/:slug': {
+        '/s/:slug': {
             type: 'contentFolder',
             slug: {
                 folder: './includes',

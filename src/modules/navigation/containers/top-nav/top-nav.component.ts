@@ -1,35 +1,46 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { NavigationService } from '@modules/navigation/services';
-import { Subscription } from 'rxjs';
-
+import { Component, OnInit } from "@angular/core";
+import posts from "../../../../dynamicRoutes.json"
 @Component({
-    selector: 'sb-top-nav',
-    templateUrl: './top-nav.component.html',
-    styleUrls: ['top-nav.component.scss'],
+    selector: "sb-top-nav",
+    templateUrl: "./top-nav.component.html",
+    styleUrls: ["top-nav.component.scss"],
 })
-export class TopNavComponent implements OnInit, OnDestroy {
-    subscription: Subscription = new Subscription();
-    isOnPost = false;
+export class TopNavComponent implements OnInit {
     isMenuCollapsed = true;
+    mainMenuEntries: string[] = [];
+    mainMenuMap: Map<string, any[]> = new Map();
+    mainStaticMenu: any[] = [];
 
     constructor(
-        private navigationService: NavigationService,
-        private route: ActivatedRoute,
-        private router: Router
-    ) {}
+    ) { }
     ngOnInit() {
-        this.subscription.add(
-            this.navigationService.currentComponent$().subscribe((currentComponentName) => {
-                this.isOnPost = currentComponentName === 'PostComponent';
-            })
-        );
-    }
-    ngOnDestroy() {
-        this.subscription.unsubscribe();
+        this.mainMenuEntries = [];
+        this.mainMenuMap = new Map();
+        posts.filter((p) => p.type === 'dynamic').forEach((p) => {
+            if (!this.mainMenuEntries.includes(p.path.split("/")[0])) {
+                this.mainMenuEntries.push(p.path.split("/")[0]);
+                this.mainMenuMap.set(p.path.split("/")[0], []);
+            }
+            this.mainMenuMap.get(p.path.split("/")[0])?.push(p);
+        });
+        posts.filter((p) => p.type === 'static').forEach((p) => {
+            const paths = p.path.split("/");
+            if (paths.length == 1){
+                this.mainStaticMenu.push(p);
+            } else if (paths.length == 2)
+            if (!this.mainMenuEntries.includes(p.path.split("/")[0])) {
+                this.mainMenuEntries.push(p.path.split("/")[0]);
+                this.mainMenuMap.set(p.path.split("/")[0], []);
+            }
+            this.mainMenuMap.get(p.path.split("/")[0])?.push(p);
+        });
     }
 
-    editPost() {
-        this.router.navigateByUrl(`/edit/${this.route.snapshot.params.post}`);
+    getPathPrefix(p: any){
+        if (p.type === 'static'){
+            return 's';
+        } else {
+            return 'd';
+        }
     }
 }

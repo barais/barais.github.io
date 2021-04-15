@@ -7,6 +7,7 @@ import { ScullyLibModule } from '@scullyio/ng-lib';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 @NgModule({
     declarations: [AppComponent],
     imports: [
@@ -16,6 +17,7 @@ import { AppComponent } from './app.component';
         NavigationModule.forRoot(),
         AppRoutingModule,
         ScullyLibModule,
+        NgbModule,
     ],
     bootstrap: [AppComponent],
 })

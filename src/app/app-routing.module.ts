@@ -11,7 +11,7 @@ const routes: Routes = [
         loadChildren: () => import('./teaching/teaching.module').then((m) => m.TeachingModule),
     },
     {
-        path: 'static',
+        path: 's',
         loadChildren: () => import('./static/static.module').then((m) => m.StaticModule),
     },
     {

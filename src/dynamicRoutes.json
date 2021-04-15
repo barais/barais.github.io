@@ -1,0 +1,63 @@
+[
+    {
+        "path": "teaching/sir",
+        "title": "SIR",
+        "subTitle": "Cours de SIR",
+        "meta": ["teaching", "M1 Miage"],
+        "mdsource": "https://hackmd.diverse-team.fr/cUDcTy7gRtKkK85ZXsupSQ",
+        "type": "dynamic"
+    },
+    {
+        "path": "teaching/taa",
+        "title": "TAA",
+        "subTitle": "Cours de TAA",
+        "meta": ["teaching", "M2 IL(A)", "M2 CCN(A)" ],
+        "mdsource": "https://hackmd.diverse-team.fr/GRioJo66Shqkrx7i3PAWnw",
+        "type": "dynamic"
+    },
+    {
+        "path": "teaching/gli",
+        "title": "GLI",
+        "subTitle": "Cours de GLI",
+        "meta": ["teaching", "M2 IL(A)", "M2 CCN(A)" ],
+        "mdsource": "https://hackmd.diverse-team.fr/VmfoJF97Qta7w-eBnqqbZA",
+        "type": "dynamic"
+    },
+    {
+        "path": "teaching/tlc",
+        "title": "TLC",
+        "subTitle": "Cours de TLC",
+        "meta": ["teaching", "M2 IL(A)", "M2 CCN(A)" ],
+        "mdsource": "https://hackmd.diverse-team.fr/A58fXRWVSyqkcxcXm4dmSA",
+        "type": "dynamic"
+    },
+    {
+        "path": "teaching/we",
+        "title": "WE",
+        "subTitle": "Cours de Web Engineering",
+        "meta": ["teaching", "M1 IL"],
+        "mdsource": "https://hackmd.diverse-team.fr/KkwavYq4SA2wO1t2NBpBAA",
+        "type": "dynamic"
+    },
+    {
+        "path": "teaching/jxc",
+        "title": "JXC",
+        "subTitle": "Cours JXC",
+        "meta": ["teaching", "ESIR"],
+        "mdsource": "https://hackmd.diverse-team.fr/_x7AFJ8YTA2myVJybMroXw",
+        "type": "dynamic"
+    },
+    {
+        "path": "teaching/secuweb",
+        "title": "Sécurité Web",
+        "subTitle": "Cours sur la sécurité WEB",
+        "meta": ["teaching", "Telecom"],
+        "mdsource": "https://hackmd.diverse-team.fr/D9nr78AzSX2V9i5EOJ6hzA",
+        "type": "dynamic"
+    },
+    {
+        "path": "research",
+        "title": "Research",
+        "type": "static"
+    }
+]

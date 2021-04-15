@@ -17,6 +17,6 @@ export class StaticComponent implements OnInit {
         this.$blogPostMetadata = combineLatest([
             this.activatedRoute.params.pipe(pluck('slug')),
             this.scully.available$,
-        ]).pipe(map(([slug, routes]) => routes.find((route) => route.route === `/static/${slug}`)));
+        ]).pipe(map(([slug, routes]) => routes.find((route) => route.route === `/s/${slug}`)));
     }
 }
