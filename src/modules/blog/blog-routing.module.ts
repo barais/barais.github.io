@@ -1,6 +1,6 @@
 /* tslint:disable: ordered-imports*/
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { Routes, RouterModule, ExtraOptions } from '@angular/router';
 
 /* Module */
 import { BlogModule } from './blog.module';
@@ -28,6 +28,7 @@ export const ROUTES: Routes = [
         component: blogContainers.DynamicMdComponent,
     },
 ];
+
 
 @NgModule({
     imports: [BlogModule, RouterModule.forChild(ROUTES)],

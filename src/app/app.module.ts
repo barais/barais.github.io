@@ -8,6 +8,7 @@ import { ScullyLibModule } from '@scullyio/ng-lib';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ExtraOptions } from '@angular/router';
 @NgModule({
     declarations: [AppComponent],
     imports: [
