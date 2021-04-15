@@ -2,8 +2,23 @@ import { ScullyConfig, setPluginConfig } from '@scullyio/scully';
 import 'prismjs/components/prism-java.js';
 import 'prismjs/components/prism-visual-basic.js';
 import 'prismjs/components/prism-yaml.js';
+import { getTocPlugin, TocConfig } from 'scully-plugin-toc';
 
 setPluginConfig('md', { enableSyntaxHighlighting: true });
+
+
+const tocOptions: TocConfig = {
+  blogAreaSelector: '#blog-content', // where to search for TOC headings
+  insertSelector: '#toc', // where to insert the TOC
+  level: ['h2', 'h3'], // what heading levels to include
+  trailingSlash: true, // add trailing slash before the anker ('#')
+  scrollIntoViewOnClick: true  // add event to each link that scrolls into view on click:
+                               // onclick="document.getElementById('target-id').scrollIntoView()"
+};
+const TocPlugin = getTocPlugin();
+setPluginConfig(TocPlugin, tocOptions);
+
+
 
 export const config: ScullyConfig = {
     projectRoot: './src',
@@ -12,6 +27,7 @@ export const config: ScullyConfig = {
     routes: {
         '/teaching/:slug': {
             type: 'contentFolder',
+            postRenderers: ['toc'],
             slug: {
                 folder: './teaching',
             },
@@ -25,6 +41,7 @@ export const config: ScullyConfig = {
         },
         '/blog/:slug': {
             type: 'contentFolder',
+            postRenderers: ['toc'],
             slug: {
                 folder: './blog',
             },
