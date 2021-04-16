@@ -120,7 +120,6 @@ export class DynamicMdComponent
                                     : null;
                             let indexheadertostart = -1;
                             for (const [index, h] of headers.entries()) {
-                                console.log(h);
                                 if (h === queryroot) {
                                     indexheadertostart = index;
                                     break;

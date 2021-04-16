@@ -56,7 +56,7 @@
         "type": "dynamic",
         "tocrootselector": "#cours",
         "tocselector": ["h1","h2","h3","h4"],
-        "toctitle": "Outline"
+        "toctitle": "Plan"
     },
     {
         "path": "research",
