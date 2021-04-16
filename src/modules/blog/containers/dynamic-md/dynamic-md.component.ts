@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {
     AfterViewChecked,
     AfterViewInit,
@@ -9,18 +9,18 @@ import {
     Renderer2,
     SimpleChanges,
     ViewChild,
-} from "@angular/core";
-import { DomSanitizer } from "@angular/platform-browser";
-import { ActivatedRoute, Router } from "@angular/router";
-import marked from "marked";
-import prism from "prismjs";
-import "prismjs/components/prism-bash";
-import "prismjs/components/prism-css";
-import "prismjs/components/prism-java";
-import "prismjs/components/prism-javascript";
-import "prismjs/components/prism-json";
-import "prismjs/components/prism-jsx";
-import "prismjs/components/prism-markup";
+} from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
+import { ActivatedRoute, Router } from '@angular/router';
+import marked from 'marked';
+import prism from 'prismjs';
+import 'prismjs/components/prism-bash';
+import 'prismjs/components/prism-css';
+import 'prismjs/components/prism-java';
+import 'prismjs/components/prism-javascript';
+import 'prismjs/components/prism-json';
+import 'prismjs/components/prism-jsx';
+import 'prismjs/components/prism-markup';
 // import 'prismjs/components/prism-visualbasic';
 
 import posts from '../../../../dynamicRoutes.json';
@@ -37,11 +37,13 @@ marked.setOptions({
     },
     pedantic: false,
     gfm: true,
+    headerIds: true,
     breaks: false,
-    sanitize: true,
+    mangle: true,
+    sanitize: false,
     smartLists: true,
-    smartypants: false,
-    xhtml: false,
+    smartypants: true,
+    xhtml: true,
 });
 
 @Component({
@@ -86,25 +88,70 @@ export class DynamicMdComponent
                 this.http
                     .get(this.post.mdsource + '/download', this.httpOptions)
                     .subscribe((res) => {
-                        /* var parser = new DOMParser();
-                        var doc = parser.parseFromString( marked(res as string), 'text/html');
-                        // console.log(doc.body);
-                       // console.log(doc.querySelectorAll('h1, h2, h3'))
-                        const toc =`<div id="toc_container">
-                        <p class="toc_title">Contents</p>
-                        <ul class="toc_list">
-                          <li><a href="#First_Point_Header">1 First Point Header</a>
-                          <ul>
-                            <li><a href="#taa">1.1 First Sub Point 1</a></li>
-                            <li><a href="#First_Sub_Point_2">1.2 First Sub Point 2</a></li>
-                          </ul>
-                        </li>
-                        <li><a href="#Second_Point_Header">2 Second Point Header</a></li>
-                        <li><a href="#Third_Point_Header">3 Third Point Header</a></li>
-                        </ul>
-                        </div>`*/
+                        // console.log(marked(res as string));
+                        const parser = new DOMParser();
+                        const doc = parser.parseFromString(
+                            marked(res as string),
+                            'text/html'
+                        );
+                        const tocInsertPointSelector = '#toc';
+                        const insertPoint = doc.querySelector(
+                            tocInsertPointSelector
+                        );
+                        // in case <div id="toc"></div> is not on the site
+                        if (insertPoint) {
+                            /**
+                             * get headings for toc generation
+                             */
+                            const levels = ['h1', 'h2', 'h3'];
+                            const selector = levels.join(', ');
+                            const headers = doc.querySelectorAll(selector);
+
+                            /**
+                             * build nested ul, li list
+                             */
+                            let previousTag: number | null;
+                            let toc = '';
+                            headers.forEach((c: any) => {
+                                const level = this.headingLevel(c.tagName);
+                                // const trailingSlash = tocConfig.trailingSlash ? '/' : '';
+                                /*const onClickScrollIntoViewString = tocConfig.scrollIntoViewOnClick
+                                    ? ` onclick="document.getElementById('${c.id}').scrollIntoView();"`
+                                    : '';*/
+                                const route = window.location.origin;
+                                const trailingSlash = '/';
+
+                                const baseLiEl = `<li><a href="${route}${trailingSlash}#${c.id}">${c.textContent}</a></li>`;
+                                if (
+                                    previousTag &&
+                                    level &&
+                                    level > previousTag
+                                ) {
+                                    toc += '<ul style="margin-bottom: 0px">';
+                                }
+                                if (
+                                    previousTag &&
+                                    level &&
+                                    level < previousTag
+                                ) {
+                                    toc += '</ul>';
+                                }
+                                toc += baseLiEl;
+                                previousTag = level;
+                            });
+
+                            /**
+                             * append toc as child
+                             */
+                            const plantitle = doc.createElement('h2');
+                            plantitle.textContent = 'Plan';
+                            const list = doc.createElement('ul');
+                            list.innerHTML = toc;
+                            insertPoint?.appendChild(plantitle);
+                            insertPoint?.appendChild(list);
+                        }
                         this.mdContent = this.sanitized.bypassSecurityTrustHtml(
-                            marked(res as string)
+                            doc.body.innerHTML
                         );
                     });
             }
@@ -139,5 +186,9 @@ export class DynamicMdComponent
             if (anchor.href.startsWith(window.location.origin + '/#'))
                 anchor.addEventListener('click', this.handleAnchorClick);
         });
+    }
+    headingLevel(tag: string): number | null {
+        const match = tag.match(/(?!h)[123456]/g);
+        return match && match.length ? Number(match[0]) : null;
     }
 }
