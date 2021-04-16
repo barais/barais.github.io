@@ -53,7 +53,10 @@
         "subTitle": "Cours sur la sécurité WEB",
         "meta": ["teaching", "Telecom"],
         "mdsource": "https://hackmd.diverse-team.fr/D9nr78AzSX2V9i5EOJ6hzA",
-        "type": "dynamic"
+        "type": "dynamic",
+        "tocrootselector": "#cours",
+        "tocselector": ["h1","h2","h3","h4"],
+        "toctitle": "Outline"
     },
     {
         "path": "research",

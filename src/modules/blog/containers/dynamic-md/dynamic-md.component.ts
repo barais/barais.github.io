@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import {
     AfterViewChecked,
     AfterViewInit,
@@ -7,23 +7,22 @@ import {
     OnDestroy,
     OnInit,
     Renderer2,
-    SimpleChanges,
     ViewChild,
-} from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
-import { ActivatedRoute, Router } from '@angular/router';
-import marked from 'marked';
-import prism from 'prismjs';
-import 'prismjs/components/prism-bash';
-import 'prismjs/components/prism-css';
-import 'prismjs/components/prism-java';
-import 'prismjs/components/prism-javascript';
-import 'prismjs/components/prism-json';
-import 'prismjs/components/prism-jsx';
-import 'prismjs/components/prism-markup';
+} from "@angular/core";
+import { DomSanitizer } from "@angular/platform-browser";
+import { ActivatedRoute, Router } from "@angular/router";
+import marked from "marked";
+import prism from "prismjs";
+import "prismjs/components/prism-bash";
+import "prismjs/components/prism-css";
+import "prismjs/components/prism-java";
+import "prismjs/components/prism-javascript";
+import "prismjs/components/prism-json";
+import "prismjs/components/prism-jsx";
+import "prismjs/components/prism-markup";
 // import 'prismjs/components/prism-visualbasic';
 
-import posts from '../../../../dynamicRoutes.json';
+import posts from "../../../../dynamicRoutes.json";
 
 // loadLanguages(['javascript', 'java', 'visualbasic', 'jsx', 'css', 'markup', 'bash', 'json']);
 
@@ -47,13 +46,13 @@ marked.setOptions({
 });
 
 @Component({
-    selector: 'sb-dynamic-md',
-    templateUrl: './dynamic-md.component.html',
-    styleUrls: ['./dynamic-md.component.scss'],
+    selector: "sb-dynamic-md",
+    templateUrl: "./dynamic-md.component.html",
+    styleUrls: ["./dynamic-md.component.scss"],
 })
 export class DynamicMdComponent
     implements OnInit, OnDestroy, AfterViewInit, AfterViewChecked {
-    @ViewChild('content')
+    @ViewChild("content")
     content!: ElementRef;
 
     post!: any;
@@ -61,9 +60,9 @@ export class DynamicMdComponent
     mdContent: any;
     private httpOptions = {
         headers: new HttpHeaders({
-            Accept: 'text/html, application/xhtml+xml, */*',
+            Accept: "text/html, application/xhtml+xml, */*",
         }),
-        responseType: 'text' as 'json',
+        responseType: "text" as "json",
     };
 
     constructor(
@@ -79,22 +78,22 @@ export class DynamicMdComponent
     ngOnInit(): void {
         this.activatedRoute.url.subscribe((f) => {
             const selectedPost = posts.filter(
-                (p) => p.path === f.slice(1).join('/')
+                (p) => p.path === f.slice(1).join("/")
             );
             if (selectedPost.length > 0) {
                 this.post = selectedPost[0];
             }
             if (this.post.mdsource != null) {
                 this.http
-                    .get(this.post.mdsource + '/download', this.httpOptions)
+                    .get(this.post.mdsource + "/download", this.httpOptions)
                     .subscribe((res) => {
                         // console.log(marked(res as string));
                         const parser = new DOMParser();
                         const doc = parser.parseFromString(
                             marked(res as string),
-                            'text/html'
+                            "text/html"
                         );
-                        const tocInsertPointSelector = '#toc';
+                        const tocInsertPointSelector = "#toc";
                         const insertPoint = doc.querySelector(
                             tocInsertPointSelector
                         );
@@ -103,9 +102,33 @@ export class DynamicMdComponent
                             /**
                              * get headings for toc generation
                              */
-                            const levels = ['h1', 'h2', 'h3'];
-                            const selector = levels.join(', ');
-                            const headers = doc.querySelectorAll(selector);
+                            const levels =
+                                this.post && this.post.tocselector
+                                    ? this.post.tocselector
+                                    : ["h2", "h3"];
+
+                            const selector = levels.join(", ");
+
+                            let headers = Array.from(
+                                doc.querySelectorAll(selector)
+                            );
+                            const queryroot =
+                                this.post && this.post.tocrootselector
+                                    ? doc.querySelector(
+                                          this.post.tocrootselector
+                                      )
+                                    : null;
+                            let indexheadertostart = -1;
+                            for (const [index, h] of headers.entries()) {
+                                console.log(h);
+                                if (h === queryroot) {
+                                    indexheadertostart = index;
+                                    break;
+                                }
+                            }
+                            if (indexheadertostart > 0) {
+                                headers = headers.splice(indexheadertostart);
+                            }
 
                             /**
                              * build nested ul, li list
@@ -114,10 +137,6 @@ export class DynamicMdComponent
                             let toc = '';
                             headers.forEach((c: any) => {
                                 const level = this.headingLevel(c.tagName);
-                                // const trailingSlash = tocConfig.trailingSlash ? '/' : '';
-                                /*const onClickScrollIntoViewString = tocConfig.scrollIntoViewOnClick
-                                    ? ` onclick="document.getElementById('${c.id}').scrollIntoView();"`
-                                    : '';*/
                                 const route = window.location.origin;
                                 const trailingSlash = '/';
 
@@ -144,7 +163,10 @@ export class DynamicMdComponent
                              * append toc as child
                              */
                             const plantitle = doc.createElement('h2');
-                            plantitle.textContent = 'Plan';
+                            plantitle.textContent =
+                                this.post && this.post.toctitle
+                                    ? this.post.toctitle
+                                    : 'Plan';
                             const list = doc.createElement('ul');
                             list.innerHTML = toc;
                             insertPoint?.appendChild(plantitle);
