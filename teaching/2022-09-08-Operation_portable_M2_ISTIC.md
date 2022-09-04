@@ -28,7 +28,7 @@ Sous ubuntu, quand il est installé.
 Installez les paquets suviants:
 
 ```bash
-sudo apt-get install nano git openjdk-11-jdk openjdk-11-doc maven inkscape curl  apt-transport-https
+sudo apt-get install nano git openjdk-11-jdk openjdk-11-doc maven inkscape curl  apt-transport-https  ca-certificates software-properties-common
 ```
 
 ### Etape 2: Eclipse
@@ -74,51 +74,34 @@ Installez [IntelliJ](http://www.jetbrains.com/idea/) dans /opt
 
 ### Etape 7: Docker
 
-Installez Docker
+Remove old version
 
-Update the apt package index:
+```bash
+sudo apt-get remove docker docker-engine docker.io containerd runc
+```
 
 ```bash
 sudo apt-get update
+sudo apt-get install gnupg lsb-release
 ```
 
-Install packages to allow apt to use a repository over HTTPS:
+Install keys
 
 ```bash
-sudo apt-get install \
-    apt-transport-https \
-    ca-certificates \
-    curl \
-    software-properties-common
+sudo mkdir -p /etc/apt/keyrings
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
 ```
 
-Add Docker’s official GPG key:
+Ajoutez une nouvelle source
 
 ```bash
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 ```
 
-Verify that the key fingerprint is 9DC8 5822 9FC7 DD38 854A E2D8 8D81 803C 0EBF CD88.
+Installez Docker
 
-```bash
-sudo apt-key fingerprint 0EBFCD88
-```
-
-```
-pub   4096R/0EBFCD88 2017-02-22
-      Key fingerprint = 9DC8 5822 9FC7 DD38 854A  E2D8 8D81 803C 0EBF CD88
-uid                  Docker Release (CE deb) <docker@docker.com>
-sub   4096R/F273FCD8 2017-02-22
-```
-
-```bash
-sudo add-apt-repository \
-   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
-   $(lsb_release -cs) \
-   stable"
-```
-
-INSTALL DOCKER CE
 
 Update the apt package index.
 
@@ -129,8 +112,9 @@ sudo apt-get update
 Install the latest version of Docker CE, or go to the next step to install a specific version. Any existing installation of Docker is replaced.
 
 ```bash
-sudo apt-get install docker-ce
-```
+ sudo apt-get update
+ sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin
+ ```
 
 Pour vérifier que tout est ok
 
