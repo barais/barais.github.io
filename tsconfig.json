@@ -1,48 +1,53 @@
+/* To learn more about this file see: https://angular.io/config/tsconfig. */
 {
-    "angularCompilerOptions": {
-        "enableIvy": true,
-        "fullTemplateTypeCheck": true,
-        "preserveWhitespaces": false,
-        "strictInjectionParameters": true
-    },
-    "compileOnSave": false,
-    "compilerOptions": {
-        "baseUrl": "src",
-        "declaration": false,
-        "downlevelIteration": true,
-        "emitDecoratorMetadata": true,
-        "esModuleInterop": true,
-        "experimentalDecorators": true,
-        "importHelpers": true,
-        "lib": [
-            "es2018",
-            "dom"
-        ],
-        "module": "esnext",
-        "moduleResolution": "node",
-        "noImplicitAny": true,
-        "outDir": "./dist/out-tsc",
-        "paths": {
-            "@app/*": [
-                "app/*"
-            ],
-            "@common/*": [
-                "modules/app-common/*"
-            ],
-            "@modules/*": [
-                "modules/*"
-            ],
-            "@testing/*": [
-                "testing/*"
-            ]
-        },
-        "resolveJsonModule": true,
-        "sourceMap": true,
-        "strict": true,
-        "target": "es2015",
-        "typeRoots": [
-            "node_modules/@types",
-            "src/typings"
-        ]
-    }
+  "angularCompilerOptions": {
+    "enableIvy": true,
+    "fullTemplateTypeCheck": true,
+    "preserveWhitespaces": false,
+    "enableI18nLegacyMessageIdFormat": false,
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true,
+    "strictTemplates": false
+
+},
+  "compileOnSave": false,
+  "compilerOptions": {
+    "baseUrl": "src",
+    "outDir": "./dist/out-tsc",
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "sourceMap": true,
+    "declaration": false,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "paths": {
+      "@app/*": [
+          "app/*"
+      ],
+      "@common/*": [
+          "modules/app-common/*"
+      ],
+      "@modules/*": [
+          "modules/*"
+      ],
+      "@testing/*": [
+          "testing/*"
+      ]
+  },
+
+    "downlevelIteration": true,
+    "experimentalDecorators": true,
+    "moduleResolution": "node",
+    "importHelpers": true,
+    "target": "es2020",
+    "module": "es2020",
+    "lib": [
+      "es2020",
+      "dom"
+    ]
+  }
 }

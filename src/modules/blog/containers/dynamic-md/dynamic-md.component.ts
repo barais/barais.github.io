@@ -8,21 +8,21 @@ import {
     OnInit,
     Renderer2,
     ViewChild,
-} from "@angular/core";
-import { DomSanitizer } from "@angular/platform-browser";
-import { ActivatedRoute, Router } from "@angular/router";
-import marked from "marked";
-import prism from "prismjs";
-import "prismjs/components/prism-bash";
-import "prismjs/components/prism-css";
-import "prismjs/components/prism-java";
-import "prismjs/components/prism-javascript";
-import "prismjs/components/prism-json";
-import "prismjs/components/prism-jsx";
-import "prismjs/components/prism-markup";
+} from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
+import { ActivatedRoute, Router } from '@angular/router';
+import {marked} from 'marked';
+import prism from 'prismjs';
+import 'prismjs/components/prism-bash';
+import 'prismjs/components/prism-css';
+import 'prismjs/components/prism-java';
+import 'prismjs/components/prism-javascript';
+import 'prismjs/components/prism-json';
+import 'prismjs/components/prism-jsx';
+import 'prismjs/components/prism-markup';
 // import 'prismjs/components/prism-visualbasic';
 
-import posts from "../../../../dynamicRoutes.json";
+import posts from '../../../../dynamicRoutes.json';
 
 // loadLanguages(['javascript', 'java', 'visualbasic', 'jsx', 'css', 'markup', 'bash', 'json']);
 
@@ -46,13 +46,13 @@ marked.setOptions({
 });
 
 @Component({
-    selector: "sb-dynamic-md",
-    templateUrl: "./dynamic-md.component.html",
-    styleUrls: ["./dynamic-md.component.scss"],
+    selector: 'sb-dynamic-md',
+    templateUrl: './dynamic-md.component.html',
+    styleUrls: ['./dynamic-md.component.scss'],
 })
 export class DynamicMdComponent
     implements OnInit, OnDestroy, AfterViewInit, AfterViewChecked {
-    @ViewChild("content")
+    @ViewChild('content')
     content!: ElementRef;
 
     post!: any;
@@ -60,9 +60,9 @@ export class DynamicMdComponent
     mdContent: any;
     private httpOptions = {
         headers: new HttpHeaders({
-            Accept: "text/html, application/xhtml+xml, */*",
+            Accept: 'text/html, application/xhtml+xml, */*',
         }),
-        responseType: "text" as "json",
+        responseType: 'text' as 'json',
     };
 
     constructor(
@@ -78,22 +78,22 @@ export class DynamicMdComponent
     ngOnInit(): void {
         this.activatedRoute.url.subscribe((f) => {
             const selectedPost = posts.filter(
-                (p) => p.path === f.slice(1).join("/")
+                (p) => p.path === f.slice(1).join('/')
             );
             if (selectedPost.length > 0) {
                 this.post = selectedPost[0];
             }
             if (this.post.mdsource != null) {
                 this.http
-                    .get(this.post.mdsource + "/download", this.httpOptions)
+                    .get(this.post.mdsource + '/download', this.httpOptions)
                     .subscribe((res) => {
                         // console.log(marked(res as string));
                         const parser = new DOMParser();
                         const doc = parser.parseFromString(
                             marked(res as string),
-                            "text/html"
+                            'text/html'
                         );
-                        const tocInsertPointSelector = "#toc";
+                        const tocInsertPointSelector = '#toc';
                         const insertPoint = doc.querySelector(
                             tocInsertPointSelector
                         );
@@ -105,9 +105,9 @@ export class DynamicMdComponent
                             const levels =
                                 this.post && this.post.tocselector
                                     ? this.post.tocselector
-                                    : ["h2", "h3"];
+                                    : ['h2', 'h3'];
 
-                            const selector = levels.join(", ");
+                            const selector = levels.join(', ');
 
                             let headers = Array.from(
                                 doc.querySelectorAll(selector)

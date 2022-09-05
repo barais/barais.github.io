@@ -1,8 +1,24 @@
+//import { ScullyConfig } from '@scullyio/scully';
 import { ScullyConfig, setPluginConfig } from '@scullyio/scully';
+/** this loads the default render plugin, remove when switching to something else. */
+import '@scullyio/scully-plugin-puppeteer';
+import '@k9n/scully-plugin-toc';
+
+import {
+  TocConfig,
+  TocPluginName,
+} from  '@k9n/scully-plugin-toc';
+/*export const config: ScullyConfig = {
+  projectRoot: './src',
+  projectName: 'mulder',
+  outDir: './dist/static',
+  routes: {},
+};*/
+
 import 'prismjs/components/prism-java.js';
 import 'prismjs/components/prism-visual-basic.js';
 import 'prismjs/components/prism-yaml.js';
-import { getTocPlugin, TocConfig } from 'scully-plugin-toc';
+import 'prismjs/components/prism-bash.js';
 
 setPluginConfig('md', { enableSyntaxHighlighting: true });
 
@@ -15,8 +31,9 @@ const tocOptions: TocConfig = {
   scrollIntoViewOnClick: true  // add event to each link that scrolls into view on click:
                                // onclick="document.getElementById('target-id').scrollIntoView()"
 };
-const TocPlugin = getTocPlugin();
-setPluginConfig(TocPlugin, tocOptions);
+//const TocPlugin = getTocPlugin();
+//setPluginConfig(TocPlugin, tocOptions);
+setPluginConfig(TocPluginName, tocOptions);
 
 
 
@@ -27,7 +44,7 @@ export const config: ScullyConfig = {
     routes: {
         '/teaching/:slug': {
             type: 'contentFolder',
-            postRenderers: ['toc'],
+            postRenderers: [TocPluginName],
             slug: {
                 folder: './teaching',
             },
@@ -41,7 +58,7 @@ export const config: ScullyConfig = {
         },
         '/blog/:slug': {
             type: 'contentFolder',
-            postRenderers: ['toc'],
+            postRenderers: [TocPluginName],
             slug: {
                 folder: './blog',
             },

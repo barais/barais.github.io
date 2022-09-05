@@ -1,6 +1,6 @@
-import { SBRouteData } from '@modules/navigation/models';
-import { NavigationService } from '@modules/navigation/services';
 import { of } from 'rxjs';
+import { SBRouteData } from 'src/modules/navigation/models';
+import { NavigationService } from 'src/modules/navigation/services';
 
 export const NavigationServiceStub: Partial<NavigationService> = {
     routeData$: () => of({} as SBRouteData),

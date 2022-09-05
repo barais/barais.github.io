@@ -1,2 +1,11 @@
-identifier: k4n3e1s198me9fl1
+identifier: lf74n9k8dafer3pc
+appPort: 1864
+staticPort: 1668
+reloadPort: 2667
+hostName: localhost
+projectName: mulder
+homeFolder: /home/barais/git/barais.github.io.new/mulder
+distFolder: dist/mulder
+outDir: /home/barais/git/barais.github.io.new/mulder/dist/static
+handle404: ''
 allowErrorCollect: true

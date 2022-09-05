@@ -1,4 +1,4 @@
-@import 'variables.scss';
+@import '_variables.scss';
 
 // Only uncomment one from below
 
@@ -16,6 +16,26 @@
     white-space: normal !important;
     word-break: break-word !important;
 }*/
+
+
+$code-font-size: 1rem !default;
+$code-font-size-sm: 90% !default;
+$pre-color: $gray-600 !default;
+
+// Code variables
+$code-font-family: Roboto Mono, monospace !default;
+
+// Variables for <pre> element
+$pre-bg: $gray-100;
+$pre-line-height: 1.5rem;
+$pre-margin-x: 0;
+$pre-margin-y: 0.5rem;
+$pre-padding-x: 1rem;
+$pre-padding-y: 1.5rem;
+
+$border-radius: 0;
+$input-border-width: 0;
+
 
 
 code[class*='language-'],

@@ -1,8 +1,9 @@
 // Import Clean Blog
-@import "clean-blog/clean-blog.scss";
+@import "clean-blog/styles.scss";
 
+@import "_variables.scss";
 // Import Prism
-@import 'prism.scss';
+@import '_prism.scss';
 @import '~prismjs/plugins/toolbar/prism-toolbar.css';
 /* check node_modules/prismjs/themes/ for the available themes */
 @import '~prismjs/themes/prism-tomorrow';

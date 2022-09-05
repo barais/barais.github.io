@@ -1,26 +1,60 @@
 <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
-    <div class="container">
+  <div class="container px-4 px-lg-5">
+    <a class="navbar-brand" href="index.html">Olivier Barais</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        Menu
+        <i class="fas fa-bars"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ms-auto py-4 py-lg-0">
+          <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" routerLink="/">Home</a></li>
+          <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" routerLink="/publications">Publications</a></li>
+          <li *ngFor="let menu of mainStaticMenu" class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" routerLink="{{'/'+ getPathPrefix(menu)+ '/'+menu.path}}" >{{menu?.title}}</a></li>
+          <li *ngFor="let mainMenuEntry of mainMenuEntries" class="nav-item dropdown" ngbDropdown>
+              <a class="nav-link px-lg-3 py-3 py-lg-4"  style="cursor: pointer;" [id]="mainMenuEntry" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ngbDropdownToggle>
+                {{mainMenuEntry}}
+              </a>
+              <div ngbDropdownMenu class="dropdown-menu"  [attr.aria-labelledby]="mainMenuEntry">
+                <a *ngFor="let doc of mainMenuMap.get(mainMenuEntry)" class="dropdown-item" href="#" routerLink="{{'/'+ getPathPrefix(doc)+ '/'+doc.path}}" >{{doc?.title}}</a>
+              </div>
+              </li>
+          <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" routerLink="/teaching">Teaching blog</a></li>
+          <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" routerLink="/blog">Blog</a></li>
+          <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" routerLink="/about">Contact</a></li>
+          <li class="nav-item">
+              <a class="nav-link px-lg-3 py-3 py-lg-4 icon" href="https://github.com/barais/barais.github.io" target="_blank"><fa-icon [icon]='["fab", "github"]'></fa-icon></a>
+          </li>
+
+
+
+        </ul>
+    </div>
+</div>
+
+
+
+<!--    <div class="container">
         <a class="navbar-brand" routerLink="/">Olivier Barais</a><button class="navbar-toggler navbar-toggler-right" type="button" (click)="isMenuCollapsed = !isMenuCollapsed" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><fa-icon class="ml-1" [icon]='["fas", "bars"]'></fa-icon></button>
         <div class="collapse navbar-collapse" [ngbCollapse]="isMenuCollapsed">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item"><a class="nav-link" routerLink="/">Home</a></li>
-                <li class="nav-item"><a class="nav-link" routerLink="/publications">Publications</a></li>
-                <li *ngFor="let menu of mainStaticMenu" class="nav-item"><a class="nav-link" routerLink="{{'/'+ getPathPrefix(menu)+ '/'+menu.path}}" >{{menu?.title}}</a></li>
+                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" routerLink="/">Home</a></li>
+                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" routerLink="/publications">Publications</a></li>
+                <li *ngFor="let menu of mainStaticMenu" class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" routerLink="{{'/'+ getPathPrefix(menu)+ '/'+menu.path}}" >{{menu?.title}}</a></li>
                 <li *ngFor="let mainMenuEntry of mainMenuEntries" class="nav-item dropdown" ngbDropdown>
-                    <a class="nav-link"  style="cursor: pointer;" [id]="mainMenuEntry" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ngbDropdownToggle>
+                    <a class="nav-link px-lg-3 py-3 py-lg-4"  style="cursor: pointer;" [id]="mainMenuEntry" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ngbDropdownToggle>
                       {{mainMenuEntry}}
                     </a>
                     <div ngbDropdownMenu class="dropdown-menu"  [attr.aria-labelledby]="mainMenuEntry">
                       <a *ngFor="let doc of mainMenuMap.get(mainMenuEntry)" class="dropdown-item" href="#" routerLink="{{'/'+ getPathPrefix(doc)+ '/'+doc.path}}" >{{doc?.title}}</a>
                     </div>
                     </li>
-                <li class="nav-item"><a class="nav-link" routerLink="/teaching">Teaching blog</a></li>
-                <li class="nav-item"><a class="nav-link" routerLink="/blog">Blog</a></li>
-                <li class="nav-item"><a class="nav-link" routerLink="/about">Contact</a></li>
+                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" routerLink="/teaching">Teaching blog</a></li>
+                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" routerLink="/blog">Blog</a></li>
+                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" routerLink="/about">Contact</a></li>
                 <li class="nav-item">
-                    <a class="nav-link icon" href="https://github.com/barais/barais.github.io" target="_blank"><fa-icon [icon]='["fab", "github"]'></fa-icon></a>
+                    <a class="nav-link px-lg-3 py-3 py-lg-4 icon" href="https://github.com/barais/barais.github.io" target="_blank"><fa-icon [icon]='["fab", "github"]'></fa-icon></a>
                 </li>
             </ul>
         </div>
-    </div>
+    </div>-->
 </nav>
