@@ -3431,3 +3431,17 @@ Insert point with selector #toc not found. Skipping toc generation for route /bl
 
 
 Insert point with selector #toc not found. Skipping toc generation for route /blog/2018-11-15-XtextOnJupyterLab.
+Folder "./scully" doesn't seem to contain custom plugins
+----------------------------------   To discover new routes in the angular app use "npm run scully -- --scanRoutes"Using stored unhandled routes!.----------------------------------
+
+
+
+No configuration for route "/d/:cat/:slug" found. Skipping
+Insert point with selector #toc not found. Skipping toc generation for route /teaching/2014-09-29-WILDFLY.
+Insert point with selector #toc not found. Skipping toc generation for route /teaching/2014-08-29-Operation_portable_M2_ISTIC.
+Insert point with selector #toc not found. Skipping toc generation for route /teaching/2015-08-29-Operation_portable_M2_ISTIC.Insert point with selector #toc not found. Skipping toc generation for route /teaching/2014-02-06-markdown-examples_teach.Insert point with selector #toc not found. Skipping toc generation for route /teaching/2014-09-29-ProjetENSAI.Insert point with selector #toc not found. Skipping toc generation for route /teaching/2014-10-22-TPAngularJS.Insert point with selector #toc not found. Skipping toc generation for route /teaching/2015-06-26-EJCP15_Kevoree.Insert point with selector #toc not found. Skipping toc generation for route /teaching/2014-09-29-TPGWT.
+
+
+
+
+
