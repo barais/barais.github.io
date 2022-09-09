@@ -1,6 +1,6 @@
-// 
+//
 // Navbar
-// 
+//
 
 // Global styling for the navbar
 
@@ -29,7 +29,8 @@
         >li.nav-item {
             >a.nav-link {
                 font-size: 0.75rem;
-                font-weight: $headings-font-weight;
+//                font-weight: $headings-font-weight;
+                font-weight: 600;
                 letter-spacing: 0.0625em;
                 text-transform: uppercase;
             }
