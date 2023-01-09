@@ -20,6 +20,10 @@ export const ROUTES: Routes = [
         component: blogContainers.AboutComponent,
     },
     {
+      path: 'meetme',
+      component: blogContainers.MeetmeComponent,
+  },
+  {
         path: 'publications',
         component: blogContainers.PublicationsComponent,
     },
