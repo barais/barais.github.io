@@ -39,6 +39,7 @@ setPluginConfig(TocPluginName, tocOptions);
 
 export const config: ScullyConfig = {
     projectRoot: './src',
+    puppeteerLaunchOptions: {executablePath: '/usr/bin/google-chrome'},
     projectName: 'mulder',
     outDir: './dist/static',
     routes: {
