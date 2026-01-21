@@ -37,7 +37,7 @@
     "@scullyio/scully-plugin-puppeteer": "^2.1.36",
     "angular-d3-cloud": "^1.1.2",
     "bootstrap": "^5.2.0",
-    "lodash": "^4.17.21",
+    "lodash": "^4.17.23",
     "marked": "^4.1.0",
     "ngx-autosize": "^2.0.2",
     "ngx-markdown": "^14.0.1",
